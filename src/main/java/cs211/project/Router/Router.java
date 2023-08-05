@@ -1,4 +1,4 @@
-package cs211.project.cs211661project;
+package cs211.project.Router;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -6,7 +6,7 @@ import cs211.project.services.FXRouter;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class Router extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         configRoute();
