@@ -1,7 +1,9 @@
 package cs211.project.Router;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
 import cs211.project.services.FXRouter;
 
 import java.io.IOException;
@@ -11,8 +13,9 @@ public class Router extends Application {
     public void start(Stage stage) throws IOException {
         configRoute();
 
-        FXRouter.bind(this, stage, "CS211 661 Project");
-        FXRouter.goTo("admin-change-password");
+        FXRouter.bind(this, stage, "CS211 661 Project", 1440, 1024);
+
+        FXRouter.goTo("my-event");
     }
 
     private static void configRoute() {
@@ -26,6 +29,9 @@ public class Router extends Application {
         //admin routes
         FXRouter.when("admin-change-password", resourcesPath + "admin/change-password.fxml");
         FXRouter.when("admin-manage-user", resourcesPath + "admin/manage-user.fxml");
+
+        //my event
+        FXRouter.when("my-event", resourcesPath + "myEvent/my-event-view.fxml");
     }
 
 
