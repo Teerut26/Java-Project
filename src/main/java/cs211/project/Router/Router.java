@@ -12,7 +12,7 @@ public class Router extends Application {
         configRoute();
 
         FXRouter.bind(this, stage, "CS211 661 Project");
-        FXRouter.goTo("admin-change-password");
+        FXRouter.goTo("dashborad-user");
     }
 
     private static void configRoute() {
@@ -26,6 +26,9 @@ public class Router extends Application {
         //admin routes
         FXRouter.when("admin-change-password", resourcesPath + "admin/change-password.fxml");
         FXRouter.when("admin-manage-user", resourcesPath + "admin/manage-user.fxml");
+
+        //user routes
+        FXRouter.when("dashborad-user", resourcesPath + "dashborad-user.fxml");
     }
 
 
