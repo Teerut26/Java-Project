@@ -15,16 +15,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="cs211.project.controllers.myEvent.CreateEventDetailFormController"
-            maxHeight="1024.0" maxWidth="1440.0" prefHeight="1024.0" prefWidth="1440.0">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.CreateEventDetailFormController">
+
     <children>
-        <BorderPane prefHeight="1025.0" prefWidth="1440.0" style="-fx-background-color: white;">
+        <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
             <top>
                 <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER_LEFT" layoutY="-6.0" prefHeight="100.0" prefWidth="1442.0">
+                        <HBox alignment="CENTER_LEFT" layoutY="-6.0" maxWidth="1280.0" minWidth="1280.0" prefHeight="100.0" prefWidth="1280.0">
                             <children>
                                 <Label text="Event Manager">
                                     <font>
@@ -46,9 +44,9 @@
                 </AnchorPane>
             </top>
             <left>
-                <AnchorPane prefHeight="200.0" prefWidth="313.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
                     <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="767.0" prefWidth="322.0" spacing="10.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0">
                             <children>
                                 <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="293.0" style="-fx-background-radius: 16; -fx-background-color: #FAF2E3;" text="Event List">
                                     <font>
@@ -74,17 +72,16 @@
                 </AnchorPane>
             </left>
             <right>
-                <VBox prefHeight="931.0" prefWidth="1119.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+                <VBox prefHeight="651.0" prefWidth="956.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
                     <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
                             <children>
-                                <Label text="Create Events">
+                                <Label maxWidth="1280.0" prefWidth="0.0" text="Create Events" HBox.hgrow="ALWAYS">
                                     <font>
                                         <Font name="System Bold" size="36.0" />
                                     </font>
                                 </Label>
-                                <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                <Button mnemonicParsing="false" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="go back">
+                                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="133.0" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="go back">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
@@ -100,13 +97,13 @@
                                 <Insets left="25.0" right="25.0" />
                             </padding>
                         </HBox>
-                        <HBox prefHeight="731.0" prefWidth="1099.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                        <HBox prefHeight="495.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
                             <children>
                                 <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="408.0" spacing="10.0">
                                     <children>
-                                        <ImageView fitHeight="565.0" fitWidth="408.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="372.0" fitWidth="278.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../../../../../../../../../Desktop/Screenshot%202566-08-06%20at%2018.34.00.png" />
+                                                <Image url="@../../../../../../../../../../Library/Mobile%20Documents/com~apple~CloudDocs/รายการดาวน์โหลด/pexels-dominika-roseclay-1141792.jpg" />
                                             </image>
                                         </ImageView>
                                         <Button mnemonicParsing="false" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="Add image">
@@ -135,7 +132,7 @@
                                                 <Font size="24.0" />
                                             </font>
                                         </Label>
-                                        <TextArea prefHeight="200.0" prefWidth="200.0" />
+                                        <TextArea prefHeight="200.0" prefWidth="200.0" wrapText="true" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0">
                                             <children>
                                                 <VBox prefHeight="100.0" prefWidth="314.0">
