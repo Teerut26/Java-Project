@@ -13,8 +13,7 @@ public class Router extends Application {
     public void start(Stage stage) throws IOException {
         configRoute();
 
-        FXRouter.bind(this, stage, "CS211 661 Project", 1440, 1024);
-
+        FXRouter.bind(this, stage, "CS211 661 Project");
         FXRouter.goTo("my-event");
     }
 
