@@ -14,7 +14,7 @@ public class Router extends Application {
         configRoute();
 
         FXRouter.bind(this, stage, "CS211 661 Project");
-        FXRouter.goTo("my-event");
+        FXRouter.goTo("dashborad-user");
     }
 
     private static void configRoute() {
@@ -31,6 +31,8 @@ public class Router extends Application {
 
         //my event
         FXRouter.when("my-event", resourcesPath + "myEvent/my-event-view.fxml");
+        //user routes
+        FXRouter.when("dashborad-user", resourcesPath + "dashborad-user.fxml");
     }
 
 
