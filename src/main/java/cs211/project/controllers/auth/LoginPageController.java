@@ -11,9 +11,16 @@ public class LoginPageController {
 
     @FXML
     public void onLoginButtonClick() {
-
         try{
             FXRouter.goTo("hello");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onSignUpButtonClick(){
+        try{
+            FXRouter.goTo("register-page");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
