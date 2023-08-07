@@ -107,7 +107,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TableView layoutX="14.0" layoutY="61.0" prefHeight="439.0" prefWidth="397.0">
+                                    <TableView layoutX="14.0" layoutY="67.0" prefHeight="433.0" prefWidth="397.0">
                                       <columns>
                                         <TableColumn prefWidth="27.0" text="#" />
                                         <TableColumn prefWidth="291.0" text="Name" />
@@ -139,7 +139,28 @@
                       </Tab>
                         <Tab text="Team Member">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="14.0" text="Member">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="43.0" text="Member All">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView layoutX="14.0" layoutY="69.0" prefHeight="424.0" prefWidth="914.0">
+                                      <columns>
+                                        <TableColumn prefWidth="31.0" text="#" />
+                                        <TableColumn prefWidth="187.0" text="Username" />
+                                          <TableColumn prefWidth="472.0" text="Name" />
+                                          <TableColumn prefWidth="223.0" text="Last Login" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
                            </content>
                         </Tab>
                     </tabs>
