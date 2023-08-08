@@ -1,10 +1,10 @@
-package cs211.project.controllers;
+package cs211.project.controllers.event;
 
 import cs211.project.utils.ComponentRegister;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
-public class DashboradUserController extends ComponentRegister {
+public class EventListController extends ComponentRegister {
     @FXML
     private VBox SideBarVBox;
 
