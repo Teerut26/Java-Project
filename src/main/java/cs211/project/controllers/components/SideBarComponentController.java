@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class SideBarComponentController {
     @FXML
-    public void goToManageUser() {
+    public void goToEventList() {
         try {
             FXRouter.goTo("dashborad-user");
         } catch (IOException e) {
@@ -15,9 +15,17 @@ public class SideBarComponentController {
         }
     }
 
-    @FXML public void goToChangePassword() {
+    @FXML public void goToHistoryEvent() {
         try {
-            FXRouter.goTo("admin-change-password");
+            FXRouter.goTo("event-history");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML public void goToMyEvent() {
+        try {
+            FXRouter.goTo("my-event");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

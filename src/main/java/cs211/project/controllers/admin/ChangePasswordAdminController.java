@@ -1,8 +1,7 @@
 package cs211.project.controllers.admin;
 
-import cs211.project.until.ComponentRegister;
+import cs211.project.utils.ComponentRegister;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class ChangePasswordAdminController extends ComponentRegister {
