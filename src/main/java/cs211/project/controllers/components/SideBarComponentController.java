@@ -9,7 +9,7 @@ public class SideBarComponentController {
     @FXML
     public void goToManageUser() {
         try {
-            FXRouter.goTo("admin-manage-user");
+            FXRouter.goTo("dashborad-user");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

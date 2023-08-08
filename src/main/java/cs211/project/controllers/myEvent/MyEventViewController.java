@@ -1,6 +1,17 @@
 package cs211.project.controllers.myEvent;
 
-public class MyEventViewController {
+import cs211.project.until.ComponentRegister;
+import javafx.fxml.FXML;
+import javafx.scene.layout.VBox;
 
+public class MyEventViewController extends ComponentRegister {
+
+    @FXML
+    private VBox SideBarVBox;
+
+    @FXML
+    public void initialize() {
+        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
+    }
 
 }

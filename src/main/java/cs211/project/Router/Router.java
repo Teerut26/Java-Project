@@ -14,7 +14,7 @@ public class Router extends Application {
         configRoute();
 
         FXRouter.bind(this, stage, "CS211 661 Project");
-        FXRouter.goTo("event-team-member");
+        FXRouter.goTo("admin-manage-user");
     }
 
     private static void configRoute() {
@@ -26,7 +26,7 @@ public class Router extends Application {
         FXRouter.when("register-page", resourcesPath + "auth/register-page.fxml");
 
         //admin routes
-        FXRouter.when("admin-change-password", resourcesPath + "admin/change-password.fxml");
+        FXRouter.when("admin-change-password", resourcesPath + "admin/change-password-admin.fxml");
         FXRouter.when("admin-manage-user", resourcesPath + "admin/manage-user.fxml");
 
         //my event
@@ -38,7 +38,6 @@ public class Router extends Application {
         FXRouter.when("event-team-manage", resourcesPath + "event/team/event-team-manage.fxml");
         FXRouter.when("event-team-activities-list", resourcesPath + "event/team/event-team-activities-list.fxml");
         FXRouter.when("event-team-list", resourcesPath + "event/team/event-team-list.fxml");
-        FXRouter.when("event-team-member", resourcesPath + "event/team/event-team-member.fxml");
     }
 
 
