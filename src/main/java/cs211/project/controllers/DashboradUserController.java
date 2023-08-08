@@ -1,5 +1,16 @@
 package cs211.project.controllers;
 
-public class DashboradUserController {
+import cs211.project.until.ComponentRegister;
+import javafx.fxml.FXML;
+import javafx.scene.layout.VBox;
+
+public class DashboradUserController extends ComponentRegister {
+    @FXML
+    private VBox SideBarVBox;
+
+    @FXML
+    public void initialize() {
+        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
+    }
 
 }

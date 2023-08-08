@@ -1,5 +1,6 @@
 package cs211.project.controllers.event.team;
 
+import cs211.project.until.ComponentRegister;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -7,23 +8,13 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class EventTeamActivitiesListController {
+public class EventTeamActivitiesListController extends ComponentRegister {
     @FXML
     private VBox SideBarVBox;
 
     @FXML
     public void initialize() {
-        this.loadSideBarComponent();
-    }
-
-    private void loadSideBarComponent() {
-        FXMLLoader sideBarComponentLoader = new FXMLLoader(getClass().getResource("/cs211/project/components/SideBarComponent.fxml"));
-        try {
-            VBox navbarComponent = sideBarComponentLoader.load();
-            SideBarVBox.getChildren().add(navbarComponent);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
     }
 
 }

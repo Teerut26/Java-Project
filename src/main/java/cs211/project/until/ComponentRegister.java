@@ -1,0 +1,19 @@
+package cs211.project.until;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.VBox;
+
+import java.io.IOException;
+
+public class ComponentRegister {
+    public void loadSideBarComponent(VBox SideBarVBoxRefferance, String pathSourceComponent) {
+        FXMLLoader sideBarComponentLoader = new FXMLLoader(getClass().getResource("/cs211/project/components/" + pathSourceComponent));
+        try {
+            VBox navbarComponent = sideBarComponentLoader.load();
+            SideBarVBoxRefferance.getChildren().add(navbarComponent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}
