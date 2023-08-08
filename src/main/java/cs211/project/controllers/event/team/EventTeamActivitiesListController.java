@@ -1,22 +1,23 @@
-package cs211.project.controllers.admin;
+package cs211.project.controllers.event.team;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class ManageUserController {
+public class EventTeamActivitiesListController {
     @FXML
     private VBox SideBarVBox;
 
     @FXML
-    private void initialize() {
-        loadSideBarComponent();
+    public void initialize() {
+        this.loadSideBarComponent();
     }
 
     private void loadSideBarComponent() {
-        FXMLLoader sideBarComponentLoader = new FXMLLoader(getClass().getResource("/cs211/project/components/admin/AdminSideBarComponent.fxml"));
+        FXMLLoader sideBarComponentLoader = new FXMLLoader(getClass().getResource("/cs211/project/components/SideBarComponent.fxml"));
         try {
             VBox navbarComponent = sideBarComponentLoader.load();
             SideBarVBox.getChildren().add(navbarComponent);
@@ -24,4 +25,5 @@ public class ManageUserController {
             throw new RuntimeException(e);
         }
     }
+
 }

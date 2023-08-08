@@ -1,0 +1,29 @@
+.btn-primary {
+    -fx-background-radius: 16;
+    -fx-background-color: #FAF2E3;
+    -fx-border-color: #ECBF73;
+    -fx-border-radius: 16;
+}
+
+.btn-primary:hover{
+    -fx-background-color: #ECBF73;
+    -fx-cursor: hand;
+}
+
+.btn-primary-active {
+    -fx-background-color: #ECBF73;
+}
+
+.btn-secondary {
+    -fx-background-radius: 16;
+    -fx-background-color: #FAF2E3;
+}
+
+.btn-secondary:hover{
+    -fx-background-color: #ECBF73;
+    -fx-cursor: hand;
+}
+
+.btn-secondary-active {
+    -fx-background-color: #ECBF73;
+}
