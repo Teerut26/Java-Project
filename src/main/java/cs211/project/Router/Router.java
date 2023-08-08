@@ -14,7 +14,7 @@ public class Router extends Application {
         configRoute();
 
         FXRouter.bind(this, stage, "CS211 661 Project");
-        FXRouter.goTo("event-team-list");
+        FXRouter.goTo("admin-manage-user");
     }
 
     private static void configRoute() {
