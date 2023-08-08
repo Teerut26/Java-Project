@@ -22,4 +22,10 @@ module cs211.project.cs211661project {
     exports cs211.project.controllers.event.team;
     opens cs211.project.controllers.event.team to javafx.fxml;
 
+    exports cs211.project.controllers.components.admin;
+    opens cs211.project.controllers.components.admin to javafx.fxml;
+
+    exports cs211.project.controllers.components;
+    opens cs211.project.controllers.components to javafx.fxml;
+
 }

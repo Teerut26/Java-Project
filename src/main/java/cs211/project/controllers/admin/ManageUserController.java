@@ -1,14 +1,27 @@
 package cs211.project.controllers.admin;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 public class ManageUserController {
     @FXML
-    private Label welcomeText;
+    private VBox SideBarVBox;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to Login Page!");
+    private void initialize() {
+        loadSideBarComponent();
+    }
+
+    private void loadSideBarComponent() {
+        FXMLLoader sideBarComponentLoader = new FXMLLoader(getClass().getResource("/cs211/project/components/admin/AdminSideBarComponent.fxml"));
+        try {
+            VBox navbarComponent = sideBarComponentLoader.load();
+            SideBarVBox.getChildren().add(navbarComponent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

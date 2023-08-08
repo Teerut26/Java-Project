@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.admin.ManageUserController">
    <children>
       <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
          <top>
@@ -42,24 +42,7 @@
          <left>
             <AnchorPane prefHeight="650.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <VBox alignment="TOP_CENTER" layoutY="-1.0" prefHeight="627.0" prefWidth="321.0" spacing="10.0">
-                     <children>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="293.0" style="-fx-background-radius: 16; -fx-background-color: #ECBF73;" text="User Manage">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="293.0" style="-fx-background-radius: 16; -fx-background-color: #FAF2E3;" text="Event History">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="293.0" style="-fx-background-radius: 16; -fx-background-color: #FAF2E3;" text="My Event">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Button>
-                     </children>
+                  <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" layoutX="1.0" prefHeight="627.0" prefWidth="321.0" spacing="10.0">
                      <padding>
                         <Insets top="10.0" />
                      </padding>
@@ -79,7 +62,7 @@
                         </Label>
                         <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <Pane prefHeight="37.0" prefWidth="11.0" />
-                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="110.0" style="-fx-background-color: E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="back">
+                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="110.0" styleClass="btn-secondary" text="back">
                            <font>
                               <Font size="24.0" />
                            </font>
