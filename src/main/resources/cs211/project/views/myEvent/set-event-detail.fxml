@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -73,7 +75,7 @@
             <right>
                 <VBox prefHeight="931.0" prefWidth="1119.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10;">
                             <children>
                                 <Label text="My Events">
                                     <font>
@@ -94,7 +96,7 @@
                                 <Insets left="25.0" right="25.0" />
                             </opaqueInsets>
                             <padding>
-                                <Insets left="25.0" right="25.0" />
+                                <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                             </padding>
                         </HBox>
                   <TabPane prefHeight="886.0" prefWidth="1099.0" tabClosingPolicy="UNAVAILABLE">
@@ -103,7 +105,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox prefHeight="503.0" prefWidth="941.0" spacing="10.0">
+                                    <VBox prefHeight="503.0" prefWidth="941.0" spacing="10.0" style="-fx-background-color: white;">
                                        <children>
                                           <Label text="Food and Hospitality Thailand (FHT)">
                                              <font>
@@ -145,17 +147,191 @@
                       </Tab>
                       <Tab text="participant">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="1.0" layoutY="2.0" prefHeight="516.0" prefWidth="939.0" spacing="20.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <HBox prefHeight="111.0" prefWidth="904.0">
+                                             <children>
+                                                <AnchorPane prefHeight="118.0" prefWidth="904.0" style="-fx-background-color: #FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #EAA807;">
+                                                   <children>
+                                                      <HBox layoutX="-1.0" layoutY="-2.0" prefHeight="128.0" prefWidth="903.0">
+                                                         <children>
+                                                            <VBox alignment="CENTER" prefHeight="162.0" prefWidth="357.0">
+                                                               <children>
+                                                                  <Label text="number of exposures">
+                                                                     <font>
+                                                                        <Font size="24.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label text="25" textFill="#eaa807">
+                                                                     <font>
+                                                                        <Font size="52.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox alignment="CENTER" prefHeight="187.0" prefWidth="175.0">
+                                                               <children>
+                                                                  <Label text="start date">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label text="end date">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox alignment="CENTER" prefHeight="187.0" prefWidth="175.0">
+                                                               <children>
+                                                                  <Label text="12/12/2023 " textFill="#eaa807">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label text="12/12/2023 " textFill="#eaa807">
+                                                                     <font>
+                                                                        <Font size="20.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox alignment="TOP_RIGHT" prefHeight="187.0" prefWidth="199.0">
+                                                               <children>
+                                                                  <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #EAA807; -fx-background-radius: 10; -fx-border-radius: 10;" text="edit">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                               </children>
+                                                               <padding>
+                                                                  <Insets right="20.0" top="20.0" />
+                                                               </padding>
+                                                            </VBox>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </HBox>
+                                          <Label text="participant list">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView prefHeight="251.0" prefWidth="904.0">
+                                            <columns>
+                                              <TableColumn prefWidth="53.683685302734375" text="order" />
+                                              <TableColumn prefWidth="203.31634521484375" text="username" />
+                                                <TableColumn prefWidth="278.7259521484375" text="name" />
+                                                <TableColumn prefWidth="212.61676025390625" text="last login" />
+                                                <TableColumn prefWidth="155.93865966796875" text="action" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children></AnchorPane>
                         </content>
                       </Tab>
                         <Tab text="team">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="-3.0" prefHeight="501.0" prefWidth="944.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="944.0">
+                                             <padding>
+                                                <Insets left="20.0" right="20.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="Team">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                                <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #EAA807; -fx-border-radius: 10; -fx-background-radius: 10;" text="add team">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="420.0" prefWidth="944.0">
+                                             <padding>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" />
+                                             </padding>
+                                             <children>
+                                                <TableView prefHeight="380.0" prefWidth="943.0">
+                                                  <columns>
+                                                    <TableColumn prefWidth="546.0013427734375" text="name" />
+                                                    <TableColumn minWidth="0.0" prefWidth="209.6201171875" text="quantity" />
+                                                      <TableColumn minWidth="0.0" prefWidth="144.8798828125" text="action" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children></AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="calendar">
+                        <Tab text="activity">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="501.0" prefWidth="944.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="944.0">
+                                             <padding>
+                                                <Insets left="20.0" right="20.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="activity">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                                <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="123.0" style="-fx-background-color: #EAA807; -fx-border-radius: 10; -fx-background-radius: 10;" text="add activity">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="420.0" prefWidth="944.0">
+                                             <padding>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" />
+                                             </padding>
+                                             <children>
+                                                <TableView prefHeight="380.0" prefWidth="943.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="197.86151123046875" text="name" />
+                                                      <TableColumn minWidth="0.0" prefWidth="327.63848876953125" text="description" />
+                                                      <TableColumn minWidth="0.0" prefWidth="114.41412353515625" text="start date" />
+                                                      <TableColumn minWidth="0.0" prefWidth="122.407958984375" text="end date" />
+                                                      <TableColumn minWidth="0.0" prefWidth="70.3629150390625" text="status" />
+                                                      <TableColumn minWidth="0.0" prefWidth="74.869140625" text="action" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children></AnchorPane>
                            </content>
                         </Tab>
                     </tabs>
