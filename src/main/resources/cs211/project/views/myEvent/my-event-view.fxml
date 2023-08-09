@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="780.0" maxWidth="1280.0" minHeight="717.0" minWidth="1162.0" prefHeight="718.0" prefWidth="1185.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.MyEventViewController">
+   <children>
+      <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
+         <top>
+            <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" layoutY="-6.0" prefHeight="100.0" prefWidth="1280.0">
+                     <children>
+                        <Label text="Event Manager">
+                           <font>
+                              <Font name="Verdana Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Label text="sarawut">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="35.0" right="35.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </top>
+         <left>
+            <AnchorPane prefHeight="650.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" layoutY="-1.0" prefHeight="627.0" prefWidth="321.0" spacing="10.0">
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </left>
+         <right>
+            <VBox prefHeight="931.0" prefWidth="1119.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10;">
+                     <children>
+                        <Label text="My Events">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="175.0" style="-fx-background-color: #EAA807; -fx-background-radius: 10; -fx-border-radius: 10;" text="create event">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="4.0" left="24.0" right="24.0" top="4.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets left="25.0" right="25.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <ScrollPane prefHeight="798.0" prefWidth="1111.0">
+                     <content>
+                        <VBox prefHeight="596.0" prefWidth="872.0" spacing="10.0">
+                           <children>
+                              <AnchorPane prefHeight="285.0" prefWidth="0.0" style="-fx-border-style: solid; -fx-border-radius: 16; -fx-background-radius: 16; -fx-border-color: #FAF2E3; -fx-background-color: white;">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="285.0" prefWidth="917.0" spacing="25.0">
+                                       <children>
+                                          <ImageView fitHeight="235.0" fitWidth="326.0" pickOnBounds="true" preserveRatio="true" smooth="false" HBox.hgrow="ALWAYS">
+                                             <image>
+                                                <Image url="@../../../../../../../../../../Downloads/pexels-craig-adderley-1563356.jpg" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D height="235.0" width="186.0" />
+                                             </viewport>
+                                          </ImageView>
+                                          <VBox prefHeight="235.0" prefWidth="677.0" spacing="4.0">
+                                             <children>
+                                                <Label text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <DatePicker />
+                                                <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="835.0">
+                                                   <children>
+                                                      <Label text="23/200" textFill="#5d863b">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                                      <Button mnemonicParsing="false" style="-fx-background-color: #FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;" text="Set Detail">
+                                                         <padding>
+                                                            <Insets bottom="4.0" left="25.0" right="25.0" top="4.0" />
+                                                         </padding>
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="285.0" prefWidth="0.0" style="-fx-border-style: solid; -fx-border-radius: 16; -fx-background-radius: 16; -fx-border-color: #FAF2E3; -fx-background-color: white;">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="285.0" prefWidth="922.0" spacing="25.0">
+                                       <children>
+                                          <ImageView fitHeight="235.0" fitWidth="326.0" pickOnBounds="true" preserveRatio="true" smooth="false" HBox.hgrow="ALWAYS">
+                                             <image>
+                                                <Image url="@../../../../../../../../../../Downloads/pexels-craig-adderley-1563356.jpg" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D height="235.0" width="186.0" />
+                                             </viewport>
+                                          </ImageView>
+                                          <VBox prefHeight="235.0" prefWidth="686.0" spacing="4.0">
+                                             <children>
+                                                <Label text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="131.0" prefWidth="677.0" text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <DatePicker />
+                                                <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="835.0">
+                                                   <children>
+                                                      <Label text="23/200" textFill="#5d863b">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                                      <Button mnemonicParsing="false" style="-fx-background-color: #FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;" text="Set Detail">
+                                                         <padding>
+                                                            <Insets bottom="4.0" left="25.0" right="25.0" top="4.0" />
+                                                         </padding>
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="285.0" prefWidth="0.0" style="-fx-border-style: solid; -fx-border-radius: 16; -fx-background-radius: 16; -fx-border-color: #FAF2E3; -fx-background-color: white;" />
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

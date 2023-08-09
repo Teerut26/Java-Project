@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.admin.ManageUserController">
+   <children>
+      <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
+         <top>
+            <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" layoutY="-6.0" prefHeight="100.0" prefWidth="1280.0">
+                     <children>
+                        <Label text="Event Manager - Admin">
+                           <font>
+                              <Font name="Verdana Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Label text="teerut">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="35.0" right="35.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </top>
+         <left>
+            <AnchorPane prefHeight="650.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" layoutX="1.0" prefHeight="627.0" prefWidth="321.0" spacing="10.0">
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </left>
+         <right>
+            <VBox prefHeight="931.0" prefWidth="1119.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10;">
+                     <children>
+                        <Label text="User Manage">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Pane prefHeight="37.0" prefWidth="11.0" />
+                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="110.0" styleClass="btn-secondary" text="back">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="4.0" left="24.0" right="24.0" top="4.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets left="25.0" right="25.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <Pane prefHeight="563.0" prefWidth="936.0">
+                     <children>
+                        <TableView layoutY="37.0" prefHeight="501.0" prefWidth="924.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="#" />
+                            <TableColumn prefWidth="213.69598388671875" text="Username" />
+                              <TableColumn prefWidth="487.3039855957031" text="Name" />
+                              <TableColumn prefWidth="147.81982421875" text="Last Login" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="1.0" layoutY="4.0" mnemonicParsing="false" text="Export JSON" />
+                        <Button layoutX="96.0" layoutY="4.0" mnemonicParsing="false" text="Import JSON" />
+                     </children>
+                  </Pane>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

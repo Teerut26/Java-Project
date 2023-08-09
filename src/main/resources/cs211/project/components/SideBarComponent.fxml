@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="321.0" spacing="10.0" stylesheets="@../style/all.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.components.SideBarComponentController">
+    <children>
+        <Button mnemonicParsing="false" onAction="#goToEventList" prefHeight="50.0" prefWidth="293.0" styleClass="btn-primary" text="Event List">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#goToHistoryEvent" prefHeight="50.0" prefWidth="293.0" styleClass="btn-primary" text="Event History">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#goToMyEvent" prefHeight="50.0" prefWidth="293.0" styleClass="btn-primary" text="My Event">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Button>
+    </children>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+    <padding>
+        <Insets top="15.0" />
+    </padding>
+</VBox>

@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>cs211.project.cs211661project/cs211.project.cs211661project.HelloApplication
+                            <mainClass>cs211.project.cs211661project/cs211.project.Router.Router
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
