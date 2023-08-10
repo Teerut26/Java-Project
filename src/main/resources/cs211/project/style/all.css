@@ -27,3 +27,19 @@
 .btn-secondary-active {
     -fx-background-color: #ECBF73;
 }
+
+.bg-primary {
+    -fx-background-color: #EAA807;
+}
+
+.btn-error {
+    -fx-background-radius: 16;
+    -fx-background-color: #BB716F;
+    -fx-border-color: #BB716F;
+    -fx-border-radius: 16;
+}
+
+.btn-error:hover{
+    -fx-background-color: #724442;
+    -fx-cursor: hand;
+}
