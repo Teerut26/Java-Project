@@ -104,7 +104,7 @@
                                                          </font>
                                                       </Label>
                                                       <Pane prefHeight="42.0" prefWidth="455.0" />
-                                                      <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="110.0" styleClass="btn-primary" text="Detail" textFill="#eaa807">
+                                                      <Button onAction="#onGotoDetail" mnemonicParsing="false" prefHeight="50.0" prefWidth="110.0" styleClass="btn-primary" text="Detail" textFill="#eaa807">
                                                          <font>
                                                             <Font name="Hiragino Sans W7" size="16.0" />
                                                          </font>

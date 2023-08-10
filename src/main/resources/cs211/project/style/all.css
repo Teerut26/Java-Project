@@ -1,27 +1,40 @@
 .btn-primary {
-    -fx-background-radius: 16;
+    -fx-background-radius: 10;
     -fx-background-color: #FAF2E3;
     -fx-border-color: #ECBF73;
-    -fx-border-radius: 16;
+    -fx-border-radius: 10;
 }
 
 .btn-primary:hover{
     -fx-background-color: #ECBF73;
     -fx-cursor: hand;
+    -fx-text-fill: #FAF2E3;
 }
 
 .btn-primary-active {
     -fx-background-color: #ECBF73;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-text-fill: #FAF2E3;
+}
+.btn-primary-active:hover {
+    -fx-background-color: #EAA807;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
 }
 
 .btn-secondary {
-    -fx-background-radius: 16;
+    -fx-background-radius: 10;
+    -fx-border-color: #E8E8E8;
+    -fx-border-radius: 10;
     -fx-background-color: #E8E8E8;
 }
 
 .btn-secondary:hover{
     -fx-background-color: #b6b6b6;
     -fx-cursor: hand;
+    -fx-text-fill: #FAF2E3;
 }
 
 .btn-secondary-active {
@@ -33,9 +46,9 @@
 }
 
 .btn-error {
-    -fx-background-radius: 16;
+    -fx-background-radius: 10;
     -fx-background-color: #BB716F;
-    -fx-border-radius: 16;
+    -fx-border-radius: 10;
 }
 
 .btn-error:hover{
@@ -45,8 +58,7 @@
 
 .input {
     -fx-background-color: #FAF2E3;
-    -fx-border-color: #E8E8E8;
-    -fx-border-radius: 16;
-    -fx-background-radius: 16;
-    /*-fx-border-width: 0;*/
+    -fx-border-color: #ECBF73;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
