@@ -1,9 +1,7 @@
-package cs211.project.Router;
+package cs211.project.router;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
 import cs211.project.services.FXRouter;
 
 import java.io.IOException;

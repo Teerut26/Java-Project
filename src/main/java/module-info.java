@@ -1,9 +1,9 @@
-module cs211.project.cs211661project {
+module cs211.project {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens cs211.project.Router to javafx.fxml;
-    exports cs211.project.Router;
+    opens cs211.project.router to javafx.fxml;
+    exports cs211.project.router;
     exports cs211.project.controllers;
     opens cs211.project.controllers to javafx.fxml;
 
