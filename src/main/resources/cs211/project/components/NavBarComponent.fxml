@@ -16,7 +16,7 @@
          </font>
       </Label>
       <Pane prefHeight="100.0" prefWidth="562.0" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Teerut">
+      <Text onMouseClicked="#goToProfile" strokeType="OUTSIDE" strokeWidth="0.0" text="Teerut">
          <font>
             <Font size="24.0" />
          </font>

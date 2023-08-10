@@ -16,11 +16,11 @@
 
 .btn-secondary {
     -fx-background-radius: 16;
-    -fx-background-color: #FAF2E3;
+    -fx-background-color: #E8E8E8;
 }
 
 .btn-secondary:hover{
-    -fx-background-color: #ECBF73;
+    -fx-background-color: #b6b6b6;
     -fx-cursor: hand;
 }
 
@@ -35,11 +35,18 @@
 .btn-error {
     -fx-background-radius: 16;
     -fx-background-color: #BB716F;
-    -fx-border-color: #BB716F;
     -fx-border-radius: 16;
 }
 
 .btn-error:hover{
     -fx-background-color: #724442;
     -fx-cursor: hand;
+}
+
+.input {
+    -fx-background-color: #FAF2E3;
+    -fx-border-color: #E8E8E8;
+    -fx-border-radius: 16;
+    -fx-background-radius: 16;
+    /*-fx-border-width: 0;*/
 }
