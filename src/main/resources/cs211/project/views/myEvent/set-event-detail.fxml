@@ -12,20 +12,7 @@
             <top>
                 <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER_LEFT" layoutY="-6.0" prefHeight="100.0" prefWidth="1280.0">
-                            <children>
-                                <Label text="Event Manager">
-                                    <font>
-                                        <Font name="Verdana Bold" size="36.0" />
-                                    </font>
-                                </Label>
-                                <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                <Label text="sarawut">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Label>
-                            </children>
+                        <HBox fx:id="NavBarHBox" alignment="CENTER_LEFT" layoutY="-6.0" maxWidth="1280.0" minWidth="1280.0" prefHeight="100.0" prefWidth="1280.0">
                             <padding>
                                 <Insets left="35.0" right="35.0" />
                             </padding>
@@ -55,7 +42,7 @@
                                     </font>
                                 </Label>
                                 <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                <Button mnemonicParsing="false" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="go back">
+                                <Button onAction="#onBack" mnemonicParsing="false" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="go back">
                                     <font>
                                         <Font size="24.0" />
                                     </font>

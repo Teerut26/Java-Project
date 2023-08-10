@@ -1,9 +1,7 @@
-package cs211.project.Router;
+package cs211.project.router;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
 import cs211.project.services.FXRouter;
 
 import java.io.IOException;
@@ -14,7 +12,7 @@ public class Router extends Application {
         configRoute();
 
         FXRouter.bind(this, stage, "CS211 661 Project");
-        FXRouter.goTo("event-list");
+        FXRouter.goTo("login-page");
     }
 
     private static void configRoute() {
