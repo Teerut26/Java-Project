@@ -55,7 +55,7 @@
                            </font>
                         </Label>
                         <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="175.0" style="-fx-background-color: #EAA807; -fx-background-radius: 10; -fx-border-radius: 10;" text="create event">
+                        <Button mnemonicParsing="false" onAction="#goToCreateEvent" prefHeight="37.0" prefWidth="175.0" style="-fx-background-color: #EAA807; -fx-background-radius: 10; -fx-border-radius: 10;" text="create event">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -108,7 +108,7 @@
                                                          </font>
                                                       </Label>
                                                       <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                                      <Button mnemonicParsing="false" style="-fx-background-color: #FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;" text="Set Detail">
+                                                      <Button onAction="#onSetEventDetailForm" mnemonicParsing="false" style="-fx-background-color: #FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;" text="Set Detail">
                                                          <padding>
                                                             <Insets bottom="4.0" left="25.0" right="25.0" top="4.0" />
                                                          </padding>

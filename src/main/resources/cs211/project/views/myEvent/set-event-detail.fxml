@@ -55,7 +55,7 @@
                                     </font>
                                 </Label>
                                 <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                <Button mnemonicParsing="false" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="go back">
+                                <Button onAction="#onBack" mnemonicParsing="false" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="go back">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
