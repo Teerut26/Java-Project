@@ -52,7 +52,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <VBox prefHeight="547.0" prefWidth="936.0" spacing="30.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10;">
+                  <VBox prefHeight="547.0" prefWidth="936.0" spacing="20.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10;">
                      <children>
                         <Label text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
                            <font>
@@ -80,7 +80,7 @@
                                     </Label>
                                     <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="547.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
+                                          <Button mnemonicParsing="false" onAction="#onJoinClick" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
                                              <font>
                                                 <Font name="Hiragino Sans W7" size="16.0" />
                                              </font>
@@ -116,6 +116,11 @@
                               </VBox>
                            </children>
                         </HBox>
+                        <Button mnemonicParsing="false" onAction="#onTeamEventClick" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="TeamEvent">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
                      </children>
                      <opaqueInsets>
                         <Insets />
