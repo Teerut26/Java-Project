@@ -12,7 +12,7 @@ public class LoginPageController {
     @FXML
     public void onLoginButtonClick() {
         try{
-            FXRouter.goTo("hello");
+            FXRouter.goTo("event-list");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

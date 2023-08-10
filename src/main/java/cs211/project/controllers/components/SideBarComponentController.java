@@ -9,7 +9,7 @@ public class SideBarComponentController {
     @FXML
     public void goToEventList() {
         try {
-            FXRouter.goTo("dashborad-user");
+            FXRouter.goTo("event-list");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
