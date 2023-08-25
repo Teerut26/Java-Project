@@ -40,7 +40,7 @@ public class EventListController extends ComponentRegister {
         this.executor.execute(() -> {
             veryLongOperation();
             Platform.runLater(() -> {
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 20; i++) {
                     try {
                         FXMLLoader fxmlLoader = new ComponentLoader("EventCardComponent.fxml").getFxmlLoader();
                         Pane eventCardComponent = fxmlLoader.load();
@@ -64,7 +64,7 @@ public class EventListController extends ComponentRegister {
 
     public static void veryLongOperation() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(500);
         } catch (Exception ex) {
         }
 
