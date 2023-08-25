@@ -12,7 +12,7 @@ public class Router extends Application {
         configRoute();
 
         FXRouter.bind(this, stage, "CS211 661 Project");
-        FXRouter.goTo("login-page");
+        FXRouter.goTo("event-list");
     }
 
     private static void configRoute() {
