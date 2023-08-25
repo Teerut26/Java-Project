@@ -1,11 +1,11 @@
 package cs211.project.controllers.components;
 
+import cs211.project.models.Event;
 import cs211.project.services.FXRouter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
@@ -31,20 +31,23 @@ public class EventCardComponentController {
     @FXML
     private Label title;
 
-    public void setData(String title, String descriptions, String eventTime, int currentMemberParticipatingAmount, int maxMemberParticipating) {
-        Image img = new Image("https://p-u.popcdn.net/event_details/posters/000/015/478/medium/5d369c5375dfadd2e9297c8109ca3a698b928370.jpg?1688606774");
+    private Event event;
+
+    public void setData(Event event) {
+        Image img = new Image(event.getImageEvent());
         image.setFill(new ImagePattern(img));
-        this.title.setText(title);
-        this.descriptions.setText(descriptions);
-        this.eventTime.setText(eventTime);
-        this.currentMemberParticipatingAmount.setText(String.valueOf(currentMemberParticipatingAmount));
-        this.maxMemberParticipating.setText(String.valueOf(maxMemberParticipating));
+        this.title.setText(event.getNameEvent());
+        this.descriptions.setText(event.getDescriptionEvent());
+        this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
+        this.currentMemberParticipatingAmount.setText(String.valueOf(event.getCurrentMemberParticipatingAmount()));
+        this.maxMemberParticipating.setText(String.valueOf(String.valueOf(event.getQuantityEvent())));
+        this.event = event;
     }
 
     @FXML
     void goToDetail(ActionEvent event) {
         try {
-            FXRouter.goTo("event-detail");
+            FXRouter.goTo("event-detail", this.event.getEventID());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
