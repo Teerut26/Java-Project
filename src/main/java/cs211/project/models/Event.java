@@ -83,4 +83,17 @@ public class Event {
     public Integer getCurrentMemberParticipatingAmount() {
         return 20;
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "eventID='" + eventID + '\'' +
+                ", nameEvent='" + nameEvent + '\'' +
+                ", imageEvent='" + imageEvent + '\'' +
+                ", descriptionEvent='" + descriptionEvent + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", quantityEvent=" + quantityEvent +
+                '}';
+    }
 }
