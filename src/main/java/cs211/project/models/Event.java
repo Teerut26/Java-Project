@@ -5,8 +5,6 @@ import cs211.project.models.collections.UserCollection;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.UUID;
 
 public class Event {
     private String eventID;
@@ -17,9 +15,19 @@ public class Event {
     private LocalDateTime endDate;
     private Integer quantityEvent;
     private UserCollection userInEvent = new UserCollection();
-
     private TeamCollection teamInEvent = new TeamCollection();
     private User owner;
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, User owner) {
+        this.eventID = eventID;
+        this.nameEvent = nameEvent;
+        this.imageEvent = imageEvent;
+        this.descriptionEvent = descriptionEvent;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.quantityEvent = quantityEvent;
+        this.owner = owner;
+    }
 
     public void setEventID(String eventID) {
         this.eventID = eventID;
@@ -43,19 +51,6 @@ public class Event {
 
     public TeamCollection getTeamInEvent() {
         return teamInEvent;
-    }
-
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-    public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, User owner) {
-        this.eventID = eventID;
-        this.nameEvent = nameEvent;
-        this.imageEvent = imageEvent;
-        this.descriptionEvent = descriptionEvent;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.quantityEvent = quantityEvent;
-        this.owner = owner;
     }
 
     public void setNameEvent(String nameEvent) {

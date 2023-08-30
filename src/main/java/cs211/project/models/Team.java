@@ -10,10 +10,9 @@ public class Team {
     private String quantity;
     private LocalDateTime startRecruitDate;
     private LocalDateTime endRecruitDate;
-    private int peopleInTeam;
     private User owner;
-    private UserCollection userInTeam = new UserCollection();
     private Event event;
+    private UserCollection userInTeam = new UserCollection();
 
     public Event getEvent() {
         return event;
@@ -61,10 +60,6 @@ public class Team {
         return endRecruitDate;
     }
 
-    public int getPeopleInTeam() {
-        return peopleInTeam;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -79,10 +74,6 @@ public class Team {
 
     public void setEndRecruitDate(LocalDateTime endRecruitDate) {
         this.endRecruitDate = endRecruitDate;
-    }
-
-    public void setPeopleInTeam(int peopleInTeam) {
-        this.peopleInTeam = peopleInTeam;
     }
 
     public void joinTeam(User user) {

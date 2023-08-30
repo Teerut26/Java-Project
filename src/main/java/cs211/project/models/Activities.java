@@ -4,25 +4,23 @@ import java.time.LocalDateTime;
 
 public class Activities {
     private String id;
-
-    public String getId() {
-        return id;
-    }
-
     private String title;
     private String detail;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-
     private User owner;
 
-    public Activities(String id,String title, String detail, LocalDateTime startDate, LocalDateTime endDate, User owner) {
+    public Activities(String id, String title, String detail, LocalDateTime startDate, LocalDateTime endDate, User owner) {
         this.id = id;
         this.title = title;
         this.detail = detail;
         this.startDate = startDate;
         this.endDate = endDate;
         this.owner = owner;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -39,6 +37,17 @@ public class Activities {
 
     public LocalDateTime getEndDate() {
         return endDate;
+    }
+
+    public String getStatus() {
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isBefore(startDate)) {
+            return "Upcoming";
+        } else if (now.isAfter(startDate) && now.isBefore(endDate)) {
+            return "Ongoing";
+        } else {
+            return "Finished";
+        }
     }
 
     public void setTitle(String title) {
