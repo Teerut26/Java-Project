@@ -1,17 +1,17 @@
-package cs211.project.services;
+package cs211.project.services.datasource;
 
-import cs211.project.models.ManyToMany;
-import cs211.project.models.collections.ManyToManyCollection;
+import cs211.project.models.Activities;
+import cs211.project.models.User;
+import cs211.project.models.collections.ActivitiesCollection;
+import cs211.project.services.DatasourceInterface;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 
-public class ManyToManyFileListDatasource implements DatasourceInterface<ManyToManyCollection> {
-    private String basePath = "data/csv/mtm/";
-    private String fileName;
-
-    public static String MTM_EVENT_USER = "_eventToUser.csv";
-    public static String MTM_TEAM_USER = "_teamToUser.csv";
+public class ActivitiesFileListDatesource implements DatasourceInterface<ActivitiesCollection> {
+    private String basePath = "data/csv/";
+    private String fileName = "activities.csv";
 
     private void checkFileIsExisted() {
         File file = new File(this.basePath);
@@ -29,14 +29,13 @@ public class ManyToManyFileListDatasource implements DatasourceInterface<ManyToM
         }
     }
 
-    public ManyToManyFileListDatasource(String fileName) {
-        this.fileName = fileName;
+    public ActivitiesFileListDatesource() {
         this.checkFileIsExisted();
     }
 
     @Override
-    public ManyToManyCollection readData() {
-        ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
+    public ActivitiesCollection readData() {
+        ActivitiesCollection activitiesCollection = new ActivitiesCollection();
         String filePath = this.basePath + fileName;
         File file = new File(filePath);
 
@@ -61,22 +60,29 @@ public class ManyToManyFileListDatasource implements DatasourceInterface<ManyToM
 
                 String[] data = line.split(",");
 
-                String primary = data[0].trim();
-                String secondary = data[1].trim();
+                String id = data[0].trim();
+                String title = data[1].trim();
+                String detail = data[2].trim();
+                LocalDateTime startDate = LocalDateTime.parse(data[3].trim());
+                LocalDateTime endDate = LocalDateTime.parse(data[4].trim());
+                String ownerID = data[5].trim();
 
-                ManyToMany manyToMany = new ManyToMany(primary, secondary);
+                UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
+                User owner = userFileListDatasource.readData().findById(ownerID);
 
-                manyToManyCollection.add(manyToMany);
+                Activities activities = new Activities(id, title, detail, startDate, endDate, owner);
+
+                activitiesCollection.add(activities);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return manyToManyCollection;
+        return activitiesCollection;
     }
 
     @Override
-    public void writeData(ManyToManyCollection data) {
+    public void writeData(ActivitiesCollection data) {
         String filePath = this.basePath + this.fileName;
         File file = new File(filePath);
 
@@ -95,8 +101,8 @@ public class ManyToManyFileListDatasource implements DatasourceInterface<ManyToM
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
 
         try {
-            for (ManyToMany manyToMany : data.getManyToManies()) {
-                String line = manyToMany.getA() + "," + manyToMany.getB();
+            for (Activities activities : data.getActivitiesArrayList()) {
+                String line = activities.getId() + "," + activities.getTitle() + "," + activities.getDetail() + "," + activities.getStartDate() + "," + activities.getEndDate();
                 buffer.append(line);
                 buffer.append("\n");
             }

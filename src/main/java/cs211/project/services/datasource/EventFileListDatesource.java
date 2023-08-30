@@ -1,13 +1,12 @@
-package cs211.project.services;
+package cs211.project.services.datasource;
 
-import cs211.project.models.Comment;
 import cs211.project.models.Event;
 import cs211.project.models.ManyToMany;
 import cs211.project.models.User;
-import cs211.project.models.collections.CommentCollection;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.ManyToManyCollection;
 import cs211.project.models.collections.UserCollection;
+import cs211.project.services.DatasourceInterface;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -121,17 +120,16 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
                 buffer.append(line);
                 buffer.append("\n");
 
-                ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-
-                ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
-                manyToManyCollection.setManyToManies(manyToManyFileListDatasource.readData().getManyToManies());
-
-                event.getUserInEvent().getUsers().forEach((user) -> {
-                    ManyToMany manyToMany = new ManyToMany(event.getEventID(), user.getId());
-                    manyToManyCollection.add(manyToMany);
-                });
-
-                manyToManyFileListDatasource.writeData(manyToManyCollection);
+                if (event.getUserInEvent() != null) {
+                    ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
+                    ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
+                    manyToManyCollection.setManyToManies(manyToManyFileListDatasource.readData().getManyToManies());
+                    event.getUserInEvent().getUsers().forEach((user) -> {
+                        ManyToMany manyToMany = new ManyToMany(event.getEventID(), user.getId());
+                        manyToManyCollection.add(manyToMany);
+                    });
+                    manyToManyFileListDatasource.writeData(manyToManyCollection);
+                }
 
             }
         } catch (IOException e) {

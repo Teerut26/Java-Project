@@ -1,18 +1,18 @@
-package cs211.project.services;
+package cs211.project.services.datasource;
 
-import cs211.project.models.Activities;
-import cs211.project.models.Comment;
-import cs211.project.models.User;
-import cs211.project.models.collections.ActivitiesCollection;
-import cs211.project.models.collections.CommentCollection;
+import cs211.project.models.ManyToMany;
+import cs211.project.models.collections.ManyToManyCollection;
+import cs211.project.services.DatasourceInterface;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 
-public class CommentFileListDatesource implements DatasourceInterface<CommentCollection> {
-    private String basePath = "data/csv/";
-    private String fileName = "comments.csv";
+public class ManyToManyFileListDatasource implements DatasourceInterface<ManyToManyCollection> {
+    private String basePath = "data/csv/mtm/";
+    private String fileName;
+
+    public static String MTM_EVENT_USER = "_eventToUser.csv";
+    public static String MTM_TEAM_USER = "_teamToUser.csv";
 
     private void checkFileIsExisted() {
         File file = new File(this.basePath);
@@ -30,13 +30,14 @@ public class CommentFileListDatesource implements DatasourceInterface<CommentCol
         }
     }
 
-    public CommentFileListDatesource() {
+    public ManyToManyFileListDatasource(String fileName) {
+        this.fileName = fileName;
         this.checkFileIsExisted();
     }
 
     @Override
-    public CommentCollection readData() {
-        CommentCollection commentCollection = new CommentCollection();
+    public ManyToManyCollection readData() {
+        ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
         String filePath = this.basePath + fileName;
         File file = new File(filePath);
 
@@ -61,27 +62,22 @@ public class CommentFileListDatesource implements DatasourceInterface<CommentCol
 
                 String[] data = line.split(",");
 
-                String id = data[0].trim();
-                String message = data[1].trim();
-                String ownerId = data[2].trim();
-                LocalDateTime timeStamps = LocalDateTime.parse(data[3].trim());
+                String primary = data[0].trim();
+                String secondary = data[1].trim();
 
-                UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-                User owner = userFileListDatasource.readData().findById(ownerId);
+                ManyToMany manyToMany = new ManyToMany(primary, secondary);
 
-                Comment comment = new Comment(id, message, owner, timeStamps);
-
-                commentCollection.add(comment);
+                manyToManyCollection.add(manyToMany);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return commentCollection;
+        return manyToManyCollection;
     }
 
     @Override
-    public void writeData(CommentCollection data) {
+    public void writeData(ManyToManyCollection data) {
         String filePath = this.basePath + this.fileName;
         File file = new File(filePath);
 
@@ -100,8 +96,8 @@ public class CommentFileListDatesource implements DatasourceInterface<CommentCol
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
 
         try {
-            for (Comment comment : data.getComments()) {
-                String line = comment.getId() + "," + comment.getMessage() + "," + comment.getOwner().getId() + "," + comment.getTimeStamps().toString();
+            for (ManyToMany manyToMany : data.getManyToManies()) {
+                String line = manyToMany.getA() + "," + manyToMany.getB();
                 buffer.append(line);
                 buffer.append("\n");
             }

@@ -1,13 +1,13 @@
-package cs211.project.services;
+package cs211.project.services.datasource;
 
 import cs211.project.models.Event;
 import cs211.project.models.ManyToMany;
 import cs211.project.models.Team;
 import cs211.project.models.User;
-import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.ManyToManyCollection;
 import cs211.project.models.collections.TeamCollection;
 import cs211.project.models.collections.UserCollection;
+import cs211.project.services.DatasourceInterface;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -129,16 +129,17 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
                         team.getEvent().getEventID();
 
                 // Write many to many event user file
-                ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_TEAM_USER);
+                if (team.getUserInTeam() != null) {
+                    ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_TEAM_USER);
+                    ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
+                    manyToManyCollection.setManyToManies(manyToManyFileListDatasource.readData().getManyToManies());
+                    team.getUserInTeam().getUsers().forEach((user) -> {
+                        ManyToMany manyToMany = new ManyToMany(team.getId(), user.getId());
+                        manyToManyCollection.add(manyToMany);
+                    });
+                    manyToManyFileListDatasource.writeData(manyToManyCollection);
+                }
 
-                ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
-                manyToManyCollection.setManyToManies(manyToManyFileListDatasource.readData().getManyToManies());
-
-                team.getUserInTeam().getUsers().forEach((user) -> {
-                    ManyToMany manyToMany = new ManyToMany(team.getId(), user.getId());
-                    manyToManyCollection.add(manyToMany);
-                });
-                manyToManyFileListDatasource.writeData(manyToManyCollection);
 
                 buffer.append(line);
                 buffer.append("\n");

@@ -1,16 +1,17 @@
-package cs211.project.services;
+package cs211.project.services.datasource;
 
-import cs211.project.models.Activities;
+import cs211.project.models.Comment;
 import cs211.project.models.User;
-import cs211.project.models.collections.ActivitiesCollection;
+import cs211.project.models.collections.CommentCollection;
+import cs211.project.services.DatasourceInterface;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
-public class ActivitiesFileListDatesource implements DatasourceInterface<ActivitiesCollection> {
+public class CommentFileListDatesource implements DatasourceInterface<CommentCollection> {
     private String basePath = "data/csv/";
-    private String fileName = "activities.csv";
+    private String fileName = "comments.csv";
 
     private void checkFileIsExisted() {
         File file = new File(this.basePath);
@@ -28,13 +29,13 @@ public class ActivitiesFileListDatesource implements DatasourceInterface<Activit
         }
     }
 
-    public ActivitiesFileListDatesource() {
+    public CommentFileListDatesource() {
         this.checkFileIsExisted();
     }
 
     @Override
-    public ActivitiesCollection readData() {
-        ActivitiesCollection activitiesCollection = new ActivitiesCollection();
+    public CommentCollection readData() {
+        CommentCollection commentCollection = new CommentCollection();
         String filePath = this.basePath + fileName;
         File file = new File(filePath);
 
@@ -60,28 +61,26 @@ public class ActivitiesFileListDatesource implements DatasourceInterface<Activit
                 String[] data = line.split(",");
 
                 String id = data[0].trim();
-                String title = data[1].trim();
-                String detail = data[2].trim();
-                LocalDateTime startDate = LocalDateTime.parse(data[3].trim());
-                LocalDateTime endDate = LocalDateTime.parse(data[4].trim());
-                String ownerID = data[5].trim();
+                String message = data[1].trim();
+                String ownerId = data[2].trim();
+                LocalDateTime timeStamps = LocalDateTime.parse(data[3].trim());
 
                 UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-                User owner = userFileListDatasource.readData().findById(ownerID);
+                User owner = userFileListDatasource.readData().findById(ownerId);
 
-                Activities activities = new Activities(id, title, detail, startDate, endDate, owner);
+                Comment comment = new Comment(id, message, owner, timeStamps);
 
-                activitiesCollection.add(activities);
+                commentCollection.add(comment);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return activitiesCollection;
+        return commentCollection;
     }
 
     @Override
-    public void writeData(ActivitiesCollection data) {
+    public void writeData(CommentCollection data) {
         String filePath = this.basePath + this.fileName;
         File file = new File(filePath);
 
@@ -100,8 +99,8 @@ public class ActivitiesFileListDatesource implements DatasourceInterface<Activit
         BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
 
         try {
-            for (Activities activities : data.getActivitiesArrayList()) {
-                String line = activities.getId() + "," + activities.getTitle() + "," + activities.getDetail() + "," + activities.getStartDate() + "," + activities.getEndDate();
+            for (Comment comment : data.getComments()) {
+                String line = comment.getId() + "," + comment.getMessage() + "," + comment.getOwner().getId() + "," + comment.getTimeStamps().toString();
                 buffer.append(line);
                 buffer.append("\n");
             }

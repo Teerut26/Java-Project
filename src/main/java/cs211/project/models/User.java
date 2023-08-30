@@ -10,12 +10,19 @@ public class User {
     private String nameUser;
     private String userName;
     private String password;
-    private String email;
     private String imageProfile;
     private LocalDateTime lastLogin;
     private String role;
     private EventCollection eventCollection;
     private TeamCollection teamCollection;
+
+    public User(String id, String nameUser, String userName, String password, LocalDateTime lastLogin) {
+        this.id = id;
+        this.nameUser = nameUser;
+        this.userName = userName;
+        this.password = password;
+        this.lastLogin = lastLogin;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -31,10 +38,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public void setLastLogin(LocalDateTime lastLogin) {
@@ -55,15 +58,6 @@ public class User {
 
     public void setEventCollection(EventCollection eventCollection) {
         this.eventCollection = eventCollection;
-    }
-
-    public User(String id, String nameUser, String userName, String email, String password, LocalDateTime lastLogin) {
-        this.id = id;
-        this.nameUser = nameUser;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.lastLogin = lastLogin;
     }
 
     public void setImageProfile(String imagePath) {
@@ -110,10 +104,6 @@ public class User {
         return imageProfile;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public LocalDateTime getLastlogin() {
         return lastLogin;
     }
@@ -124,7 +114,6 @@ public class User {
                 "ID=" + id + '\'' +
                 ", nameUser=" + nameUser + '\'' +
                 ", userName=" + userName + '\'' +
-                ", email=" + email + '\'' +
                 ", password=" + password + '\'' +
                 ", lastLogin=" + lastLogin +
                 '}';
