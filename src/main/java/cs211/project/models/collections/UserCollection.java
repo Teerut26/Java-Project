@@ -35,15 +35,6 @@ public class UserCollection {
         return null;
     }
 
-    public User findByEmail(String email) {
-        for (User user : this.userArrayList) {
-            if (user.getEmail().equals(email)) {
-                return user;
-            }
-        }
-        return null;
-    }
-
     public User findByUsername(String username) {
         for (User user : this.userArrayList) {
             if (user.getUserName().equals(username)) {

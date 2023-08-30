@@ -45,8 +45,8 @@ public class EventListController extends ComponentRegister {
                         FXMLLoader fxmlLoader = new ComponentLoader("EventCardComponent.fxml").getFxmlLoader();
                         Pane eventCardComponent = fxmlLoader.load();
                         EventCardComponentController eventCardComponentController = fxmlLoader.getController();
-                        Event event = new Event(UUID.randomUUID().toString(), "Event " + i, "https://p-u.popcdn.net/event_details/posters/000/015/702/medium/5c989f2b12ff1da960477bbbea5187a68eae5f96.jpg", "adsf",LocalDateTime.now(), LocalDateTime.now().plusDays(1), 100);
-                        eventCardComponentController.setData(event);
+//                        Event event = new Event(UUID.randomUUID().toString(), "Event " + i, "https://p-u.popcdn.net/event_details/posters/000/015/702/medium/5c989f2b12ff1da960477bbbea5187a68eae5f96.jpg", "adsf",LocalDateTime.now(), LocalDateTime.now().plusDays(1), 100);
+//                        eventCardComponentController.setData(event);
                         vBoxEventlist.getChildren().add(eventCardComponent);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
