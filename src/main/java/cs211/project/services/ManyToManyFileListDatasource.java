@@ -11,6 +11,7 @@ public class ManyToManyFileListDatasource implements DatasourceInterface<ManyToM
     private String fileName;
 
     public static String MTM_EVENT_USER = "_eventToUser.csv";
+    public static String MTM_TEAM_USER = "_teamToUser.csv";
 
     private void checkFileIsExisted() {
         File file = new File(this.basePath);

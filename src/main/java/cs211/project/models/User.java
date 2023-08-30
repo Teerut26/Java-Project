@@ -1,6 +1,7 @@
 package cs211.project.models;
 
 import cs211.project.models.collections.EventCollection;
+import cs211.project.models.collections.TeamCollection;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +15,39 @@ public class User {
     private LocalDateTime lastLogin;
     private String role;
     private EventCollection eventCollection;
+    private TeamCollection teamCollection;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public void setTeamCollection(TeamCollection teamCollection) {
+        this.teamCollection = teamCollection;
+    }
+
+    public TeamCollection getTeamCollection() {
+        return teamCollection;
+    }
 
     public EventCollection getEventCollection() {
         return eventCollection;

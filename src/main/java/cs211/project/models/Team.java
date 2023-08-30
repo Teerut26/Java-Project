@@ -13,14 +13,36 @@ public class Team {
     private int peopleInTeam;
     private User owner;
     private UserCollection userInTeam = new UserCollection();
+    private Event event;
 
-    public Team(String id, String name, String quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, User onwer) {
+    public Event getEvent() {
+        return event;
+    }
+
+    public Team(String id, String name, String quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, User onwer, Event event) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.startRecruitDate = startRecruitDate;
         this.endRecruitDate = endRecruitDate;
         this.owner = onwer;
+        this.event = event;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public void setUserInTeam(UserCollection userInTeam) {
+        this.userInTeam = userInTeam;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public String getName() {

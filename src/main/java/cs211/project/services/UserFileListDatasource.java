@@ -1,13 +1,7 @@
 package cs211.project.services;
 
-import cs211.project.models.Activities;
-import cs211.project.models.Event;
-import cs211.project.models.ManyToMany;
-import cs211.project.models.User;
-import cs211.project.models.collections.ActivitiesCollection;
-import cs211.project.models.collections.EventCollection;
-import cs211.project.models.collections.ManyToManyCollection;
-import cs211.project.models.collections.UserCollection;
+import cs211.project.models.*;
+import cs211.project.models.collections.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -16,6 +10,10 @@ import java.time.LocalDateTime;
 public class UserFileListDatasource implements DatasourceInterface<UserCollection> {
     private String basePath = "data/csv/";
     private String fileName = "users.csv";
+
+    public UserFileListDatasource() {
+        this.checkFileIsExisted();
+    }
 
     private void checkFileIsExisted() {
         File file = new File(this.basePath);
@@ -31,10 +29,6 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
                 throw new RuntimeException(e);
             }
         }
-    }
-
-    public UserFileListDatasource() {
-        this.checkFileIsExisted();
     }
 
     @Override
@@ -72,16 +66,27 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
                 LocalDateTime lastLogin = LocalDateTime.parse(data[5].trim());
 
                 // Read many to many event user file
-                EventCollection eventCollection = new EventCollection();
-                ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-                manyToManyFileListDatasource.readData().findsByB(id).forEach((event) -> {
+                EventCollection MTM_EventUserCollection = new EventCollection();
+                ManyToManyFileListDatasource MTM_EventUserFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
+                MTM_EventUserFileListDatasource.readData().findsByB(id).forEach((event) -> {
                     EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
                     Event event1 = eventFileListDatesource.readData().findById(event.getA());
-                    eventCollection.add(event1);
+                    MTM_EventUserCollection.add(event1);
+                });
+
+                // Read many to many team user file
+                TeamCollection MTM_TeamUserCollection = new TeamCollection();
+                ManyToManyFileListDatasource MTM_TeamUserFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_TEAM_USER);
+                MTM_TeamUserFileListDatasource.readData().findsByB(id).forEach((team) -> {
+                    TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
+                    Team team1 = teamFileListDatasource.readData().findById(team.getA());
+                    MTM_TeamUserCollection.add(team1);
                 });
 
                 User user = new User(id, nameUser, userName, email, password, lastLogin);
-                user.setEventCollection(eventCollection);
+
+                user.setEventCollection(MTM_EventUserCollection);
+                user.setTeamCollection(MTM_TeamUserCollection);
 
                 userCollection.add(user);
             }
@@ -116,13 +121,24 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
                 String line = user.getId() + "," + user.getNameUser() + "," + user.getUserName() + "," + user.getEmail() + "," + user.getPassword() + "," + user.getLastLogin().toString();
 
                 // Write many to many event user file
-                ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-                ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
+                ManyToManyFileListDatasource MTM_EventUserFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
+                ManyToManyCollection MTM_EventUserCollection = new ManyToManyCollection();
+                MTM_EventUserCollection.setManyToManies(MTM_EventUserFileListDatasource.readData().getManyToManies());
                 user.getEventCollection().getEvents().forEach((event) -> {
                     ManyToMany manyToMany = new ManyToMany(event.getEventID(), user.getId());
-                    manyToManyCollection.add(manyToMany);
+                    MTM_EventUserCollection.add(manyToMany);
                 });
-                manyToManyFileListDatasource.writeData(manyToManyCollection);
+                MTM_EventUserFileListDatasource.writeData(MTM_EventUserCollection);
+
+                // Write many to many team user file
+                ManyToManyFileListDatasource MTM_TeamUserFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_TEAM_USER);
+                ManyToManyCollection MTM_TeamUserCollection = new ManyToManyCollection();
+                MTM_TeamUserCollection.setManyToManies(MTM_TeamUserFileListDatasource.readData().getManyToManies());
+                user.getTeamCollection().getTeams().forEach((team) -> {
+                    ManyToMany manyToMany = new ManyToMany(team.getId(), user.getId());
+                    MTM_TeamUserCollection.add(manyToMany);
+                });
+                MTM_TeamUserFileListDatasource.writeData(MTM_TeamUserCollection);
 
                 buffer.append(line);
                 buffer.append("\n");

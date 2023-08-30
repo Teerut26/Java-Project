@@ -122,10 +122,14 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
                 buffer.append("\n");
 
                 ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-                ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
 
+                ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
                 manyToManyCollection.setManyToManies(manyToManyFileListDatasource.readData().getManyToManies());
 
+                event.getUserInEvent().getUsers().forEach((user) -> {
+                    ManyToMany manyToMany = new ManyToMany(event.getEventID(), user.getId());
+                    manyToManyCollection.add(manyToMany);
+                });
 
                 manyToManyFileListDatasource.writeData(manyToManyCollection);
 

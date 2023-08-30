@@ -10,7 +10,19 @@ public class TeamCollection {
     }
 
     public void add(Team team) {
+        if(checkIsExisted(team)) {
+            return;
+        }
         this.teams.add(team);
+    }
+
+    private boolean checkIsExisted(Team team) {
+        for(Team team1 : this.teams) {
+            if(team1.getId().equals(team.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Team> getTeams() {
