@@ -7,6 +7,7 @@ import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.ManyToManyCollection;
 import cs211.project.models.collections.UserCollection;
 import cs211.project.services.DatasourceInterface;
+import cs211.project.utils.FileIO;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -15,46 +16,16 @@ import java.time.LocalDateTime;
 public class EventFileListDatesource implements DatasourceInterface<EventCollection> {
     private String basePath = "data/csv/";
     private String fileName = "comments.csv";
-
-    private void checkFileIsExisted() {
-        File file = new File(this.basePath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        String filePath = this.basePath + fileName;
-        file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
+    private FileIO fileIO;
 
     public EventFileListDatesource() {
-        this.checkFileIsExisted();
+        this.fileIO = new FileIO(this.basePath + this.fileName);
     }
 
     @Override
     public EventCollection readData() {
         EventCollection eventCollection = new EventCollection();
-        String filePath = this.basePath + fileName;
-        File file = new File(filePath);
-
-        FileInputStream fileInputStream = null;
-
-        try {
-            fileInputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        InputStreamReader inputStreamReader = new InputStreamReader(
-                fileInputStream,
-                StandardCharsets.UTF_8
-        );
-        BufferedReader buffer = new BufferedReader(inputStreamReader);
+        BufferedReader buffer = this.fileIO.reader();
 
         String line = "";
         try {
@@ -97,22 +68,7 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
 
     @Override
     public void writeData(EventCollection data) {
-        String filePath = this.basePath + this.fileName;
-        File file = new File(filePath);
-
-        FileOutputStream fileOutputStream = null;
-
-        try {
-            fileOutputStream = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
-                fileOutputStream,
-                StandardCharsets.UTF_8
-        );
-        BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
+        BufferedWriter buffer = this.fileIO.writer();
 
         try {
             for (Event event : data.getEvents()) {

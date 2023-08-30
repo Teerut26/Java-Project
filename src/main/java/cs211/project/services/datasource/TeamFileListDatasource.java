@@ -8,6 +8,7 @@ import cs211.project.models.collections.ManyToManyCollection;
 import cs211.project.models.collections.TeamCollection;
 import cs211.project.models.collections.UserCollection;
 import cs211.project.services.DatasourceInterface;
+import cs211.project.utils.FileIO;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -17,45 +18,16 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
     private String basePath = "data/csv/";
     private String fileName = "team.csv";
 
-    public TeamFileListDatasource() {
-        this.checkFileIsExisted();
-    }
+    private FileIO fileIO;
 
-    private void checkFileIsExisted() {
-        File file = new File(this.basePath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        String filePath = this.basePath + fileName;
-        file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public TeamFileListDatasource() {
+        this.fileIO = new FileIO(this.basePath + this.fileName);
     }
 
     @Override
     public TeamCollection readData() {
         TeamCollection teamCollection = new TeamCollection();
-        String filePath = this.basePath + fileName;
-        File file = new File(filePath);
-
-        FileInputStream fileInputStream = null;
-
-        try {
-            fileInputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        InputStreamReader inputStreamReader = new InputStreamReader(
-                fileInputStream,
-                StandardCharsets.UTF_8
-        );
-        BufferedReader buffer = new BufferedReader(inputStreamReader);
+        BufferedReader buffer = this.fileIO.reader();
 
         String line = "";
         try {
@@ -101,22 +73,7 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
 
     @Override
     public void writeData(TeamCollection data) {
-        String filePath = this.basePath + this.fileName;
-        File file = new File(filePath);
-
-        FileOutputStream fileOutputStream = null;
-
-        try {
-            fileOutputStream = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
-                fileOutputStream,
-                StandardCharsets.UTF_8
-        );
-        BufferedWriter buffer = new BufferedWriter(outputStreamWriter);
+        BufferedWriter buffer = fileIO.writer();
 
         try {
             for (Team team : data.getTeams()) {
