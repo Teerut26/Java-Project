@@ -1,32 +1,26 @@
 package cs211.project.models;
 
+import cs211.project.models.collections.UserCollection;
+
 import java.time.LocalDateTime;
 
 public class Team {
+    private String id;
     private String name;
     private String quantity;
     private LocalDateTime startRecruitDate;
     private LocalDateTime endRecruitDate;
     private int peopleInTeam;
+    private User owner;
+    private UserCollection userInTeam = new UserCollection();
 
-    public Team(String name, String quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, int peopleInTeam) {
+    public Team(String id, String name, String quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, User onwer) {
+        this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.startRecruitDate = startRecruitDate;
         this.endRecruitDate = endRecruitDate;
-        this.peopleInTeam = peopleInTeam;
-    }
-
-    public void joinTeam(User user){
-        if(peopleInTeam < Integer.parseInt(quantity)){
-            peopleInTeam++;
-        }
-    }
-
-    public void leaveTeam(User user){
-        if(peopleInTeam > 0){
-            peopleInTeam--;
-        }
+        this.owner = onwer;
     }
 
     public String getName() {
@@ -69,5 +63,23 @@ public class Team {
         this.peopleInTeam = peopleInTeam;
     }
 
+    public void joinTeam(User user) {
+        this.userInTeam.add(user);
+    }
 
+    public void leaveTeam(User user) {
+        this.userInTeam.remove(user);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public UserCollection getUserInTeam() {
+        return userInTeam;
+    }
 }

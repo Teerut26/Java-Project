@@ -1,5 +1,7 @@
 package cs211.project.models;
 
+import cs211.project.models.collections.EventCollection;
+
 import java.time.LocalDateTime;
 
 public class User {
@@ -11,70 +13,79 @@ public class User {
     private String imageProfile;
     private LocalDateTime lastLogin;
     private String role;
+    private EventCollection eventCollection;
 
-    public User(String id, String nameUser, String userName,String email, String password, LocalDateTime lastLogin){
+    public EventCollection getEventCollection() {
+        return eventCollection;
+    }
+
+    public void setEventCollection(EventCollection eventCollection) {
+        this.eventCollection = eventCollection;
+    }
+
+    public User(String id, String nameUser, String userName, String email, String password, LocalDateTime lastLogin) {
         this.id = id;
         this.nameUser = nameUser;
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.lastLogin =lastLogin;
+        this.lastLogin = lastLogin;
     }
 
-    public void setImageProfile(String imagePath){
+    public void setImageProfile(String imagePath) {
         this.imageProfile = imagePath;
     }
 
-    public void setPassword(String oldPassword, String newPassword, String confirmPassword){
-        if(oldPassword.equals(password)){
-            if(newPassword.equals(confirmPassword)){
+    public void setPassword(String oldPassword, String newPassword, String confirmPassword) {
+        if (oldPassword.equals(password)) {
+            if (newPassword.equals(confirmPassword)) {
                 this.password = newPassword;
             }
         }
     }
 
-    public void setRole(String role){
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
 
-    public String getNameUser(){
+    public String getNameUser() {
         return nameUser;
     }
 
-    public String getUserName(){
+    public String getUserName() {
         return userName;
     }
 
-    public LocalDateTime getLastLogin(){
+    public LocalDateTime getLastLogin() {
         return lastLogin;
     }
 
-    public String getRole(){
+    public String getRole() {
         return role;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
-    public String getImageProfile(){
+    public String getImageProfile() {
         return imageProfile;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
-    public LocalDateTime getLastlogin(){
+    public LocalDateTime getLastlogin() {
         return lastLogin;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "User{" +
                 "ID=" + id + '\'' +
                 ", nameUser=" + nameUser + '\'' +

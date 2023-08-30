@@ -34,5 +34,14 @@ public class TeamCollection {
         return null;
     }
 
+    public Team findById(String id) {
+        for(Team team : this.teams) {
+            if(team.getId().equals(id)) {
+                return team;
+            }
+        }
+        return null;
+    }
+
 
 }

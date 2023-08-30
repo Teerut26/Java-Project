@@ -47,7 +47,7 @@ public class EventCardComponentController {
     @FXML
     void goToDetail(ActionEvent event) {
         try {
-            FXRouter.goTo("event-detail", this.event.getEventID());
+            FXRouter.goTo("event-detail");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
