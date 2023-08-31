@@ -1,6 +1,7 @@
 package cs211.project.controllers.auth;
 
 import cs211.project.models.User;
+import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.datasource.UserFileListDatasource;
 import javafx.fxml.FXML;
@@ -37,6 +38,8 @@ public class LoginPageController {
             TextError.setText("Password is incorrect");
             return;
         }
+
+        Authentication.currentUser = user;
 
         try{
             FXRouter.goTo("event-list");
