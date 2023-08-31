@@ -16,13 +16,13 @@
          </font>
       </Label>
       <Pane prefHeight="100.0" prefWidth="562.0" />
-      <Text onMouseClicked="#goToProfile" strokeType="OUTSIDE" strokeWidth="0.0" text="Teerut">
+      <Text fx:id="username" onMouseClicked="#goToProfile" strokeType="OUTSIDE" strokeWidth="0.0" text="Teerut">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
       <Pane prefHeight="100.0" prefWidth="26.0" />
-      <Button onAction="#goToLogin" mnemonicParsing="false" prefHeight="26.0" prefWidth="94.0" styleClass="btn-error" text="Logout" textFill="WHITE" />
+      <Button mnemonicParsing="false" onAction="#goToLogin" prefHeight="26.0" prefWidth="94.0" styleClass="btn-error" text="Logout" textFill="WHITE" />
    </children>
    <padding>
       <Insets left="35.0" right="35.0" />
