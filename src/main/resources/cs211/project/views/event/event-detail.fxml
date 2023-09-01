@@ -80,7 +80,7 @@
                                     </Label>
                                     <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="547.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#onJoinClick" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
+                                          <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
                                              <font>
                                                 <Font name="Hiragino Sans W7" size="16.0" />
                                              </font>
@@ -116,7 +116,7 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" onAction="#onTeamEventClick" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="TeamEvent">
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="TeamEvent">
                            <font>
                               <Font size="18.0" />
                            </font>
