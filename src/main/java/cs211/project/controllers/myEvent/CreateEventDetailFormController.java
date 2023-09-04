@@ -67,8 +67,8 @@ public class CreateEventDetailFormController extends ComponentRegister {
 
         Event newEvent = new Event(UUID.randomUUID().toString(),
                 TextFieldName.getText(),
-                TextAreaDescription.getText(),
                 addImage.getUserData().toString(),
+                TextAreaDescription.getText(),
                 DataTimeStart.getValue().atStartOfDay(),
                 DataTimeEnd.getValue().atStartOfDay(),
                 Integer.parseInt(TextFieldQuantity.getText()),
@@ -77,6 +77,19 @@ public class CreateEventDetailFormController extends ComponentRegister {
         EventCollection eventOldData = eventFileListDatesource.readData();
         eventOldData.add(newEvent);
         eventFileListDatesource.writeData(eventOldData);
+
+        TextFieldName.clear();
+        addImage.setImage(null);
+        TextAreaDescription.clear();
+        DataTimeStart.setValue(null);
+        DataTimeEnd.setValue(null);
+        TextFieldQuantity.clear();
+
+        try{
+            FXRouter.goTo("my-event");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
     @FXML
