@@ -13,11 +13,13 @@ public class FileIO {
 
     private void checkFileIsExisted() {
         File file = new File(this.filePath);
-        if (!file.exists()) {
-            file.mkdirs();
+        File parentDirectory = file.getParentFile();
+        if (!parentDirectory.exists()) {
+            if (!parentDirectory.mkdirs()) {
+                throw new RuntimeException("Failed to create directory: " + parentDirectory.getAbsolutePath());
+            }
         }
-        String filePath = this.filePath;
-        file = new File(filePath);
+
         if (!file.exists()) {
             try {
                 file.createNewFile();
