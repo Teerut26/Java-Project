@@ -1,6 +1,7 @@
 package cs211.project.controllers.myEvent;
 import cs211.project.models.Event;
 import cs211.project.models.collections.EventCollection;
+import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.utils.ComponentRegister;
@@ -71,7 +72,7 @@ public class CreateEventDetailFormController extends ComponentRegister {
                 DataTimeStart.getValue().atStartOfDay(),
                 DataTimeEnd.getValue().atStartOfDay(),
                 Integer.parseInt(TextFieldQuantity.getText()),
-                null);
+                Authentication.currentUser);
 
         EventCollection eventOldData = eventFileListDatesource.readData();
         eventOldData.add(newEvent);
