@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 public class EventFileListDatesource implements DatasourceInterface<EventCollection> {
     private String basePath = "data/csv/";
-    private String fileName = "comments.csv";
+    private String fileName = "events.csv";
     private FileIO fileIO;
 
     public EventFileListDatesource() {
@@ -99,5 +99,4 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
             }
         }
     }
-
 }
