@@ -36,14 +36,14 @@
                               <Font name="System Bold" size="40.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#onBack" prefHeight="45.0" prefWidth="133.0" styleClass="btn-secondary" text="go back">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
-                           </padding>
-                        </Button>
+<!--                        <Button mnemonicParsing="false" onAction="#onBack" prefHeight="45.0" prefWidth="133.0" styleClass="btn-secondary" text="go back">-->
+<!--                           <font>-->
+<!--                              <Font size="24.0" />-->
+<!--                           </font>-->
+<!--                           <padding>-->
+<!--                              <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />-->
+<!--                           </padding>-->
+<!--                        </Button>-->
                      </children>
                   </HBox>
                   <Pane prefHeight="11.0" prefWidth="946.0" />
@@ -56,7 +56,7 @@
                            <children>
                               <ImageView fitHeight="311.0" fitWidth="296.0" pickOnBounds="true" preserveRatio="true" />
                               <Pane prefHeight="32.0" prefWidth="296.0" />
-                              <Button mnemonicParsing="false" onAction="#importImage" prefHeight="49.0" prefWidth="109.0" styleClass="btn-secondary" text="Import">
+                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="109.0" styleClass="btn-secondary" text="Import">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
