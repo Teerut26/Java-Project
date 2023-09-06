@@ -52,7 +52,7 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <ScrollPane prefHeight="530.0" prefWidth="939.0">
+                  <ScrollPane fx:id="eventListScrollPane" prefHeight="530.0" prefWidth="939.0">
                      <content>
                         <VBox fx:id="vBoxEventlist" prefWidth="931.0" spacing="15.0">
                            <padding>

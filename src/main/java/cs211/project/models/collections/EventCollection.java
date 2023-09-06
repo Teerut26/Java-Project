@@ -12,7 +12,9 @@ public class EventCollection {
     }
 
     public void add(Event event) {
-        this.events.add(event);
+        if (this.findById(event.getEventID()) == null) {
+            this.events.add(event);
+        }
     }
 
     public Event findByName(String name) {
