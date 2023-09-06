@@ -1,5 +1,5 @@
 package cs211.project.models;
-
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.TeamCollection;
 
@@ -37,7 +37,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.withDefaults().hashToString(12, password.toCharArray());
     }
 
     public void setLastLogin(LocalDateTime lastLogin) {
@@ -64,12 +64,17 @@ public class User {
         this.imageProfile = imagePath;
     }
 
-    public void setPassword(String oldPassword, String newPassword, String confirmPassword) {
-        if (oldPassword.equals(password)) {
+    public void changePassword(String oldPassword, String newPassword, String confirmPassword) {
+        if (validatePassword(oldPassword)) {
             if (newPassword.equals(confirmPassword)) {
-                this.password = newPassword;
+                this.password = BCrypt.withDefaults().hashToString(12, password.toCharArray());
             }
         }
+    }
+
+    public boolean validatePassword(String password) {
+        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), this.password);
+        return result.verified;
     }
 
     public void setRole(String role) {

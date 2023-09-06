@@ -1,7 +1,7 @@
 module cs211.project {
     requires javafx.controls;
     requires javafx.fxml;
-    requires org.json;
+    requires bcrypt;
 
     opens cs211.project.router to javafx.fxml;
     exports cs211.project.router;

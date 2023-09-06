@@ -34,43 +34,18 @@ public class EventListController extends ComponentRegister {
     private Label loading;
     @FXML
     private ScrollPane eventListScrollPane;
-
     private int currentBatch = 0;
     private int batchSize = 5;
-    private ExecutorService executor = Executors.newCachedThreadPool();
+    private EventFileListDatesource eventFileListDatesource;
 
     @FXML
     public void initialize() {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml");
+        eventFileListDatesource = new EventFileListDatesource();
 
-        EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
-
-        eventListScrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
-            boolean isLoadmore = currentBatch < eventFileListDatesource.readData().getEvents().size();
-            if (newValue.doubleValue() == 1.0 && isLoadmore) {
-                ExecutorService executorService = Executors.newCachedThreadPool();
-                this.loading.setVisible(true);
-                executorService.execute(() -> {
-                    veryLongOperation();
-                    Platform.runLater(() -> {
-                        loadNextBatch(eventFileListDatesource.readData().getEvents());
-                        loading.setVisible(false);
-                    });
-                });
-                executorService.shutdown();
-            }
-        });
-
-        this.executor.execute(() -> {
-            veryLongOperation();
-            Platform.runLater(() -> {
-                loadNextBatch(eventFileListDatesource.readData().getEvents());
-                loading.setVisible(false);
-            });
-        });
-
-        this.executor.shutdown();
+        this.initEventListScrollPane();
+        this.eventListScrollPaneListener();
     }
 
     private void loadNextBatch(List<Event> events) {
@@ -86,17 +61,41 @@ public class EventListController extends ComponentRegister {
             }
         }
         currentBatch += batchSize;
+    }
 
-//        // Display a "Load More" button if there are more events to load
-//        if (currentBatch < events.size()) {
-//            Button loadMoreButton = new Button("Load More");
-//            loadMoreButton.setOnAction(event -> loadNextBatch(events));
-//            vBoxEventlist.getChildren().add(loadMoreButton);
-//        }
+    public void eventListScrollPaneListener() {
+        this.eventListScrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
+            boolean isLoadmore = currentBatch < eventFileListDatesource.readData().getEvents().size();
+            if (newValue.doubleValue() == 1.0 && isLoadmore) {
+                ExecutorService executorService = Executors.newCachedThreadPool();
+                this.loading.setVisible(true);
+                executorService.execute(() -> {
+                    veryLongOperation();
+                    Platform.runLater(() -> {
+                        loadNextBatch(eventFileListDatesource.readData().getEvents());
+                        loading.setVisible(false);
+                    });
+                });
+                executorService.shutdown();
+            }
+        });
+    }
+
+    public void initEventListScrollPane() {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        executor.execute(() -> {
+            veryLongOperation();
+            Platform.runLater(() -> {
+                loadNextBatch(this.eventFileListDatesource.readData().getEvents());
+                loading.setVisible(false);
+            });
+        });
+
+        executor.shutdown();
     }
 
 
-    public static void veryLongOperation() {
+    private static void veryLongOperation() {
         try {
             Thread.sleep(500);
         } catch (Exception ex) {

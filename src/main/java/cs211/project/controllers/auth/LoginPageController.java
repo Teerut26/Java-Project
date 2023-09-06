@@ -33,7 +33,7 @@ public class LoginPageController {
             return;
         }
 
-        if (!user.getPassword().equals(TextFieldPassword.getText())) {
+        if (!user.validatePassword(TextFieldPassword.getText())) {
             TextError.setVisible(true);
             TextError.setText("Password is incorrect");
             return;

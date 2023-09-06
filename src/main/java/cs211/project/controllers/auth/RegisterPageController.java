@@ -1,5 +1,6 @@
 package cs211.project.controllers.auth;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import cs211.project.models.User;
 import cs211.project.models.collections.UserCollection;
 import cs211.project.services.FXRouter;
@@ -65,7 +66,7 @@ public class RegisterPageController {
                 UUID.randomUUID().toString(),
                 TextFieldName.getText(),
                 TextFieldUsername.getText(),
-                TextFieldPassword.getText(),
+                BCrypt.withDefaults().hashToString(12,  TextFieldPassword.getText().toCharArray()),
                 localDateTime
         );
 
