@@ -36,8 +36,8 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
 
                 String eventID = data[0].trim();
                 String nameEvent = data[1].trim();
-                String imageEvent = data[2].trim();
-                String descriptionEvent = data[3].trim();
+                String descriptionEvent = data[2].trim();
+                String imageEvent = data[3].trim();
                 LocalDateTime startDate = LocalDateTime.parse(data[4].trim());
                 LocalDateTime endDate = LocalDateTime.parse(data[5].trim());
                 Integer quantityEvent = Integer.parseInt(data[6].trim());
@@ -72,7 +72,7 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
 
         try {
             for (Event event : data.getEvents()) {
-                String line = event.getEventID() + "," + event.getNameEvent() + "," + event.getImageEvent() + "," + event.getDescriptionEvent() + "," + event.getStartDate().toString() + "," + event.getEndDate().toString() + "," + event.getQuantityEvent() + "," + event.getOwner().getId();
+                String line = event.getEventID() + "," + event.getNameEvent() + "," + event.getDescriptionEvent() + "," + event.getImageEvent() + "," + event.getStartDate().toString() + "," + event.getEndDate().toString() + "," + event.getQuantityEvent() + "," + event.getOwner().getId();
                 buffer.append(line);
                 buffer.append("\n");
 

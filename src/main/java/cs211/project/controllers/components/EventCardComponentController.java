@@ -34,7 +34,7 @@ public class EventCardComponentController {
     private Event event;
 
     public void setData(Event event) {
-        Image img = new Image(event.getImageEvent());
+        Image img = new Image("file:" + event.getImageEvent());
         image.setFill(new ImagePattern(img));
         this.title.setText(event.getNameEvent());
         this.descriptions.setText(event.getDescriptionEvent());

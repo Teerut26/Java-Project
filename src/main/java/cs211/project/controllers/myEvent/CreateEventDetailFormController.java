@@ -5,6 +5,8 @@ import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.utils.ComponentRegister;
+import cs211.project.utils.ImageSaver;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -38,26 +40,24 @@ public class CreateEventDetailFormController extends ComponentRegister {
     private HBox NavBarHBox;
     @FXML
     private VBox SideBarVBox;
-
-
+    private String eventID;
+    private String imageFilePath;
 
     @FXML
     public void initialize() {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml");
-
+        this.eventID = UUID.randomUUID().toString();
     }
     @FXML
-    public void importImage() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"));
-
-        File selectedFile = fileChooser.showOpenDialog(null);
-
-        if(selectedFile != null){
-            Image image = new Image( selectedFile.toURI().toString());
+    public void importImage(ActionEvent event) {
+        ImageSaver imageSaver = new ImageSaver(this.eventID, "event");
+        imageSaver.saveImage(event);
+        File selectedFile = imageSaver.file;
+        if(imageSaver.file != null){
+            Image image = new Image(selectedFile.toURI().toString());
             addImage.setImage(image);
-            addImage.setUserData(selectedFile.getAbsolutePath());
+            addImage.setUserData("/cs211-661-project-the-dev-squad/data/images/event/"+ this.eventID + ".png");
         }
     }
     @FXML
@@ -65,7 +65,7 @@ public class CreateEventDetailFormController extends ComponentRegister {
 
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
 
-        Event newEvent = new Event(UUID.randomUUID().toString(),
+        Event newEvent = new Event(this.eventID,
                 TextFieldName.getText(),
                 addImage.getUserData().toString(),
                 TextAreaDescription.getText(),
