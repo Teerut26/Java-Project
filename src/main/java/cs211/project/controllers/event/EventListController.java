@@ -44,7 +44,14 @@ public class EventListController extends ComponentRegister {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml");
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
-        this.eventCollection = eventFileListDatesource.readData();
+
+        this.eventCollection = new EventCollection();
+
+        eventFileListDatesource.readData().getEvents().forEach(event -> {
+            if (event.isPublic()) {
+                this.eventCollection.add(event);
+            }
+        });
 
         this.initEventListScrollPane();
         this.eventListScrollPaneListener();

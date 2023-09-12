@@ -3,6 +3,7 @@ package cs211.project.controllers.myEvent;
 import cs211.project.services.FXRouter;
 import cs211.project.utils.ComponentRegister;
 import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -14,6 +15,8 @@ public class MyEventViewController extends ComponentRegister {
     private VBox SideBarVBox;
     @FXML
     private HBox NavBarHBox;
+    @FXML
+    private ScrollPane eventListScrollPane;
 
     @FXML
     public void initialize() {

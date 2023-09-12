@@ -17,7 +17,21 @@ public class Event {
     private UserCollection userInEvent = new UserCollection();
     private TeamCollection teamInEvent = new TeamCollection();
     private User owner;
+    private boolean isPublic = false;
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+    public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, boolean isPublic, User owner) {
+        this.eventID = eventID;
+        this.nameEvent = nameEvent;
+        this.imageEvent = imageEvent;
+        this.descriptionEvent = descriptionEvent;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.quantityEvent = quantityEvent;
+        this.isPublic = isPublic;
+        this.owner = owner;
+    }
+
     public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, User owner) {
         this.eventID = eventID;
         this.nameEvent = nameEvent;
@@ -26,6 +40,7 @@ public class Event {
         this.startDate = startDate;
         this.endDate = endDate;
         this.quantityEvent = quantityEvent;
+        this.isPublic = false;
         this.owner = owner;
     }
 
@@ -127,6 +142,14 @@ public class Event {
 
     public void deleteTeam(Team team) {
         this.teamInEvent.remove(team);
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 
     @Override

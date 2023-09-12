@@ -41,12 +41,13 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
                 LocalDateTime startDate = LocalDateTime.parse(data[4].trim());
                 LocalDateTime endDate = LocalDateTime.parse(data[5].trim());
                 Integer quantityEvent = Integer.parseInt(data[6].trim());
-                String ownerId = data[7].trim();
+                boolean isPublic = Boolean.parseBoolean(data[7].trim());
+                String ownerId = data[8].trim();
 
                 UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
                 User owner = userFileListDatasource.readData().findById(ownerId);
 
-                Event event = new Event(eventID, nameEvent, imageEvent, descriptionEvent, startDate, endDate, quantityEvent, owner);
+                Event event = new Event(eventID, nameEvent, imageEvent, descriptionEvent, startDate, endDate, quantityEvent, isPublic, owner);
 
                 // Read many to many event user file
                 UserCollection userCollection = new UserCollection();
@@ -73,7 +74,7 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
 
         try {
             for (Event event : data.getEvents()) {
-                String line = event.getEventID() + "," + event.getNameEvent() + "," + event.getDescriptionEvent() + "," + event.getImageEvent() + "," + event.getStartDate().toString() + "," + event.getEndDate().toString() + "," + event.getQuantityEvent() + "," + event.getOwner().getId();
+                String line = event.getEventID() + "," + event.getNameEvent() + "," + event.getDescriptionEvent() + "," + event.getImageEvent() + "," + event.getStartDate().toString() + "," + event.getEndDate().toString() + "," + event.getQuantityEvent() + "," + event.isPublic() + "," + event.getOwner().getId();
                 buffer.append(line);
                 buffer.append("\n");
 
