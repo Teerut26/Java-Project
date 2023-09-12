@@ -68,7 +68,6 @@ public class FileIO {
                 StandardCharsets.UTF_8
         );
         BufferedReader buffer = new BufferedReader(inputStreamReader);
-
         return buffer;
     }
 

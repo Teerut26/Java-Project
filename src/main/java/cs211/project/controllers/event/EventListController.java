@@ -2,6 +2,7 @@ package cs211.project.controllers.event;
 
 import cs211.project.controllers.components.EventCardComponentController;
 import cs211.project.models.Event;
+import cs211.project.models.collections.EventCollection;
 import cs211.project.services.FXRouter;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.utils.ComponentLoader;
@@ -36,13 +37,14 @@ public class EventListController extends ComponentRegister {
     private ScrollPane eventListScrollPane;
     private int currentBatch = 0;
     private int batchSize = 5;
-    private EventFileListDatesource eventFileListDatesource;
+    private EventCollection eventCollection;
 
     @FXML
     public void initialize() {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml");
-        eventFileListDatesource = new EventFileListDatesource();
+        EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
+        this.eventCollection = eventFileListDatesource.readData();
 
         this.initEventListScrollPane();
         this.eventListScrollPaneListener();
@@ -65,14 +67,13 @@ public class EventListController extends ComponentRegister {
 
     public void eventListScrollPaneListener() {
         this.eventListScrollPane.vvalueProperty().addListener((observable, oldValue, newValue) -> {
-            boolean isLoadmore = currentBatch < eventFileListDatesource.readData().getEvents().size();
+            boolean isLoadmore = currentBatch < eventCollection.getEvents().size();
             if (newValue.doubleValue() == 1.0 && isLoadmore) {
                 ExecutorService executorService = Executors.newCachedThreadPool();
                 this.loading.setVisible(true);
                 executorService.execute(() -> {
-                    veryLongOperation();
                     Platform.runLater(() -> {
-                        loadNextBatch(eventFileListDatesource.readData().getEvents());
+                        loadNextBatch(eventCollection.getEvents());
                         loading.setVisible(false);
                     });
                 });
@@ -84,23 +85,13 @@ public class EventListController extends ComponentRegister {
     public void initEventListScrollPane() {
         ExecutorService executor = Executors.newCachedThreadPool();
         executor.execute(() -> {
-            veryLongOperation();
             Platform.runLater(() -> {
-                loadNextBatch(this.eventFileListDatesource.readData().getEvents());
+                loadNextBatch(eventCollection.getEvents());
                 loading.setVisible(false);
             });
         });
 
         executor.shutdown();
-    }
-
-
-    private static void veryLongOperation() {
-        try {
-            Thread.sleep(500);
-        } catch (Exception ex) {
-        }
-
     }
 
     @FXML

@@ -59,10 +59,11 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
                 event.setUserInEvent(userCollection);
                 eventCollection.add(event);
             }
+            buffer.close();
         } catch (IOException e) {
+
             throw new RuntimeException(e);
         }
-
         return eventCollection;
     }
 
