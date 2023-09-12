@@ -2,7 +2,6 @@ package cs211.project.utils;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -11,7 +10,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
 
 public class ImageSaver {
     private String filename;
@@ -20,6 +18,7 @@ public class ImageSaver {
     public File file;
     public Path target;
     public String resultPath;
+    public String extention;
 
     public ImageSaver(String filename, String folder) {
         this.filename = filename;
@@ -39,9 +38,9 @@ public class ImageSaver {
                 if (!destDir.exists()) destDir.mkdirs();
 
                 String[] fileSplit = file.getName().split("\\.");
-                String extention = fileSplit[fileSplit.length-1];
+                this.extention = fileSplit[fileSplit.length-1];
 
-                String filename = this.filename + "." + extention;
+                String filename = this.filename + "." +  this.extention;
                 Path target = FileSystems.getDefault().getPath(
                         destDir.getAbsolutePath()+System.getProperty("file.separator")+filename
                 );
@@ -56,3 +55,4 @@ public class ImageSaver {
 
 
 }
+
