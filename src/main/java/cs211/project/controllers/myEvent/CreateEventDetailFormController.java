@@ -57,7 +57,7 @@ public class CreateEventDetailFormController extends ComponentRegister {
         if(imageSaver.file != null){
             Image image = new Image(selectedFile.toURI().toString());
             addImage.setImage(image);
-            addImage.setUserData("/cs211-661-project-the-dev-squad/data/images/event/"+ this.eventID + ".png");
+            addImage.setUserData("data/images/event/"+ this.eventID + ".png");
         }
     }
     @FXML
