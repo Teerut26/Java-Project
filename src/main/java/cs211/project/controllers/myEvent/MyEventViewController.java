@@ -31,7 +31,7 @@ public class MyEventViewController extends ComponentRegister {
     public void initialize() {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml");
-        eventFileListDatesource = new EventFileListDatesource();
+
 
     }
 
