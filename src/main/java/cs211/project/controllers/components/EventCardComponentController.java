@@ -2,6 +2,7 @@ package cs211.project.controllers.components;
 
 import cs211.project.models.Event;
 import cs211.project.services.FXRouter;
+import cs211.project.services.RouteProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -47,13 +48,11 @@ public class EventCardComponentController {
     @FXML
     void goToDetail(ActionEvent event) {
         try {
-            FXRouter.goTo("event-detail");
+            FXRouter.goTo("event-detail", new RouteProvider<Event>(this.event));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
-
 
 
 }
