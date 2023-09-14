@@ -1,7 +1,15 @@
 package cs211.project.controllers.event;
 
 import cs211.project.models.Event;
+import cs211.project.models.ManyToMany;
+import cs211.project.models.collections.EventCollection;
+import cs211.project.models.collections.ManyToManyCollection;
+import cs211.project.models.collections.UserCollection;
+import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
+import cs211.project.services.ManyToManyManager;
+import cs211.project.services.datasource.EventFileListDatesource;
+import cs211.project.services.datasource.ManyToManyFileListDatasource;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.services.RouteProvider;
 import javafx.fxml.FXML;
@@ -57,6 +65,20 @@ public class EventDetailController extends ComponentRegister {
     @FXML
     public void onBack() {
         try {
+            FXRouter.goTo("event-list");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onJoin() {
+        try {
+
+            // TODO: Add user to event
+            ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
+            manyToManyManager.add(new ManyToMany(this.event.getEventID(), Authentication.currentUser.getId()));
+
             FXRouter.goTo("event-list");
         } catch (IOException e) {
             throw new RuntimeException(e);

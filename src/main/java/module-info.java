@@ -2,6 +2,7 @@ module cs211.project {
     requires javafx.controls;
     requires javafx.fxml;
     requires bcrypt;
+    requires org.apache.commons.csv;
 
     opens cs211.project.router to javafx.fxml;
     exports cs211.project.router;

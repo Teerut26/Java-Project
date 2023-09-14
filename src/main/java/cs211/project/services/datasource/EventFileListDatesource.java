@@ -24,11 +24,13 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
 
     @Override
     public EventCollection readData() {
-        EventCollection eventCollection = new EventCollection();
-        BufferedReader buffer = this.fileIO.reader();
 
+        BufferedReader buffer = this.fileIO.reader();
         String line = "";
         try {
+            UserCollection userFileListDatasourceCollection = new UserFileListDatasource().readData();
+            EventCollection eventCollection = new EventCollection();
+
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
 
@@ -44,28 +46,24 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
                 boolean isPublic = Boolean.parseBoolean(data[7].trim());
                 String ownerId = data[8].trim();
 
-                UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-                User owner = userFileListDatasource.readData().findById(ownerId);
-
+                User owner = userFileListDatasourceCollection.findById(ownerId);
                 Event event = new Event(eventID, nameEvent, imageEvent, descriptionEvent, startDate, endDate, quantityEvent, isPublic, owner);
 
-                // Read many to many event user file
-                UserCollection userCollection = new UserCollection();
-                ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-                manyToManyFileListDatasource.readData().findsByA(eventID).forEach((userID) -> {
-                    User user = userFileListDatasource.readData().findById(userID.getB());
-                    userCollection.add(user);
-                });
-
-                event.setUserInEvent(userCollection);
                 eventCollection.add(event);
             }
-            buffer.close();
+            return eventCollection;
         } catch (IOException e) {
-
             throw new RuntimeException(e);
+        } finally {
+            if (buffer != null) {
+                try {
+                    buffer.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
-        return eventCollection;
+
     }
 
     @Override
@@ -78,16 +76,18 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
                 buffer.append(line);
                 buffer.append("\n");
 
-                if (event.getUserInEvent() != null) {
-                    ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-                    ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
-                    manyToManyCollection.setManyToManies(manyToManyFileListDatasource.readData().getManyToManies());
-                    event.getUserInEvent().getUsers().forEach((user) -> {
-                        ManyToMany manyToMany = new ManyToMany(event.getEventID(), user.getId());
-                        manyToManyCollection.add(manyToMany);
-                    });
-                    manyToManyFileListDatasource.writeData(manyToManyCollection);
-                }
+                System.out.println(event.getUserInEvent());
+
+//                if (event.getUserInEvent() != null) {
+//                    ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
+//                    ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
+//                    manyToManyCollection.setManyToManies(manyToManyFileListDatasource.readData().getManyToManies());
+//                    event.getUserInEvent().getUsers().forEach((user) -> {
+//                        ManyToMany manyToMany = new ManyToMany(event.getEventID(), user.getId());
+//                        manyToManyCollection.add(manyToMany);
+//                    });
+//                    manyToManyFileListDatasource.writeData(manyToManyCollection);
+//                }
 
             }
         } catch (IOException e) {
