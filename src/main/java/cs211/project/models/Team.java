@@ -18,13 +18,13 @@ public class Team {
         return event;
     }
 
-    public Team(String id, String name, String quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, User onwer, Event event) {
+    public Team(String id, String name, String quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, User owner, Event event) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.startRecruitDate = startRecruitDate;
         this.endRecruitDate = endRecruitDate;
-        this.owner = onwer;
+        this.owner = owner;
         this.event = event;
     }
 

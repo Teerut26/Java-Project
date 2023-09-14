@@ -5,6 +5,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -12,34 +13,42 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.CreateTeamController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.CreateTeamController">
    <children>
-      <BorderPane prefHeight="720.0" prefWidth="1280.0">
+      <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
          <top>
-            <HBox fx:id="NavBarHBox" alignment="CENTER_LEFT" maxWidth="1280.0" minWidth="1280.0" prefHeight="100.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets left="35.0" right="35.0" />
-               </padding>
-            </HBox>
+            <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox fx:id="NavBarHBox" alignment="CENTER_LEFT" layoutY="-6.0" maxWidth="1280.0" minWidth="1280.0" prefHeight="100.0" prefWidth="1280.0">
+                     <padding>
+                        <Insets left="35.0" right="35.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
          </top>
          <left>
-            <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </VBox>
+            <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0">
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
          </left>
          <right>
-            <VBox prefHeight="620.0" prefWidth="947.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="651.0" prefWidth="956.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="51.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
                      <children>
-                        <Label prefHeight="75.0" prefWidth="784.0" text=" Create Team" textAlignment="CENTER">
+                        <Label maxWidth="1280.0" prefWidth="0.0" text="Create Team" HBox.hgrow="ALWAYS">
                            <font>
-                              <Font name="System Bold" size="40.0" />
+                              <Font name="System Bold" size="36.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" prefHeight="69.0" prefWidth="154.0" style="-fx-background-color: #E8E8E8; -fx-background-radius: 16; -fx-border-radius: 16;" text="go back">
+                        <Button mnemonicParsing="false" onAction="#onBack" prefHeight="45.0" prefWidth="133.0" styleClass="btn-secondary" text="go back">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -48,78 +57,146 @@
                            </padding>
                         </Button>
                      </children>
+                     <opaqueInsets>
+                        <Insets left="25.0" right="25.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="25.0" right="25.0" />
+                     </padding>
                   </HBox>
-                  <Pane prefHeight="23.0" prefWidth="947.0" />
-                  <VBox prefHeight="526.0" prefWidth="931.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                  <HBox prefHeight="495.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
                      <children>
-                        <Label prefHeight="65.0" prefWidth="931.0" text=" Name">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <HBox prefHeight="56.0" prefWidth="200.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="408.0" spacing="20.0">
                            <children>
-                              <Pane prefHeight="52.0" prefWidth="10.0" />
-                              <TextField prefHeight="56.0" prefWidth="931.0" promptText="event name" style="-fx-background-color: FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;">
+                              <ImageView fx:id="addImage" fitHeight="313.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Button mnemonicParsing="false" onAction="#importImage" styleClass="btn-secondary" text="Import">
                                  <font>
-                                    <Font size="20.0" />
+                                    <Font size="24.0" />
                                  </font>
-                              </TextField>
+                                 <padding>
+                                    <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+                                 </padding>
+                              </Button>
                            </children>
-                        </HBox>
-                        <Label prefHeight="65.0" prefWidth="931.0" text=" Quantity">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <HBox prefHeight="52.0" prefWidth="200.0">
-                           <children>
-                              <Pane prefHeight="52.0" prefWidth="10.0" />
-                              <TextField prefHeight="52.0" prefWidth="931.0" promptText="quantity" style="-fx-background-color: FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </TextField>
-                           </children>
-                        </HBox>
-                        <VBox prefHeight="90.0" prefWidth="931.0">
-                           <children>
-                              <HBox prefHeight="109.0" prefWidth="931.0">
-                                 <children>
-                                    <Label prefHeight="51.0" prefWidth="463.0" text=" Start Date">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Label prefHeight="51.0" prefWidth="460.0" text=" End Date">
-                                       <font>
-                                          <Font name="System Bold" size="24.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="98.0" prefWidth="931.0">
-                                 <children>
-                                    <Pane prefHeight="52.0" prefWidth="10.0" />
-                                    <DatePicker prefHeight="60.0" prefWidth="259.0" />
-                                    <Pane prefHeight="40.0" prefWidth="210.0" />
-                                    <DatePicker prefHeight="60.0" prefWidth="259.0" />
-                                 </children>
-                              </HBox>
-                           </children>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
                         </VBox>
-                        <Pane prefHeight="50.0" prefWidth="947.0" />
-                        <Button mnemonicParsing="false" onAction="#onSaveClick" prefHeight="52.0" prefWidth="134.0" styleClass="btn-secondary-active" text="Save">
+                        <VBox prefHeight="546.0" prefWidth="688.0" spacing="10.0">
+                           <padding>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </padding>
+                           <children>
+                              <HBox prefHeight="29.0" prefWidth="560.0" spacing="16.0">
+                                 <children>
+                                    <Label text="Team Name">
+                                       <font>
+                                          <Font name="Hiragino Sans W6" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="540.0">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <TextField fx:id="TextFieldTeamName" prefHeight="50.0" prefWidth="400.0" promptText="Team Name" styleClass="input">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="23.0" prefWidth="560.0" spacing="16.0">
+                                 <children>
+                                    <Label prefHeight="16.0" prefWidth="155.0" text="Quantity">
+                                       <font>
+                                          <Font name="Hiragino Sans W6" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="540.0">
+                                 <children>
+                                    <TextField fx:id="TextFieldQuantity" prefHeight="50.0" prefWidth="400.0" promptText="Quantity" styleClass="input">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="29.0" prefWidth="560.0" spacing="16.0">
+                                 <children>
+                                    <Label text="Opening Date">
+                                       <font>
+                                          <Font name="Hiragino Sans W6" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Pane prefHeight="29.0" prefWidth="48.0" />
+                                    <Label text="Deadline">
+                                       <font>
+                                          <Font name="Hiragino Sans W6" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="540.0">
+                                 <children>
+                                    <DatePicker fx:id="DateOpeningDate" prefHeight="38.0" prefWidth="185.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </DatePicker>
+                                    <Pane prefHeight="56.0" prefWidth="70.0" />
+                                    <DatePicker fx:id="DataDeadline" prefHeight="38.0" prefWidth="185.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="20.0" top="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onCancel" prefHeight="45.0" prefWidth="135.0" styleClass="btn-error" text="Cancel">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Hiragino Sans W6" size="24.0" />
                            </font>
-                           <VBox.margin>
-                              <Insets left="20.0" />
-                           </VBox.margin>
+                        </Button>
+                        <Pane prefHeight="63.0" prefWidth="26.0" />
+                        <Button mnemonicParsing="false" onAction="#onSave" prefHeight="45.0" prefWidth="135.0" styleClass="btn-primary-active" text="save">
+                           <font>
+                              <Font name="Hiragino Sans W6" size="24.0" />
+                           </font>
                         </Button>
                      </children>
-                  </VBox>
+                  </HBox>
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
             </VBox>
          </right>
       </BorderPane>
