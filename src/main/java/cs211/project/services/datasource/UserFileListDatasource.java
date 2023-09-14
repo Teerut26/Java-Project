@@ -36,36 +36,20 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
                 String password = data[3].trim();
                 LocalDateTime lastLogin = LocalDateTime.parse(data[4].trim());
 
-                // Read many to many event user file
-                EventCollection MTM_EventUserCollection = new EventCollection();
-                ManyToManyFileListDatasource MTM_EventUserFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-                MTM_EventUserFileListDatasource.readData().findsByB(id).forEach((event) -> {
-                    EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
-                    Event event1 = eventFileListDatesource.readData().findById(event.getA());
-                    MTM_EventUserCollection.add(event1);
-                });
-
-                // Read many to many team user file
-                TeamCollection MTM_TeamUserCollection = new TeamCollection();
-                ManyToManyFileListDatasource MTM_TeamUserFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_TEAM_USER);
-                MTM_TeamUserFileListDatasource.readData().findsByB(id).forEach((team) -> {
-                    TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
-                    Team team1 = teamFileListDatasource.readData().findById(team.getA());
-                    MTM_TeamUserCollection.add(team1);
-                });
-
                 User user = new User(id, nameUser, userName, password, lastLogin);
-
-                user.setEventCollection(MTM_EventUserCollection);
-                user.setTeamCollection(MTM_TeamUserCollection);
 
                 userCollection.add(user);
             }
+            return userCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }finally {
+            try {
+                buffer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
-
-        return userCollection;
     }
 
     @Override
@@ -75,32 +59,6 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
         try {
             for (User user : data.getUsers()) {
                 String line = user.getId() + "," + user.getNameUser() + "," + user.getUserName() + "," + user.getPassword() + "," + user.getLastLogin().toString();
-
-                // Write many to many event user
-                if (user.getEventCollection() != null) {
-                    ManyToManyFileListDatasource MTM_EventUserFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-                    ManyToManyCollection MTM_EventUserCollection = new ManyToManyCollection();
-                    MTM_EventUserCollection.setManyToManies(MTM_EventUserFileListDatasource.readData().getManyToManies());
-                    user.getEventCollection().getEvents().forEach((event) -> {
-                        ManyToMany manyToMany = new ManyToMany(event.getEventID(), user.getId());
-                        MTM_EventUserCollection.add(manyToMany);
-                    });
-                    MTM_EventUserFileListDatasource.writeData(MTM_EventUserCollection);
-                }
-
-
-                // Write many to many team user file
-                if (user.getTeamCollection() != null) {
-                    ManyToManyFileListDatasource MTM_TeamUserFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_TEAM_USER);
-                    ManyToManyCollection MTM_TeamUserCollection = new ManyToManyCollection();
-                    MTM_TeamUserCollection.setManyToManies(MTM_TeamUserFileListDatasource.readData().getManyToManies());
-                    user.getTeamCollection().getTeams().forEach((team) -> {
-                        ManyToMany manyToMany = new ManyToMany(team.getId(), user.getId());
-                        MTM_TeamUserCollection.add(manyToMany);
-                    });
-                    MTM_TeamUserFileListDatasource.writeData(MTM_TeamUserCollection);
-                }
-
                 buffer.append(line);
                 buffer.append("\n");
             }

@@ -21,11 +21,12 @@ public class ActivitiesFileListDatesource implements DatasourceInterface<Activit
 
     @Override
     public ActivitiesCollection readData() {
-        ActivitiesCollection activitiesCollection = new ActivitiesCollection();
         BufferedReader buffer = this.fileIO.reader();
 
         String line = "";
         try {
+            ActivitiesCollection activitiesCollection = new ActivitiesCollection();
+
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
 
@@ -45,11 +46,19 @@ public class ActivitiesFileListDatesource implements DatasourceInterface<Activit
 
                 activitiesCollection.add(activities);
             }
+
+            return activitiesCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }finally {
+            try {
+                buffer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        return activitiesCollection;
+
     }
 
     @Override

@@ -11,8 +11,8 @@ import java.nio.charset.StandardCharsets;
 public class ManyToManyFileListDatasource implements DatasourceInterface<ManyToManyCollection> {
     private String basePath = "data/csv/mtm/";
     private String fileName;
-    public static String MTM_EVENT_USER = "_eventToUser.csv";
-    public static String MTM_TEAM_USER = "_teamToUser.csv";
+    public String MTM_USER_EVENT = "_userToEvent.csv";
+    public String MTM_USER_TEAM = "_userToTeam.csv";
     private FileIO fileIO;
 
     public ManyToManyFileListDatasource(String fileName) {
@@ -20,13 +20,19 @@ public class ManyToManyFileListDatasource implements DatasourceInterface<ManyToM
         this.fileIO = new FileIO(this.basePath + this.fileName);
     }
 
+    public ManyToManyFileListDatasource() {
+        this.fileName = null;
+        this.fileIO = new FileIO(this.basePath + this.fileName);
+    }
+
     @Override
     public ManyToManyCollection readData() {
-        ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
         BufferedReader buffer = this.fileIO.reader();
 
         String line = "";
         try {
+            ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
+
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
 
@@ -39,11 +45,19 @@ public class ManyToManyFileListDatasource implements DatasourceInterface<ManyToM
 
                 manyToManyCollection.add(manyToMany);
             }
+
+            return manyToManyCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            try {
+                buffer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        return manyToManyCollection;
+
     }
 
     @Override

@@ -21,11 +21,12 @@ public class CommentFileListDatesource implements DatasourceInterface<CommentCol
 
     @Override
     public CommentCollection readData() {
-        CommentCollection commentCollection = new CommentCollection();
         BufferedReader buffer = this.fileIO.reader();
 
         String line = "";
         try {
+            CommentCollection commentCollection = new CommentCollection();
+
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
 
@@ -43,11 +44,19 @@ public class CommentFileListDatesource implements DatasourceInterface<CommentCol
 
                 commentCollection.add(comment);
             }
+
+            return commentCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            try {
+                buffer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        return commentCollection;
+
     }
 
     @Override
