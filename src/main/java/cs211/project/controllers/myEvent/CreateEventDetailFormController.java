@@ -52,22 +52,23 @@ public class CreateEventDetailFormController extends ComponentRegister {
     @FXML
     public void importImage(ActionEvent event) {
         ImageSaver imageSaver = new ImageSaver(this.eventID, "event");
-        imageSaver.saveImage(event);
+        imageSaver.selectFile(event);
         File selectedFile = imageSaver.file;
         if(imageSaver.file != null){
             Image image = new Image(selectedFile.toURI().toString());
             addImage.setImage(image);
-            addImage.setUserData("data/images/event/"+ this.eventID + "."+ imageSaver.extention);
+            addImage.setUserData(imageSaver);
         }
     }
     @FXML
     public void onSave() {
-
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
+        ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
+        imageSaver.saveImage();
 
         Event newEvent = new Event(this.eventID,
                 TextFieldName.getText(),
-                addImage.getUserData().toString(),
+                "data/images/event/"+ this.eventID + "."+ imageSaver.extention,
                 TextAreaDescription.getText(),
                 DataTimeStart.getValue().atStartOfDay(),
                 DataTimeEnd.getValue().atStartOfDay(),

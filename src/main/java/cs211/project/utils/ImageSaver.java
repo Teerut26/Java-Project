@@ -28,9 +28,7 @@ public class ImageSaver {
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("images PNG JPG", "*.png", "*.jpg", "*.jpeg"));
     }
 
-    public void saveImage(ActionEvent event) {
-        Node source = (Node) event.getSource();
-        file = chooser.showOpenDialog(source.getScene().getWindow());
+    public void saveImage() {
         if (file != null){
             try {
                 File destDir = new File("data/images/"+folder);
@@ -51,6 +49,11 @@ public class ImageSaver {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void selectFile(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        file = chooser.showOpenDialog(source.getScene().getWindow());
     }
 
 
