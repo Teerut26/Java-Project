@@ -26,7 +26,7 @@ public class SetEventDetailController extends ComponentRegister {
     @FXML
     public void onBack() {
         try {
-            FXRouter.goTo("my-event");
+            FXRouter.goTo("my-event", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
