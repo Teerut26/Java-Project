@@ -4,6 +4,7 @@ import cs211.project.controllers.components.EventCardComponentController;
 import cs211.project.models.Event;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.services.FXRouter;
+import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.utils.ComponentLoader;
 import cs211.project.utils.ComponentRegister;
@@ -38,11 +39,14 @@ public class EventListController extends ComponentRegister {
     private int currentBatch = 0;
     private int batchSize = 5;
     private EventCollection eventCollection;
+    private RouteProvider routeProvider;
 
     @FXML
     public void initialize() {
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml");
+        routeProvider = (RouteProvider) FXRouter.getData();
+
+        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
 
         this.eventCollection = new EventCollection();
@@ -64,6 +68,7 @@ public class EventListController extends ComponentRegister {
                 Pane eventCardComponent = fxmlLoader.load();
                 EventCardComponentController eventCardComponentController = fxmlLoader.getController();
                 eventCardComponentController.setData(events.get(i));
+                eventCardComponentController.setRouteProvider(this.routeProvider);
                 vBoxEventlist.getChildren().add(eventCardComponent);
             } catch (IOException e) {
                 throw new RuntimeException(e);

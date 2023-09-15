@@ -3,6 +3,7 @@ package cs211.project.controllers.auth;
 import cs211.project.models.User;
 import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
+import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.UserFileListDatasource;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,9 +14,12 @@ import java.io.IOException;
 
 public class LoginPageController {
 
-    @FXML private TextField TextFieldUsername;
-    @FXML private TextField TextFieldPassword;
-    @FXML private Text TextError;
+    @FXML
+    private TextField TextFieldUsername;
+    @FXML
+    private TextField TextFieldPassword;
+    @FXML
+    private Text TextError;
 
     @FXML
     public void initialize() {
@@ -39,17 +43,19 @@ public class LoginPageController {
             return;
         }
 
-        Authentication.currentUser = user;
+        try {
+            RouteProvider routeProvider = new RouteProvider();
+            routeProvider.setUserSession(user);
 
-        try{
-            FXRouter.goTo("event-list");
+            FXRouter.goTo("event-list", routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
-    public void onSignUpButtonClick(){
-        try{
+    public void onSignUpButtonClick() {
+        try {
             FXRouter.goTo("register-page");
         } catch (IOException e) {
             throw new RuntimeException(e);

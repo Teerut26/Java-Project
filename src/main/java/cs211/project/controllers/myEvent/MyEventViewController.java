@@ -5,6 +5,7 @@ import cs211.project.models.Event;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
+import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.utils.ComponentLoader;
 import cs211.project.utils.ComponentRegister;
@@ -37,18 +38,20 @@ public class MyEventViewController extends ComponentRegister {
     private int currentBatch = 0;
     private int batchSize = 5;
     private EventCollection eventCollection;
+    private RouteProvider routeProvider;
 
     @FXML
     public void initialize() {
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml");
+        routeProvider = (RouteProvider) FXRouter.getData();
+        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
         this.eventCollection = new EventCollection();
 
         eventFileListDatesource.readData().getEvents().forEach(event -> {
 
-            if (Authentication.currentUser.getId().equals(event.getOwner().getId())){
+            if (this.routeProvider.getUserSession().getId().equals(event.getOwner().getId())) {
                 this.eventCollection.add(event);
             }
         });
@@ -105,7 +108,7 @@ public class MyEventViewController extends ComponentRegister {
     @FXML
     public void goToCreateEvent() {
         try {
-            FXRouter.goTo("create-event-detail-form");
+            FXRouter.goTo("create-event-detail-form",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

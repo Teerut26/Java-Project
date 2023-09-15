@@ -33,6 +33,11 @@ public class EventCardComponentController {
     private Label title;
 
     private Event event;
+    private RouteProvider routeProvider;
+
+    public void setRouteProvider(RouteProvider routeProvider) {
+        this.routeProvider = routeProvider;
+    }
 
     public void setData(Event event) {
         Image img = new Image("file:" + event.getImageEvent());
@@ -48,7 +53,9 @@ public class EventCardComponentController {
     @FXML
     void goToDetail(ActionEvent event) {
         try {
-            FXRouter.goTo("event-detail", new RouteProvider<Event>(this.event));
+            RouteProvider routeProviderWithEvent = new RouteProvider<Event>(this.event);
+            routeProviderWithEvent.setUserSession(this.routeProvider.getUserSession());
+            FXRouter.goTo("event-detail", routeProviderWithEvent);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

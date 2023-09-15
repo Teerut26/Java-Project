@@ -1,8 +1,10 @@
 package cs211.project.controllers.myEvent;
+
 import cs211.project.models.Event;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
+import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.utils.ImageSaver;
@@ -16,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -42,24 +45,28 @@ public class CreateEventDetailFormController extends ComponentRegister {
     private VBox SideBarVBox;
     private String eventID;
     private String imageFilePath;
+    private RouteProvider routeProvider;
 
     @FXML
     public void initialize() {
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml");
+        routeProvider = (RouteProvider) FXRouter.getData();
+        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.eventID = UUID.randomUUID().toString();
     }
+
     @FXML
     public void importImage(ActionEvent event) {
         ImageSaver imageSaver = new ImageSaver(this.eventID, "event");
         imageSaver.selectFile(event);
         File selectedFile = imageSaver.file;
-        if(imageSaver.file != null){
+        if (imageSaver.file != null) {
             Image image = new Image(selectedFile.toURI().toString());
             addImage.setImage(image);
             addImage.setUserData(imageSaver);
         }
     }
+
     @FXML
     public void onSave() {
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
@@ -68,12 +75,12 @@ public class CreateEventDetailFormController extends ComponentRegister {
 
         Event newEvent = new Event(this.eventID,
                 TextFieldName.getText(),
-                "data/images/event/"+ this.eventID + "."+ imageSaver.extention,
+                "data/images/event/" + this.eventID + "." + imageSaver.extention,
                 TextAreaDescription.getText(),
                 DataTimeStart.getValue().atStartOfDay(),
                 DataTimeEnd.getValue().atStartOfDay(),
                 Integer.parseInt(TextFieldQuantity.getText()),
-                Authentication.currentUser);
+                routeProvider.getUserSession());
 
         EventCollection eventOldData = eventFileListDatesource.readData();
         eventOldData.add(newEvent);
@@ -86,13 +93,14 @@ public class CreateEventDetailFormController extends ComponentRegister {
         DataTimeEnd.setValue(null);
         TextFieldQuantity.clear();
 
-        try{
+        try {
             FXRouter.goTo("my-event");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
     }
+
     @FXML
     public void onCancel() {
         TextFieldName.clear();
@@ -103,8 +111,10 @@ public class CreateEventDetailFormController extends ComponentRegister {
         TextFieldQuantity.clear();
 
     }
-    @FXML public void onBack(){
-        try{
+
+    @FXML
+    public void onBack() {
+        try {
             FXRouter.goTo("my-event");
         } catch (IOException e) {
             throw new RuntimeException(e);

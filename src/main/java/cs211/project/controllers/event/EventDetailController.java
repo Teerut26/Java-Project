@@ -40,11 +40,13 @@ public class EventDetailController extends ComponentRegister {
     @FXML
     private Label maxUserAmount;
     private Event event;
+    private RouteProvider routeProvider;
 
     @FXML
     public void initialize() {
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml");
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml");
+        routeProvider = (RouteProvider) FXRouter.getData();
+        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         RouteProvider<Event> routeProvider = (RouteProvider<Event>) FXRouter.getData();
         this.event = routeProvider.getData();
@@ -65,7 +67,7 @@ public class EventDetailController extends ComponentRegister {
     @FXML
     public void onBack() {
         try {
-            FXRouter.goTo("event-list");
+            FXRouter.goTo("event-list", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -75,11 +77,16 @@ public class EventDetailController extends ComponentRegister {
     public void onJoin() {
         try {
 
+            if (this.routeProvider.getUserSession().getId().equals(this.event.getOwner().getId())) {
+                System.out.println("you are owner this event");
+                return;
+            }
+
             // TODO: Add user to event
             ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
-            manyToManyManager.add(new ManyToMany(this.event.getEventID(), Authentication.currentUser.getId()));
+            manyToManyManager.add(new ManyToMany(this.routeProvider.getUserSession().getId(), this.event.getEventID()));
 
-            FXRouter.goTo("event-list");
+            FXRouter.goTo("event-list", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

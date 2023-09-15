@@ -17,6 +17,10 @@ public class RouteProvider<T> {
         this.dataArrayList = dataArrayList;
     }
 
+    public RouteProvider() {
+        this.data = null;
+    }
+
     public T getData() {
         return data;
     }
