@@ -12,7 +12,7 @@ public class User {
     private String password;
     private String imageProfile;
     private LocalDateTime lastLogin;
-    private String role;
+    private String role = "user";
     private EventCollection eventCollection;
     private TeamCollection teamCollection;
 
@@ -21,6 +21,15 @@ public class User {
         this.nameUser = nameUser;
         this.userName = userName;
         this.password = password;
+        this.lastLogin = lastLogin;
+    }
+
+    public User(String id, String nameUser, String userName, String password, String role, LocalDateTime lastLogin) {
+        this.id = id;
+        this.nameUser = nameUser;
+        this.userName = userName;
+        this.password = password;
+        this.role = role;
         this.lastLogin = lastLogin;
     }
 

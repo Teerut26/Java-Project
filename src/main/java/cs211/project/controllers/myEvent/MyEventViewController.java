@@ -68,6 +68,8 @@ public class MyEventViewController extends ComponentRegister {
                 Pane eventCardComponent = fxmlLoader.load();
                 EventCardComponentController eventCardComponentController = fxmlLoader.getController();
                 eventCardComponentController.setData(events.get(i));
+                eventCardComponentController.setCustomPath("set-event-detail");
+                eventCardComponentController.setRouteProvider(this.routeProvider);
                 vBoxEventlist.getChildren().add(eventCardComponent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
