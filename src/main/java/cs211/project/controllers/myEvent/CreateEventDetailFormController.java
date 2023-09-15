@@ -46,6 +46,8 @@ public class CreateEventDetailFormController extends ComponentRegister {
     private String eventID;
     private String imageFilePath;
     private RouteProvider routeProvider;
+    private EventFileListDatesource eventFileListDatesource;
+    private EventCollection eventCollection;
 
     @FXML
     public void initialize() {
@@ -53,6 +55,10 @@ public class CreateEventDetailFormController extends ComponentRegister {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.eventID = UUID.randomUUID().toString();
+
+        eventFileListDatesource = new EventFileListDatesource();
+        eventCollection = eventFileListDatesource.readData();
+
     }
 
     @FXML
@@ -69,7 +75,7 @@ public class CreateEventDetailFormController extends ComponentRegister {
 
     @FXML
     public void onSave() {
-        EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
+
         ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
         imageSaver.saveImage();
 
@@ -82,9 +88,8 @@ public class CreateEventDetailFormController extends ComponentRegister {
                 Integer.parseInt(TextFieldQuantity.getText()),
                 routeProvider.getUserSession());
 
-        EventCollection eventOldData = eventFileListDatesource.readData();
-        eventOldData.add(newEvent);
-        eventFileListDatesource.writeData(eventOldData);
+        eventCollection.add(newEvent);
+        eventFileListDatesource.writeData(eventCollection);
 
         TextFieldName.clear();
         addImage.setImage(null);
@@ -115,7 +120,7 @@ public class CreateEventDetailFormController extends ComponentRegister {
     @FXML
     public void onBack() {
         try {
-            FXRouter.goTo("my-event");
+            FXRouter.goTo("my-event",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

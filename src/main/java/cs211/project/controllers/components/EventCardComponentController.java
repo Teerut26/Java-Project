@@ -32,6 +32,8 @@ public class EventCardComponentController {
     @FXML
     private Label title;
 
+    private String customPath = null;
+
     private Event event;
     private RouteProvider routeProvider;
 
@@ -50,12 +52,16 @@ public class EventCardComponentController {
         this.event = event;
     }
 
+    public void setCustomPath(String customPath) {
+        this.customPath = customPath;
+    }
+
     @FXML
     void goToDetail(ActionEvent event) {
         try {
             RouteProvider routeProviderWithEvent = new RouteProvider<Event>(this.event);
             routeProviderWithEvent.setUserSession(this.routeProvider.getUserSession());
-            FXRouter.goTo("event-detail", routeProviderWithEvent);
+            FXRouter.goTo(this.customPath == null ? "event-detail" : this.customPath , routeProviderWithEvent);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -109,7 +109,7 @@ public class EventListController extends ComponentRegister {
     @FXML
     public void onGotoDetail() {
         try {
-            FXRouter.goTo("event-detail");
+            FXRouter.goTo("event-detail",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
