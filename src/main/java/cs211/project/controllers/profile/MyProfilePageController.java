@@ -54,10 +54,8 @@ public class MyProfilePageController extends ComponentRegister {
         TextFieldName.setText(user.getNameUser());
         TextFieldUserName.setText(user.getUserName());
         TextFieldUserName.setEditable(false);
-        image = new Image("file" + user.getImageProfile());
-        if (image != null){
-            addImage.setImage(image);
-        }
+
+
     }
 
     @FXML
@@ -82,7 +80,6 @@ public class MyProfilePageController extends ComponentRegister {
                 errorLabel.setText("Name already taken");
             } else {
                 user.setNameUser(TextFieldName.getText());
-                errorLabel.setText("");
             }
         }
         ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
@@ -94,14 +91,6 @@ public class MyProfilePageController extends ComponentRegister {
     public void onChangePasswordClick() {
         try {
             FXRouter.goTo("change-password-profile-page",this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @FXML
-    public void onGoBack(){
-        try {
-            FXRouter.goTo("event-list",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
