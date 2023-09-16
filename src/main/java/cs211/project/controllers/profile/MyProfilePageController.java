@@ -54,13 +54,22 @@ public class MyProfilePageController extends ComponentRegister {
         TextFieldName.setText(user.getNameUser());
         TextFieldUserName.setText(user.getUserName());
         TextFieldUserName.setEditable(false);
+        this.initProfile();
+    }
 
+    void initProfile() {
+        System.out.println(user);
+        if (user.getImageProfile() != null) {
 
+            image = new Image("file:" +  user.getImageProfile());
+            addImage.setImage(image);
+        }
     }
 
     @FXML
     public void importImage(ActionEvent event) {
-        ImageSaver imageSaver = new ImageSaver(this.profileID, "profile");
+        String userID = this.routeProvider.getUserSession().getId();
+        ImageSaver imageSaver = new ImageSaver(userID, "user");
         imageSaver.selectFile(event);
         File selectedFile = imageSaver.file;
         if (imageSaver.file != null) {
@@ -73,6 +82,7 @@ public class MyProfilePageController extends ComponentRegister {
 
     @FXML
     public void onSave() {
+        String userID = this.routeProvider.getUserSession().getId();
         if (!user.getNameUser().equals(TextFieldName.getText())) {
             if (TextFieldName.getText().isEmpty()) {
                 errorLabel.setText("Name is empty");
@@ -84,6 +94,8 @@ public class MyProfilePageController extends ComponentRegister {
         }
         ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
         imageSaver.saveImage();
+        user.setImageProfile("data/images/user/" + userID + "." + imageSaver.extention);
+        userCollection.add(user);
         userFileListDatasource.writeData(userCollection);
     }
 

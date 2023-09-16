@@ -23,7 +23,9 @@ public class NavBarComponentController {
 
     @FXML
     public void initialize() {
-        Image img = new Image(getClass().getResource("/cs211/project/assets/image/auth/user.png").toExternalForm());
+        routeProvider = (RouteProvider) FXRouter.getData();
+
+        Image img = new Image("file:" + routeProvider.getUserSession().getImageProfile());
         userProfileCircle.setFill(new ImagePattern(img));
     }
 
