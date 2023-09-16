@@ -18,20 +18,7 @@
          <top>
             <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER_LEFT" layoutY="-6.0" prefHeight="100.0" prefWidth="1280.0">
-                     <children>
-                        <Label text="Event Manager - Admin">
-                           <font>
-                              <Font name="Verdana Bold" size="36.0" />
-                           </font>
-                        </Label>
-                        <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Label text="teerut">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
+                  <HBox fx:id="NavBarHBox" alignment="CENTER_LEFT" layoutY="-6.0" prefHeight="100.0" prefWidth="1280.0">
                      <padding>
                         <Insets left="35.0" right="35.0" />
                      </padding>
@@ -80,7 +67,7 @@
                   </HBox>
                   <Pane prefHeight="563.0" prefWidth="936.0">
                      <children>
-                        <TableView layoutY="37.0" prefHeight="501.0" prefWidth="924.0">
+                        <TableView fx:id="userTableView" prefHeight="498.0" prefWidth="924.0">
                           <columns>
                             <TableColumn prefWidth="75.0" text="#" />
                             <TableColumn prefWidth="213.69598388671875" text="Username" />
@@ -88,8 +75,9 @@
                               <TableColumn prefWidth="147.81982421875" text="Last Login" />
                           </columns>
                         </TableView>
-                        <Button layoutX="1.0" layoutY="4.0" mnemonicParsing="false" text="Export JSON" />
-                        <Button layoutX="96.0" layoutY="4.0" mnemonicParsing="false" text="Import JSON" />
+                        <Button layoutX="5.0" layoutY="506.0" mnemonicParsing="false" onAction="#onUserDelete" style="-fx-text-fill: white;" styleClass="btn-error" text="Delete" />
+                        <Label layoutX="65.0" layoutY="510.0" text="User Select : " />
+                        <Label fx:id="userId" layoutX="139.0" layoutY="510.0" text="userId" />
                      </children>
                   </Pane>
                </children>

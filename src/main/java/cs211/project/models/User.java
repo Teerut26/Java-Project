@@ -35,6 +35,10 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
+    public boolean isAdmin() {
+        return this.role.equals("admin");
+    }
+
     public void setId(String id) {
         this.id = id;
     }
