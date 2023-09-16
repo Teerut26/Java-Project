@@ -35,9 +35,10 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
                 String userName = data[2].trim();
                 String password = data[3].trim();
                 String role = data[4].trim();
-                LocalDateTime lastLogin = LocalDateTime.parse(data[5].trim());
+                String imagePath = data[5].trim();
+                LocalDateTime lastLogin = LocalDateTime.parse(data[6].trim());
 
-                User user = new User(id, nameUser, userName, password, role, lastLogin);
+                User user = new User(id, nameUser, userName, password, role, imagePath, lastLogin);
 
                 userCollection.add(user);
             }
@@ -59,7 +60,7 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
 
         try {
             for (User user : data.getUsers()) {
-                String line = user.getId() + "," + user.getNameUser() + "," + user.getUserName() + "," + user.getPassword() + "," + user.getRole() + "," + user.getLastLogin().toString();
+                String line = user.getId() + "," + user.getNameUser() + "," + user.getUserName() + "," + user.getPassword() + "," + user.getRole() + "," + user.getImageProfile() + "," + user.getLastLogin().toString();
                 buffer.append(line);
                 buffer.append("\n");
             }

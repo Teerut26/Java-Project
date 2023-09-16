@@ -1,4 +1,5 @@
 package cs211.project.models;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.TeamCollection;
@@ -24,12 +25,13 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
-    public User(String id, String nameUser, String userName, String password, String role, LocalDateTime lastLogin) {
+    public User(String id, String nameUser, String userName, String password, String role, String imagePath, LocalDateTime lastLogin) {
         this.id = id;
         this.nameUser = nameUser;
         this.userName = userName;
         this.password = password;
         this.role = role;
+        this.imageProfile = imagePath;
         this.lastLogin = lastLogin;
     }
 
