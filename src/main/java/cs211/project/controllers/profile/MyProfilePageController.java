@@ -58,9 +58,7 @@ public class MyProfilePageController extends ComponentRegister {
     }
 
     void initProfile() {
-        System.out.println(user);
         if (user.getImageProfile() != null) {
-
             image = new Image("file:" +  user.getImageProfile());
             addImage.setImage(image);
         }
@@ -83,18 +81,23 @@ public class MyProfilePageController extends ComponentRegister {
     @FXML
     public void onSave() {
         String userID = this.routeProvider.getUserSession().getId();
+
         if (!user.getNameUser().equals(TextFieldName.getText())) {
             if (TextFieldName.getText().isEmpty()) {
                 errorLabel.setText("Name is empty");
-            } else if (userCollection.findByName(user.getNameUser()) != null) {
+            } else if (userCollection.findByName(TextFieldName.getText()) != null) {
                 errorLabel.setText("Name already taken");
             } else {
                 user.setNameUser(TextFieldName.getText());
             }
         }
+
         ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
-        imageSaver.saveImage();
-        user.setImageProfile("data/images/user/" + userID + "." + imageSaver.extention);
+        if(imageSaver != null){
+            imageSaver.saveImage();
+            user.setImageProfile("data/images/user/" + userID + "." + imageSaver.extention);
+        }
+        errorLabel.setText("");
         userCollection.add(user);
         userFileListDatasource.writeData(userCollection);
     }
