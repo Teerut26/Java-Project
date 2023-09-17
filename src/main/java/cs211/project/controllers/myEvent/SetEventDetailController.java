@@ -8,7 +8,6 @@ import cs211.project.models.collections.TeamCollection;
 
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
-import cs211.project.services.datasource.ActivitiesFileListDatesource;
 import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.utils.ComponentRegister;
 import javafx.beans.value.ChangeListener;
@@ -67,7 +66,7 @@ public class SetEventDetailController extends ComponentRegister {
     private TeamFileListDatasource teamFileListDatasource;
     private RouteProvider<Event> routeProvider;
 
-    private ActivitiesFileListDatesource activitiesFileListDatesource;
+//    private ActivitiesFileListDatesource activitiesFileListDatesource;
     private ActivitiesCollection activitiesCollection;
     private Activities activitySelect;
 
@@ -79,7 +78,7 @@ public class SetEventDetailController extends ComponentRegister {
         showDetail();
         showTableTeam(teamCollection);
         setUpOnTableViewTeamOnSelect();
-        showTableActivities(activitiesCollection);
+//        showTableActivities(activitiesCollection);
         setUpOnTableViewActivityOnSelect();
 
     }
@@ -104,8 +103,8 @@ public class SetEventDetailController extends ComponentRegister {
 
         teamCollection = newTeamCollection;
 
-        activitiesFileListDatesource = new ActivitiesFileListDatesource();
-        activitiesCollection = activitiesFileListDatesource.readData();
+//        activitiesFileListDatesource = new ActivitiesFileListDatesource();
+//        activitiesCollection = activitiesFileListDatesource.readData();
     }
 
     public void showDetail() {
@@ -151,30 +150,30 @@ public class SetEventDetailController extends ComponentRegister {
         });
     }
 
-    public void showTableActivities(ActivitiesCollection activitiesCollection) {
-        TableColumn<Activities, String> nameActivityColumn = new TableColumn<>("Activity Name");
-        nameActivityColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-
-        TableColumn<Activities, String> descriptionColumn = new TableColumn<>("Description");
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("detail"));
-
-        TableColumn<Activities, String> startDateColumn = new TableColumn<>("Start Date");
-        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-
-        TableColumn<Activities, String> endDateColumn = new TableColumn<>("End Date");
-        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-
-        activityTableView.getColumns().clear();
-        activityTableView.getColumns().add(nameActivityColumn);
-        activityTableView.getColumns().add(descriptionColumn);
-        activityTableView.getColumns().add(startDateColumn);
-        activityTableView.getColumns().add(endDateColumn);
-        activityTableView.getItems().clear();
-
-        for (Activities activities : activitiesCollection.getActivitiesArrayList()) {
-            activityTableView.getItems().add(activities);
-        }
-    }
+//    public void showTableActivities(ActivitiesCollection activitiesCollection) {
+//        TableColumn<Activities, String> nameActivityColumn = new TableColumn<>("Activity Name");
+//        nameActivityColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+//
+//        TableColumn<Activities, String> descriptionColumn = new TableColumn<>("Description");
+//        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("detail"));
+//
+//        TableColumn<Activities, String> startDateColumn = new TableColumn<>("Start Date");
+//        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+//
+//        TableColumn<Activities, String> endDateColumn = new TableColumn<>("End Date");
+//        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+//
+//        activityTableView.getColumns().clear();
+//        activityTableView.getColumns().add(nameActivityColumn);
+//        activityTableView.getColumns().add(descriptionColumn);
+//        activityTableView.getColumns().add(startDateColumn);
+//        activityTableView.getColumns().add(endDateColumn);
+//        activityTableView.getItems().clear();
+//
+//        for (Activities activities : activitiesCollection.getActivitiesArrayList()) {
+//            activityTableView.getItems().add(activities);
+//        }
+//    }
 
     public void setUpOnTableViewActivityOnSelect() {
         activityTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Activities>() {
@@ -205,9 +204,9 @@ public class SetEventDetailController extends ComponentRegister {
                     newActivityCollection.add(activities);
                 }
             }
-            activitiesFileListDatesource.writeData(newActivityCollection);
-            activitiesCollection = newActivityCollection;
-            showTableActivities(activitiesCollection);
+//            activitiesFileListDatesource.writeData(newActivityCollection);
+//            activitiesCollection = newActivityCollection;
+//            showTableActivities(activitiesCollection);
         }
     }
 
