@@ -152,6 +152,10 @@ public class Event {
         isPublic = aPublic;
     }
 
+    public boolean checkEventEnded() {
+        return LocalDateTime.now().isAfter(this.endDate);
+    }
+
     @Override
     public String toString() {
         return "Event{" +
