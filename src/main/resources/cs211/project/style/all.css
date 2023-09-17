@@ -49,6 +49,7 @@
     -fx-background-radius: 10;
     -fx-background-color: #BB716F;
     -fx-border-radius: 10;
+    -fx-text-fill: #FAF2E3
 }
 
 .btn-error:hover{
@@ -90,4 +91,15 @@
     -fx-font-size: 18px;
     -fx-text-fill: #5D863B;
     -fx-font-weight: bold;
+}
+
+.btn-delete{
+    -fx-background-radius: 10;
+    -fx-background-color: #EA5C45;
+    -fx-border-radius: 10;
+    -fx-text-fill: #FAF2E3
+}
+.btn-delete-active:hover{
+    -fx-background-color: #D9381E;
+    -fx-cursor: hand;
 }

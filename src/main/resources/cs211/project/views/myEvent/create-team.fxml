@@ -5,7 +5,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -48,14 +47,6 @@
                               <Font name="System Bold" size="36.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#onBack" prefHeight="45.0" prefWidth="133.0" styleClass="btn-secondary" text="go back">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
-                           </padding>
-                        </Button>
                      </children>
                      <opaqueInsets>
                         <Insets left="25.0" right="25.0" />
@@ -66,27 +57,7 @@
                   </HBox>
                   <HBox prefHeight="495.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
                      <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="408.0" spacing="20.0">
-                           <children>
-                              <ImageView fx:id="addImage" fitHeight="313.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                 <VBox.margin>
-                                    <Insets top="30.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                              <Button mnemonicParsing="false" onAction="#importImage" styleClass="btn-secondary" text="Import">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
-                                 </padding>
-                              </Button>
-                           </children>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox prefHeight="546.0" prefWidth="688.0" spacing="10.0">
+                        <VBox prefHeight="387.0" prefWidth="494.0" spacing="10.0">
                            <padding>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                            </padding>
@@ -139,6 +110,14 @@
                                     <Insets left="20.0" />
                                  </VBox.margin>
                               </HBox>
+                              <Label fx:id="errorLabel" text="error" textFill="RED">
+                                 <VBox.margin>
+                                    <Insets left="25.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Hiragino Sans W6" size="13.0" />
+                                 </font>
+                              </Label>
                               <HBox prefHeight="29.0" prefWidth="560.0" spacing="16.0">
                                  <children>
                                     <Label text="Opening Date">
@@ -146,7 +125,7 @@
                                           <Font name="Hiragino Sans W6" size="24.0" />
                                        </font>
                                     </Label>
-                                    <Pane prefHeight="29.0" prefWidth="48.0" />
+                                    <Pane prefHeight="29.0" prefWidth="41.0" />
                                     <Label text="Deadline">
                                        <font>
                                           <Font name="Hiragino Sans W6" size="24.0" />
@@ -164,13 +143,13 @@
                                           <Insets left="20.0" />
                                        </HBox.margin>
                                     </DatePicker>
-                                    <Pane prefHeight="56.0" prefWidth="70.0" />
+                                    <Pane prefHeight="56.0" prefWidth="62.0" />
                                     <DatePicker fx:id="DataDeadline" prefHeight="38.0" prefWidth="185.0" />
                                  </children>
                               </HBox>
                            </children>
                            <HBox.margin>
-                              <Insets bottom="20.0" top="20.0" />
+                              <Insets bottom="20.0" left="220.0" top="20.0" />
                            </HBox.margin>
                         </VBox>
                      </children>
@@ -185,7 +164,7 @@
                               <Font name="Hiragino Sans W6" size="24.0" />
                            </font>
                         </Button>
-                        <Pane prefHeight="63.0" prefWidth="26.0" />
+                        <Pane prefHeight="64.0" prefWidth="22.0" />
                         <Button mnemonicParsing="false" onAction="#onSave" prefHeight="45.0" prefWidth="135.0" styleClass="btn-primary-active" text="save">
                            <font>
                               <Font name="Hiragino Sans W6" size="24.0" />

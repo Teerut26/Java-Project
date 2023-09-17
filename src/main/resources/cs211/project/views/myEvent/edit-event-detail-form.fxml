@@ -50,14 +50,6 @@
                                         <Font name="System Bold" size="36.0" />
                                     </font>
                                 </Label>
-                                <Button mnemonicParsing="false" onAction="#onBack" prefHeight="45.0" prefWidth="133.0" styleClass="btn-secondary" text="go back">
-                                    <font>
-                                        <Font size="24.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
-                                    </padding>
-                                </Button>
                             </children>
                             <opaqueInsets>
                                 <Insets left="25.0" right="25.0" />
