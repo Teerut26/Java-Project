@@ -49,14 +49,6 @@
                         </Label>
                         <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <Pane prefHeight="37.0" prefWidth="11.0" />
-                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="110.0" styleClass="btn-secondary" text="back">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="4.0" left="24.0" right="24.0" top="4.0" />
-                           </padding>
-                        </Button>
                      </children>
                      <opaqueInsets>
                         <Insets left="25.0" right="25.0" />
