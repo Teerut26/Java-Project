@@ -3,6 +3,7 @@ package cs211.project.models;
 import cs211.project.models.collections.UserCollection;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Team {
     private String id;
@@ -94,5 +95,11 @@ public class Team {
 
     public UserCollection getUserInTeam() {
         return userInTeam;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Team that = (Team) o;
+        return this.id.equals(that.id);
     }
 }

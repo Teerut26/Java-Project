@@ -17,4 +17,10 @@ public class ActivitiesEvent extends Activities {
     public Event getEvent() {
         return event;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        ActivitiesEvent that = (ActivitiesEvent) o;
+        return this.getId().equals(that.getId());
+    }
 }

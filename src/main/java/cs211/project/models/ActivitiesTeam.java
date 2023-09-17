@@ -17,4 +17,10 @@ public class ActivitiesTeam extends Activities {
     public void setTeam(Team team) {
         this.team = team;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        ActivitiesTeam that = (ActivitiesTeam) o;
+        return this.getId().equals(that.getId());
+    }
 }

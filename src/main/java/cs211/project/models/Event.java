@@ -157,6 +157,12 @@ public class Event {
     }
 
     @Override
+    public boolean equals(Object o) {
+        Event that = (Event) o;
+        return this.eventID.equals(that.eventID);
+    }
+
+    @Override
     public String toString() {
         return "Event{" +
                 "eventID='" + eventID + '\'' +

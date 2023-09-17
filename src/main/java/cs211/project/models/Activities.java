@@ -70,4 +70,10 @@ public class Activities {
                 ", startDate=" + startDate + '\'' + ", endDate=" + endDate + '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        Activities that = (Activities) o;
+        return this.id.equals(that.id);
+    }
+
 }

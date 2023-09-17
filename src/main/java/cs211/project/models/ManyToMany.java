@@ -26,8 +26,7 @@ public class ManyToMany {
     @Override
     public boolean equals(Object o) {
         ManyToMany that = (ManyToMany) o;
-        return Objects.equals(A, that.A) &&
-                Objects.equals(B, that.B);
+        return this.A.equals(that.A) && this.B.equals(that.B);
     }
 
     public void setB(String b) {
