@@ -87,5 +87,9 @@ public class ManyToManyManager {
         return manyToManyFileListDatasource.readData();
     }
 
+    public void removeAll() {
+        ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(this.file);
+        manyToManyFileListDatasource.writeData(new ManyToManyCollection());
+    }
 
 }
