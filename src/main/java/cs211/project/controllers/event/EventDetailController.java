@@ -40,15 +40,14 @@ public class EventDetailController extends ComponentRegister {
     @FXML
     private Label maxUserAmount;
     private Event event;
-    private RouteProvider routeProvider;
+    private RouteProvider<Event> routeProvider;
 
     @FXML
     public void initialize() {
-        routeProvider = (RouteProvider) FXRouter.getData();
+        routeProvider = (RouteProvider<Event>) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
-        RouteProvider<Event> routeProvider = (RouteProvider<Event>) FXRouter.getData();
         this.event = routeProvider.getData();
 
         this.setContent();

@@ -45,27 +45,26 @@ public class EditEventDetailFormController extends ComponentRegister {
     private EventCollection eventCollection;
     private EventFileListDatesource eventFileListDatesource;
 
-    private RouteProvider routeProvider;
+    private RouteProvider<Event> routeProvider;
 
     @FXML
     public void initialize() {
 
-        routeProvider = (RouteProvider) FXRouter.getData();
+        routeProvider = (RouteProvider<Event>) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         eventFileListDatesource = new EventFileListDatesource();
         eventCollection = eventFileListDatesource.readData();
 
-        RouteProvider<Event> routeProvider = (RouteProvider<Event>) FXRouter.getData();
-        event = eventCollection.findById(routeProvider.getData().getEventID());
+        event = routeProvider.getData();
 
         this.showCurrentData();
     }
 
     public void showCurrentData() {
         TextFieldName.setText(event.getNameEvent());
-        TextAreaDescription.setText(event.getDescriptionEvent());
+        TextAreaDescription.appendText(event.getDescriptionEvent());
         TextFieldQuantity.setText(String.valueOf(event.getQuantityEvent()));
         DataTimeStart.setValue(event.getStartDate().toLocalDate());
         DataTimeEnd.setValue(event.getStartDate().toLocalDate());
@@ -109,19 +108,8 @@ public class EditEventDetailFormController extends ComponentRegister {
 
     @FXML
     public void onCancel() {
-        TextFieldName.setText(event.getNameEvent());
-        TextAreaDescription.setText(event.getDescriptionEvent());
-        TextFieldQuantity.setText(String.valueOf(event.getQuantityEvent()));
-        DataTimeStart.setValue(event.getStartDate().toLocalDate());
-        DataTimeEnd.setValue(event.getStartDate().toLocalDate());
-        Image image = new Image("file:" + event.getImageEvent());
-        addImage.setImage(image);
-    }
-
-    @FXML
-    public void onBack() {
         try {
-            FXRouter.goTo("set-event-detail");
+            FXRouter.goTo("set-event-detail",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
