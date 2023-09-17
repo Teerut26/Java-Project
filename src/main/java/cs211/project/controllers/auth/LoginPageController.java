@@ -47,6 +47,11 @@ public class LoginPageController {
             RouteProvider routeProvider = new RouteProvider();
             routeProvider.setUserSession(user);
 
+            if (user.isAdmin()) {
+                FXRouter.goTo("admin-manage-user", routeProvider);
+                return;
+            }
+
             FXRouter.goTo("event-list", routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);

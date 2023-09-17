@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.SetEventDetailController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.SetEventDetailController">
     <children>
         <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
             <top>
@@ -42,7 +51,7 @@
                                     </font>
                                 </Label>
                                 <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                <Button onAction="#onBack" mnemonicParsing="false" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="go back">
+                                <Button mnemonicParsing="false" onAction="#onBack" styleClass="btn-secondary" text="go back">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
@@ -58,53 +67,89 @@
                                 <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                             </padding>
                         </HBox>
-                  <TabPane prefHeight="886.0" prefWidth="1099.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="tabPane" prefHeight="886.0" prefWidth="1099.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab text="Detail">
+                      <Tab fx:id="detailTab" text="Detail">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox prefHeight="503.0" prefWidth="941.0" spacing="10.0" style="-fx-background-color: white;">
+                                    <VBox prefHeight="547.0" prefWidth="936.0" spacing="20.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10;">
                                        <children>
-                                          <Label text="Food and Hospitality Thailand (FHT)">
+                                          <Label fx:id="nameEvent" text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
                                              <font>
-                                                <Font size="24.0" />
+                                                <Font name="Hiragino Sans W7" size="24.0" />
                                              </font>
                                           </Label>
-                                          <HBox prefHeight="498.0" prefWidth="1068.0" spacing="16.0">
+                                          <HBox prefHeight="353.0" prefWidth="886.0" spacing="50.0">
                                              <children>
-                                                <ImageView fitHeight="413.0" fitWidth="316.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../../../../../../../../../Downloads/profileImg.jpg" />
-                                                   </image>
-                                                </ImageView>
-                                                <VBox prefHeight="441.0" prefWidth="519.0" spacing="16.0">
+                                                <VBox prefHeight="343.0" prefWidth="266.0" spacing="8.0">
                                                    <children>
-                                                      <Label text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true">
+                                                      <Rectangle fx:id="imageEvent" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="324.0" stroke="BLACK" strokeType="INSIDE" width="256.0" />
+                                                      <Label fx:id="timeLabel" prefHeight="15.0" prefWidth="289.0" text="17 July 23 6:00 - 18 July 23 23:00" textFill="#bb716f">
+                                                         <font>
+                                                            <Font name="Hiragino Sans W6" size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                                <VBox prefHeight="328.0" prefWidth="567.0" spacing="10.0">
+                                                   <children>
+                                                      <Label fx:id="eventDescription" alignment="TOP_LEFT" prefHeight="225.0" prefWidth="489.0" text="null" wrapText="true">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
                                                       </Label>
-                                                      <DatePicker />
-                                                      <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="151.0" style="-fx-background-color: #ECBF73; -fx-background-radius: 16; -fx-border-radius: 16;" text="Edit">
-                                                         <font>
-                                                            <Font size="18.0" />
-                                                         </font>
-                                                      </Button>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="547.0">
+                                                         <children>
+                                                            <Button mnemonicParsing="false" onAction="#onEdit" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Edit" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Pane prefHeight="52.0" prefWidth="60.0" />
+                                                            <Label fx:id="currentUser" text="0" textFill="#5d863b">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label text="/" textFill="#5d863b">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets left="4.0" />
+                                                               </padding>
+                                                            </Label>
+                                                            <Label fx:id="quantityLabel" text="200" textFill="#5d863b">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets left="4.0" />
+                                                               </padding>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
                                                    </children>
+                                                   <padding>
+                                                      <Insets left="20.0" top="20.0" />
+                                                   </padding>
                                                 </VBox>
                                              </children>
                                           </HBox>
                                        </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
                                        <padding>
-                                          <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                          <Insets left="40.0" right="10.0" top="30.0" />
                                        </padding>
                                     </VBox>
                                  </children>
                               </AnchorPane>
                         </content>
                       </Tab>
-                      <Tab text="participant">
+                      <Tab fx:id="participantTab" text="participant">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -198,7 +243,7 @@
                                  </children></AnchorPane>
                         </content>
                       </Tab>
-                        <Tab text="team">
+                        <Tab fx:id="teamTab" text="team">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -214,13 +259,13 @@
                                              <children>
                                                 <Label text="Team">
                                                    <font>
-                                                      <Font size="24.0" />
+                                                      <Font name="Hiragino Sans W6" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                                <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #EAA807; -fx-border-radius: 10; -fx-background-radius: 10;" text="add team">
+                                                <Pane prefHeight="80.0" prefWidth="686.0" />
+                                                <Button mnemonicParsing="false" onAction="#onAddTeam" prefHeight="45.0" prefWidth="135.0" styleClass="btn-primary-active" text="add team">
                                                    <font>
-                                                      <Font size="18.0" />
+                                                      <Font name="Hiragino Sans W6" size="20.0" />
                                                    </font>
                                                 </Button>
                                              </children>
@@ -230,13 +275,40 @@
                                                 <Insets bottom="20.0" left="20.0" right="20.0" />
                                              </padding>
                                              <children>
-                                                <TableView prefHeight="380.0" prefWidth="943.0">
-                                                  <columns>
-                                                    <TableColumn prefWidth="546.0013427734375" text="name" />
-                                                    <TableColumn minWidth="0.0" prefWidth="209.6201171875" text="quantity" />
-                                                      <TableColumn minWidth="0.0" prefWidth="144.8798828125" text="action" />
-                                                  </columns>
-                                                </TableView>
+                                                <VBox prefHeight="451.0" prefWidth="890.0" spacing="20.0">
+                                                   <children>
+                                                      <TableView fx:id="teamTableView" prefHeight="364.0" prefWidth="869.0">
+                                                        <columns>
+                                                          <TableColumn prefWidth="415.65093994140625" text="name" />
+                                                          <TableColumn minWidth="0.0" prefWidth="473.0" text="quantity" />
+                                                        </columns>
+                                                      </TableView>
+                                                      <HBox prefHeight="76.0" prefWidth="890.0">
+                                                         <children>
+                                                            <Button mnemonicParsing="false" onAction="#onTeamDelete" prefHeight="45.0" prefWidth="120.0" styleClass="btn-error" text="Delete">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Pane prefHeight="46.0" prefWidth="29.0" />
+                                                            <Label fx:id="teamId" text="Label">
+                                                               <HBox.margin>
+                                                                  <Insets top="13.0" />
+                                                               </HBox.margin>
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                         <VBox.margin>
+                                                            <Insets />
+                                                         </VBox.margin>
+                                                         <padding>
+                                                            <Insets left="50.0" />
+                                                         </padding>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
                                              </children>
                                           </HBox>
                                        </children>
@@ -244,7 +316,7 @@
                                  </children></AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="activity">
+                        <Tab fx:id="activityTab" text="activity">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -254,38 +326,60 @@
                                              <padding>
                                                 <Insets left="20.0" right="20.0" />
                                              </padding>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
                                              <children>
-                                                <Label text="activity">
+                                                <Label text="Activity">
                                                    <font>
-                                                      <Font size="24.0" />
+                                                      <Font name="Hiragino Sans W6" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                                <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="123.0" style="-fx-background-color: #EAA807; -fx-border-radius: 10; -fx-background-radius: 10;" text="add activity">
+                                                <Pane prefHeight="80.0" prefWidth="648.0" />
+                                                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="157.0" styleClass="btn-primary-active" text="add Activity">
                                                    <font>
-                                                      <Font size="18.0" />
+                                                      <Font name="Hiragino Sans W6" size="20.0" />
                                                    </font>
                                                 </Button>
                                              </children>
                                           </HBox>
-                                          <HBox prefHeight="420.0" prefWidth="944.0">
-                                             <padding>
-                                                <Insets bottom="20.0" left="20.0" right="20.0" />
-                                             </padding>
+                                          <HBox prefHeight="408.0" prefWidth="944.0">
                                              <children>
-                                                <TableView prefHeight="380.0" prefWidth="943.0">
-                                                   <columns>
-                                                      <TableColumn prefWidth="197.86151123046875" text="name" />
-                                                      <TableColumn minWidth="0.0" prefWidth="327.63848876953125" text="description" />
-                                                      <TableColumn minWidth="0.0" prefWidth="114.41412353515625" text="start date" />
-                                                      <TableColumn minWidth="0.0" prefWidth="122.407958984375" text="end date" />
-                                                      <TableColumn minWidth="0.0" prefWidth="70.3629150390625" text="status" />
-                                                      <TableColumn minWidth="0.0" prefWidth="74.869140625" text="action" />
-                                                   </columns>
-                                                </TableView>
+                                                <VBox prefHeight="322.0" prefWidth="930.0" spacing="20.0">
+                                                   <children>
+                                                      <TableView fx:id="activityTableView" prefHeight="325.0" prefWidth="910.0">
+                                                         <columns>
+                                                            <TableColumn prefWidth="197.86151123046875" text="name" />
+                                                            <TableColumn minWidth="0.0" prefWidth="327.63848876953125" text="description" />
+                                                            <TableColumn minWidth="0.0" prefWidth="114.41412353515625" text="start date" />
+                                                            <TableColumn minWidth="0.0" prefWidth="122.407958984375" text="end date" />
+                                                            <TableColumn minWidth="0.0" prefWidth="70.3629150390625" text="status" />
+                                                            <TableColumn minWidth="0.0" prefWidth="74.869140625" text="action" />
+                                                         </columns>
+                                                         <VBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </VBox.margin>
+                                                      </TableView>
+                                                      <HBox prefHeight="48.0" prefWidth="930.0">
+                                                         <children>
+                                                            <Button mnemonicParsing="false" onAction="#onActivityDelete" prefHeight="45.0" prefWidth="120.0" styleClass="btn-error" text="Delete">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Pane prefHeight="46.0" prefWidth="29.0" />
+                                                            <Label fx:id="activityId" text="Label">
+                                                               <HBox.margin>
+                                                                  <Insets top="13.0" />
+                                                               </HBox.margin>
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="50.0" />
+                                                         </padding>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
                                              </children>
                                           </HBox>
                                        </children>
