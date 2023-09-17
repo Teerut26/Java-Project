@@ -24,13 +24,6 @@ public class NavBarComponentController {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        if (routeProvider.getUserSession().getImageProfile().equals("null")) {
-            Image img = new Image(getClass().getResource("/cs211/project/assets/image/auth/user.png").toExternalForm());
-            userProfileCircle.setFill(new ImagePattern(img));
-        } else {
-            Image img = new Image("file:" + routeProvider.getUserSession().getImageProfile());
-            userProfileCircle.setFill(new ImagePattern(img));
-        }
     }
 
     @FXML
@@ -53,6 +46,13 @@ public class NavBarComponentController {
 
     public void setMetaData() {
         username.setText(this.routeProvider.getUserSession().getUserName());
+        if (routeProvider.getUserSession().getImageProfile().equals("null")) {
+            Image img = new Image(getClass().getResource("/cs211/project/assets/image/auth/user.png").toExternalForm());
+            userProfileCircle.setFill(new ImagePattern(img));
+        } else {
+            Image img = new Image("file:" + routeProvider.getUserSession().getImageProfile());
+            userProfileCircle.setFill(new ImagePattern(img));
+        }
     }
 
     public void setRouteProvider(RouteProvider routeProvider) {
