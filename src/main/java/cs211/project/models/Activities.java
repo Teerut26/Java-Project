@@ -8,15 +8,13 @@ public class Activities {
     private String detail;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private User owner;
 
-    public Activities(String id, String title, String detail, LocalDateTime startDate, LocalDateTime endDate, User owner) {
+    public Activities(String id, String title, String detail, LocalDateTime startDate, LocalDateTime endDate) {
         this.id = id;
         this.title = title;
         this.detail = detail;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.owner = owner;
     }
 
     public String getId() {
