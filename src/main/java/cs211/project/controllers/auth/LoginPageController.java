@@ -1,6 +1,7 @@
 package cs211.project.controllers.auth;
 
 import cs211.project.models.User;
+import cs211.project.models.collections.UserCollection;
 import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class LoginPageController {
 
@@ -51,11 +53,27 @@ public class LoginPageController {
                 FXRouter.goTo("admin-manage-user", routeProvider);
                 return;
             }
-
+            this.updateLastLogin(user);
             FXRouter.goTo("event-list", routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void updateLastLogin(User user) {
+        UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
+        UserCollection userCollection = userFileListDatasource.readData();
+
+        UserCollection newUserCollection = new UserCollection();
+        for (User userTemp : userCollection.getUsers()) {
+            if (userTemp.getId().equals(user.getId())) {
+                userTemp.setLastLogin(LocalDateTime.now());
+            }
+            newUserCollection.add(userTemp);
+        }
+
+        userFileListDatasource.writeData(newUserCollection);
+
     }
 
     @FXML
