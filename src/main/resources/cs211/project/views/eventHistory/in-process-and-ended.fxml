@@ -58,145 +58,15 @@
                                 <Insets left="25.0" right="25.0" />
                             </padding>
                         </HBox>
-                        <TabPane prefHeight="886.0" prefWidth="1099.0" tabClosingPolicy="UNAVAILABLE">
+                        <TabPane fx:id="tabPaneId" prefHeight="886.0" prefWidth="1099.0" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
-                                <Tab text="InProcess">
+                                <Tab fx:id="inProcessTab" text="InProcess">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <ScrollPane prefHeight="530.0" prefWidth="939.0">
+                                    <ScrollPane fx:id="inprocessEventListScrollPane" prefHeight="530.0" prefWidth="939.0">
                                        <content>
-                                          <VBox prefHeight="751.0" prefWidth="931.0" spacing="15.0">
-                                             <children>
-                                                <Pane prefHeight="245.0" prefWidth="906.0" style="-fx-background-color: FFFFFF; -fx-border-color: #B4A78F; -fx-border-radius: 16; -fx-background-radius: 16;">
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                   <children>
-                                                      <HBox prefHeight="242.0" prefWidth="908.0" spacing="15.0" style="-fx-background-radius: 16; -fx-border-radius: 16;">
-                                                         <children>
-                                                            <ImageView fitHeight="217.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                                            <VBox prefHeight="209.0" prefWidth="672.0" spacing="10.0">
-                                                               <children>
-                                                                  <Label text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
-                                                                     <font>
-                                                                        <Font size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label prefHeight="109.0" prefWidth="659.0" text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true">
-                                                                     <font>
-                                                                        <Font size="16.0" />
-                                                                     </font>
-                                                                     <VBox.margin>
-                                                                        <Insets />
-                                                                     </VBox.margin>
-                                                                  </Label>
-                                                                  <Label text="17 July 23 6:00 - 18 July 23 23:00" textFill="#bb716f">
-                                                                     <font>
-                                                                        <Font name="Hiragino Sans W6" size="13.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="672.0" spacing="8.0">
-                                                                     <children>
-                                                                        <Label text="23" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label text="/" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label text="200" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Pane prefHeight="37.0" prefWidth="328.0" />
-                                                                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="110.0" style="-fx-border-color: EAA807; -fx-border-radius: 10; -fx-background-color: FAF2E3; -fx-background-radius: 10;" text="Detail" textFill="#eaa807">
-                                                                           <font>
-                                                                              <Font name="Hiragino Sans W7" size="16.0" />
-                                                                           </font>
-                                                                        </Button>
-                                                                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="110.0" style="-fx-background-color: BB716F; -fx-background-radius: 10; -fx-border-radius: 10;" text="Cancle" textFill="WHITE">
-                                                                           <font>
-                                                                              <Font name="Hiragino Sans W7" size="16.0" />
-                                                                           </font>
-                                                                        </Button>
-                                                                     </children>
-                                                                  </HBox>
-                                                               </children>
-                                                            </VBox>
-                                                         </children>
-                                                         <padding>
-                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                         </padding>
-                                                      </HBox>
-                                                   </children>
-                                                </Pane>
-                                                <Pane prefHeight="245.0" prefWidth="906.0" style="-fx-background-color: FFFFFF; -fx-border-color: #B4A78F; -fx-border-radius: 16; -fx-background-radius: 16;">
-                                                   <children>
-                                                      <HBox prefHeight="242.0" prefWidth="908.0" spacing="15.0" style="-fx-background-radius: 16; -fx-border-radius: 16;">
-                                                         <children>
-                                                            <ImageView fitHeight="217.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                                            <VBox prefHeight="209.0" prefWidth="672.0" spacing="10.0">
-                                                               <children>
-                                                                  <Label text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
-                                                                     <font>
-                                                                        <Font size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label prefHeight="109.0" prefWidth="659.0" text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true">
-                                                                     <font>
-                                                                        <Font size="16.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label text="17 July 23 6:00 - 18 July 23 23:00" textFill="#bb716f">
-                                                                     <font>
-                                                                        <Font name="Hiragino Sans W6" size="13.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="672.0" spacing="8.0">
-                                                                     <children>
-                                                                        <Label text="23" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label text="/" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label text="200" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Pane prefHeight="37.0" prefWidth="328.0" />
-                                                                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="110.0" style="-fx-border-color: EAA807; -fx-border-radius: 10; -fx-background-color: FAF2E3; -fx-background-radius: 10;" text="Detail" textFill="#eaa807">
-                                                                           <font>
-                                                                              <Font name="Hiragino Sans W7" size="16.0" />
-                                                                           </font>
-                                                                        </Button>
-                                                                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="110.0" style="-fx-background-color: BB716F; -fx-background-radius: 10; -fx-border-radius: 10;" text="Cancle" textFill="WHITE">
-                                                                           <font>
-                                                                              <Font name="Hiragino Sans W7" size="16.0" />
-                                                                           </font>
-                                                                        </Button>
-                                                                     </children>
-                                                                  </HBox>
-                                                               </children>
-                                                            </VBox>
-                                                         </children>
-                                                         <padding>
-                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                         </padding>
-                                                      </HBox>
-                                                   </children>
-                                                </Pane>
-                                             </children>
+                                          <VBox fx:id="vBoxEventlistInProcess" prefWidth="931.0" spacing="15.0">
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
@@ -207,121 +77,13 @@
                               </VBox>
                            </content>
                                 </Tab>
-                                <Tab text="Ended">
+                                <Tab fx:id="endedTab" text="Ended">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <ScrollPane prefHeight="530.0" prefWidth="939.0">
+                                    <ScrollPane fx:id="endedEventListScrollPane" prefHeight="530.0" prefWidth="939.0">
                                        <content>
-                                          <VBox prefHeight="751.0" prefWidth="931.0" spacing="15.0">
-                                             <children>
-                                                <Pane prefHeight="245.0" prefWidth="906.0" style="-fx-background-color: FFFFFF; -fx-border-color: #B4A78F; -fx-border-radius: 16; -fx-background-radius: 16;">
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                   <children>
-                                                      <HBox prefHeight="242.0" prefWidth="908.0" spacing="15.0" style="-fx-background-radius: 16; -fx-border-radius: 16;">
-                                                         <children>
-                                                            <ImageView fitHeight="217.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                                            <VBox prefHeight="209.0" prefWidth="672.0" spacing="10.0">
-                                                               <children>
-                                                                  <Label text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
-                                                                     <font>
-                                                                        <Font size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label prefHeight="109.0" prefWidth="659.0" text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true">
-                                                                     <font>
-                                                                        <Font size="16.0" />
-                                                                     </font>
-                                                                     <VBox.margin>
-                                                                        <Insets />
-                                                                     </VBox.margin>
-                                                                  </Label>
-                                                                  <Label text="17 July 23 6:00 - 18 July 23 23:00" textFill="#bb716f">
-                                                                     <font>
-                                                                        <Font name="Hiragino Sans W6" size="13.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="672.0" spacing="8.0">
-                                                                     <children>
-                                                                        <Label text="23" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label text="/" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label text="200" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                     </children>
-                                                                  </HBox>
-                                                               </children>
-                                                            </VBox>
-                                                         </children>
-                                                         <padding>
-                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                         </padding>
-                                                      </HBox>
-                                                   </children>
-                                                </Pane>
-                                                <Pane prefHeight="245.0" prefWidth="906.0" style="-fx-background-color: FFFFFF; -fx-border-color: #B4A78F; -fx-border-radius: 16; -fx-background-radius: 16;">
-                                                   <children>
-                                                      <HBox prefHeight="242.0" prefWidth="908.0" spacing="15.0" style="-fx-background-radius: 16; -fx-border-radius: 16;">
-                                                         <children>
-                                                            <ImageView fitHeight="217.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                                            <VBox prefHeight="209.0" prefWidth="672.0" spacing="10.0">
-                                                               <children>
-                                                                  <Label text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
-                                                                     <font>
-                                                                        <Font size="24.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label prefHeight="109.0" prefWidth="659.0" text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true">
-                                                                     <font>
-                                                                        <Font size="16.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <Label text="17 July 23 6:00 - 18 July 23 23:00" textFill="#bb716f">
-                                                                     <font>
-                                                                        <Font name="Hiragino Sans W6" size="13.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                                  <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="672.0" spacing="8.0">
-                                                                     <children>
-                                                                        <Label text="23" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label text="/" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                        <Label text="200" textFill="#5d863b">
-                                                                           <font>
-                                                                              <Font size="18.0" />
-                                                                           </font>
-                                                                        </Label>
-                                                                     </children>
-                                                                  </HBox>
-                                                               </children>
-                                                            </VBox>
-                                                         </children>
-                                                         <padding>
-                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                         </padding>
-                                                      </HBox>
-                                                   </children>
-                                                </Pane>
-                                             </children>
+                                          <VBox fx:id="vBoxEventlistEnded" prefWidth="931.0" spacing="15.0">
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>

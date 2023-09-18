@@ -40,4 +40,10 @@ public class Comment {
         this.owner = owner;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        Comment that = (Comment) o;
+        return this.id.equals(that.id);
+    }
+
 }

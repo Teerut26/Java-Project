@@ -129,6 +129,12 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        User that = (User) o;
+        return this.id.equals(that.id);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "ID=" + id + '\'' +

@@ -23,6 +23,30 @@ public class ManyToManyManager {
         manyToManyFileListDatasource.writeData(manyToManyCollection);
     }
 
+    public void removesByA(String primary) {
+        ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(this.file);
+        ManyToManyCollection manyToManyCollection = manyToManyFileListDatasource.readData();
+        ManyToManyCollection manyToManyCollection1 = new ManyToManyCollection();
+        for (ManyToMany manyToMany : manyToManyCollection.getManyToManies()) {
+            if (!manyToMany.getA().equals(primary)) {
+                manyToManyCollection1.add(manyToMany);
+            }
+        }
+        manyToManyFileListDatasource.writeData(manyToManyCollection1);
+    }
+
+    public void removeByB(String secondary) {
+        ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(this.file);
+        ManyToManyCollection manyToManyCollection = manyToManyFileListDatasource.readData();
+        ManyToManyCollection manyToManyCollection1 = new ManyToManyCollection();
+        for (ManyToMany manyToMany : manyToManyCollection.getManyToManies()) {
+            if (!manyToMany.getB().equals(secondary)) {
+                manyToManyCollection1.add(manyToMany);
+            }
+        }
+        manyToManyFileListDatasource.writeData(manyToManyCollection1);
+    }
+
     public ManyToManyCollection findsByA(String primary) {
         ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(this.file);
         ManyToManyCollection manyToManyCollection = manyToManyFileListDatasource.readData();
@@ -63,5 +87,9 @@ public class ManyToManyManager {
         return manyToManyFileListDatasource.readData();
     }
 
+    public void removeAll() {
+        ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(this.file);
+        manyToManyFileListDatasource.writeData(new ManyToManyCollection());
+    }
 
 }
