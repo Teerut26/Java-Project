@@ -39,14 +39,19 @@ public class MyProfilePageController extends ComponentRegister {
     private UserCollection userCollection;
     private User user;
     private Image image;
-    private RouteProvider routeProvider;
+    private RouteProvider<String> routeProvider;
 
 
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        if (this.routeProvider.getData() != null && this.routeProvider.getData().equals("admin")) {
+            this.loadSideBarComponentAdmin(SideBarVBox, "AdminSideBarComponent.fxml", this.routeProvider);
+            this.loadNavBarComponentAdmin(NavBarHBox, "AdminNavbarComponent.fxml", this.routeProvider);
+        } else {
+            this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+            this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        }
         this.profileID = UUID.randomUUID().toString();
         userFileListDatasource = new UserFileListDatasource();
         userCollection = userFileListDatasource.readData();
@@ -59,7 +64,7 @@ public class MyProfilePageController extends ComponentRegister {
 
     void initProfile() {
         if (user.getImageProfile() != null) {
-            image = new Image("file:" +  user.getImageProfile());
+            image = new Image("file:" + user.getImageProfile());
             addImage.setImage(image);
         }
     }
@@ -93,7 +98,7 @@ public class MyProfilePageController extends ComponentRegister {
         }
 
         ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
-        if(imageSaver != null){
+        if (imageSaver != null) {
             imageSaver.saveImage();
             user.setImageProfile("data/images/user/" + userID + "." + imageSaver.extention);
         }
@@ -105,7 +110,7 @@ public class MyProfilePageController extends ComponentRegister {
     @FXML
     public void onChangePasswordClick() {
         try {
-            FXRouter.goTo("change-password-profile-page",this.routeProvider);
+            FXRouter.goTo("change-password-profile-page", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -8,15 +8,13 @@ public class Activities {
     private String detail;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private User owner;
 
-    public Activities(String id, String title, String detail, LocalDateTime startDate, LocalDateTime endDate, User owner) {
+    public Activities(String id, String title, String detail, LocalDateTime startDate, LocalDateTime endDate) {
         this.id = id;
         this.title = title;
         this.detail = detail;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.owner = owner;
     }
 
     public String getId() {
@@ -70,6 +68,12 @@ public class Activities {
     public String toString() {
         return "Activities{" + "title=" + title + '\'' + ", detail=" + detail + '\'' +
                 ", startDate=" + startDate + '\'' + ", endDate=" + endDate + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Activities that = (Activities) o;
+        return this.id.equals(that.id);
     }
 
 }

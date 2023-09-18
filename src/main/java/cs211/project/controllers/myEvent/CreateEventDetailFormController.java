@@ -91,39 +91,30 @@ public class CreateEventDetailFormController extends ComponentRegister {
         eventCollection.add(newEvent);
         eventFileListDatesource.writeData(eventCollection);
 
+        clearField();
+
+        try {
+            FXRouter.goTo("my-event",this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void clearField(){
         TextFieldName.clear();
         addImage.setImage(null);
         TextAreaDescription.clear();
         DataTimeStart.setValue(null);
         DataTimeEnd.setValue(null);
         TextFieldQuantity.clear();
-
-        try {
-            FXRouter.goTo("my-event");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
     @FXML
     public void onCancel() {
-        TextFieldName.clear();
-        addImage.setImage(null);
-        TextAreaDescription.clear();
-        DataTimeStart.setValue(null);
-        DataTimeEnd.setValue(null);
-        TextFieldQuantity.clear();
-
-    }
-
-    @FXML
-    public void onBack() {
         try {
             FXRouter.goTo("my-event",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 }

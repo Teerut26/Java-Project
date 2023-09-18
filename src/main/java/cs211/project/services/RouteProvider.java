@@ -4,7 +4,8 @@ import cs211.project.models.User;
 
 import java.util.ArrayList;
 
-public class RouteProvider<T> {
+public class
+RouteProvider<T> {
     private T data;
     private ArrayList<T> dataArrayList;
     private User userSession;

@@ -38,5 +38,8 @@ module cs211.project {
     exports cs211.project.controllers.schedule;
     opens cs211.project.controllers.schedule to javafx.fxml;
 
+    exports cs211.project.models;
+    opens cs211.project.models to javafx.fxml;
+
 
 }

@@ -35,6 +35,10 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
+    public boolean isAdmin() {
+        return this.role.equals("admin");
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -122,6 +126,12 @@ public class User {
 
     public LocalDateTime getLastlogin() {
         return lastLogin;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        User that = (User) o;
+        return this.id.equals(that.id);
     }
 
     @Override

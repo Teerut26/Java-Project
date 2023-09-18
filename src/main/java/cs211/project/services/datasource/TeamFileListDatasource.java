@@ -39,7 +39,7 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
 
                 String id = data[0].trim();
                 String name = data[1].trim();
-                String quantity = data[2].trim();
+                Integer quantity = Integer.parseInt(data[2].trim());
                 LocalDateTime startRecruitDate = LocalDateTime.parse(data[3].trim());
                 LocalDateTime endRecruitDate = LocalDateTime.parse(data[4].trim());
                 String ownerID = data[5].trim();

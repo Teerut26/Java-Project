@@ -3,11 +3,12 @@ package cs211.project.models;
 import cs211.project.models.collections.UserCollection;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Team {
     private String id;
     private String name;
-    private String quantity;
+    private Integer quantity;
     private LocalDateTime startRecruitDate;
     private LocalDateTime endRecruitDate;
     private User owner;
@@ -18,13 +19,13 @@ public class Team {
         return event;
     }
 
-    public Team(String id, String name, String quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, User onwer, Event event) {
+    public Team(String id, String name, Integer quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, User owner, Event event) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.startRecruitDate = startRecruitDate;
         this.endRecruitDate = endRecruitDate;
-        this.owner = onwer;
+        this.owner = owner;
         this.event = event;
     }
 
@@ -48,7 +49,7 @@ public class Team {
         return name;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
@@ -64,7 +65,7 @@ public class Team {
         this.name = name;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -94,5 +95,11 @@ public class Team {
 
     public UserCollection getUserInTeam() {
         return userInTeam;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Team that = (Team) o;
+        return this.id.equals(that.id);
     }
 }

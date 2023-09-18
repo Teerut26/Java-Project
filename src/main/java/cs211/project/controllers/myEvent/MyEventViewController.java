@@ -38,7 +38,7 @@ public class MyEventViewController extends ComponentRegister {
     private int currentBatch = 0;
     private int batchSize = 5;
     private EventCollection eventCollection;
-    private RouteProvider routeProvider;
+    private RouteProvider<Event> routeProvider;
 
     @FXML
     public void initialize() {
@@ -69,6 +69,7 @@ public class MyEventViewController extends ComponentRegister {
                 EventCardComponentController eventCardComponentController = fxmlLoader.getController();
                 eventCardComponentController.setData(events.get(i));
                 eventCardComponentController.setCustomPath("set-event-detail");
+                this.routeProvider.setData(events.get(i));
                 eventCardComponentController.setRouteProvider(this.routeProvider);
                 vBoxEventlist.getChildren().add(eventCardComponent);
             } catch (IOException e) {
