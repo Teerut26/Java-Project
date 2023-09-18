@@ -56,7 +56,11 @@ public class EventDetailController extends ComponentRegister {
     public void setContent() {
         this.eventNameLabel.setText(event.getNameEvent());
         this.eventDescriptionLabel.setText(event.getDescriptionEvent());
-        this.currentUserAmount.setText(String.valueOf(event.getCurrentMemberParticipatingAmount()));
+
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
+        Integer currentMemberParticipatingAmount = manyToManyManager.countByB(event.getEventID());
+
+        this.currentUserAmount.setText(String.valueOf(currentMemberParticipatingAmount));
         this.maxUserAmount.setText(String.valueOf(event.getQuantityEvent()));
         this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
         Image img = new Image("file:" + event.getImageEvent());
