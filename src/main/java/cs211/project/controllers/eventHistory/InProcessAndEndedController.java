@@ -1,6 +1,7 @@
 package cs211.project.controllers.eventHistory;
 
 import cs211.project.controllers.components.EventCardComponentController;
+import cs211.project.controllers.components.InProcessCardComponentController;
 import cs211.project.models.Event;
 import cs211.project.models.ManyToMany;
 import cs211.project.models.collections.EventCollection;
@@ -126,9 +127,9 @@ public class InProcessAndEndedController extends ComponentRegister {
             try {
                 FXMLLoader fxmlLoader = new ComponentLoader("InProcessEventCardComponent.fxml").getFxmlLoader();
                 Pane eventCardComponent = fxmlLoader.load();
-                EventCardComponentController eventCardComponentController = fxmlLoader.getController();
-                eventCardComponentController.setData(events.get(i));
-                eventCardComponentController.setRouteProvider(this.routeProvider);
+                InProcessCardComponentController inProcessEventCardComponentController = fxmlLoader.getController();
+                inProcessEventCardComponentController.setData(events.get(i));
+                inProcessEventCardComponentController.setRouteProvider(this.routeProvider);
                 vBoxEventlistInProcess.getChildren().add(eventCardComponent);
             } catch (IOException e) {
                 throw new RuntimeException(e);

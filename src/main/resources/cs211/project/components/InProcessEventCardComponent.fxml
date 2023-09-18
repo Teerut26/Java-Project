@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="245.0" prefWidth="906.0" style="-fx-background-color: FFFFFF; -fx-border-color: #B4A78F; -fx-border-radius: 16; -fx-background-radius: 16;" stylesheets="@../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.components.EventCardComponentController">
+<Pane prefHeight="245.0" prefWidth="906.0" style="-fx-background-color: FFFFFF; -fx-border-color: #B4A78F; -fx-border-radius: 16; -fx-background-radius: 16;" stylesheets="@../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.components.InProcessCardComponentController">
     <children>
         <HBox prefHeight="242.0" prefWidth="908.0" spacing="15.0" style="-fx-background-radius: 16; -fx-border-radius: 16;">
             <children>

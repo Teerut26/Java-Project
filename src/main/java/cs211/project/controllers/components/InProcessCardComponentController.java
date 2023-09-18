@@ -15,8 +15,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
-public class EventCardComponentController {
-
+public class InProcessCardComponentController {
     @FXML
     private Label currentMemberParticipatingAmount;
 
@@ -64,7 +63,23 @@ public class EventCardComponentController {
         try {
             RouteProvider routeProviderWithEvent = new RouteProvider<Event>(this.event);
             routeProviderWithEvent.setUserSession(this.routeProvider.getUserSession());
-            FXRouter.goTo(this.customPath == null ? "event-detail" : this.customPath , routeProviderWithEvent);
+            FXRouter.goTo(this.customPath == null ? "event-detail-joined" : this.customPath , routeProviderWithEvent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onCanceledEvent(ActionEvent event) {
+        Event eventSelected = (Event) this.event;
+        System.out.println(eventSelected.getEventID());
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
+        manyToManyManager.remove(new ManyToMany(this.routeProvider.getUserSession().getId(), eventSelected.getEventID()));
+
+
+        //reload
+        try {
+            FXRouter.goTo("event-history", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
