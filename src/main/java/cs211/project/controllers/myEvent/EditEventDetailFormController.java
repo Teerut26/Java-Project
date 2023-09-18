@@ -64,7 +64,7 @@ public class EditEventDetailFormController extends ComponentRegister {
 
     public void showCurrentData() {
         TextFieldName.setText(event.getNameEvent());
-        TextAreaDescription.appendText(event.getDescriptionEvent());
+        TextAreaDescription.setText(event.getDescriptionEvent());
         TextFieldQuantity.setText(String.valueOf(event.getQuantityEvent()));
         DataTimeStart.setValue(event.getStartDate().toLocalDate());
         DataTimeEnd.setValue(event.getStartDate().toLocalDate());
