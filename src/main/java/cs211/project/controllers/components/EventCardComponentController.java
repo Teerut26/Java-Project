@@ -1,8 +1,11 @@
 package cs211.project.controllers.components;
 
 import cs211.project.models.Event;
+import cs211.project.models.ManyToMany;
 import cs211.project.services.FXRouter;
+import cs211.project.services.ManyToManyManager;
 import cs211.project.services.RouteProvider;
+import cs211.project.services.datasource.ManyToManyFileListDatasource;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -62,6 +65,23 @@ public class EventCardComponentController {
             RouteProvider routeProviderWithEvent = new RouteProvider<Event>(this.event);
             routeProviderWithEvent.setUserSession(this.routeProvider.getUserSession());
             FXRouter.goTo(this.customPath == null ? "event-detail" : this.customPath , routeProviderWithEvent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onCanceledEvent(ActionEvent event) {
+        System.out.println("onCanceledEvent");
+        Event eventSelected = (Event) this.event;
+        System.out.println(eventSelected.getEventID());
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
+        manyToManyManager.remove(new ManyToMany(this.routeProvider.getUserSession().getId(), eventSelected.getEventID()));
+
+
+        //reload
+        try {
+            FXRouter.goTo("event-history", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

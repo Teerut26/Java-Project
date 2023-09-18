@@ -61,7 +61,7 @@
                                         <Font name="Hiragino Sans W7" size="16.0" />
                                     </font>
                                 </Button>
-                        <Button mnemonicParsing="false" onAction="#goToDetail" prefHeight="50.0" prefWidth="110.0" styleClass="btn-error" text="cancel">
+                        <Button mnemonicParsing="false" onAction="#onCanceledEvent" prefHeight="50.0" prefWidth="110.0" styleClass="btn-error" text="cancel">
                            <font>
                               <Font name="Hiragino Sans W7" size="16.0" />
                            </font>
