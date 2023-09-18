@@ -6,6 +6,7 @@ import cs211.project.services.datasource.ManyToManyFileListDatasource;
 
 public class ManyToManyManager {
     private String file;
+
     public ManyToManyManager(String file) {
         this.file = file;
     }
@@ -16,6 +17,7 @@ public class ManyToManyManager {
         manyToManyCollection.add(manyToMany);
         manyToManyFileListDatasource.writeData(manyToManyCollection);
     }
+
     public void remove(ManyToMany manyToMany) {
         ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(this.file);
         ManyToManyCollection manyToManyCollection = manyToManyFileListDatasource.readData();
@@ -69,6 +71,14 @@ public class ManyToManyManager {
             }
         }
         return manyToManyCollection1;
+    }
+
+    public Integer countByA(String A) {
+        return this.findsByA(A).getManyToManies().size();
+    }
+
+    public Integer countByB(String B) {
+        return this.findsByB(B).getManyToManies().size();
     }
 
     public boolean checkIsExisted(ManyToMany manyToMany) {

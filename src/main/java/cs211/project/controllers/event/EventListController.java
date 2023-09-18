@@ -2,10 +2,13 @@ package cs211.project.controllers.event;
 
 import cs211.project.controllers.components.EventCardComponentController;
 import cs211.project.models.Event;
+import cs211.project.models.ManyToMany;
 import cs211.project.models.collections.EventCollection;
+import cs211.project.models.collections.ManyToManyCollection;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
+import cs211.project.services.datasource.ManyToManyFileListDatasource;
 import cs211.project.utils.ComponentLoader;
 import cs211.project.utils.ComponentRegister;
 import javafx.application.Platform;
@@ -20,6 +23,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -50,9 +54,12 @@ public class EventListController extends ComponentRegister {
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
 
         this.eventCollection = new EventCollection();
+        ManyToManyCollection manyToManyCollectionUserJoinedEvent = new ManyToManyFileListDatasource(new ManyToManyFileListDatasource().MTM_USER_EVENT).readData();
 
         eventFileListDatesource.readData().getEvents().forEach(event -> {
-            if (event.isPublic()) {
+            boolean isJoined = manyToManyCollectionUserJoinedEvent.checkIsExisted(new ManyToMany(routeProvider.getUserSession().getId(), event.getEventID()));
+            boolean isOwner = event.getOwner().getId().equals(routeProvider.getUserSession().getId());
+            if (event.isPublic() && !isJoined && !isOwner) {
                 this.eventCollection.add(event);
             }
         });
