@@ -68,10 +68,6 @@ public class EditTeam extends ComponentRegister {
         DataDeadline.setValue(team.getStartRecruitDate().toLocalDate());
         DateOpeningDate.setValue(team.getEndRecruitDate().toLocalDate());
     }
-    @FXML
-    void onCancel(ActionEvent event) {
-
-    }
 
     @FXML
     void onSave(ActionEvent event) {
@@ -79,7 +75,7 @@ public class EditTeam extends ComponentRegister {
             Integer.parseInt(quantityEd.getText());
             editTeam();
             teamFileListDatasource.writeData(teamCollection);
-            onCancel();
+            navigateToSetEvent();
         } catch (NumberFormatException e) {
             errorLabel.setText("quantity must be number");
         }
@@ -91,14 +87,17 @@ public class EditTeam extends ComponentRegister {
         team.setEndRecruitDate(DataDeadline.getValue().atStartOfDay());
         team.setStartRecruitDate(DateOpeningDate.getValue().atStartOfDay());
     }
-
-    @FXML
-    public void onCancel() {
+    private void navigateToSetEvent(){
         try {
             FXRouter.goTo("set-event-detail",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    public void onCancel() {
+        navigateToSetEvent();
     }
 
 }
