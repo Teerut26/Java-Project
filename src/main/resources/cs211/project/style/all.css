@@ -99,7 +99,18 @@
     -fx-border-radius: 10;
     -fx-text-fill: #FAF2E3
 }
-.btn-delete-active:hover{
+.btn-delete:hover{
     -fx-background-color: #D9381E;
     -fx-cursor: hand;
 }
+
+.btn-Done {
+    -fx-background-radius: 10;
+    -fx-background-color: #73C088;
+    -fx-border-radius: 10;
+    -fx-text-fill: #FAF2E3
+}
+
+.btn-Done:hover{
+    -fx-background-color: #397D54;
+    -fx-cursor: hand;

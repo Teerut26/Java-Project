@@ -39,10 +39,12 @@ public class Router extends Application {
         //my-event routes
         FXRouter.when("create-event-detail-form", resourcesPath + "myEvent/create-event-detail-form.fxml");
         FXRouter.when("create-team", resourcesPath + "myEvent/create-team.fxml");
+        FXRouter.when("edit-team", resourcesPath + "myEvent/edit-team.fxml");
         FXRouter.when("edit-event-detail-form", resourcesPath + "myEvent/edit-event-detail-form.fxml");
         FXRouter.when("edit-participant", resourcesPath + "myEvent/edit-participant.fxml");
         FXRouter.when("my-event", resourcesPath + "myEvent/my-event-view.fxml");
         FXRouter.when("set-event-detail", resourcesPath + "myEvent/set-event-detail.fxml");
+
 
         //profile routes
         FXRouter.when("change-password-profile-page", resourcesPath + "profile/change-password-profile-page.fxml");

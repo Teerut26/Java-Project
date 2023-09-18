@@ -67,9 +67,9 @@
                                 <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />
                             </padding>
                         </HBox>
-                  <TabPane fx:id="tabPane" prefHeight="886.0" prefWidth="1099.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane prefHeight="886.0" prefWidth="1099.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab fx:id="detailTab" text="Detail">
+                      <Tab text="Detail">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -149,7 +149,7 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                      <Tab fx:id="participantTab" text="participant">
+                      <Tab text="participant">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -165,7 +165,7 @@
                                                                <children>
                                                                   <Label text="number of exposures">
                                                                      <font>
-                                                                        <Font size="24.0" />
+                                                                        <Font name="Hiragino Sans W6" size="24.0" />
                                                                      </font>
                                                                   </Label>
                                                                   <Label text="25" textFill="#eaa807">
@@ -175,21 +175,21 @@
                                                                   </Label>
                                                                </children>
                                                             </VBox>
-                                                            <VBox alignment="CENTER" prefHeight="187.0" prefWidth="175.0">
+                                                            <VBox alignment="CENTER" prefHeight="187.0" prefWidth="175.0" spacing="10.0">
                                                                <children>
                                                                   <Label text="start date">
                                                                      <font>
-                                                                        <Font size="20.0" />
+                                                                        <Font name="Hiragino Sans W6" size="18.0" />
                                                                      </font>
                                                                   </Label>
                                                                   <Label text="end date">
                                                                      <font>
-                                                                        <Font size="20.0" />
+                                                                        <Font name="Hiragino Sans W6" size="18.0" />
                                                                      </font>
                                                                   </Label>
                                                                </children>
                                                             </VBox>
-                                                            <VBox alignment="CENTER" prefHeight="187.0" prefWidth="175.0">
+                                                            <VBox alignment="CENTER" prefHeight="187.0" prefWidth="175.0" spacing="5.0">
                                                                <children>
                                                                   <Label text="12/12/2023 " textFill="#eaa807">
                                                                      <font>
@@ -204,13 +204,6 @@
                                                                </children>
                                                             </VBox>
                                                             <VBox alignment="TOP_RIGHT" prefHeight="187.0" prefWidth="199.0">
-                                                               <children>
-                                                                  <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #EAA807; -fx-background-radius: 10; -fx-border-radius: 10;" text="edit">
-                                                                     <font>
-                                                                        <Font size="18.0" />
-                                                                     </font>
-                                                                  </Button>
-                                                               </children>
                                                                <padding>
                                                                   <Insets right="20.0" top="20.0" />
                                                                </padding>
@@ -223,18 +216,40 @@
                                           </HBox>
                                           <Label text="participant list">
                                              <font>
-                                                <Font size="24.0" />
+                                                <Font name="Hiragino Sans W6" size="20.0" />
                                              </font>
                                           </Label>
-                                          <TableView prefHeight="251.0" prefWidth="904.0">
-                                            <columns>
-                                              <TableColumn prefWidth="53.683685302734375" text="order" />
-                                              <TableColumn prefWidth="203.31634521484375" text="username" />
-                                                <TableColumn prefWidth="278.7259521484375" text="name" />
-                                                <TableColumn prefWidth="212.61676025390625" text="last login" />
-                                                <TableColumn prefWidth="155.93865966796875" text="action" />
-                                            </columns>
-                                          </TableView>
+                                          <HBox prefHeight="267.0" prefWidth="904.0">
+                                             <children>
+                                                <VBox prefHeight="281.0" prefWidth="904.0" spacing="10.0">
+                                                   <children>
+                                                      <TableView fx:id="userJoinTableView" layoutX="17.0" layoutY="81.0" prefHeight="270.0" prefWidth="890.0">
+                                                        <columns>
+                                                          <TableColumn fx:id="userNameColumn" prefWidth="240.251220703125" text="User Name" />
+                                                            <TableColumn fx:id="nameColumn" prefWidth="259.687744140625" text="Name" />
+                                                            <TableColumn fx:id="lastLoginColumn" prefWidth="216.812255859375" text="Last Login" />
+                                                            <TableColumn fx:id="statusUserColumn" prefWidth="186.406005859375" text="Status" />
+                                                        </columns>
+                                                      </TableView>
+                                                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Button mnemonicParsing="false" onAction="#onSuspendUser" prefHeight="45.0" prefWidth="135.0" styleClass="btn-error" text="suspend">
+                                                               <HBox.margin>
+                                                                  <Insets right="100.0" />
+                                                               </HBox.margin>
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                            </Button>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="50.0" />
+                                                         </padding>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -243,7 +258,7 @@
                                  </children></AnchorPane>
                         </content>
                       </Tab>
-                        <Tab fx:id="teamTab" text="team">
+                        <Tab text="team">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -275,37 +290,40 @@
                                                 <Insets bottom="20.0" left="20.0" right="20.0" />
                                              </padding>
                                              <children>
-                                                <VBox prefHeight="451.0" prefWidth="890.0" spacing="20.0">
+                                                <VBox prefHeight="451.0" prefWidth="890.0" spacing="10.0">
                                                    <children>
-                                                      <TableView fx:id="teamTableView" prefHeight="364.0" prefWidth="869.0">
+                                                      <TableView fx:id="teamTableView" layoutX="17.0" layoutY="81.0" prefHeight="306.0" prefWidth="890.0" style=": ;">
                                                         <columns>
-                                                          <TableColumn prefWidth="415.65093994140625" text="name" />
-                                                          <TableColumn minWidth="0.0" prefWidth="473.0" text="quantity" />
+                                                          <TableColumn fx:id="nameTeamColumn" prefWidth="263.9804992675781" text="Team Name" />
+                                                          <TableColumn fx:id="quantityTeamColumn" minWidth="0.0" prefWidth="134.91705322265625" text="quantity" />
+                                                            <TableColumn fx:id="startDateTeam" prefWidth="161.58294677734375" text="Start Date" />
+                                                            <TableColumn fx:id="endDateTeam" minWidth="0.0" prefWidth="167.81219482421875" text="End Date" />
+                                                            <TableColumn fx:id="statusTeam" prefWidth="160.0" text="Status" />
                                                         </columns>
                                                       </TableView>
-                                                      <HBox prefHeight="76.0" prefWidth="890.0">
+                                                      <HBox alignment="CENTER" prefHeight="104.0" prefWidth="890.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" onAction="#onTeamDelete" prefHeight="45.0" prefWidth="120.0" styleClass="btn-error" text="Delete">
+                                                            <Button mnemonicParsing="false" onAction="#onTeamDelete" prefHeight="45.0" prefWidth="120.0" styleClass="btn-delete" text="Delete">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>
                                                             </Button>
-                                                            <Pane prefHeight="46.0" prefWidth="29.0" />
-                                                            <Label fx:id="teamId" text="Label">
-                                                               <HBox.margin>
-                                                                  <Insets top="13.0" />
-                                                               </HBox.margin>
+                                                            <Pane prefHeight="80.0" prefWidth="65.0" />
+                                                            <Button mnemonicParsing="false" onAction="#onTeamEdit" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
                                                                <font>
-                                                                  <Font name="Hiragino Sans W6" size="16.0" />
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>
-                                                            </Label>
+                                                            </Button>
+                                                            <Pane prefHeight="80.0" prefWidth="65.0" />
+                                                            <Button mnemonicParsing="false" onAction="#onSuspendTeam" prefHeight="45.0" prefWidth="120.0" styleClass="btn-error" text="suspend">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                            </Button>
                                                          </children>
                                                          <VBox.margin>
                                                             <Insets />
                                                          </VBox.margin>
-                                                         <padding>
-                                                            <Insets left="50.0" />
-                                                         </padding>
                                                       </HBox>
                                                    </children>
                                                 </VBox>
@@ -316,7 +334,7 @@
                                  </children></AnchorPane>
                            </content>
                         </Tab>
-                        <Tab fx:id="activityTab" text="activity">
+                        <Tab text="activity">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -332,8 +350,8 @@
                                                       <Font name="Hiragino Sans W6" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Pane prefHeight="80.0" prefWidth="648.0" />
-                                                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="157.0" styleClass="btn-primary-active" text="add Activity">
+                                                <Pane prefHeight="79.0" prefWidth="638.0" />
+                                                <Button mnemonicParsing="false" onAction="#onAddActivity" prefHeight="45.0" prefWidth="157.0" styleClass="btn-primary-active" text="add Activity">
                                                    <font>
                                                       <Font name="Hiragino Sans W6" size="20.0" />
                                                    </font>
@@ -342,41 +360,34 @@
                                           </HBox>
                                           <HBox prefHeight="408.0" prefWidth="944.0">
                                              <children>
-                                                <VBox prefHeight="322.0" prefWidth="930.0" spacing="20.0">
+                                                <VBox prefHeight="408.0" prefWidth="915.0" spacing="20.0">
                                                    <children>
-                                                      <TableView fx:id="activityTableView" prefHeight="325.0" prefWidth="910.0">
+                                                      <TableView fx:id="activityEventTableView" layoutX="17.0" layoutY="81.0" prefHeight="317.0" prefWidth="895.0">
                                                          <columns>
-                                                            <TableColumn prefWidth="197.86151123046875" text="name" />
-                                                            <TableColumn minWidth="0.0" prefWidth="327.63848876953125" text="description" />
-                                                            <TableColumn minWidth="0.0" prefWidth="114.41412353515625" text="start date" />
-                                                            <TableColumn minWidth="0.0" prefWidth="122.407958984375" text="end date" />
-                                                            <TableColumn minWidth="0.0" prefWidth="70.3629150390625" text="status" />
-                                                            <TableColumn minWidth="0.0" prefWidth="74.869140625" text="action" />
+                                                            <TableColumn fx:id="titleActivityCol" prefWidth="197.86151123046875" text="Name" />
+                                                            <TableColumn fx:id="detailActivityCol" minWidth="0.0" prefWidth="237.21307373046875" text="Detail" />
+                                                            <TableColumn fx:id="startDateCol" minWidth="0.0" prefWidth="167.2869873046875" text="Start date" />
+                                                            <TableColumn fx:id="endDateCol" minWidth="0.0" prefWidth="160.69671630859375" text="End date" />
+                                                            <TableColumn fx:id="actionAcitivityCol" minWidth="0.0" prefWidth="131.0" text="Action" />
                                                          </columns>
                                                          <VBox.margin>
                                                             <Insets left="20.0" />
                                                          </VBox.margin>
                                                       </TableView>
-                                                      <HBox prefHeight="48.0" prefWidth="930.0">
+                                                      <HBox alignment="CENTER" prefHeight="104.0" prefWidth="890.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" onAction="#onActivityDelete" prefHeight="45.0" prefWidth="120.0" styleClass="btn-error" text="Delete">
+                                                            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>
                                                             </Button>
-                                                            <Pane prefHeight="46.0" prefWidth="29.0" />
-                                                            <Label fx:id="activityId" text="Label">
-                                                               <HBox.margin>
-                                                                  <Insets top="13.0" />
-                                                               </HBox.margin>
+                                                            <Pane prefHeight="87.5" prefWidth="65.0" />
+                                                            <Button mnemonicParsing="false" onAction="#onDone" prefHeight="45.0" prefWidth="120.0" styleClass="btn-Done" text="Done">
                                                                <font>
-                                                                  <Font name="Hiragino Sans W6" size="16.0" />
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>
-                                                            </Label>
+                                                            </Button>
                                                          </children>
-                                                         <padding>
-                                                            <Insets left="50.0" />
-                                                         </padding>
                                                       </HBox>
                                                    </children>
                                                 </VBox>

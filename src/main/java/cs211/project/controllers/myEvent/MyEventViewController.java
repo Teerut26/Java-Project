@@ -42,7 +42,7 @@ public class MyEventViewController extends ComponentRegister {
 
     @FXML
     public void initialize() {
-        routeProvider = (RouteProvider) FXRouter.getData();
+        routeProvider = (RouteProvider<Event>) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
