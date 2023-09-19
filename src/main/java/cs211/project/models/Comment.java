@@ -2,6 +2,7 @@ package cs211.project.models;
 
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Comment {
     private String id;
@@ -42,8 +43,14 @@ public class Comment {
 
     @Override
     public boolean equals(Object o) {
-        Comment that = (Comment) o;
-        return this.id.equals(that.id);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return id.equals(comment.id);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
