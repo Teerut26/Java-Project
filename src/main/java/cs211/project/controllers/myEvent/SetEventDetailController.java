@@ -257,8 +257,9 @@ public class SetEventDetailController extends ComponentRegister {
         }
 
     }
+
     @FXML
-    public void onUsCancelSuspend(){
+    public void onUsCancelSuspend() {
         if (userSelect != null) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "You want to cancel cancel suspend : " + userSelect.getUserName() + " ?", ButtonType.OK, ButtonType.CANCEL);
             alert.showAndWait();
@@ -413,31 +414,15 @@ public class SetEventDetailController extends ComponentRegister {
         }
     }
 
-        @FXML
-        public void onBack () {
+    @FXML
+    void onTeamEdit(ActionEvent event) {
+        if (teamSelect != null) {
             try {
-                FXRouter.goTo("my-event", this.routeProvider);
+                FXRouter.goTo("edit-team", this.routeProvider);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
 
-        @FXML
-        void onAddTeam (ActionEvent event){
-            try {
-                FXRouter.goTo("create-team", this.routeProvider);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        @FXML
-        void onTeamEdit(ActionEvent event) {
-            if(teamSelect != null){
-                try {
-                    FXRouter.goTo("edit-team", this.routeProvider);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
     }
 }
