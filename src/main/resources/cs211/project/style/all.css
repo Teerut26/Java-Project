@@ -111,6 +111,7 @@
     -fx-text-fill: #FAF2E3
 }
 
-.btn-Done:hover{
+.btn-Done:hover {
     -fx-background-color: #397D54;
     -fx-cursor: hand;
+}

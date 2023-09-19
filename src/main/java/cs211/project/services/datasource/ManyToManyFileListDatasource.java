@@ -13,6 +13,7 @@ public class ManyToManyFileListDatasource implements DatasourceInterface<ManyToM
     private String fileName;
     public String MTM_USER_EVENT = "_userToEvent.csv";
     public String MTM_USER_TEAM = "_userToTeam.csv";
+    public String MTM_USER_EVENT_SUSPEND = "_userToEventSuspend.csv";
     private FileIO fileIO;
 
     public ManyToManyFileListDatasource(String fileName) {

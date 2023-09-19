@@ -99,7 +99,14 @@ public class Team {
 
     @Override
     public boolean equals(Object o) {
-        Team that = (Team) o;
-        return this.id.equals(that.id);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Team team = (Team) o;
+        return id.equals(team.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

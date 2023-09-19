@@ -38,6 +38,8 @@ public class EditEventDetailFormController extends ComponentRegister {
     @FXML
     private TextField TextFieldQuantity;
     @FXML
+    private TextField locationEvent;
+    @FXML
     private VBox SideBarVBox;
     @FXML
     private HBox NavBarHBox;
@@ -65,6 +67,7 @@ public class EditEventDetailFormController extends ComponentRegister {
     public void showCurrentData() {
         TextFieldName.setText(event.getNameEvent());
         TextAreaDescription.setText(event.getDescriptionEvent());
+        locationEvent.setText(event.getLocation());
         TextFieldQuantity.setText(String.valueOf(event.getQuantityEvent()));
         DataTimeStart.setValue(event.getStartDate().toLocalDate());
         DataTimeEnd.setValue(event.getStartDate().toLocalDate());
@@ -92,6 +95,7 @@ public class EditEventDetailFormController extends ComponentRegister {
 
         event.setNameEvent(TextFieldName.getText());
         event.setDescriptionEvent(TextAreaDescription.getText());
+        event.setLocation(locationEvent.getText());
         event.setImageEvent("data/images/event/"+ this.event.getEventID() + "."+ imageSaver.extention);
         event.setStartDate(DataTimeStart.getValue().atStartOfDay());
         event.setEndDate(DataTimeEnd.getValue().atStartOfDay());
@@ -99,6 +103,9 @@ public class EditEventDetailFormController extends ComponentRegister {
 
         eventFileListDatesource.writeData(eventCollection);
 
+        navigateToSetEvent();
+    }
+    public void navigateToSetEvent(){
         try{
             FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (Exception e) {
@@ -108,10 +115,6 @@ public class EditEventDetailFormController extends ComponentRegister {
 
     @FXML
     public void onCancel() {
-        try {
-            FXRouter.goTo("set-event-detail",this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        navigateToSetEvent();
     }
 }

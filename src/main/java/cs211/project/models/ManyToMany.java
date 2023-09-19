@@ -25,8 +25,15 @@ public class ManyToMany {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         ManyToMany that = (ManyToMany) o;
-        return this.A.equals(that.A) && this.B.equals(that.B);
+        return A.equals(that.A) && B.equals(that.B);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(A, B);
     }
 
     public void setB(String b) {

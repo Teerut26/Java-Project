@@ -49,7 +49,11 @@ public class InProcessCardComponentController {
         this.title.setText(event.getNameEvent());
         this.descriptions.setText(event.getDescriptionEvent());
         this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
-        this.currentMemberParticipatingAmount.setText(String.valueOf(event.getCurrentMemberParticipatingAmount()));
+
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
+        Integer currentMemberParticipatingAmount = manyToManyManager.countByB(event.getEventID());
+
+        this.currentMemberParticipatingAmount.setText(String.valueOf(currentMemberParticipatingAmount));
         this.maxMemberParticipating.setText(String.valueOf(String.valueOf(event.getQuantityEvent())));
         this.event = event;
     }

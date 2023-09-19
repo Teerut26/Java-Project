@@ -128,11 +128,11 @@ public class User {
         return lastLogin;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        User that = (User) o;
-        return this.id.equals(that.id);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        User that = (User) o;
+//        return this.id.equals(that.id);
+//    }
 
     @Override
     public String toString() {

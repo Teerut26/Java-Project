@@ -46,4 +46,14 @@ public class ActivitiesEventCollection {
         }
         return null;
     }
+
+    public ActivitiesEventCollection finsdByEventId(String id) {
+        ActivitiesEventCollection activitiesEventCollection = new ActivitiesEventCollection();
+        for (ActivitiesEvent activities : this.activitiesArrayList) {
+            if (activities.getEvent().getEventID().equals(id)) {
+                activitiesEventCollection.add(activities);
+            }
+        }
+        return activitiesEventCollection;
+    }
 }
