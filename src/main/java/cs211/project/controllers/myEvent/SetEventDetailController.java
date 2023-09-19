@@ -413,12 +413,31 @@ public class SetEventDetailController extends ComponentRegister {
         }
     }
 
-    @FXML
-    void onTeamEdit(ActionEvent event) {
-        try {
-            FXRouter.goTo("edit-team", this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        @FXML
+        public void onBack () {
+            try {
+                FXRouter.goTo("my-event", this.routeProvider);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+
+        @FXML
+        void onAddTeam (ActionEvent event){
+            try {
+                FXRouter.goTo("create-team", this.routeProvider);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        @FXML
+        void onTeamEdit(ActionEvent event) {
+            if(teamSelect != null){
+                try {
+                    FXRouter.goTo("edit-team", this.routeProvider);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
     }
 }

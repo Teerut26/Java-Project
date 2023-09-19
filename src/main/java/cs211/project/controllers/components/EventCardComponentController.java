@@ -25,6 +25,8 @@ public class EventCardComponentController {
 
     @FXML
     private Label eventTime;
+    @FXML
+    private Label eventLocation;
 
     @FXML
     private Rectangle image;
@@ -49,6 +51,7 @@ public class EventCardComponentController {
         image.setFill(new ImagePattern(img));
         this.title.setText(event.getNameEvent());
         this.descriptions.setText(event.getDescriptionEvent());
+        this.eventLocation.setText(event.getLocation());
         this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
 
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
