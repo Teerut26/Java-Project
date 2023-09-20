@@ -33,6 +33,7 @@ public class Router extends Application {
         FXRouter.when("event-detail-joined", resourcesPath + "event/join-event.fxml");
         FXRouter.when("event-team-manage", resourcesPath + "event/team/event-team-manage.fxml");
         FXRouter.when("event-team-activities-list", resourcesPath + "event/team/event-team-activities-list.fxml");
+        FXRouter.when("event-team-detail", resourcesPath + "event/team/event-team-detail.fxml");
         FXRouter.when("event-team-list", resourcesPath + "event/team/event-team-list.fxml");
         FXRouter.when("event-history", resourcesPath + "eventHistory/in-process-and-ended.fxml");
 
