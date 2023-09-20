@@ -10,28 +10,38 @@ import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.ActivitiesEventFileListDatesource;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.utils.ComponentRegister;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddScheduleParticipantController extends ComponentRegister {
     @FXML
     private VBox SideBarVBox;
+
     @FXML
     private HBox NavBarHBox;
     @FXML
-    private TextField TextFieldEventName;
+    private TextField TextFieldDetail;
+
     @FXML
-    private TextField TextFieldDescription;
+    private TextField TextFieldEndTime;
+
     @FXML
-    private DatePicker DataTimeEnd;
+    private TextField TextFieldName;
+
     @FXML
-    private DatePicker DataTimeStart;
+    private TextField TextFieldStartTime;
+    @FXML
+    private Label errorLabel;
     private ActivitiesEventFileListDatesource activitiesEventFileListDatesource;
     private ActivitiesEventCollection activitiesEventCollection;
     private Event event;
@@ -48,30 +58,26 @@ public class AddScheduleParticipantController extends ComponentRegister {
         activitiesEventFileListDatesource = new ActivitiesEventFileListDatesource();
         activitiesEventCollection = activitiesEventFileListDatesource.readData();
         event = routeProvider.getData();
+
+        errorLabel.setText("");
     }
 
     @FXML
     public void onSave(){
 
-        ActivitiesEvent newActivitiesEvent = new ActivitiesEvent(this.activitiesEventID,
-                TextFieldEventName.getText(),
-                TextFieldDescription.getText(),
-                DataTimeStart.getValue().atStartOfDay(),
-                DataTimeEnd.getValue().atStartOfDay(),event);
+            ActivitiesEvent newActivitiesEvent = new ActivitiesEvent(this.activitiesEventID,
+                    TextFieldName.getText(),
+                    TextFieldDetail.getText(),
+                    TextFieldStartTime.getText(),
+                    TextFieldEndTime.getText(),event);
+            activitiesEventCollection.add(newActivitiesEvent);
+            activitiesEventFileListDatesource.writeData(activitiesEventCollection);
+            try {
+                FXRouter.goTo("set-event-detail",this.routeProvider);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-        activitiesEventCollection.add(newActivitiesEvent);
-        activitiesEventFileListDatesource.writeData(activitiesEventCollection);
-
-        TextFieldEventName.clear();
-        TextFieldDescription.clear();
-        DataTimeStart.setValue(null);
-        DataTimeEnd.setValue(null);
-
-        try {
-            FXRouter.goTo("set-event-detail",this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @FXML

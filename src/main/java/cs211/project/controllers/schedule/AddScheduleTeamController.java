@@ -13,26 +13,36 @@ import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.utils.ComponentRegister;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddScheduleTeamController extends ComponentRegister {
     @FXML
     private VBox SideBarVBox;
+
     @FXML
     private HBox NavBarHBox;
     @FXML
-    private TextField TextFieldEventName;
+    private TextField TextFieldDetail;
+
     @FXML
-    private TextField TextFieldDescription;
+    private TextField TextFieldEndTime;
+
     @FXML
-    private DatePicker DataTimeEnd;
+    private TextField TextFieldName;
+
     @FXML
-    private DatePicker DataTimeStart;
+    private TextField TextFieldStartTime;
+
+    @FXML
+    private Label errorLabel;
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
     private ActivitiesTeamCollection activitiesTeamCollection;
     private Team team;
@@ -49,23 +59,34 @@ public class AddScheduleTeamController extends ComponentRegister {
         activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
         activitiesTeamCollection = activitiesTeamFileListDatesource.readData();
         team = routeProvider.getData();
+
+        errorLabel.setText("");
     }
 
     public void onSave(){
+        Pattern pattern = Pattern.compile("\\w\\w:\\w\\w");
 
-        ActivitiesTeam newActivitiesTeam = new ActivitiesTeam(this.activitiesTeamID,
-                TextFieldEventName.getText(),
-                TextFieldDescription.getText(),
-                DataTimeStart.getValue().atStartOfDay(),
-                DataTimeEnd.getValue().atStartOfDay(),team);
+        String textFieldValueStartTime = TextFieldStartTime.getText();
+        Matcher matcherStartTime = pattern.matcher(textFieldValueStartTime);
 
-        activitiesTeamCollection.add(newActivitiesTeam);
-        activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
+        String textFieldValueEndTime = TextFieldEndTime.getText();
+        Matcher matcherEndTime = pattern.matcher(textFieldValueEndTime);
 
-        TextFieldEventName.clear();
-        TextFieldDescription.clear();
-        DataTimeStart.setValue(null);
-        DataTimeEnd.setValue(null);
+        if (!matcherStartTime.matches()) {
+            errorLabel.setText("Please enter text according to pattern 00:00 for Start Time");
+        } else if (!matcherEndTime.matches()) {
+            errorLabel.setText("Please enter text according to pattern 00:00 for End Time");
+        } else {
+            ActivitiesTeam newActivitiesTeam = new ActivitiesTeam(this.activitiesTeamID,
+                    TextFieldName.getText(),
+                    TextFieldDetail.getText(),
+                    TextFieldStartTime.getText(),
+                    TextFieldEndTime.getText(),team);
+
+            activitiesTeamCollection.add(newActivitiesTeam);
+            activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
+        }
+
 
         try {
             FXRouter.goTo("event-team-manage",this.routeProvider);

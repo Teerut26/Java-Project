@@ -9,6 +9,7 @@ import cs211.project.services.datasource.ActivitiesTeamFileListDatesource;
 import cs211.project.utils.ComponentRegister;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,16 +19,23 @@ import java.io.IOException;
 public class EditScheduleTeamController extends ComponentRegister {
     @FXML
     private VBox SideBarVBox;
+
     @FXML
     private HBox NavBarHBox;
     @FXML
-    private TextField TextFieldDescription;
+    private TextField TextFieldDetail;
+
     @FXML
-    private TextField TextFieldEventName;
+    private TextField TextFieldEndTime;
+
     @FXML
-    private DatePicker DataTimeEnd;
+    private TextField TextFieldName;
+
     @FXML
-    private DatePicker DataTimeStart;
+    private TextField TextFieldStartTime;
+
+    @FXML
+    private Label errorLabel;
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
     private ActivitiesTeamCollection activitiesTeamCollection;
     private ActivitiesTeam activitiesTeam;
@@ -48,18 +56,19 @@ public class EditScheduleTeamController extends ComponentRegister {
             }
         }));
 
-        TextFieldEventName.setText(activitiesTeam.getTitle());
-        TextFieldDescription.setText(activitiesTeam.getDetail());
-        DataTimeStart.setValue(activitiesTeam.getStartDate().toLocalDate());
-        DataTimeEnd.setValue(activitiesTeam.getEndDate().toLocalDate());
+        TextFieldName.setText(activitiesTeam.getTitle());
+        TextFieldDetail.setText(activitiesTeam.getDetail());
+        TextFieldStartTime.setText(activitiesTeam.getStartTime());
+        TextFieldEndTime.setText(activitiesTeam.getEndTime());
+        errorLabel.setText("");
     }
 
     @FXML
     public void onSave(){
-        activitiesTeam.setTitle(TextFieldEventName.getText());
-        activitiesTeam.setDetail(TextFieldDescription.getText());
-        activitiesTeam.setStartDate(DataTimeStart.getValue().atStartOfDay());
-        activitiesTeam.setEndDate(DataTimeEnd.getValue().atStartOfDay());
+        activitiesTeam.setTitle(TextFieldName.getText());
+        activitiesTeam.setDetail(TextFieldDetail.getText());
+        activitiesTeam.setStartTime(TextFieldStartTime.getText());
+        activitiesTeam.setEndTime(TextFieldEndTime.getText());
 
         activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
 

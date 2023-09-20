@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 public class ActivitiesTeam extends Activities {
     private Team team;
 
-    public ActivitiesTeam(String id, String title, String detail, LocalDateTime startDate, LocalDateTime endDate, Team team) {
-        super(id, title, detail, startDate, endDate);
+    public ActivitiesTeam(String id, String title, String detail, String startTime, String endTime, Team team) {
+        super(id, title, detail, startTime, endTime);
         this.team = team;
     }
 

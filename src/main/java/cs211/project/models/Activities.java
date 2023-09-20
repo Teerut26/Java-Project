@@ -1,20 +1,22 @@
 package cs211.project.models;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Activities {
     private String id;
     private String title;
     private String detail;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private String startTime;
+    private String endTime;
 
-    public Activities(String id, String title, String detail, LocalDateTime startDate, LocalDateTime endDate) {
+    public Activities(String id, String title, String detail, String startTime, String endTime) {
         this.id = id;
         this.title = title;
         this.detail = detail;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public String getId() {
@@ -29,19 +31,30 @@ public class Activities {
         return detail;
     }
 
-    public LocalDateTime getStartDate() {
-        return startDate;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public LocalDateTime getEndDate() {
-        return endDate;
+    public String getEndTime() {
+        return endTime;
     }
 
     public String getStatus() {
         LocalDateTime now = LocalDateTime.now();
-        if (now.isBefore(startDate)) {
+        String[] starttime = startTime.split(":");
+        LocalDateTime timeStart = now
+                .plusHours(Integer.parseInt(starttime[0]))
+                .plusMinutes(Integer.parseInt(starttime[2]))
+                .plusSeconds(Integer.parseInt(starttime[3]));
+
+        String[] endtime = endTime.split(":");
+        LocalDateTime timeend = now
+                .plusHours(Integer.parseInt(endtime[0]))
+                .plusMinutes(Integer.parseInt(endtime[2]))
+                .plusSeconds(Integer.parseInt(endtime[3]));
+        if (now.isBefore(timeend)) {
             return "Upcoming";
-        } else if (now.isAfter(startDate) && now.isBefore(endDate)) {
+        } else if (now.isAfter(timeStart) && now.isBefore(timeend)) {
             return "Ongoing";
         } else {
             return "Finished";
@@ -56,18 +69,18 @@ public class Activities {
         this.detail = detail;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     @Override
     public String toString() {
         return "Activities{" + "title=" + title + '\'' + ", detail=" + detail + '\'' +
-                ", startDate=" + startDate + '\'' + ", endDate=" + endDate + '}';
+                ", startDate=" + startTime + '\'' + ", endDate=" + endTime + '}';
     }
 
     @Override
