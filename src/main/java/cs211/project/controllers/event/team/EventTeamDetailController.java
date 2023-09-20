@@ -107,7 +107,7 @@ public class EventTeamDetailController extends ComponentRegister {
                 if (newValue != null) {
                     selectActivitiesTeam = newValue;
                 } else {
-                    activityTeamTableView = null;
+                    selectActivitiesTeam = null;
                 }
             }
         });
@@ -273,6 +273,21 @@ public class EventTeamDetailController extends ComponentRegister {
                 selectMemberInTeam = null;
                 this.showTableMemberInTeam(this.userInTeamCollection);
             }
+        }
+    }
+
+    @FXML
+    public void onToCommentEvent(){
+        try {
+            if (selectActivitiesTeam == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            this.routeProvider.addHashMap("activity-team-select", this.selectActivitiesTeam);
+//            FXRouter.goTo("edit-schedule-participant", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

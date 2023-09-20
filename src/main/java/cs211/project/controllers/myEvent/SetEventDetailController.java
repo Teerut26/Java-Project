@@ -455,4 +455,19 @@ public class SetEventDetailController extends ComponentRegister {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    public void onToCommentEvent(){
+        try {
+            if (activitySelect == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            this.routeProvider.addHashMap("activity-event-select", this.activitySelect);
+//            FXRouter.goTo("edit-schedule-participant", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
