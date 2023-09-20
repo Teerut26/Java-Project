@@ -107,7 +107,7 @@
                                                                </font>
                                                             </Button>
                                                             <Pane prefHeight="52.0" prefWidth="60.0" />
-                                                            <Label fx:id="currentUser" text="0" textFill="#5d863b">
+                                                            <Label fx:id="currentUserJoinAmount" text="0" textFill="#5d863b">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>
