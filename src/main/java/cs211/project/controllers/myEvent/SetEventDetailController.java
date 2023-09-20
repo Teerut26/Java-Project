@@ -11,6 +11,7 @@ import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.*;
 import cs211.project.utils.ComponentRegister;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -26,6 +27,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class SetEventDetailController extends ComponentRegister {
     @FXML
@@ -33,44 +35,15 @@ public class SetEventDetailController extends ComponentRegister {
     @FXML
     private HBox NavBarHBox;
     @FXML
-    private TableView<Team> teamTableView;
-    @FXML
-    private TableColumn<Team, String> nameTeamColumn;
-    @FXML
-    private TableColumn<Team, Integer> quantityTeamColumn;
-    @FXML
-    private TableColumn<Team, LocalDateTime> startDateTeam;
-    @FXML
-    private TableColumn<Team, LocalDateTime> endDateTeam;
-    @FXML
-    private TableView<ActivitiesEvent> activityEventTableView;
-    @FXML
-    private TableColumn<ActivitiesEvent, String> statusActivityCol;
-    @FXML
-    private TableColumn<ActivitiesEvent, String> titleActivityCol;
-    @FXML
-    private TableColumn<ActivitiesEvent, String> detailActivityCol;
-
-    @FXML
-    private TableColumn<ActivitiesEvent, LocalDateTime> timeEndCol;
-    @FXML
-    private TableColumn<ActivitiesEvent, LocalDateTime> timeStartCol;
-
-    @FXML
     private Label teamId;
     @FXML
     private Label activityId;
     @FXML
     private TableView<User> userJoinTableView;
     @FXML
-    private TableColumn<User, String> userNameColumn;
+    private TableView<Team> teamTableView;
     @FXML
-    private TableColumn<User, String> nameColumn;
-    @FXML
-    private TableColumn<User, String> lastLoginColumn;
-    @FXML
-    private TableColumn<User, String> statusUserColumn;
-
+    private TableView<ActivitiesEvent> activityEventTableView;
     @FXML
     private Label currentUserJoinAmount;
     @FXML
@@ -211,16 +184,18 @@ public class SetEventDetailController extends ComponentRegister {
 
         ManyToManyManager manyToManyManagerSuspend = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
 
-        userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        userNameColumn.setMinWidth(240.251220703125);
+        TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
+        TableColumn<User, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
-        nameColumn.setMinWidth(259.687744140625);
 
+        TableColumn<User, String> lastLoginColumn = new TableColumn<>("lastLogin");
         lastLoginColumn.setCellValueFactory(new PropertyValueFactory<>("lastLogin"));
-        lastLoginColumn.setMinWidth(216.812255859375);
 
-        statusUserColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
+        TableColumn<User, String> statusUserColumnColumn = new TableColumn<>("lastLogin");
+
+        statusUserColumnColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> param) {
                 User user = param.getValue();
@@ -228,18 +203,16 @@ public class SetEventDetailController extends ComponentRegister {
                 return Bindings.createStringBinding(() -> isSuspend ? "Suspend" : "Active");
             }
         });
-        statusUserColumn.setMinWidth(186.406005859375);
 
         userJoinTableView.getColumns().clear();
-        userJoinTableView.getColumns().addAll(userNameColumn, nameColumn, lastLoginColumn, statusUserColumn);
-
         userJoinTableView.getItems().clear();
+
+        userJoinTableView.getColumns().addAll(usernameColumn, nameColumn, lastLoginColumn, statusUserColumnColumn);
 
         for (User user : userCollection.getUsers()) {
             userJoinTableView.getItems().add(user);
         }
     }
-
 
     @FXML
     public void onSuspendUser(ActionEvent event) {
@@ -287,21 +260,33 @@ public class SetEventDetailController extends ComponentRegister {
 
 
     public void showTableTeam(TeamCollection teamCollection) {
+        TableColumn<Team, String> nameColumn = new TableColumn<>("name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        nameTeamColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nameTeamColumn.setMinWidth(263.9804992675781);
+        TableColumn<Team, String> quantityTeamColumnColumn = new TableColumn<>("quantity");
+        quantityTeamColumnColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        quantityTeamColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        quantityTeamColumn.setMinWidth(134.91705322265625);
+        TableColumn<Team, String> startDateTeamColumn = new TableColumn<>("startRecruitDate");
+        startDateTeamColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Team, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Team, String> parameter) {
+                Team team = parameter.getValue();
+                return Bindings.createStringBinding(() -> team.getStartRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            }
+        });
 
-        startDateTeam.setCellValueFactory(new PropertyValueFactory<>("startRecruitDate"));
-        startDateTeam.setMinWidth(161.58294677734375);
+        TableColumn<Team, String> endRecruitDateColumn = new TableColumn<>("endRecruitDate");
+        endRecruitDateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Team, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Team, String> parameter) {
+                Team team = parameter.getValue();
+                return Bindings.createStringBinding(() -> team.getEndRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            }
+        });
 
-        endDateTeam.setCellValueFactory(new PropertyValueFactory<>("endRecruitDate"));
-        endDateTeam.setMinWidth(167.81219482421875);
 
         teamTableView.getColumns().clear();
-        teamTableView.getColumns().addAll(nameTeamColumn, quantityTeamColumn, startDateTeam, endDateTeam);
+        teamTableView.getColumns().addAll(nameColumn, quantityTeamColumnColumn, startDateTeamColumn, endRecruitDateColumn);
 
         teamTableView.getItems().clear();
 
@@ -345,20 +330,32 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     public void showTableActivities(ActivitiesEventCollection activitiesCollection) {
+        TableColumn<ActivitiesEvent, String> titleColumn = new TableColumn<>("title");
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 
-        titleActivityCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        titleActivityCol.setMinWidth(197.86151123046875);
+        TableColumn<ActivitiesEvent, String> detailColumn = new TableColumn<>("detail");
+        detailColumn.setCellValueFactory(new PropertyValueFactory<>("detail"));
 
-        detailActivityCol.setCellValueFactory(new PropertyValueFactory<>("detail"));
-        detailActivityCol.setMinWidth(237.21307373046875);
+        TableColumn<ActivitiesEvent, String> startDateColumn = new TableColumn<>("startDate");
+        startDateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
+                ActivitiesEvent activitiesEvent = parameter.getValue();
+                return Bindings.createStringBinding(() -> activitiesEvent.getDateStart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            }
+        });
 
-        timeStartCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        timeStartCol.setMinWidth(167.2869873046875);
+        TableColumn<ActivitiesEvent, String> endDateColumn = new TableColumn<>("endDate");
+        endDateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
+                ActivitiesEvent activitiesEvent = parameter.getValue();
+                return Bindings.createStringBinding(() -> activitiesEvent.getDateEnd().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            }
+        });
 
-        timeEndCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        timeEndCol.setMinWidth(160.69671630859375);
-
-        statusActivityCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
+        TableColumn<ActivitiesEvent, String> statusColumn = new TableColumn<>("Status");
+        statusColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
                 ActivitiesEvent activitiesEvent = parameter.getValue();
@@ -366,10 +363,8 @@ public class SetEventDetailController extends ComponentRegister {
             }
         });
 
-        statusActivityCol.setMinWidth(131);
-
         activityEventTableView.getColumns().clear();
-        activityEventTableView.getColumns().addAll(titleActivityCol, detailActivityCol, timeStartCol, timeEndCol, statusActivityCol);
+        activityEventTableView.getColumns().addAll(titleColumn, detailColumn, startDateColumn, endDateColumn);
 
         for (ActivitiesEvent activitiesEvent : activitiesEventCollection.getActivitiesArrayList()) {
             activityEventTableView.getItems().add(activitiesEvent);

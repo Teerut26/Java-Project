@@ -38,14 +38,12 @@ public class ActivitiesEventFileListDatesource implements DatasourceInterface<Ac
                 String detail = data[2].trim();
                 LocalDateTime dateStart = LocalDateTime.parse(data[3].trim());
                 LocalDateTime dateEnd = LocalDateTime.parse(data[4].trim());
-                String startTime = data[5].trim();
-                String endTime = data[6].trim();
-                String eventId = data[7].trim();
+                String eventId = data[5].trim();
 
                 EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
                 Event event = eventFileListDatesource.readData().findById(eventId);
 
-                ActivitiesEvent activitiesEvent = new ActivitiesEvent(id, title, detail, dateStart, dateEnd,startTime, endTime, event);
+                ActivitiesEvent activitiesEvent = new ActivitiesEvent(id, title, detail, dateStart, dateEnd, event);
 
                 activitiesEventCollection.add(activitiesEvent);
             }
@@ -70,7 +68,7 @@ public class ActivitiesEventFileListDatesource implements DatasourceInterface<Ac
 
         try {
             for (ActivitiesEvent activities : data.getActivitiesArrayList()) {
-                String line = activities.getId() + "," + activities.getTitle() + "," + activities.getDetail() + "," + activities.getStartTime() + "," + activities.getEndTime() + "," + activities.getEvent().getEventID();
+                String line = activities.getId() + "," + activities.getTitle() + "," + activities.getDetail() + "," + activities.getDateStart() + "," + activities.getDateEnd() + "," + activities.getEvent().getEventID();
                 buffer.append(line);
                 buffer.append("\n");
             }

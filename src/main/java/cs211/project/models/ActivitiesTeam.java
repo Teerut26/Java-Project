@@ -6,8 +6,8 @@ import java.util.Objects;
 public class ActivitiesTeam extends Activities {
     private Team team;
 
-    public ActivitiesTeam(String id, String title, String detail, LocalDateTime dateStart, LocalDateTime dateEnd, String startTime, String endTime, Team team) {
-        super(id, title, detail, dateStart, dateEnd,startTime, endTime);
+    public ActivitiesTeam(String id, String title, String detail, LocalDateTime dateStart, LocalDateTime dateEnd, Team team) {
+        super(id, title, detail, dateStart, dateEnd);
         this.team = team;
     }
 

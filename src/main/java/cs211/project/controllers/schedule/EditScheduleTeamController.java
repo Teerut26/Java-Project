@@ -8,7 +8,9 @@ import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.ActivitiesTeamFileListDatesource;
 import cs211.project.utils.ComponentRegister;
+import cs211.project.utils.TimeValidate;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class EditScheduleTeamController extends ComponentRegister {
     @FXML
@@ -48,6 +51,8 @@ public class EditScheduleTeamController extends ComponentRegister {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
+        activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
+        activitiesTeamCollection = activitiesTeamFileListDatesource.readData();
 
         TextFieldName.setText(activitiesTeam.getTitle());
         TextFieldDetail.setText(activitiesTeam.getDetail());
@@ -59,13 +64,27 @@ public class EditScheduleTeamController extends ComponentRegister {
 
     @FXML
     public void onSave(){
+        TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), dateStart.getValue().atStartOfDay());
+        TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), dateEnd.getValue().atStartOfDay());
+
+        if (!timeEndUtils.validate() || !timeStartUtils.validate()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Time");
+            alert.setContentText("Please enter a valid time");
+            alert.show();
+            return;
+        }
+
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute(), timeEndUtils.getSecond());
 
         activitiesTeam.setTitle(TextFieldName.getText());
         activitiesTeam.setDetail(TextFieldDetail.getText());
-        activitiesTeam.setDateStart(dateStart.getValue().atStartOfDay());
-        activitiesTeam.setDateEnd(dateEnd.getValue().atStartOfDay());
-        activitiesTeam.setStartTime(timeStart.getText());
-        activitiesTeam.setEndTime(timeEnd.getText());
+        activitiesTeam.setDateStart(timeStartUtils.getRefLocalDateTime());
+        activitiesTeam.setDateEnd(timeEndUtils.getRefLocalDateTime());
+
+        activitiesTeamCollection.update(activitiesTeam);
 
         activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
 

@@ -33,6 +33,14 @@ public class ActivitiesTeamCollection {
         this.activitiesArrayList = activitiesArrayList;
     }
 
+    public void update(ActivitiesTeam activitiesTeam) {
+        for (int i = 0; i < this.activitiesArrayList.size(); i++) {
+            if (this.activitiesArrayList.get(i).getId().equals(activitiesTeam.getId())) {
+                this.activitiesArrayList.set(i, activitiesTeam);
+            }
+        }
+    }
+
     public void remove(ActivitiesEvent activitiesEvent) {
         this.activitiesArrayList.remove(activitiesEvent);
     }

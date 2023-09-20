@@ -46,6 +46,13 @@ public class ActivitiesEventCollection {
         }
         return null;
     }
+    public void update(ActivitiesEvent activitiesEvent) {
+        for (int i = 0; i < this.activitiesArrayList.size(); i++) {
+            if (this.activitiesArrayList.get(i).getId().equals(activitiesEvent.getId())) {
+                this.activitiesArrayList.set(i, activitiesEvent);
+            }
+        }
+    }
 
     public ActivitiesEventCollection finsdByEventId(String id) {
         ActivitiesEventCollection activitiesEventCollection = new ActivitiesEventCollection();

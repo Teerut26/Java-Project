@@ -33,6 +33,8 @@ public class InProcessCardComponentController {
 
     @FXML
     private Label title;
+    @FXML
+    private Label eventLocation;
 
     private String customPath = null;
 
@@ -49,7 +51,7 @@ public class InProcessCardComponentController {
         this.title.setText(event.getNameEvent());
         this.descriptions.setText(event.getDescriptionEvent());
         this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
-
+        this.eventLocation.setText(event.getLocation());
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
         Integer currentMemberParticipatingAmount = manyToManyManager.countByB(event.getEventID());
 
@@ -67,7 +69,7 @@ public class InProcessCardComponentController {
         try {
             RouteProvider routeProviderWithEvent = new RouteProvider<Event>(this.event);
             routeProviderWithEvent.setUserSession(this.routeProvider.getUserSession());
-            FXRouter.goTo(this.customPath == null ? "event-detail-joined" : this.customPath , routeProviderWithEvent);
+            FXRouter.goTo(this.customPath == null ? "event-detail-joined" : this.customPath, routeProviderWithEvent);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -88,8 +90,6 @@ public class InProcessCardComponentController {
             throw new RuntimeException(e);
         }
     }
-
-
 
 
 }

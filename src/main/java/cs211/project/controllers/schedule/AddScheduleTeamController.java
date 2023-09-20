@@ -12,7 +12,9 @@ import cs211.project.services.datasource.ActivitiesTeamFileListDatesource;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.utils.ComponentRegister;
+import cs211.project.utils.TimeValidate;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -20,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,18 +65,30 @@ public class AddScheduleTeamController extends ComponentRegister {
 
     }
 
-    public void onSave(){
+    public void onSave() {
+        TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), dateStart.getValue().atStartOfDay());
+        TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), dateEnd.getValue().atStartOfDay());
 
-            ActivitiesTeam newActivitiesTeam = new ActivitiesTeam(this.activitiesTeamID,
-                    TextFieldName.getText(),
-                    TextFieldDetail.getText(),
-                    dateStart.getValue().atStartOfDay(),
-                    dateEnd.getValue().atStartOfDay(),
-                    timeStart.getText(),
-                    timeEnd.getText(), team);
+        if (!timeEndUtils.validate() || !timeStartUtils.validate()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Time");
+            alert.setContentText("Please enter a valid time");
+            alert.show();
+            return;
+        }
 
-            activitiesTeamCollection.add(newActivitiesTeam);
-            activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute(), timeEndUtils.getSecond());
+
+        ActivitiesTeam newActivitiesTeam = new ActivitiesTeam(this.activitiesTeamID,
+                TextFieldName.getText(),
+                TextFieldDetail.getText(),
+                timeStartUtils.getRefLocalDateTime(),
+                timeEndUtils.getRefLocalDateTime(), team);
+
+        activitiesTeamCollection.add(newActivitiesTeam);
+        activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
 
 
         try {
@@ -84,7 +99,7 @@ public class AddScheduleTeamController extends ComponentRegister {
     }
 
     @FXML
-    public void onCancel(){
+    public void onCancel() {
         try {
             FXRouter.goTo("event-team-detail",this.routeProvider);
         } catch (IOException e) {

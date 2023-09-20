@@ -38,6 +38,14 @@ public class EventCollection {
         this.events.remove(event);
     }
 
+    public void update(Event event) {
+        for (int i = 0; i < this.events.size(); i++) {
+            if (this.events.get(i).getEventID().equals(event.getEventID())) {
+                this.events.set(i, event);
+            }
+        }
+    }
+
     public Event findById(String id) {
         for (Event event : this.events) {
             if (event.getEventID().equals(id)) {

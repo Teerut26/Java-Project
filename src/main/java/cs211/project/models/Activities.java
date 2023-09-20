@@ -1,24 +1,41 @@
 package cs211.project.models;
 
+import cs211.project.utils.TimeValidate;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Activities {
     private String id;
     private String title;
     private String detail;
-    private LocalDateTime dateStart;
-    private LocalDateTime dateEnd;
-    private String startTime;
-    private String endTime;
+    protected LocalDateTime dateStart;
+    protected LocalDateTime dateEnd;
+    protected String startTime;
+    protected String endTime;
 
-    public Activities(String id, String title, String detail, LocalDateTime dateStart, LocalDateTime dateEnd, String startTime, String endTime) {
+    public Activities(String id, String title, String detail, LocalDateTime dateStart, LocalDateTime dateEnd) {
         this.id = id;
         this.title = title;
         this.detail = detail;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.setTimeToLocalDateTime();
+    }
+
+    private void setTimeToLocalDateTime() {
+        String hourStart = String.valueOf(this.dateStart.getHour());
+        String minuteStart = String.valueOf(this.dateStart.getMinute());
+        String secondStart = String.valueOf(this.dateStart.getSecond());
+
+        String hourEnd = String.valueOf(this.dateEnd.getHour());
+        String minuteEnd = String.valueOf(this.dateEnd.getMinute());
+        String secondEnd = String.valueOf(this.dateEnd.getSecond());
+
+        this.startTime = hourStart + ":" + minuteStart + ":" + secondStart;
+        this.endTime = hourEnd + ":" + minuteEnd + ":" + secondEnd;
     }
 
     public String getId() {
@@ -33,9 +50,13 @@ public class Activities {
         return detail;
     }
 
-    public LocalDateTime getDateStart(){return dateStart;}
+    public LocalDateTime getDateStart() {
+        return dateStart;
+    }
 
-    public LocalDateTime getDateEnd(){return  dateEnd;}
+    public LocalDateTime getDateEnd() {
+        return dateEnd;
+    }
 
     public String getStartTime() {
         return startTime;
@@ -47,22 +68,12 @@ public class Activities {
 
     public String getStatus() {
         LocalDateTime now = LocalDateTime.now();
-        String[] starttime = startTime.split(":");
-        dateStart = now
-                .plusHours(Integer.parseInt(starttime[0]))
-                .plusMinutes(Integer.parseInt(starttime[2]))
-                .plusSeconds(Integer.parseInt(starttime[3]));
-        String[] endtime = endTime.split(":");
-        dateEnd = now
-                .plusHours(Integer.parseInt(endtime[0]))
-                .plusMinutes(Integer.parseInt(endtime[2]))
-                .plusSeconds(Integer.parseInt(endtime[3]));
-        if (now.isBefore(dateEnd)) {
-            return "Upcoming";
-        } else if (now.isAfter(dateStart) && now.isBefore(dateEnd)) {
-            return "Ongoing";
-        } else {
+        if (now.isBefore(this.dateStart)) {
+            return "Not started";
+        } else if (now.isAfter(this.dateEnd)) {
             return "Finished";
+        } else {
+            return "In progress";
         }
     }
 
@@ -74,15 +85,12 @@ public class Activities {
         this.detail = detail;
     }
 
-    public void setDateStart(LocalDateTime dateStart) {this.dateStart = dateStart;}
-    public void setDateEnd(LocalDateTime dateEnd) {this.dateEnd = dateEnd;}
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setDateStart(LocalDateTime dateStart) {
+        this.dateStart = dateStart;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setDateEnd(LocalDateTime dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     @Override
@@ -93,8 +101,14 @@ public class Activities {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Activities that = (Activities) o;
         return this.id.equals(that.id);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
