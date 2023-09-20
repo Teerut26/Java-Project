@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class EventTeamDetailController extends ComponentRegister {
     @FXML
@@ -123,10 +124,22 @@ public class EventTeamDetailController extends ComponentRegister {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         TableColumn<ActivitiesTeam, String> startDateColumn = new TableColumn<>("startDate");
-        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        startDateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesTeam, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesTeam, String> parameter) {
+                ActivitiesTeam activitiesTeam= parameter.getValue();
+                return Bindings.createStringBinding(() -> activitiesTeam.getDateStart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            }
+        });
 
         TableColumn<ActivitiesTeam, String> endDateColumn = new TableColumn<>("endDate");
-        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        endDateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesTeam, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesTeam, String> parameter) {
+                ActivitiesTeam activitiesTeam= parameter.getValue();
+                return Bindings.createStringBinding(() -> activitiesTeam.getDateEnd().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+            }
+        });
 
         statusColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesTeam, String>, ObservableValue<String>>() {
             @Override

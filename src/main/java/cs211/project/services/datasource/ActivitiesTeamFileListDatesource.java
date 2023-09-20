@@ -39,14 +39,14 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
                 String id = data[0].trim();
                 String title = data[1].trim();
                 String detail = data[2].trim();
-                LocalDateTime startDate = LocalDateTime.parse(data[3].trim());
-                LocalDateTime endDate = LocalDateTime.parse(data[4].trim());
+                LocalDateTime dateStart = LocalDateTime.parse(data[3].trim());
+                LocalDateTime dateEnd = LocalDateTime.parse(data[4].trim());
                 String teamId = data[5].trim();
 
                 TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
                 Team team = teamFileListDatasource.readData().findById(teamId);
 
-                ActivitiesTeam activitiesTeam = new ActivitiesTeam(id, title, detail, startDate, endDate, team);
+                ActivitiesTeam activitiesTeam = new ActivitiesTeam(id, title, detail, dateStart, dateEnd, team);
 
                 activitiesTeamCollection.add(activitiesTeam);
             }
@@ -71,7 +71,7 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
 
         try {
             for (ActivitiesTeam activities : data.getActivitiesArrayList()) {
-                String line = activities.getId() + "," + activities.getTitle() + "," + activities.getDetail() + "," + activities.getStartDate() + "," + activities.getEndDate() + "," + activities.getTeam().getId();
+                String line = activities.getId() + "," + activities.getTitle() + "," + activities.getDetail() + "," + activities.getDateStart() + "," + activities.getDateEnd() + "," + activities.getTeam().getId();
                 buffer.append(line);
                 buffer.append("\n");
             }

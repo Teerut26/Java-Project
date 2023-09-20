@@ -59,7 +59,7 @@ public class EventListController extends ComponentRegister {
         eventFileListDatesource.readData().getEvents().forEach(event -> {
             boolean isJoined = manyToManyCollectionUserJoinedEvent.checkIsExisted(new ManyToMany(routeProvider.getUserSession().getId(), event.getEventID()));
             boolean isOwner = event.getOwner().getId().equals(routeProvider.getUserSession().getId());
-            if (event.isPublic() && !isJoined && !isOwner) {
+            if (event.isPublic() && !isJoined) {
                 this.eventCollection.add(event);
             }
         });

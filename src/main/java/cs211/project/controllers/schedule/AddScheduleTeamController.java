@@ -12,28 +12,39 @@ import cs211.project.services.datasource.ActivitiesTeamFileListDatesource;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.utils.ComponentRegister;
+import cs211.project.utils.TimeValidate;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddScheduleTeamController extends ComponentRegister {
     @FXML
     private VBox SideBarVBox;
+
     @FXML
     private HBox NavBarHBox;
     @FXML
-    private TextField TextFieldEventName;
+    private TextField TextFieldDetail;
     @FXML
-    private TextField TextFieldDescription;
+    private TextField TextFieldName;
     @FXML
-    private DatePicker DataTimeEnd;
+    private DatePicker dateEnd;
     @FXML
-    private DatePicker DataTimeStart;
+    private DatePicker dateStart;
+    @FXML
+    private TextField timeEnd;
+    @FXML
+    private TextField timeStart;
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
     private ActivitiesTeamCollection activitiesTeamCollection;
     private Team team;
@@ -54,21 +65,31 @@ public class AddScheduleTeamController extends ComponentRegister {
 
     }
 
-    public void onSave(){
+    public void onSave() {
+        TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), dateStart.getValue().atStartOfDay());
+        TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), dateEnd.getValue().atStartOfDay());
+
+        if (!timeEndUtils.validate() || !timeStartUtils.validate()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Time");
+            alert.setContentText("Please enter a valid time");
+            alert.show();
+            return;
+        }
+
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute(), timeEndUtils.getSecond());
 
         ActivitiesTeam newActivitiesTeam = new ActivitiesTeam(this.activitiesTeamID,
-                TextFieldEventName.getText(),
-                TextFieldDescription.getText(),
-                DataTimeStart.getValue().atStartOfDay(),
-                DataTimeEnd.getValue().atStartOfDay(),team);
+                TextFieldName.getText(),
+                TextFieldDetail.getText(),
+                timeStartUtils.getRefLocalDateTime(),
+                timeEndUtils.getRefLocalDateTime(), team);
 
         activitiesTeamCollection.add(newActivitiesTeam);
         activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
 
-        TextFieldEventName.clear();
-        TextFieldDescription.clear();
-        DataTimeStart.setValue(null);
-        DataTimeEnd.setValue(null);
 
         try {
             FXRouter.goTo("event-team-detail",this.routeProvider);
@@ -78,7 +99,7 @@ public class AddScheduleTeamController extends ComponentRegister {
     }
 
     @FXML
-    public void onCancel(){
+    public void onCancel() {
         try {
             FXRouter.goTo("event-team-detail",this.routeProvider);
         } catch (IOException e) {

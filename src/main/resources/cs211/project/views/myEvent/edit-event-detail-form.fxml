@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -124,14 +125,23 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <Label text="Quantity">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <HBox prefHeight="73.0" prefWidth="560.0">
+                              <HBox prefHeight="73.0" prefWidth="560.0" spacing="110.0">
                                  <children>
-                                    <TextField fx:id="TextFieldQuantity" prefHeight="29.0" prefWidth="125.0" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Label text="Quantity">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="TextFieldQuantity" prefHeight="29.0" prefWidth="125.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <CheckBox fx:id="publicCheckBox" mnemonicParsing="false" text="public" />
+                                       </children>
+                                    </VBox>
                                  </children>
                               </HBox>
                            </children>

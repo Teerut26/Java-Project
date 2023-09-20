@@ -13,6 +13,7 @@ import cs211.project.utils.ComponentRegister;
 import cs211.project.utils.ImageSaver;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -43,6 +44,8 @@ public class EditEventDetailFormController extends ComponentRegister {
     private VBox SideBarVBox;
     @FXML
     private HBox NavBarHBox;
+    @FXML
+    private CheckBox publicCheckBox;
     private Event event;
     private EventCollection eventCollection;
     private EventFileListDatesource eventFileListDatesource;
@@ -56,10 +59,10 @@ public class EditEventDetailFormController extends ComponentRegister {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
-        eventFileListDatesource = new EventFileListDatesource();
-        eventCollection = eventFileListDatesource.readData();
+        this.eventFileListDatesource = new EventFileListDatesource();
+        this.eventCollection = eventFileListDatesource.readData();
 
-        event = routeProvider.getData();
+        this.event = routeProvider.getData();
 
         this.showCurrentData();
     }
@@ -71,6 +74,7 @@ public class EditEventDetailFormController extends ComponentRegister {
         TextFieldQuantity.setText(String.valueOf(event.getQuantityEvent()));
         DataTimeStart.setValue(event.getStartDate().toLocalDate());
         DataTimeEnd.setValue(event.getStartDate().toLocalDate());
+        publicCheckBox.setSelected(event.isPublic());
         Image image = new Image("file:" + event.getImageEvent());
         addImage.setImage(image);
     }
@@ -89,17 +93,22 @@ public class EditEventDetailFormController extends ComponentRegister {
 
     @FXML
     public void onSave() {
-
         ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
-        imageSaver.saveImage();
+//        Event newEvent = new Event();
+        if (imageSaver != null) {
+            imageSaver.saveImage();
+            this.event.setImageEvent("data/images/event/"+ this.event.getEventID() + "."+ imageSaver.extention);
+        }
 
-        event.setNameEvent(TextFieldName.getText());
-        event.setDescriptionEvent(TextAreaDescription.getText());
-        event.setLocation(locationEvent.getText());
-        event.setImageEvent("data/images/event/"+ this.event.getEventID() + "."+ imageSaver.extention);
-        event.setStartDate(DataTimeStart.getValue().atStartOfDay());
-        event.setEndDate(DataTimeEnd.getValue().atStartOfDay());
-        event.setQuantityEvent(Integer.parseInt(TextFieldQuantity.getText()));
+        this.event.setNameEvent(TextFieldName.getText());
+        this.event.setDescriptionEvent(TextAreaDescription.getText());
+        this.event.setLocation(locationEvent.getText());
+        this.event.setStartDate(DataTimeStart.getValue().atStartOfDay());
+        this.event.setEndDate(DataTimeEnd.getValue().atStartOfDay());
+        this.event.setQuantityEvent(Integer.parseInt(TextFieldQuantity.getText()));
+        this.event.setPublic(publicCheckBox.isSelected());
+
+        eventCollection.update(this.event);
 
         eventFileListDatesource.writeData(eventCollection);
 

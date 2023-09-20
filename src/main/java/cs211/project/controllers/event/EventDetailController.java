@@ -13,6 +13,7 @@ import cs211.project.services.datasource.ManyToManyFileListDatasource;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.services.RouteProvider;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
@@ -79,9 +80,12 @@ public class EventDetailController extends ComponentRegister {
     @FXML
     public void onJoin() {
         try {
-
             if (this.routeProvider.getUserSession().getId().equals(this.event.getOwner().getId())) {
-                System.out.println("you are owner this event");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("You can't join your own event");
+                alert.setContentText("You can't join your own event");
+                alert.show();
                 return;
             }
 

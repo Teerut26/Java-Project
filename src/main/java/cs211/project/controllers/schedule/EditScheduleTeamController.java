@@ -8,27 +8,36 @@ import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.ActivitiesTeamFileListDatesource;
 import cs211.project.utils.ComponentRegister;
+import cs211.project.utils.TimeValidate;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class EditScheduleTeamController extends ComponentRegister {
     @FXML
     private VBox SideBarVBox;
+
     @FXML
     private HBox NavBarHBox;
     @FXML
-    private TextField TextFieldDescription;
+    private TextField TextFieldDetail;
     @FXML
-    private TextField TextFieldEventName;
+    private TextField TextFieldName;
     @FXML
-    private DatePicker DataTimeEnd;
+    private DatePicker dateEnd;
     @FXML
-    private DatePicker DataTimeStart;
+    private DatePicker dateStart;
+    @FXML
+    private TextField timeEnd;
+    @FXML
+    private TextField timeStart;
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
     private ActivitiesTeamCollection activitiesTeamCollection;
     private ActivitiesTeam activitiesTeam;
@@ -42,19 +51,40 @@ public class EditScheduleTeamController extends ComponentRegister {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
+        activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
+        activitiesTeamCollection = activitiesTeamFileListDatesource.readData();
 
-        TextFieldEventName.setText(activitiesTeam.getTitle());
-        TextFieldDescription.setText(activitiesTeam.getDetail());
-        DataTimeStart.setValue(activitiesTeam.getStartDate().toLocalDate());
-        DataTimeEnd.setValue(activitiesTeam.getEndDate().toLocalDate());
+        TextFieldName.setText(activitiesTeam.getTitle());
+        TextFieldDetail.setText(activitiesTeam.getDetail());
+        dateStart.setValue(activitiesTeam.getDateStart().toLocalDate());
+        dateEnd.setValue(activitiesTeam.getDateEnd().toLocalDate());
+        timeStart.setText(activitiesTeam.getStartTime());
+        timeEnd.setText(activitiesTeam.getEndTime());
     }
 
     @FXML
     public void onSave(){
-        activitiesTeam.setTitle(TextFieldEventName.getText());
-        activitiesTeam.setDetail(TextFieldDescription.getText());
-        activitiesTeam.setStartDate(DataTimeStart.getValue().atStartOfDay());
-        activitiesTeam.setEndDate(DataTimeEnd.getValue().atStartOfDay());
+        TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), dateStart.getValue().atStartOfDay());
+        TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), dateEnd.getValue().atStartOfDay());
+
+        if (!timeEndUtils.validate() || !timeStartUtils.validate()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Time");
+            alert.setContentText("Please enter a valid time");
+            alert.show();
+            return;
+        }
+
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute(), timeEndUtils.getSecond());
+
+        activitiesTeam.setTitle(TextFieldName.getText());
+        activitiesTeam.setDetail(TextFieldDetail.getText());
+        activitiesTeam.setDateStart(timeStartUtils.getRefLocalDateTime());
+        activitiesTeam.setDateEnd(timeEndUtils.getRefLocalDateTime());
+
+        activitiesTeamCollection.update(activitiesTeam);
 
         activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
 
