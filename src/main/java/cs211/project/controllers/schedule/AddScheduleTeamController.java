@@ -31,18 +31,16 @@ public class AddScheduleTeamController extends ComponentRegister {
     private HBox NavBarHBox;
     @FXML
     private TextField TextFieldDetail;
-
-    @FXML
-    private TextField TextFieldEndTime;
-
     @FXML
     private TextField TextFieldName;
-
     @FXML
-    private TextField TextFieldStartTime;
-
+    private DatePicker dateEnd;
     @FXML
-    private Label errorLabel;
+    private DatePicker dateStart;
+    @FXML
+    private TextField timeEnd;
+    @FXML
+    private TextField timeStart;
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
     private ActivitiesTeamCollection activitiesTeamCollection;
     private Team team;
@@ -60,32 +58,20 @@ public class AddScheduleTeamController extends ComponentRegister {
         activitiesTeamCollection = activitiesTeamFileListDatesource.readData();
         team = routeProvider.getData();
 
-        errorLabel.setText("");
     }
 
     public void onSave(){
-        Pattern pattern = Pattern.compile("\\w\\w:\\w\\w");
 
-        String textFieldValueStartTime = TextFieldStartTime.getText();
-        Matcher matcherStartTime = pattern.matcher(textFieldValueStartTime);
-
-        String textFieldValueEndTime = TextFieldEndTime.getText();
-        Matcher matcherEndTime = pattern.matcher(textFieldValueEndTime);
-
-        if (!matcherStartTime.matches()) {
-            errorLabel.setText("Please enter text according to pattern 00:00 for Start Time");
-        } else if (!matcherEndTime.matches()) {
-            errorLabel.setText("Please enter text according to pattern 00:00 for End Time");
-        } else {
             ActivitiesTeam newActivitiesTeam = new ActivitiesTeam(this.activitiesTeamID,
                     TextFieldName.getText(),
                     TextFieldDetail.getText(),
-                    TextFieldStartTime.getText(),
-                    TextFieldEndTime.getText(),team);
+                    dateStart.getValue().atStartOfDay(),
+                    dateEnd.getValue().atStartOfDay(),
+                    timeStart.getText(),
+                    timeEnd.getText(), team);
 
             activitiesTeamCollection.add(newActivitiesTeam);
             activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
-        }
 
 
         try {

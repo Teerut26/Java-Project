@@ -39,14 +39,16 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
                 String id = data[0].trim();
                 String title = data[1].trim();
                 String detail = data[2].trim();
-                String startTime = data[3].trim();
-                String endTime = data[4].trim();
-                String teamId = data[5].trim();
+                LocalDateTime dateStart = LocalDateTime.parse(data[3].trim());
+                LocalDateTime dateEnd = LocalDateTime.parse(data[4].trim());
+                String startTime = data[5].trim();
+                String endTime = data[6].trim();
+                String teamId = data[7].trim();
 
                 TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
                 Team team = teamFileListDatasource.readData().findById(teamId);
 
-                ActivitiesTeam activitiesTeam = new ActivitiesTeam(id, title, detail, startTime, endTime, team);
+                ActivitiesTeam activitiesTeam = new ActivitiesTeam(id, title, detail, dateStart, dateEnd,startTime, endTime, team);
 
                 activitiesTeamCollection.add(activitiesTeam);
             }

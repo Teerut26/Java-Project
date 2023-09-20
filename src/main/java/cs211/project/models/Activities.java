@@ -8,10 +8,12 @@ public class Activities {
     private String id;
     private String title;
     private String detail;
+    private LocalDateTime dateStart;
+    private LocalDateTime dateEnd;
     private String startTime;
     private String endTime;
 
-    public Activities(String id, String title, String detail, String startTime, String endTime) {
+    public Activities(String id, String title, String detail, LocalDateTime dateStart, LocalDateTime dateEnd, String startTime, String endTime) {
         this.id = id;
         this.title = title;
         this.detail = detail;
@@ -31,6 +33,10 @@ public class Activities {
         return detail;
     }
 
+    public LocalDateTime getDateStart(){return dateStart;}
+
+    public LocalDateTime getDateEnd(){return  dateEnd;}
+
     public String getStartTime() {
         return startTime;
     }
@@ -42,19 +48,18 @@ public class Activities {
     public String getStatus() {
         LocalDateTime now = LocalDateTime.now();
         String[] starttime = startTime.split(":");
-        LocalDateTime timeStart = now
+        dateStart = now
                 .plusHours(Integer.parseInt(starttime[0]))
                 .plusMinutes(Integer.parseInt(starttime[2]))
                 .plusSeconds(Integer.parseInt(starttime[3]));
-
         String[] endtime = endTime.split(":");
-        LocalDateTime timeend = now
+        dateEnd = now
                 .plusHours(Integer.parseInt(endtime[0]))
                 .plusMinutes(Integer.parseInt(endtime[2]))
                 .plusSeconds(Integer.parseInt(endtime[3]));
-        if (now.isBefore(timeend)) {
+        if (now.isBefore(dateEnd)) {
             return "Upcoming";
-        } else if (now.isAfter(timeStart) && now.isBefore(timeend)) {
+        } else if (now.isAfter(dateStart) && now.isBefore(dateEnd)) {
             return "Ongoing";
         } else {
             return "Finished";
@@ -68,6 +73,9 @@ public class Activities {
     public void setDetail(String detail) {
         this.detail = detail;
     }
+
+    public void setDateStart(LocalDateTime dateStart) {this.dateStart = dateStart;}
+    public void setDateEnd(LocalDateTime dateEnd) {this.dateEnd = dateEnd;}
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;

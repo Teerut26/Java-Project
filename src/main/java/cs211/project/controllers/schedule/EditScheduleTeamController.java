@@ -24,18 +24,16 @@ public class EditScheduleTeamController extends ComponentRegister {
     private HBox NavBarHBox;
     @FXML
     private TextField TextFieldDetail;
-
-    @FXML
-    private TextField TextFieldEndTime;
-
     @FXML
     private TextField TextFieldName;
-
     @FXML
-    private TextField TextFieldStartTime;
-
+    private DatePicker dateEnd;
     @FXML
-    private Label errorLabel;
+    private DatePicker dateStart;
+    @FXML
+    private TextField timeEnd;
+    @FXML
+    private TextField timeStart;
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
     private ActivitiesTeamCollection activitiesTeamCollection;
     private ActivitiesTeam activitiesTeam;
@@ -58,17 +56,21 @@ public class EditScheduleTeamController extends ComponentRegister {
 
         TextFieldName.setText(activitiesTeam.getTitle());
         TextFieldDetail.setText(activitiesTeam.getDetail());
-        TextFieldStartTime.setText(activitiesTeam.getStartTime());
-        TextFieldEndTime.setText(activitiesTeam.getEndTime());
-        errorLabel.setText("");
+        dateStart.setValue(activitiesTeam.getDateStart().toLocalDate());
+        dateEnd.setValue(activitiesTeam.getDateEnd().toLocalDate());
+        timeStart.setText(activitiesTeam.getStartTime());
+        timeEnd.setText(activitiesTeam.getEndTime());
     }
 
     @FXML
     public void onSave(){
+
         activitiesTeam.setTitle(TextFieldName.getText());
         activitiesTeam.setDetail(TextFieldDetail.getText());
-        activitiesTeam.setStartTime(TextFieldStartTime.getText());
-        activitiesTeam.setEndTime(TextFieldEndTime.getText());
+        activitiesTeam.setDateStart(dateStart.getValue().atStartOfDay());
+        activitiesTeam.setDateEnd(dateEnd.getValue().atStartOfDay());
+        activitiesTeam.setStartTime(timeStart.getText());
+        activitiesTeam.setEndTime(timeEnd.getText());
 
         activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
 

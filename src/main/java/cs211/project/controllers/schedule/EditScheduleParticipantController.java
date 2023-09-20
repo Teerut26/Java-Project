@@ -25,18 +25,16 @@ public class EditScheduleParticipantController extends ComponentRegister {
 
     @FXML
     private TextField TextFieldDetail;
-
-    @FXML
-    private TextField TextFieldEndTime;
-
     @FXML
     private TextField TextFieldName;
-
     @FXML
-    private TextField TextFieldStartTime;
-
+    private DatePicker dateEnd;
     @FXML
-    private Label errorLabel;
+    private DatePicker dateStart;
+    @FXML
+    private TextField timeEnd;
+    @FXML
+    private TextField timeStart;
     private ActivitiesEventFileListDatesource activitiesEventFileListDatesource;
     private ActivitiesEventCollection activitiesEventCollection;
     private ActivitiesEvent activitiesEvent;
@@ -58,17 +56,20 @@ public class EditScheduleParticipantController extends ComponentRegister {
 
         TextFieldName.setText(activitiesEvent.getTitle());
         TextFieldDetail.setText(activitiesEvent.getDetail());
-        TextFieldStartTime.setText(activitiesEvent.getStartTime());
-        TextFieldEndTime.setText(activitiesEvent.getEndTime());
-        errorLabel.setText("");
+        dateStart.setValue(activitiesEvent.getDateStart().toLocalDate());
+        dateEnd.setValue(activitiesEvent.getDateEnd().toLocalDate());
+        timeStart.setText(activitiesEvent.getStartTime());
+        timeEnd.setText(activitiesEvent.getEndTime());
     }
 
     @FXML
     public void onSave(){
         activitiesEvent.setTitle(TextFieldName.getText());
         activitiesEvent.setDetail(TextFieldDetail.getText());
-        activitiesEvent.setStartTime(TextFieldStartTime.getText());
-        activitiesEvent.setStartTime(TextFieldEndTime.getText());
+        activitiesEvent.setDateStart(dateStart.getValue().atStartOfDay());
+        activitiesEvent.setDateEnd(dateEnd.getValue().atStartOfDay());
+        activitiesEvent.setStartTime(timeStart.getText());
+        activitiesEvent.setEndTime(timeEnd.getText());
 
         activitiesEventFileListDatesource.writeData(activitiesEventCollection);
 
