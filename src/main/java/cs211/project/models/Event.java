@@ -11,6 +11,7 @@ public class Event {
     private String nameEvent;
     private String imageEvent;
     private String descriptionEvent;
+    private String location;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Integer quantityEvent;
@@ -20,11 +21,12 @@ public class Event {
     private boolean isPublic = false;
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, boolean isPublic, User owner) {
+    public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, String location, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, boolean isPublic, User owner) {
         this.eventID = eventID;
         this.nameEvent = nameEvent;
         this.imageEvent = imageEvent;
         this.descriptionEvent = descriptionEvent;
+        this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
         this.quantityEvent = quantityEvent;
@@ -32,11 +34,12 @@ public class Event {
         this.owner = owner;
     }
 
-    public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, User owner) {
+    public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, String location, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, User owner) {
         this.eventID = eventID;
         this.nameEvent = nameEvent;
         this.imageEvent = imageEvent;
         this.descriptionEvent = descriptionEvent;
+        this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
         this.quantityEvent = quantityEvent;
@@ -79,6 +82,9 @@ public class Event {
     public void setDescriptionEvent(String descriptionEvent) {
         this.descriptionEvent = descriptionEvent;
     }
+    public void setLocation(String location){
+        this.location = location;
+    }
 
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
@@ -106,6 +112,9 @@ public class Event {
 
     public String getDescriptionEvent() {
         return descriptionEvent;
+    }
+    public String getLocation(){
+        return location;
     }
 
     public LocalDateTime getStartDate() {

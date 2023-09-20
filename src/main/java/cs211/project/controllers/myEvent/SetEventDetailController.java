@@ -74,7 +74,7 @@ public class SetEventDetailController extends ComponentRegister {
     private TableColumn<User, String> statusUserColumn;
 
     @FXML
-    private Label currentUser;
+    private Label currentUserJoinAmount;
     @FXML
     private Label eventDescription;
     @FXML
@@ -140,7 +140,6 @@ public class SetEventDetailController extends ComponentRegister {
 
     private void setMetaData() {
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
-
         Integer suspend = manyToManyManager.countByB(this.event.getEventID());
 
         this.currentMemberAmount.setText(String.valueOf(this.userCollection.getUsers().size()));
@@ -176,9 +175,12 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     public void showDetail() {
+
+        Integer currentMemberJoin = this.userCollection.getUsers().size();
+
         nameEvent.setText(this.event.getNameEvent());
         eventDescription.setText(event.getDescriptionEvent());
-        currentUser.setText(String.valueOf(event.getCurrentMemberParticipatingAmount()));
+        currentUserJoinAmount.setText(String.valueOf(currentMemberJoin));
         quantityLabel.setText(String.valueOf(event.getQuantityEvent()));
         timeLabel.setText(event.getStartDate().format(cs211.project.models.Event.DATE_FORMATTER) + " - " + event.getEndDate().format(cs211.project.models.Event.DATE_FORMATTER));
         Image img = new Image("file:" + event.getImageEvent());
@@ -257,8 +259,9 @@ public class SetEventDetailController extends ComponentRegister {
         }
 
     }
+
     @FXML
-    public void onUsCancelSuspend(){
+    public void onUsCancelSuspend() {
         if (userSelect != null) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "You want to cancel cancel suspend : " + userSelect.getUserName() + " ?", ButtonType.OK, ButtonType.CANCEL);
             alert.showAndWait();
@@ -415,10 +418,13 @@ public class SetEventDetailController extends ComponentRegister {
 
     @FXML
     void onTeamEdit(ActionEvent event) {
-        try {
-            FXRouter.goTo("edit-team", this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (teamSelect != null) {
+            try {
+                FXRouter.goTo("edit-team", this.routeProvider);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+
     }
 }

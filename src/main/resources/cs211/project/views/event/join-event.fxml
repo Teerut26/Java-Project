@@ -115,7 +115,7 @@
                                                             <Insets left="4.0" />
                                                          </padding>
                                                       </Label>
-                                                      <Label fx:id="maxUserAmount" text="200" textFill="#5d863b">
+                                                      <Label fx:id="maxUserAmount" prefHeight="22.0" prefWidth="86.0" text="200" textFill="#5d863b">
                                                          <font>
                                                             <Font name="Hiragino Sans W6" size="20.0" />
                                                          </font>
@@ -123,6 +123,8 @@
                                                             <Insets left="4.0" />
                                                          </padding>
                                                       </Label>
+                                                      <Pane prefHeight="52.0" prefWidth="280.0" />
+                                                      <Button mnemonicParsing="false" onAction="#goToTeamList" prefHeight="37.0" prefWidth="90.0" styleClass="btn-primary" text="view team" />
                                                    </children>
                                                 </HBox>
                                              </children>
