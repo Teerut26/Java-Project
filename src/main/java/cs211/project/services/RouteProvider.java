@@ -3,19 +3,23 @@ package cs211.project.services;
 import cs211.project.models.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
-public class
-RouteProvider<T> {
+public class RouteProvider<T> {
     private T data;
+    private HashMap dataHashMap;
     private ArrayList<T> dataArrayList;
     private User userSession;
 
     public RouteProvider(T data) {
         this.data = data;
+        this.dataHashMap = new HashMap<String, Object>();
     }
 
     public RouteProvider(ArrayList<T> dataArrayList) {
         this.dataArrayList = dataArrayList;
+        this.dataHashMap = new HashMap<String, Object>();
     }
 
     public RouteProvider() {
@@ -44,5 +48,13 @@ RouteProvider<T> {
 
     public void setUserSession(User userSession) {
         this.userSession = userSession;
+    }
+
+    public void addHashMap(String key, Object value) {
+        this.dataHashMap.put(key, value);
+    }
+
+    public HashMap getDataHashMap() {
+        return this.dataHashMap;
     }
 }

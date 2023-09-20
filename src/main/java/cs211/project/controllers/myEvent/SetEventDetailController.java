@@ -43,20 +43,18 @@ public class SetEventDetailController extends ComponentRegister {
     @FXML
     private TableColumn<Team, LocalDateTime> endDateTeam;
     @FXML
-    private TableColumn<Team, String> statusTeam;
-    @FXML
     private TableView<ActivitiesEvent> activityEventTableView;
     @FXML
-    private TableColumn<ActivitiesEvent, String> actionAcitivityCol;
+    private TableColumn<ActivitiesEvent, String> statusActivityCol;
     @FXML
     private TableColumn<ActivitiesEvent, String> titleActivityCol;
     @FXML
     private TableColumn<ActivitiesEvent, String> detailActivityCol;
 
     @FXML
-    private TableColumn<ActivitiesEvent, LocalDateTime> endDateCol;
+    private TableColumn<ActivitiesEvent, LocalDateTime> timeEndCol;
     @FXML
-    private TableColumn<ActivitiesEvent, LocalDateTime> startDateCol;
+    private TableColumn<ActivitiesEvent, LocalDateTime> timeStartCol;
 
     @FXML
     private Label teamId;
@@ -116,7 +114,7 @@ public class SetEventDetailController extends ComponentRegister {
         showTableTeam(teamCollection);
         selectTeamOnTableView();
         showTableActivities(activitiesEventCollection);
-        selectAcitivityOnTableView();
+        selectActivityOnTableView();
         this.setMetaData();
     }
 
@@ -261,7 +259,7 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     @FXML
-    public void onUsCancelSuspend() {
+    public void onUnCancelSuspend() {
         if (userSelect != null) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "You want to cancel cancel suspend : " + userSelect.getUserName() + " ?", ButtonType.OK, ButtonType.CANCEL);
             alert.showAndWait();
@@ -303,23 +301,12 @@ public class SetEventDetailController extends ComponentRegister {
         endDateTeam.setMinWidth(167.81219482421875);
 
         teamTableView.getColumns().clear();
-        teamTableView.getColumns().addAll(nameTeamColumn, quantityTeamColumn, startDateTeam, endDateTeam, statusTeam);
+        teamTableView.getColumns().addAll(nameTeamColumn, quantityTeamColumn, startDateTeam, endDateTeam);
 
         teamTableView.getItems().clear();
 
         for (Team team : teamCollection.getTeams()) {
             teamTableView.getItems().add(team);
-        }
-    }
-
-    @FXML
-    void onSuspendTeam(ActionEvent event) {
-        if (teamSelect != null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to suspend : " + teamSelect.getName() + " ?", ButtonType.OK, ButtonType.CANCEL);
-            alert.showAndWait();
-            if (alert.getResult() == ButtonType.CANCEL) {
-                return;
-            }
         }
     }
 
@@ -344,7 +331,7 @@ public class SetEventDetailController extends ComponentRegister {
         }
     }
 
-    public void selectAcitivityOnTableView() {
+    public void selectActivityOnTableView() {
         activityEventTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ActivitiesEvent>() {
             @Override
             public void changed(ObservableValue observable, ActivitiesEvent oldValue, ActivitiesEvent newValue) {
@@ -365,17 +352,24 @@ public class SetEventDetailController extends ComponentRegister {
         detailActivityCol.setCellValueFactory(new PropertyValueFactory<>("detail"));
         detailActivityCol.setMinWidth(237.21307373046875);
 
-        startDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        detailActivityCol.setMinWidth(167.2869873046875);
+        timeStartCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        timeStartCol.setMinWidth(167.2869873046875);
 
-        endDateCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        endDateCol.setMinWidth(160.69671630859375);
+        timeEndCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        timeEndCol.setMinWidth(160.69671630859375);
 
-        actionAcitivityCol.setCellValueFactory(new PropertyValueFactory<>(""));
-        actionAcitivityCol.setMinWidth(131);
+        statusActivityCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
+                ActivitiesEvent activitiesEvent = parameter.getValue();
+                return Bindings.createStringBinding(() -> activitiesEvent.getStatus());
+            }
+        });
+
+        statusActivityCol.setMinWidth(131);
 
         activityEventTableView.getColumns().clear();
-        activityEventTableView.getColumns().addAll(titleActivityCol, detailActivityCol, startDateCol, endDateCol);
+        activityEventTableView.getColumns().addAll(titleActivityCol, detailActivityCol, timeStartCol, timeEndCol, statusActivityCol);
 
         for (ActivitiesEvent activitiesEvent : activitiesEventCollection.getActivitiesArrayList()) {
             activityEventTableView.getItems().add(activitiesEvent);
@@ -384,8 +378,29 @@ public class SetEventDetailController extends ComponentRegister {
 
     @FXML
     void onDone(ActionEvent event) {
-        if (activitySelect != null) {
+        try {
+            if (activitySelect == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    @FXML
+    void onEditActivity() {
+        try {
+            if (activitySelect == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            this.routeProvider.addHashMap("activity-select", this.activitySelect);
+            FXRouter.goTo("edit-schedule-participant", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -418,13 +433,31 @@ public class SetEventDetailController extends ComponentRegister {
 
     @FXML
     void onTeamEdit(ActionEvent event) {
-        if (teamSelect != null) {
-            try {
-                FXRouter.goTo("edit-team", this.routeProvider);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        try {
+            if (teamSelect == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
+                alert.showAndWait();
+                return;
             }
+            this.routeProvider.addHashMap("team-select", teamSelect);
+            FXRouter.goTo("edit-team", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+    }
 
+    @FXML
+    public void onManageTeam(ActionEvent event) {
+        try {
+            if (teamSelect == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            this.routeProvider.addHashMap("team-select", teamSelect);
+            FXRouter.goTo("event-team-detail", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
