@@ -123,6 +123,16 @@ public class JoinEventController extends ComponentRegister {
     }
 
     @FXML
+    public void goToTeamList () {
+        try {
+            FXRouter.goTo("event-team-list", this.routeProvider);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
     public void onBack() {
         try {
             FXRouter.goTo("event-history", this.routeProvider);
@@ -130,6 +140,8 @@ public class JoinEventController extends ComponentRegister {
             throw new RuntimeException(e);
         }
     }
+
+
 
 
 }

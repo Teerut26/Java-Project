@@ -2,6 +2,7 @@ package cs211.project.controllers.schedule;
 
 import cs211.project.models.Activities;
 import cs211.project.models.ActivitiesTeam;
+import cs211.project.models.Event;
 import cs211.project.models.Team;
 import cs211.project.models.collections.ActivitiesCollection;
 import cs211.project.models.collections.ActivitiesTeamCollection;
@@ -45,18 +46,19 @@ public class AddScheduleTeamController extends ComponentRegister {
     private ActivitiesTeamCollection activitiesTeamCollection;
     private Team team;
     private String activitiesTeamID;
-    private RouteProvider<Team> routeProvider;
+    private RouteProvider<Event> routeProvider;
 
     @FXML
     public void initialize() {
-        routeProvider = (RouteProvider<Team>) FXRouter.getData();
+        routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        this.team = (Team) routeProvider.getDataHashMap().get("team-select");
+
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.activitiesTeamID = UUID.randomUUID().toString();
 
         activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
         activitiesTeamCollection = activitiesTeamFileListDatesource.readData();
-        team = routeProvider.getData();
 
     }
 
@@ -75,7 +77,7 @@ public class AddScheduleTeamController extends ComponentRegister {
 
 
         try {
-            FXRouter.goTo("event-team-manage",this.routeProvider);
+            FXRouter.goTo("event-team-detail",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -84,7 +86,7 @@ public class AddScheduleTeamController extends ComponentRegister {
     @FXML
     public void onCancel(){
         try {
-            FXRouter.goTo("event-team-manage",this.routeProvider);
+            FXRouter.goTo("event-team-detail",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

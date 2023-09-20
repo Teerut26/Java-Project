@@ -13,11 +13,15 @@ public class Team {
     private LocalDateTime endRecruitDate;
     private User owner;
     private Event event;
+
+    private String joinStatus;
     private UserCollection userInTeam = new UserCollection();
 
     public Event getEvent() {
         return event;
     }
+
+
 
     public Team(String id, String name, Integer quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, User owner, Event event) {
         this.id = id;
@@ -27,6 +31,7 @@ public class Team {
         this.endRecruitDate = endRecruitDate;
         this.owner = owner;
         this.event = event;
+        this.joinStatus = "Not Joined";
     }
 
     public void setId(String id) {
@@ -61,6 +66,10 @@ public class Team {
         return endRecruitDate;
     }
 
+    public String getJoinStatus() {
+        return this.joinStatus;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -77,6 +86,10 @@ public class Team {
         this.endRecruitDate = endRecruitDate;
     }
 
+    public void setJoinStatus(String joinStatus) {
+        this.joinStatus = joinStatus;
+    }
+
     public void joinTeam(User user) {
         this.userInTeam.add(user);
     }
@@ -88,6 +101,7 @@ public class Team {
     public String getId() {
         return id;
     }
+
 
     public User getOwner() {
         return owner;

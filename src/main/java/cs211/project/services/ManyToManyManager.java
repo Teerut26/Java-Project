@@ -92,6 +92,17 @@ public class ManyToManyManager {
         return false;
     }
 
+    public boolean checkAHaveB (String A, String B) {
+        ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(this.file);
+        ManyToManyCollection manyToManyCollection = manyToManyFileListDatasource.readData();
+        for (ManyToMany manyToMany1 : manyToManyCollection.getManyToManies()) {
+            if (manyToMany1.getA().equals(A) && manyToMany1.getB().equals(B)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ManyToManyCollection getAll() {
         ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(this.file);
         return manyToManyFileListDatasource.readData();
