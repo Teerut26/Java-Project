@@ -39,15 +39,16 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
                 String eventID = data[0].trim();
                 String nameEvent = data[1].trim();
                 String descriptionEvent = data[2].trim();
-                String imageEvent = data[3].trim();
-                LocalDateTime startDate = LocalDateTime.parse(data[4].trim());
-                LocalDateTime endDate = LocalDateTime.parse(data[5].trim());
-                Integer quantityEvent = Integer.parseInt(data[6].trim());
-                boolean isPublic = Boolean.parseBoolean(data[7].trim());
-                String ownerId = data[8].trim();
+                String location = data[3].trim();
+                String imageEvent = data[4].trim();
+                LocalDateTime startDate = LocalDateTime.parse(data[5].trim());
+                LocalDateTime endDate = LocalDateTime.parse(data[6].trim());
+                Integer quantityEvent = Integer.parseInt(data[7].trim());
+                boolean isPublic = Boolean.parseBoolean(data[8].trim());
+                String ownerId = data[9].trim();
 
                 User owner = userFileListDatasourceCollection.findById(ownerId);
-                Event event = new Event(eventID, nameEvent, imageEvent, descriptionEvent, startDate, endDate, quantityEvent, isPublic, owner);
+                Event event = new Event(eventID, nameEvent, imageEvent, descriptionEvent, location, startDate, endDate, quantityEvent, isPublic, owner);
 
                 eventCollection.add(event);
             }
@@ -72,23 +73,9 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
 
         try {
             for (Event event : data.getEvents()) {
-                String line = event.getEventID() + "," + event.getNameEvent() + "," + event.getDescriptionEvent() + "," + event.getImageEvent() + "," + event.getStartDate().toString() + "," + event.getEndDate().toString() + "," + event.getQuantityEvent() + "," + event.isPublic() + "," + event.getOwner().getId();
+                String line = event.getEventID() + "," + event.getNameEvent() + "," + event.getDescriptionEvent() + "," + event.getLocation() + "," + event.getImageEvent() + "," + event.getStartDate().toString() + "," + event.getEndDate().toString() + "," + event.getQuantityEvent() + "," + event.isPublic() + "," + event.getOwner().getId();
                 buffer.append(line);
                 buffer.append("\n");
-
-                System.out.println(event.getUserInEvent());
-
-//                if (event.getUserInEvent() != null) {
-//                    ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-//                    ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
-//                    manyToManyCollection.setManyToManies(manyToManyFileListDatasource.readData().getManyToManies());
-//                    event.getUserInEvent().getUsers().forEach((user) -> {
-//                        ManyToMany manyToMany = new ManyToMany(event.getEventID(), user.getId());
-//                        manyToManyCollection.add(manyToMany);
-//                    });
-//                    manyToManyFileListDatasource.writeData(manyToManyCollection);
-//                }
-
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -29,6 +29,8 @@ public class CreateEventDetailFormController extends ComponentRegister {
     @FXML
     private TextArea TextAreaDescription;
     @FXML
+    private TextField textFieldLocation;
+    @FXML
     private TextField TextFieldName;
     @FXML
     private ImageView addImage;
@@ -83,6 +85,7 @@ public class CreateEventDetailFormController extends ComponentRegister {
                 TextFieldName.getText(),
                 "data/images/event/" + this.eventID + "." + imageSaver.extention,
                 TextAreaDescription.getText(),
+                textFieldLocation.getText(),
                 DataTimeStart.getValue().atStartOfDay(),
                 DataTimeEnd.getValue().atStartOfDay(),
                 Integer.parseInt(TextFieldQuantity.getText()),
@@ -104,6 +107,7 @@ public class CreateEventDetailFormController extends ComponentRegister {
         TextFieldName.clear();
         addImage.setImage(null);
         TextAreaDescription.clear();
+        textFieldLocation.clear();
         DataTimeStart.setValue(null);
         DataTimeEnd.setValue(null);
         TextFieldQuantity.clear();

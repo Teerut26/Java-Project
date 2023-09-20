@@ -83,46 +83,55 @@
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="TextFieldName" prefHeight="64.0" prefWidth="560.0" />
+                              <TextField fx:id="TextFieldName" prefHeight="42.0" prefWidth="560.0" />
                               <Label text="description">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="TextAreaDescription" prefHeight="173.0" prefWidth="560.0" wrapText="true" />
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0">
+                              <TextArea fx:id="TextAreaDescription" prefHeight="119.0" prefWidth="560.0" wrapText="true" />
+                              <Label text="Location">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <HBox prefHeight="38.0" prefWidth="560.0">
                                  <children>
-                                    <VBox prefHeight="100.0" prefWidth="314.0">
+                                    <TextField fx:id="locationEvent" prefHeight="26.0" prefWidth="270.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="52.0" prefWidth="560.0" spacing="16.0">
+                                 <children>
+                                    <VBox prefHeight="64.0" prefWidth="190.0">
                                        <children>
                                           <Label text="start date">
                                              <font>
-                                                <Font size="24.0" />
+                                                <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <DatePicker fx:id="DataTimeStart" prefHeight="38.0" prefWidth="273.0" />
+                                          <DatePicker fx:id="DataTimeStart" prefHeight="26.0" prefWidth="150.0" />
                                        </children>
                                     </VBox>
                                     <VBox prefHeight="100.0" prefWidth="312.0">
                                        <children>
                                           <Label text="end date">
                                              <font>
-                                                <Font size="24.0" />
+                                                <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <DatePicker fx:id="DataTimeEnd" prefHeight="38.0" prefWidth="273.0" />
+                                          <DatePicker fx:id="DataTimeEnd" prefHeight="26.0" prefWidth="150.0" />
                                        </children>
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="560.0">
+                              <Label text="Quantity">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <HBox prefHeight="73.0" prefWidth="560.0">
                                  <children>
-                                    <Label text="quantityEvent : ">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Pane prefHeight="43.0" prefWidth="13.0" />
-                                    <TextField fx:id="TextFieldQuantity" prefHeight="33.0" prefWidth="160.0" />
+                                    <TextField fx:id="TextFieldQuantity" prefHeight="29.0" prefWidth="125.0" />
                                  </children>
                               </HBox>
                            </children>
