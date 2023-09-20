@@ -177,8 +177,14 @@ public class EventTeamDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onEdit(ActionEvent event) {
+    void onEditActivityTeam(ActionEvent event) {
         try {
+            if (selectActivitiesTeam == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            this.routeProvider.addHashMap("select-activity-team", this.selectActivitiesTeam);
             FXRouter.goTo("edit-schedule-team", this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -110,7 +110,7 @@
                                                       </TableView>
                                                       <HBox alignment="CENTER" prefHeight="104.0" prefWidth="890.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" onAction="#onEdit" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
+                                                            <Button mnemonicParsing="false" onAction="#onEditActivityTeam" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>

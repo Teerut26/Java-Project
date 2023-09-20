@@ -36,16 +36,9 @@ public class EditScheduleParticipantController extends ComponentRegister {
     @FXML
     public void initialize(){
         routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        this.activitiesEvent = (ActivitiesEvent) routeProvider.getDataHashMap().get("activity-event-select");
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
-
-        activitiesEventFileListDatesource = new ActivitiesEventFileListDatesource();
-        activitiesEventCollection = activitiesEventFileListDatesource.readData();
-        activitiesEventCollection.getActivitiesArrayList().forEach((activitiesEvent1 -> {
-            if (activitiesEvent1.getEvent().getEventID().equals(routeProvider.getData().getEventID())){
-                activitiesEvent = activitiesEvent1;
-            }
-        }));
 
         TextFieldEventName.setText(activitiesEvent.getTitle());
         TextFieldDescription.setText(activitiesEvent.getDetail());

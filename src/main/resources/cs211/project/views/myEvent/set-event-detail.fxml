@@ -101,7 +101,7 @@
                                                       </Label>
                                                       <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="547.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" onAction="#onEdit" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Edit" textFill="WHITE">
+                                                            <Button mnemonicParsing="false" onAction="#onEditDetail" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Edit" textFill="WHITE">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>
@@ -400,7 +400,7 @@
                                                       </TableView>
                                                       <HBox alignment="CENTER" prefHeight="104.0" prefWidth="890.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" onAction="#onEditActivity" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
+                                                            <Button mnemonicParsing="false" onAction="#onEditActivityEvent" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>

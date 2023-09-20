@@ -186,7 +186,7 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     @FXML
-    public void onEdit() {
+    public void onEditDetail() {
         try {
             FXRouter.goTo("edit-event-detail-form", this.routeProvider);
         } catch (IOException e) {
@@ -390,14 +390,14 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onEditActivity() {
+    void onEditActivityEvent() {
         try {
             if (activitySelect == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
                 alert.showAndWait();
                 return;
             }
-            this.routeProvider.addHashMap("activity-select", this.activitySelect);
+            this.routeProvider.addHashMap("activity-event-select", this.activitySelect);
             FXRouter.goTo("edit-schedule-participant", this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);

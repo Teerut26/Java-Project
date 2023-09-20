@@ -1,6 +1,7 @@
 package cs211.project.controllers.schedule;
 
 import cs211.project.models.ActivitiesTeam;
+import cs211.project.models.Event;
 import cs211.project.models.Team;
 import cs211.project.models.collections.ActivitiesTeamCollection;
 import cs211.project.services.FXRouter;
@@ -31,22 +32,16 @@ public class EditScheduleTeamController extends ComponentRegister {
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
     private ActivitiesTeamCollection activitiesTeamCollection;
     private ActivitiesTeam activitiesTeam;
-    private RouteProvider<Team> routeProvider;
+    private RouteProvider<Event> routeProvider;
 
 
     @FXML
     public void initialize(){
-        routeProvider = (RouteProvider<Team>) FXRouter.getData();
+        routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        this.activitiesTeam = (ActivitiesTeam) routeProvider.getDataHashMap().get("select-activity-team");
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
-        activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
-        activitiesTeamCollection = activitiesTeamFileListDatesource.readData();
-        activitiesTeamCollection.getActivitiesArrayList().forEach((activitiesTeam1 -> {
-            if (activitiesTeam1.getTeam().getId().equals(routeProvider.getData().getId())){
-                activitiesTeam = activitiesTeam1;
-            }
-        }));
 
         TextFieldEventName.setText(activitiesTeam.getTitle());
         TextFieldDescription.setText(activitiesTeam.getDetail());
@@ -64,7 +59,7 @@ public class EditScheduleTeamController extends ComponentRegister {
         activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
 
         try {
-            FXRouter.goTo("event-team-manage",this.routeProvider);
+            FXRouter.goTo("event-team-detail",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
 
@@ -74,7 +69,7 @@ public class EditScheduleTeamController extends ComponentRegister {
     @FXML
     public void onCancel(){
         try {
-            FXRouter.goTo("event-team-manage",this.routeProvider);
+            FXRouter.goTo("event-team-detail",this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
