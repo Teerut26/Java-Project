@@ -44,4 +44,28 @@ public class TimeValidate {
     public void addSecond(LocalDateTime refLocalDateTime, Integer second) {
         refLocalDateTime.plusSeconds(second);
     }
+
+    public void addTime(LocalDateTime refLocalDateTime, Integer hour, Integer minute, Integer second) {
+        refLocalDateTime.plusHours(hour);
+        refLocalDateTime.plusMinutes(minute);
+        refLocalDateTime.plusSeconds(second);
+    }
+
+    public void setHour(LocalDateTime refLocalDateTime, Integer hour) {
+        refLocalDateTime.withHour(hour);
+    }
+
+    public void setMinute(LocalDateTime refLocalDateTime, Integer minute) {
+        refLocalDateTime.withMinute(minute);
+    }
+
+    public void setSecond(LocalDateTime refLocalDateTime, Integer second) {
+        refLocalDateTime.withSecond(second);
+    }
+
+    public void setTime(LocalDateTime refLocalDateTime, Integer hour, Integer minute, Integer second) {
+        refLocalDateTime.withHour(hour);
+        refLocalDateTime.withMinute(minute);
+        refLocalDateTime.withSecond(second);
+    }
 }
