@@ -92,7 +92,7 @@ public class AddScheduleParticipantController extends ComponentRegister {
         dateEnd.setValue(null);
 
         try {
-            FXRouter.goTo("my-event", this.routeProvider);
+            FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -101,7 +101,7 @@ public class AddScheduleParticipantController extends ComponentRegister {
     @FXML
     public void onCancel() {
         try {
-            FXRouter.goTo("my-event", this.routeProvider);
+            FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
