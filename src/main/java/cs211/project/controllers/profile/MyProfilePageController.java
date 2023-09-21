@@ -96,7 +96,6 @@ public class MyProfilePageController extends ComponentRegister {
                 return;
             } else {
                 user.setNameUser(TextFieldName.getText());
-                return;
             }
         }
 
