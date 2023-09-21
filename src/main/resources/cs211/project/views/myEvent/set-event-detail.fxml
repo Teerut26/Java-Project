@@ -101,7 +101,7 @@
                                                       </Label>
                                                       <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="547.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" onAction="#onEdit" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Edit" textFill="WHITE">
+                                                            <Button mnemonicParsing="false" onAction="#onEditDetail" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Edit" textFill="WHITE">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>
@@ -253,7 +253,7 @@
                                                       </TableView>
                                                       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" onAction="#onUsCancelSuspend" prefHeight="44.0" prefWidth="171.0" styleClass="btn-secondary" text="un suspend">
+                                                            <Button mnemonicParsing="false" onAction="#onUnCancelSuspend" prefHeight="44.0" prefWidth="171.0" styleClass="btn-secondary" text="un suspend">
                                                                <HBox.margin>
                                                                   <Insets right="100.0" />
                                                                </HBox.margin>
@@ -319,11 +319,10 @@
                                                    <children>
                                                       <TableView fx:id="teamTableView" layoutX="17.0" layoutY="81.0" prefHeight="306.0" prefWidth="890.0" style=": ;">
                                                         <columns>
-                                                          <TableColumn fx:id="nameTeamColumn" prefWidth="263.9804992675781" text="Team Name" />
-                                                          <TableColumn fx:id="quantityTeamColumn" minWidth="0.0" prefWidth="134.91705322265625" text="quantity" />
-                                                            <TableColumn fx:id="startDateTeam" prefWidth="161.58294677734375" text="Start Date" />
-                                                            <TableColumn fx:id="endDateTeam" minWidth="0.0" prefWidth="167.81219482421875" text="End Date" />
-                                                            <TableColumn fx:id="statusTeam" prefWidth="160.0" text="Status" />
+                                                          <TableColumn fx:id="nameTeamColumn" prefWidth="285.593017578125" text="Team Name" />
+                                                          <TableColumn fx:id="quantityTeamColumn" minWidth="0.0" prefWidth="278.906982421875" text="quantity" />
+                                                            <TableColumn fx:id="startDateTeam" prefWidth="155.4439697265625" text="Start Date" />
+                                                            <TableColumn fx:id="endDateTeam" minWidth="0.0" prefWidth="168.5" text="End Date" />
                                                         </columns>
                                                       </TableView>
                                                       <HBox alignment="CENTER" prefHeight="104.0" prefWidth="890.0">
@@ -340,6 +339,11 @@
                                                                </font>
                                                             </Button>
                                                             <Pane prefHeight="80.0" prefWidth="65.0" />
+                                                            <Button mnemonicParsing="false" onAction="#onManageTeam" prefHeight="45.0" prefWidth="120.0" styleClass="btn-error" text="ManageTeam">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="13.0" />
+                                                               </font>
+                                                            </Button>
                                                          </children>
                                                          <VBox.margin>
                                                             <Insets />
@@ -384,11 +388,11 @@
                                                    <children>
                                                       <TableView fx:id="activityEventTableView" layoutX="17.0" layoutY="81.0" prefHeight="317.0" prefWidth="895.0">
                                                          <columns>
-                                                            <TableColumn fx:id="titleActivityCol" prefWidth="197.86151123046875" text="Name" />
-                                                            <TableColumn fx:id="detailActivityCol" minWidth="0.0" prefWidth="237.21307373046875" text="Detail" />
-                                                            <TableColumn fx:id="startDateCol" minWidth="0.0" prefWidth="167.2869873046875" text="Start date" />
-                                                            <TableColumn fx:id="endDateCol" minWidth="0.0" prefWidth="160.69671630859375" text="End date" />
-                                                            <TableColumn fx:id="actionAcitivityCol" minWidth="0.0" prefWidth="131.0" text="Action" />
+                                                            <TableColumn fx:id="titleActivityCol" prefWidth="186.0" text="Name" />
+                                                            <TableColumn fx:id="detailActivityCol" minWidth="0.0" prefWidth="249.5" text="Detail" />
+                                                            <TableColumn fx:id="timeStartCol" minWidth="0.0" prefWidth="167.2869873046875" text="Time Start " />
+                                                            <TableColumn fx:id="timeEndCol" minWidth="0.0" prefWidth="160.69671630859375" text="Time End" />
+                                                            <TableColumn fx:id="statusActivityCol" minWidth="0.0" prefWidth="131.0" text="Status" />
                                                          </columns>
                                                          <VBox.margin>
                                                             <Insets left="20.0" />
@@ -396,13 +400,13 @@
                                                       </TableView>
                                                       <HBox alignment="CENTER" prefHeight="104.0" prefWidth="890.0">
                                                          <children>
-                                                            <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
+                                                            <Button mnemonicParsing="false" onAction="#onEditActivityEvent" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>
                                                             </Button>
                                                             <Pane prefHeight="87.5" prefWidth="65.0" />
-                                                            <Button mnemonicParsing="false" onAction="#onDone" prefHeight="45.0" prefWidth="120.0" styleClass="btn-Done" text="Done">
+                                                            <Button mnemonicParsing="false" onAction="#onViewActivityEvent" prefHeight="45.0" prefWidth="120.0" styleClass="btn-error" text="View">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>

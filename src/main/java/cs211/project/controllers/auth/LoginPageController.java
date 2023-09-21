@@ -5,10 +5,15 @@ import cs211.project.models.collections.UserCollection;
 import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
+import cs211.project.services.SingletonStorage;
 import cs211.project.services.datasource.UserFileListDatasource;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -19,13 +24,39 @@ public class LoginPageController {
     @FXML
     private TextField TextFieldUsername;
     @FXML
-    private TextField TextFieldPassword;
+    private PasswordField TextFieldPassword;
     @FXML
     private Text TextError;
+    @FXML
+    private HBox aboutUsHbox;
+    @FXML
+    private HBox documentHbox;
 
     @FXML
     public void initialize() {
         TextError.setVisible(false);
+
+        aboutUsHbox.addEventHandler(MouseEvent.MOUSE_CLICKED,new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    FXRouter.goTo("about-us");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        documentHbox.addEventHandler(MouseEvent.MOUSE_CLICKED,new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    FXRouter.goTo("about-us");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     @FXML
@@ -47,6 +78,7 @@ public class LoginPageController {
 
         try {
             RouteProvider routeProvider = new RouteProvider();
+
             routeProvider.setUserSession(user);
 
             if (user.isAdmin()) {

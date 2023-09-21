@@ -6,8 +6,8 @@ import java.util.Objects;
 public class ActivitiesEvent extends Activities {
     private Event event;
 
-    public ActivitiesEvent(String id, String title, String detail, LocalDateTime startDate, LocalDateTime endDate, Event event) {
-        super(id, title, detail, startDate, endDate);
+    public ActivitiesEvent(String id, String title, String detail, LocalDateTime dateStart, LocalDateTime dateEnd, Event event) {
+        super(id, title, detail, dateStart, dateEnd);
         this.event = event;
     }
 

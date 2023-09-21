@@ -6,9 +6,15 @@ import java.util.regex.Pattern;
 
 public class TimeValidate {
     private String timeInput;
+    private LocalDateTime refLocalDateTime;
 
     public TimeValidate(String timeInput) {
         this.timeInput = timeInput;
+    }
+
+    public TimeValidate(String timeInput, LocalDateTime refLocalDateTime) {
+        this.timeInput = timeInput;
+        this.refLocalDateTime = refLocalDateTime;
     }
 
     public boolean validate() {
@@ -33,39 +39,29 @@ public class TimeValidate {
         return Integer.parseInt(time[2]);
     }
 
-    public void addHour(LocalDateTime refLocalDateTime, Integer hour) {
-        refLocalDateTime.plusHours(hour);
+    public void addHour(Integer hour) {
+        refLocalDateTime = refLocalDateTime.plusHours(hour);
     }
 
-    public void addMinute(LocalDateTime refLocalDateTime, Integer minute) {
-        refLocalDateTime.plusMinutes(minute);
+    public void addMinute(Integer minute) {
+        refLocalDateTime = refLocalDateTime.plusMinutes(minute);
     }
 
-    public void addSecond(LocalDateTime refLocalDateTime, Integer second) {
-        refLocalDateTime.plusSeconds(second);
+    public void addSecond(Integer second) {
+        refLocalDateTime = refLocalDateTime.plusSeconds(second);
     }
 
-    public void addTime(LocalDateTime refLocalDateTime, Integer hour, Integer minute, Integer second) {
-        refLocalDateTime.plusHours(hour);
-        refLocalDateTime.plusMinutes(minute);
-        refLocalDateTime.plusSeconds(second);
+    public void addTime(Integer hour, Integer minute, Integer second) {
+        refLocalDateTime = refLocalDateTime.plusHours(hour);
+        refLocalDateTime = refLocalDateTime.plusMinutes(minute);
+        refLocalDateTime = refLocalDateTime.plusSeconds(second);
     }
 
-    public void setHour(LocalDateTime refLocalDateTime, Integer hour) {
-        refLocalDateTime.withHour(hour);
+    public String getTimeInput() {
+        return timeInput;
     }
 
-    public void setMinute(LocalDateTime refLocalDateTime, Integer minute) {
-        refLocalDateTime.withMinute(minute);
-    }
-
-    public void setSecond(LocalDateTime refLocalDateTime, Integer second) {
-        refLocalDateTime.withSecond(second);
-    }
-
-    public void setTime(LocalDateTime refLocalDateTime, Integer hour, Integer minute, Integer second) {
-        refLocalDateTime.withHour(hour);
-        refLocalDateTime.withMinute(minute);
-        refLocalDateTime.withSecond(second);
+    public LocalDateTime getRefLocalDateTime() {
+        return refLocalDateTime;
     }
 }

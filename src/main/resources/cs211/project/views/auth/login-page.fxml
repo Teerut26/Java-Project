@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -77,11 +78,7 @@
                   </HBox>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="63.0" prefWidth="680.0">
                      <children>
-                        <TextField fx:id="TextFieldPassword" prefHeight="50.0" prefWidth="400.0" promptText="Password" styleClass="input">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </TextField>
+                        <PasswordField fx:id="TextFieldPassword" prefHeight="50.0" prefWidth="400.0" promptText="Password" styleClass="input" />
                      </children>
                   </HBox>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="105.0" prefWidth="680.0">
@@ -120,6 +117,40 @@
                   <Image url="@../../assets/image/auth/calender.png" />
                </image>
             </ImageView>
+            <HBox fx:id="aboutUsHbox" alignment="CENTER" layoutX="28.0" layoutY="22.0" prefHeight="45.0" prefWidth="123.0" spacing="5.0" styleClass="btn-primary">
+               <children>
+                  <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/image/icons/users.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="About Us">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="documentHbox" alignment="CENTER" layoutX="162.0" layoutY="23.0" prefHeight="45.0" prefWidth="123.0" spacing="5.0" styleClass="btn-primary">
+               <children>
+                  <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/image/icons/file.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Document">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
          </children>
       </Pane>
    </center>

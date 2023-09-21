@@ -7,6 +7,7 @@ import cs211.project.services.FXRouter;
 import cs211.project.services.datasource.UserFileListDatasource;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
@@ -22,9 +23,9 @@ public class RegisterPageController {
     @FXML
     private TextField TextFieldUsername;
     @FXML
-    private TextField TextFieldPassword;
+    private PasswordField TextFieldPassword;
     @FXML
-    private TextField TextFieldPasswordConfirm;
+    private PasswordField TextFieldPasswordConfirm;
     @FXML
     private Text TextError;
 

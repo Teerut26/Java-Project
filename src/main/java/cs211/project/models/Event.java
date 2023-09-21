@@ -47,6 +47,8 @@ public class Event {
         this.owner = owner;
     }
 
+    public Event() {}
+
     public void setEventID(String eventID) {
         this.eventID = eventID;
     }
@@ -82,7 +84,8 @@ public class Event {
     public void setDescriptionEvent(String descriptionEvent) {
         this.descriptionEvent = descriptionEvent;
     }
-    public void setLocation(String location){
+
+    public void setLocation(String location) {
         this.location = location;
     }
 
@@ -113,7 +116,8 @@ public class Event {
     public String getDescriptionEvent() {
         return descriptionEvent;
     }
-    public String getLocation(){
+
+    public String getLocation() {
         return location;
     }
 

@@ -45,24 +45,16 @@ public class EditTeam extends ComponentRegister {
     private TeamCollection teamCollection;
 
     @FXML
-    public void initialize(){
-        routeProvider = (RouteProvider) FXRouter.getData();
+    public void initialize() {
+        routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        this.team = (Team) routeProvider.getDataHashMap().get("team-select");
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
-
-        teamFileListDatasource = new TeamFileListDatasource();
-        teamCollection = teamFileListDatasource.readData();
-        teamCollection.getTeams().forEach((team1 -> {
-            if(team1.getEvent().getEventID().equals(routeProvider.getData().getEventID())){
-                team = team1;
-            }
-        }));
-
         errorLabel.setText("");
         this.showCurrentData();
     }
 
-    public void showCurrentData(){
+    public void showCurrentData() {
         teamNameEd.setText(team.getName());
         quantityEd.setText(String.valueOf(team.getQuantity()));
         DataDeadline.setValue(team.getStartRecruitDate().toLocalDate());
@@ -71,7 +63,7 @@ public class EditTeam extends ComponentRegister {
 
     @FXML
     void onSave(ActionEvent event) {
-        try{
+        try {
             Integer.parseInt(quantityEd.getText());
             editTeam();
             teamFileListDatasource.writeData(teamCollection);
@@ -81,15 +73,16 @@ public class EditTeam extends ComponentRegister {
         }
     }
 
-    private void editTeam(){
+    private void editTeam() {
         team.setName(teamNameEd.getText());
         team.setQuantity(Integer.parseInt(quantityEd.getText()));
         team.setEndRecruitDate(DataDeadline.getValue().atStartOfDay());
         team.setStartRecruitDate(DateOpeningDate.getValue().atStartOfDay());
     }
-    private void navigateToSetEvent(){
+
+    private void navigateToSetEvent() {
         try {
-            FXRouter.goTo("set-event-detail",this.routeProvider);
+            FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
