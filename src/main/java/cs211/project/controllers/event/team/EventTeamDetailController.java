@@ -73,7 +73,6 @@ public class EventTeamDetailController extends ComponentRegister {
 
     private void loadTeamDetailData() {
 
-        // activity in team
         activitiesTeamCollection = new ActivitiesTeamFileListDatesource().readData();
 
         this.team = (Team) this.routeProvider.getDataHashMap().get("team-select");
@@ -86,7 +85,7 @@ public class EventTeamDetailController extends ComponentRegister {
         }));
         activitiesTeamCollection = newActivityTeamCollection;
 
-        // team member
+
         ManyToManyCollection manyToManyCollection = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM).findsByB(this.team.getId());
         UserCollection userCollection = new UserFileListDatasource().readData();
 
@@ -177,13 +176,15 @@ public class EventTeamDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onDone(ActionEvent event) {
+    void onViewActivityTeam(ActionEvent event) {
         try {
             if (selectActivitiesTeam == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
                 alert.showAndWait();
                 return;
             }
+            this.routeProvider.addHashMap("comment-view-team",this.selectActivitiesTeam);
+            FXRouter.goTo("comment-activity-team",this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
