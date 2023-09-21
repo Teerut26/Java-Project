@@ -39,4 +39,13 @@ public class SideBarComponentController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    public void goToAboutUs() {
+        try {
+            FXRouter.goTo("about-us", this.routeProvider);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

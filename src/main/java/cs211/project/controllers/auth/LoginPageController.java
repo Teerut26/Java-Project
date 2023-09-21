@@ -5,9 +5,11 @@ import cs211.project.models.collections.UserCollection;
 import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
+import cs211.project.services.SingletonStorage;
 import cs211.project.services.datasource.UserFileListDatasource;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
@@ -19,7 +21,7 @@ public class LoginPageController {
     @FXML
     private TextField TextFieldUsername;
     @FXML
-    private TextField TextFieldPassword;
+    private PasswordField TextFieldPassword;
     @FXML
     private Text TextError;
 
@@ -47,7 +49,8 @@ public class LoginPageController {
 
         try {
             RouteProvider routeProvider = new RouteProvider();
-            routeProvider.setUserSession(user);
+
+            SingletonStorage.getInstance().userSession = user;
 
             if (user.isAdmin()) {
                 FXRouter.goTo("admin-manage-user", routeProvider);

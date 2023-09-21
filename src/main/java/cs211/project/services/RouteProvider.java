@@ -10,7 +10,7 @@ public class RouteProvider<T> {
     private T data;
     private HashMap dataHashMap;
     private ArrayList<T> dataArrayList;
-    private User userSession;
+    private User userSession = SingletonStorage.getInstance().userSession;
 
     public RouteProvider(T data) {
         this.data = data;

@@ -57,6 +57,9 @@ public class Router extends Application {
         FXRouter.when("edit-schedule-participant", resourcesPath + "Schedule/edit-schedule-participant.fxml");
         FXRouter.when("edit-schedule-team", resourcesPath + "Schedule/edit-schedule-team.fxml");
 
+        //about us routes
+        FXRouter.when("about-us", resourcesPath + "about-us.fxml");
+
     }
 
 
