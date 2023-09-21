@@ -4,6 +4,11 @@ import cs211.project.models.Event;
 import cs211.project.models.Team;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
+
+import cs211.project.models.Event;
+import cs211.project.models.Team;
+import cs211.project.services.FXRouter;
+import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.models.collections.TeamCollection;
 import cs211.project.utils.ComponentRegister;
@@ -51,6 +56,8 @@ public class EditTeam extends ComponentRegister {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         errorLabel.setText("");
+        this.teamFileListDatasource = new TeamFileListDatasource();
+        this.teamCollection = teamFileListDatasource.readData();
         this.showCurrentData();
     }
 
@@ -66,6 +73,7 @@ public class EditTeam extends ComponentRegister {
         try {
             Integer.parseInt(quantityEd.getText());
             editTeam();
+            teamCollection.update(this.team);
             teamFileListDatasource.writeData(teamCollection);
             navigateToSetEvent();
         } catch (NumberFormatException e) {
