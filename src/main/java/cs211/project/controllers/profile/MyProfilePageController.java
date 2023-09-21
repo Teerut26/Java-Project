@@ -59,7 +59,6 @@ public class MyProfilePageController extends ComponentRegister {
         TextFieldName.setText(user.getNameUser());
         TextFieldUserName.setText(user.getUserName());
         TextFieldUserName.setEditable(false);
-        errorLabel.setText("");
         this.initProfile();
     }
 
@@ -91,10 +90,13 @@ public class MyProfilePageController extends ComponentRegister {
         if (!user.getNameUser().equals(TextFieldName.getText())) {
             if (TextFieldName.getText().isEmpty()) {
                 errorLabel.setText("Name is empty");
+                return;
             } else if (userCollection.findByName(TextFieldName.getText()) != null) {
                 errorLabel.setText("Name already taken");
+                return;
             } else {
                 user.setNameUser(TextFieldName.getText());
+                return;
             }
         }
 
