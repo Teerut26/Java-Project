@@ -372,13 +372,15 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onDone(ActionEvent event) {
+    void onViewActivityEvent(ActionEvent event) {
         try {
             if (activitySelect == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
                 alert.showAndWait();
                 return;
             }
+            this.routeProvider.addHashMap("comment-view-event",this.activitySelect);
+            FXRouter.goTo("comment-activity-event",this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

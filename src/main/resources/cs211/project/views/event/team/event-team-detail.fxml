@@ -116,7 +116,7 @@
                                                                </font>
                                                             </Button>
                                                             <Pane prefHeight="87.5" prefWidth="65.0" />
-                                                            <Button mnemonicParsing="false" onAction="#onDone" prefHeight="45.0" prefWidth="120.0" styleClass="btn-Done" text="Done">
+                                                            <Button mnemonicParsing="false" onAction="#onViewActivityTeam" prefHeight="45.0" prefWidth="120.0" styleClass="btn-error" text="View">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>
