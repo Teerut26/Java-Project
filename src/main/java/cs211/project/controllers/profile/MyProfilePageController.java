@@ -59,6 +59,7 @@ public class MyProfilePageController extends ComponentRegister {
         TextFieldName.setText(user.getNameUser());
         TextFieldUserName.setText(user.getUserName());
         TextFieldUserName.setEditable(false);
+        errorLabel.setText("");
         this.initProfile();
     }
 
