@@ -1,22 +1,41 @@
 package cs211.project.models;
 
+import cs211.project.utils.TimeValidate;
+
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Activities {
     private String id;
     private String title;
     private String detail;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private User owner;
+    protected LocalDateTime dateStart;
+    protected LocalDateTime dateEnd;
+    protected String startTime;
+    protected String endTime;
 
-    public Activities(String id, String title, String detail, LocalDateTime startDate, LocalDateTime endDate, User owner) {
+    public Activities(String id, String title, String detail, LocalDateTime dateStart, LocalDateTime dateEnd) {
         this.id = id;
         this.title = title;
         this.detail = detail;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.owner = owner;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.setTimeToLocalDateTime();
+    }
+
+    private void setTimeToLocalDateTime() {
+        String hourStart = String.valueOf(this.dateStart.getHour());
+        String minuteStart = String.valueOf(this.dateStart.getMinute());
+        String secondStart = String.valueOf(this.dateStart.getSecond());
+
+        String hourEnd = String.valueOf(this.dateEnd.getHour());
+        String minuteEnd = String.valueOf(this.dateEnd.getMinute());
+        String secondEnd = String.valueOf(this.dateEnd.getSecond());
+
+        this.startTime = hourStart + ":" + minuteStart + ":" + secondStart;
+        this.endTime = hourEnd + ":" + minuteEnd + ":" + secondEnd;
     }
 
     public String getId() {
@@ -31,22 +50,30 @@ public class Activities {
         return detail;
     }
 
-    public LocalDateTime getStartDate() {
-        return startDate;
+    public LocalDateTime getDateStart() {
+        return dateStart;
     }
 
-    public LocalDateTime getEndDate() {
-        return endDate;
+    public LocalDateTime getDateEnd() {
+        return dateEnd;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
     }
 
     public String getStatus() {
         LocalDateTime now = LocalDateTime.now();
-        if (now.isBefore(startDate)) {
-            return "Upcoming";
-        } else if (now.isAfter(startDate) && now.isBefore(endDate)) {
-            return "Ongoing";
-        } else {
+        if (now.isBefore(this.dateStart)) {
+            return "Not started";
+        } else if (now.isAfter(this.dateEnd)) {
             return "Finished";
+        } else {
+            return "In progress";
         }
     }
 
@@ -58,18 +85,30 @@ public class Activities {
         this.detail = detail;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
+    public void setDateStart(LocalDateTime dateStart) {
+        this.dateStart = dateStart;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
+    public void setDateEnd(LocalDateTime dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     @Override
     public String toString() {
         return "Activities{" + "title=" + title + '\'' + ", detail=" + detail + '\'' +
-                ", startDate=" + startDate + '\'' + ", endDate=" + endDate + '}';
+                ", startDate=" + startTime + '\'' + ", endDate=" + endTime + '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Activities that = (Activities) o;
+        return this.id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

@@ -11,13 +11,38 @@ public class FileIO {
         this.checkFileIsExisted();
     }
 
-    private void checkFileIsExisted() {
+    public FileIO() {
+        this.filePath = filePath;
+        this.checkFileIsExisted();
+    }
+
+    public void checkFileIsExisted() {
         File file = new File(this.filePath);
-        if (!file.exists()) {
-            file.mkdirs();
+        File parentDirectory = file.getParentFile();
+        if (!parentDirectory.exists()) {
+            if (!parentDirectory.mkdirs()) {
+                throw new RuntimeException("Failed to create directory: " + parentDirectory.getAbsolutePath());
+            }
         }
-        String filePath = this.filePath;
-        file = new File(filePath);
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void checkFileIsExisted(String filePath) {
+        File file = new File(filePath);
+        File parentDirectory = file.getParentFile();
+        if (!parentDirectory.exists()) {
+            if (!parentDirectory.mkdirs()) {
+                throw new RuntimeException("Failed to create directory: " + parentDirectory.getAbsolutePath());
+            }
+        }
+
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -43,7 +68,6 @@ public class FileIO {
                 StandardCharsets.UTF_8
         );
         BufferedReader buffer = new BufferedReader(inputStreamReader);
-
         return buffer;
     }
 

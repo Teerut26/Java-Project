@@ -3,29 +3,35 @@ package cs211.project.models;
 import cs211.project.models.collections.UserCollection;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Team {
     private String id;
     private String name;
-    private String quantity;
+    private Integer quantity;
     private LocalDateTime startRecruitDate;
     private LocalDateTime endRecruitDate;
     private User owner;
     private Event event;
+
+    private String joinStatus;
     private UserCollection userInTeam = new UserCollection();
 
     public Event getEvent() {
         return event;
     }
 
-    public Team(String id, String name, String quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, User onwer, Event event) {
+
+
+    public Team(String id, String name, Integer quantity, LocalDateTime startRecruitDate, LocalDateTime endRecruitDate, User owner, Event event) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.startRecruitDate = startRecruitDate;
         this.endRecruitDate = endRecruitDate;
-        this.owner = onwer;
+        this.owner = owner;
         this.event = event;
+        this.joinStatus = "Not Joined";
     }
 
     public void setId(String id) {
@@ -48,7 +54,7 @@ public class Team {
         return name;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
@@ -60,11 +66,15 @@ public class Team {
         return endRecruitDate;
     }
 
+    public String getJoinStatus() {
+        return this.joinStatus;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -74,6 +84,10 @@ public class Team {
 
     public void setEndRecruitDate(LocalDateTime endRecruitDate) {
         this.endRecruitDate = endRecruitDate;
+    }
+
+    public void setJoinStatus(String joinStatus) {
+        this.joinStatus = joinStatus;
     }
 
     public void joinTeam(User user) {
@@ -88,11 +102,25 @@ public class Team {
         return id;
     }
 
+
     public User getOwner() {
         return owner;
     }
 
     public UserCollection getUserInTeam() {
         return userInTeam;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Team team = (Team) o;
+        return id.equals(team.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

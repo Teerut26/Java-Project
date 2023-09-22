@@ -1,7 +1,8 @@
 module cs211.project {
     requires javafx.controls;
     requires javafx.fxml;
-    requires org.json;
+    requires bcrypt;
+    requires org.apache.commons.csv;
 
     opens cs211.project.router to javafx.fxml;
     exports cs211.project.router;
@@ -36,6 +37,13 @@ module cs211.project {
 
     exports cs211.project.controllers.schedule;
     opens cs211.project.controllers.schedule to javafx.fxml;
+
+
+
+    exports cs211.project.models;
+    opens cs211.project.models to javafx.fxml;
+    exports cs211.project.services.datasource;
+    opens cs211.project.services.datasource to javafx.fxml;
 
 
 }

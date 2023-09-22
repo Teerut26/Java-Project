@@ -18,6 +18,15 @@ public class ManyToManyCollection {
         this.manyToManies.add(manyToMany);
     }
 
+    public ManyToMany find(ManyToMany manyToMany) {
+        for (ManyToMany manyToMany1 : this.manyToManies) {
+            if (manyToMany1.getA().equals(manyToMany.getA()) && manyToMany1.getB().equals(manyToMany.getB())) {
+                return manyToMany1;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<ManyToMany> findsByA(String primary) {
         ArrayList<ManyToMany> manyToManies = new ArrayList<>();
         for (ManyToMany manyToMany : this.manyToManies) {

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 public class EventFileListDatesource implements DatasourceInterface<EventCollection> {
     private String basePath = "data/csv/";
-    private String fileName = "comments.csv";
+    private String fileName = "events.csv";
     private FileIO fileIO;
 
     public EventFileListDatesource() {
@@ -24,11 +24,13 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
 
     @Override
     public EventCollection readData() {
-        EventCollection eventCollection = new EventCollection();
-        BufferedReader buffer = this.fileIO.reader();
 
+        BufferedReader buffer = this.fileIO.reader();
         String line = "";
         try {
+            UserCollection userFileListDatasourceCollection = new UserFileListDatasource().readData();
+            EventCollection eventCollection = new EventCollection();
+
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
 
@@ -36,34 +38,33 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
 
                 String eventID = data[0].trim();
                 String nameEvent = data[1].trim();
-                String imageEvent = data[2].trim();
-                String descriptionEvent = data[3].trim();
-                LocalDateTime startDate = LocalDateTime.parse(data[4].trim());
-                LocalDateTime endDate = LocalDateTime.parse(data[5].trim());
-                Integer quantityEvent = Integer.parseInt(data[6].trim());
-                String ownerId = data[7].trim();
+                String descriptionEvent = data[2].trim();
+                String location = data[3].trim();
+                String imageEvent = data[4].trim();
+                LocalDateTime startDate = LocalDateTime.parse(data[5].trim());
+                LocalDateTime endDate = LocalDateTime.parse(data[6].trim());
+                Integer quantityEvent = Integer.parseInt(data[7].trim());
+                boolean isPublic = Boolean.parseBoolean(data[8].trim());
+                String ownerId = data[9].trim();
 
-                UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-                User owner = userFileListDatasource.readData().findById(ownerId);
+                User owner = userFileListDatasourceCollection.findById(ownerId);
+                Event event = new Event(eventID, nameEvent, imageEvent, descriptionEvent, location, startDate, endDate, quantityEvent, isPublic, owner);
 
-                Event event = new Event(eventID, nameEvent, imageEvent, descriptionEvent, startDate, endDate, quantityEvent, owner);
-
-                // Read many to many event user file
-                UserCollection userCollection = new UserCollection();
-                ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-                manyToManyFileListDatasource.readData().findsByA(eventID).forEach((userID) -> {
-                    User user = userFileListDatasource.readData().findById(userID.getB());
-                    userCollection.add(user);
-                });
-
-                event.setUserInEvent(userCollection);
                 eventCollection.add(event);
             }
+            return eventCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            if (buffer != null) {
+                try {
+                    buffer.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
-        return eventCollection;
     }
 
     @Override
@@ -72,21 +73,9 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
 
         try {
             for (Event event : data.getEvents()) {
-                String line = event.getEventID() + "," + event.getNameEvent() + "," + event.getImageEvent() + "," + event.getDescriptionEvent() + "," + event.getStartDate().toString() + "," + event.getEndDate().toString() + "," + event.getQuantityEvent() + "," + event.getOwner().getId();
+                String line = event.getEventID() + "," + event.getNameEvent() + "," + event.getDescriptionEvent() + "," + event.getLocation() + "," + event.getImageEvent() + "," + event.getStartDate().toString() + "," + event.getEndDate().toString() + "," + event.getQuantityEvent() + "," + event.isPublic() + "," + event.getOwner().getId();
                 buffer.append(line);
                 buffer.append("\n");
-
-                if (event.getUserInEvent() != null) {
-                    ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_EVENT_USER);
-                    ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
-                    manyToManyCollection.setManyToManies(manyToManyFileListDatasource.readData().getManyToManies());
-                    event.getUserInEvent().getUsers().forEach((user) -> {
-                        ManyToMany manyToMany = new ManyToMany(event.getEventID(), user.getId());
-                        manyToManyCollection.add(manyToMany);
-                    });
-                    manyToManyFileListDatasource.writeData(manyToManyCollection);
-                }
-
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -99,5 +88,4 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
             }
         }
     }
-
 }

@@ -1,5 +1,6 @@
 package cs211.project.models;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.TeamCollection;
 
@@ -12,7 +13,7 @@ public class User {
     private String password;
     private String imageProfile;
     private LocalDateTime lastLogin;
-    private String role;
+    private String role = "user";
     private EventCollection eventCollection;
     private TeamCollection teamCollection;
 
@@ -22,6 +23,20 @@ public class User {
         this.userName = userName;
         this.password = password;
         this.lastLogin = lastLogin;
+    }
+
+    public User(String id, String nameUser, String userName, String password, String role, String imagePath, LocalDateTime lastLogin) {
+        this.id = id;
+        this.nameUser = nameUser;
+        this.userName = userName;
+        this.password = password;
+        this.role = role;
+        this.imageProfile = imagePath;
+        this.lastLogin = lastLogin;
+    }
+
+    public boolean isAdmin() {
+        return this.role.equals("admin");
     }
 
     public void setId(String id) {
@@ -37,7 +52,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.withDefaults().hashToString(12, password.toCharArray());
     }
 
     public void setLastLogin(LocalDateTime lastLogin) {
@@ -64,12 +79,17 @@ public class User {
         this.imageProfile = imagePath;
     }
 
-    public void setPassword(String oldPassword, String newPassword, String confirmPassword) {
-        if (oldPassword.equals(password)) {
+    public void changePassword(String oldPassword, String newPassword, String confirmPassword) {
+        if (validatePassword(oldPassword)) {
             if (newPassword.equals(confirmPassword)) {
-                this.password = newPassword;
+                this.password = BCrypt.withDefaults().hashToString(12, password.toCharArray());
             }
         }
+    }
+
+    public boolean validatePassword(String password) {
+        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), this.password);
+        return result.verified;
     }
 
     public void setRole(String role) {
@@ -107,6 +127,12 @@ public class User {
     public LocalDateTime getLastlogin() {
         return lastLogin;
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        User that = (User) o;
+//        return this.id.equals(that.id);
+//    }
 
     @Override
     public String toString() {

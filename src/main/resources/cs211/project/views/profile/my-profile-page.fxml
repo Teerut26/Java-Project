@@ -15,13 +15,6 @@
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.profile.MyProfilePageController">
    <children>
       <BorderPane prefHeight="720.0" prefWidth="1280.0">
-         <top>
-            <HBox fx:id="NavBarHBox" alignment="CENTER_LEFT" maxWidth="1280.0" minWidth="1249.0" prefHeight="100.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets left="35.0" right="35.0" />
-               </padding>
-            </HBox>
-         </top>
          <left>
             <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
@@ -36,40 +29,47 @@
          <right>
             <VBox prefHeight="626.0" prefWidth="946.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="51.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                  <HBox alignment="CENTER" prefHeight="61.0" prefWidth="946.0" style="-fx-background-color: white; -fx-background-radius: 10;">
                      <children>
-                        <Label prefHeight="75.0" prefWidth="784.0" text=" My Profile" textAlignment="CENTER">
+                        <Label prefHeight="62.0" prefWidth="720.0" text=" My Profile" textAlignment="CENTER">
                            <font>
                               <Font name="System Bold" size="40.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin>
                         </Label>
-                        <Button mnemonicParsing="false" prefHeight="69.0" prefWidth="154.0" style="-fx-background-color: #E8E8E8; -fx-background-radius: 16; -fx-border-radius: 16;" text="go back">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
-                           </padding>
-                        </Button>
+<!--                        <Button mnemonicParsing="false" onAction="#onBack" prefHeight="45.0" prefWidth="133.0" styleClass="btn-secondary" text="go back">-->
+<!--                           <font>-->
+<!--                              <Font size="24.0" />-->
+<!--                           </font>-->
+<!--                           <padding>-->
+<!--                              <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />-->
+<!--                           </padding>-->
+<!--                        </Button>-->
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
-                  <Label prefHeight="18.0" prefWidth="975.0" />
-                  <HBox prefHeight="535.0" prefWidth="927.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                  <Pane prefHeight="11.0" prefWidth="946.0" />
+                  <HBox prefHeight="531.0" prefWidth="922.0" style="-fx-background-color: white; -fx-background-radius: 10;">
                      <children>
-                        <VBox prefHeight="487.0" prefWidth="315.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="487.0" prefWidth="315.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
+                           </padding>
                            <children>
-                              <BorderPane prefHeight="554.0" prefWidth="315.0">
-                                 <center>
-                                    <Button mnemonicParsing="false" style=": EAA807; -fx-background-radius: 16;" styleClass="btn-secondary-active" text="Add Image" textAlignment="CENTER" BorderPane.alignment="CENTER">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Button>
-                                 </center>
-                                 <top>
-                                    <ImageView fitHeight="372.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-                                 </top>
-                              </BorderPane>
+                              <ImageView fx:id="addImage" fitHeight="311.0" fitWidth="296.0" pickOnBounds="true" preserveRatio="true" />
+                              <Pane prefHeight="32.0" prefWidth="296.0" />
+                              <Button mnemonicParsing="false" onAction="#importImage" prefHeight="49.0" prefWidth="109.0" styleClass="btn-secondary" text="Import">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+                                 </padding>
+                              </Button>
                            </children>
                         </VBox>
                         <VBox prefHeight="363.0" prefWidth="614.0">
@@ -79,7 +79,7 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField promptText="name" style="-fx-background-color: FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;">
+                              <TextField fx:id="TextFieldName" prefHeight="50.0" prefWidth="604.0" promptText="name" style="-fx-background-color: FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -89,48 +89,61 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <TextField promptText="username" style="-fx-background-color: FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;">
+                              <TextField fx:id="TextFieldUserName" prefHeight="50.0" prefWidth="604.0" promptText="username" style="-fx-background-color: FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </TextField>
-                              <Label prefHeight="46.0" prefWidth="614.0" text=" Email">
+                              <Pane prefHeight="10.0" prefWidth="10.0" />
+                              <Label fx:id="errorLabel" textFill="RED">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" />
+                                 </VBox.margin>
                                  <font>
-                                    <Font name="System Bold" size="24.0" />
+                                    <Font size="15.0" />
                                  </font>
                               </Label>
-                              <TextField promptText="email" style="-fx-background-color: FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </TextField>
-                              <Label prefHeight="46.0" prefWidth="614.0" text=" Password">
-                                 <font>
-                                    <Font name="System Bold" size="24.0" />
-                                 </font>
-                              </Label>
-                              <HBox prefHeight="42.0" prefWidth="614.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="604.0">
                                  <children>
-                                    <TextField prefHeight="43.0" prefWidth="328.0" promptText="***********" style="-fx-background-color: FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;">
+                                    <Button mnemonicParsing="false" onAction="#onChangePasswordClick" prefHeight="50.0" prefWidth="221.0" styleClass="btn-primary-active" text="Change Password">
                                        <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </TextField>
-                                    <Pane prefHeight="42.0" prefWidth="64.0" />
-                                    <Button fx:id="onChangePasswordClick" mnemonicParsing="false" styleClass="btn-secondary-active" text="Change Password">
-                                       <font>
-                                          <Font size="20.0" />
+                                          <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
                                     </Button>
                                  </children>
                               </HBox>
+                              <Button mnemonicParsing="false" onAction="#onSave" prefHeight="25.0" styleClass="btn-primary-active" text="Save">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Button>
                            </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                         </VBox>
                      </children>
                   </HBox>
                </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
             </VBox>
          </right>
+         <top>
+            <AnchorPane prefHeight="94.0" prefWidth="1280.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox fx:id="NavBarHBox" maxWidth="1280.0" minWidth="1280.0" prefHeight="100.0" prefWidth="200.0">
+                     <padding>
+                        <Insets left="35.0" right="35.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>

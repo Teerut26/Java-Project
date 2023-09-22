@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.EditEventDetailFormController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.EditEventDetailFormController">
 
     <children>
         <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
@@ -42,14 +51,6 @@
                                         <Font name="System Bold" size="36.0" />
                                     </font>
                                 </Label>
-                                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="133.0" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="go back">
-                                    <font>
-                                        <Font size="24.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
-                                    </padding>
-                                </Button>
                             </children>
                             <opaqueInsets>
                                 <Insets left="25.0" right="25.0" />
@@ -62,12 +63,8 @@
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="408.0" spacing="10.0">
                            <children>
-                              <ImageView fitHeight="372.0" fitWidth="278.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../../../../../../Library/Mobile%20Documents/com~apple~CloudDocs/รายการดาวน์โหลด/pexels-dominika-roseclay-1141792.jpg" />
-                                 </image>
-                              </ImageView>
-                              <Button mnemonicParsing="false" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="Add image">
+                              <ImageView fx:id="addImage" fitHeight="372.0" fitWidth="278.0" pickOnBounds="true" preserveRatio="true" />
+                              <Button mnemonicParsing="false" onAction="#importImage" styleClass="btn-secondary" text="Import">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -87,33 +84,62 @@
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <TextField prefHeight="50.0" text="Food and Hospitality Thailand (FHT)" />
+                              <TextField fx:id="TextFieldName" prefHeight="42.0" prefWidth="560.0" />
                               <Label text="description">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <TextArea prefHeight="200.0" prefWidth="200.0" text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true" />
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0">
+                              <TextArea fx:id="TextAreaDescription" prefHeight="119.0" prefWidth="560.0" wrapText="true" />
+                              <Label text="Location">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <HBox prefHeight="38.0" prefWidth="560.0">
                                  <children>
-                                    <VBox prefHeight="100.0" prefWidth="314.0">
+                                    <TextField fx:id="locationEvent" prefHeight="26.0" prefWidth="270.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="52.0" prefWidth="560.0" spacing="16.0">
+                                 <children>
+                                    <VBox prefHeight="64.0" prefWidth="190.0">
                                        <children>
                                           <Label text="start date">
                                              <font>
-                                                <Font size="24.0" />
+                                                <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <DatePicker prefHeight="50.0" prefWidth="339.0" />
+                                          <DatePicker fx:id="DataTimeStart" prefHeight="26.0" prefWidth="150.0" />
                                        </children>
                                     </VBox>
                                     <VBox prefHeight="100.0" prefWidth="312.0">
                                        <children>
                                           <Label text="end date">
                                              <font>
-                                                <Font size="24.0" />
+                                                <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <DatePicker prefHeight="52.0" prefWidth="320.0" />
+                                          <DatePicker fx:id="DataTimeEnd" prefHeight="26.0" prefWidth="150.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="73.0" prefWidth="560.0" spacing="110.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Label text="Quantity">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="TextFieldQuantity" prefHeight="29.0" prefWidth="125.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <CheckBox fx:id="publicCheckBox" mnemonicParsing="false" text="public" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -127,14 +153,15 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
                      <children>
-                        <Button mnemonicParsing="false" prefWidth="160.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" text="cancel">
+                        <Button mnemonicParsing="false" onAction="#onCancel" prefHeight="45.0" prefWidth="135.0" styleClass="btn-error" text="cancel">
                            <font>
-                              <Font size="24.0" />
+                              <Font name="Hiragino Sans W6" size="24.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefWidth="160.0" style="-fx-background-color: #EAA807; -fx-background-radius: 10; -fx-border-radius: 10;" text="save">
+                        <Pane prefHeight="63.0" prefWidth="26.0" />
+                        <Button mnemonicParsing="false" onAction="#onSave" prefHeight="45.0" prefWidth="135.0" styleClass="btn-primary-active" text="save">
                            <font>
-                              <Font size="24.0" />
+                              <Font name="Hiragino Sans W6" size="24.0" />
                            </font>
                         </Button>
                      </children>

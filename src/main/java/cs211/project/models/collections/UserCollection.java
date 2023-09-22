@@ -14,7 +14,10 @@ public class UserCollection {
     }
 
     public void add(User user) {
-        this.userArrayList.add(user);
+        if (this.findById(user.getId()) == null) {
+            this.userArrayList.add(user);
+        }
+
     }
 
     public User findByName(String title) {

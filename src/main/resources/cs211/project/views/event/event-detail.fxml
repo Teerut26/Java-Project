@@ -3,12 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.event.EventDetailController">
@@ -54,7 +54,7 @@
                   </HBox>
                   <VBox prefHeight="547.0" prefWidth="936.0" spacing="20.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10;">
                      <children>
-                        <Label text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
+                        <Label fx:id="eventNameLabel" text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
                            <font>
                               <Font name="Hiragino Sans W7" size="24.0" />
                            </font>
@@ -63,8 +63,8 @@
                            <children>
                               <VBox prefHeight="343.0" prefWidth="266.0" spacing="8.0">
                                  <children>
-                                    <ImageView fitHeight="303.0" fitWidth="266.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="17 July 23 6:00 - 18 July 23 23:00" textFill="#bb716f">
+                                    <Rectangle fx:id="eventImage" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="324.0" stroke="BLACK" strokeType="INSIDE" width="256.0" />
+                                    <Label fx:id="eventTime" prefHeight="15.0" prefWidth="289.0" text="17 July 23 6:00 - 18 July 23 23:00" textFill="#bb716f">
                                        <font>
                                           <Font name="Hiragino Sans W6" size="13.0" />
                                        </font>
@@ -73,20 +73,20 @@
                               </VBox>
                               <VBox prefHeight="328.0" prefWidth="567.0" spacing="10.0">
                                  <children>
-                                    <Label prefHeight="225.0" prefWidth="489.0" text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true">
+                                    <Label fx:id="eventDescriptionLabel" alignment="TOP_LEFT" prefHeight="225.0" prefWidth="489.0" text="null" wrapText="true">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
                                     <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="547.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
+                                          <Button mnemonicParsing="false" onAction="#onJoin" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
                                              <font>
                                                 <Font name="Hiragino Sans W7" size="16.0" />
                                              </font>
                                           </Button>
                                           <Pane prefHeight="52.0" prefWidth="60.0" />
-                                          <Label text="23" textFill="#5d863b">
+                                          <Label fx:id="currentUserAmount" text="0" textFill="#5d863b">
                                              <font>
                                                 <Font name="Hiragino Sans W6" size="20.0" />
                                              </font>
@@ -99,7 +99,7 @@
                                                 <Insets left="4.0" />
                                              </padding>
                                           </Label>
-                                          <Label text="200" textFill="#5d863b">
+                                          <Label fx:id="maxUserAmount" text="200" textFill="#5d863b">
                                              <font>
                                                 <Font name="Hiragino Sans W6" size="20.0" />
                                              </font>

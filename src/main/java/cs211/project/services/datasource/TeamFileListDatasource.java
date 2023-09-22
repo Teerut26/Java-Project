@@ -26,11 +26,12 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
 
     @Override
     public TeamCollection readData() {
-        TeamCollection teamCollection = new TeamCollection();
+
         BufferedReader buffer = this.fileIO.reader();
 
         String line = "";
         try {
+            TeamCollection teamCollection = new TeamCollection();
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
 
@@ -38,7 +39,7 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
 
                 String id = data[0].trim();
                 String name = data[1].trim();
-                String quantity = data[2].trim();
+                Integer quantity = Integer.parseInt(data[2].trim());
                 LocalDateTime startRecruitDate = LocalDateTime.parse(data[3].trim());
                 LocalDateTime endRecruitDate = LocalDateTime.parse(data[4].trim());
                 String ownerID = data[5].trim();
@@ -52,23 +53,18 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
 
                 Team team = new Team(id, name, quantity, startRecruitDate, endRecruitDate, user, event);
 
-                // Read many to many team user file
-                UserCollection MTM_TeamUserCollection = new UserCollection();
-                ManyToManyFileListDatasource MTM_EventUserFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_TEAM_USER);
-                MTM_EventUserFileListDatasource.readData().findsByA(id).forEach((userMTM) -> {
-                    UserFileListDatasource userFileListDatasource1 = new UserFileListDatasource();
-                    User user1 = userFileListDatasource1.readData().findById(userMTM.getB());
-                    MTM_TeamUserCollection.add(user1);
-                });
-
-                team.setUserInTeam(MTM_TeamUserCollection);
                 teamCollection.add(team);
             }
+            return teamCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            try {
+                buffer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
-
-        return teamCollection;
     }
 
     @Override
@@ -84,20 +80,6 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
                         team.getEndRecruitDate() + "," +
                         team.getOwner().getId() + "," +
                         team.getEvent().getEventID();
-
-                // Write many to many event user file
-                if (team.getUserInTeam() != null) {
-                    ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(ManyToManyFileListDatasource.MTM_TEAM_USER);
-                    ManyToManyCollection manyToManyCollection = new ManyToManyCollection();
-                    manyToManyCollection.setManyToManies(manyToManyFileListDatasource.readData().getManyToManies());
-                    team.getUserInTeam().getUsers().forEach((user) -> {
-                        ManyToMany manyToMany = new ManyToMany(team.getId(), user.getId());
-                        manyToManyCollection.add(manyToMany);
-                    });
-                    manyToManyFileListDatasource.writeData(manyToManyCollection);
-                }
-
-
                 buffer.append(line);
                 buffer.append("\n");
             }

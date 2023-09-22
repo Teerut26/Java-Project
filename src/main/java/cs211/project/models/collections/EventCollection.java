@@ -12,7 +12,9 @@ public class EventCollection {
     }
 
     public void add(Event event) {
-        this.events.add(event);
+        if (this.findById(event.getEventID()) == null) {
+            this.events.add(event);
+        }
     }
 
     public Event findByName(String name) {
@@ -34,6 +36,14 @@ public class EventCollection {
 
     public void remove(Event event) {
         this.events.remove(event);
+    }
+
+    public void update(Event event) {
+        for (int i = 0; i < this.events.size(); i++) {
+            if (this.events.get(i).getEventID().equals(event.getEventID())) {
+                this.events.set(i, event);
+            }
+        }
     }
 
     public Event findById(String id) {
