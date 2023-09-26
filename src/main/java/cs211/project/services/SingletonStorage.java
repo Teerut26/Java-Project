@@ -8,7 +8,6 @@ public class SingletonStorage {
     private SingletonStorage() {
     }
 
-
     public static synchronized SingletonStorage getInstance() {
         if (single_instance == null)
             single_instance = new SingletonStorage();
