@@ -196,7 +196,7 @@
                                                                         <Font name="Hiragino Sans W6" size="18.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label text="supend">
+                                                                  <Label text="suspend">
                                                                      <font>
                                                                         <Font name="Hiragino Sans W6" size="18.0" />
                                                                      </font>
@@ -400,6 +400,12 @@
                                                       </TableView>
                                                       <HBox alignment="CENTER" prefHeight="104.0" prefWidth="890.0">
                                                          <children>
+                                                            <Button mnemonicParsing="false" onAction="#onActivityEventDelete" prefHeight="45.0" prefWidth="120.0" styleClass="btn-delete" text="Delete">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Pane prefHeight="80.0" prefWidth="65.0" />
                                                             <Button mnemonicParsing="false" onAction="#onEditActivityEvent" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
