@@ -62,7 +62,7 @@ public class CommentActivityEventController {
     @FXML
     public void initialize() {
         this.routeProvider = (RouteProvider) FXRouter.getData();
-        this.activitiesEvent = (ActivitiesEvent) routeProvider.getDataHashMap().get("activity-select");
+        this.activitiesEvent = (ActivitiesEvent) routeProvider.getDataHashMap().get("activity-event-select");
         this.commentActivitiesEventFileListDatasource = new CommentActivitiesEventFileListDatasource();
 
         ComponentRegister componentRegister = new ComponentRegister();

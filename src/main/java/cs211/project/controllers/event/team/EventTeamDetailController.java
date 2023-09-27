@@ -73,7 +73,8 @@ public class EventTeamDetailController extends ComponentRegister {
 
     private void loadTeamDetailData() {
 
-        activitiesTeamCollection = new ActivitiesTeamFileListDatesource().readData();
+        activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
+        activitiesTeamCollection = activitiesTeamFileListDatesource.readData();
 
         this.team = (Team) this.routeProvider.getDataHashMap().get("team-select");
 
@@ -151,6 +152,7 @@ public class EventTeamDetailController extends ComponentRegister {
 
         activityTeamTableView.getColumns().clear();
         activityTeamTableView.getColumns().addAll(titleColumn,detailColumn,statusColumn,startDateColumn,endDateColumn);
+        activityTeamTableView.getItems().clear();
 
         for (ActivitiesTeam activitiesTeam : activitiesTeamCollection.getActivitiesArrayList()) {
             activityTeamTableView.getItems().add(activitiesTeam);
@@ -158,7 +160,7 @@ public class EventTeamDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onAddActivityTeam(ActionEvent event) {
+    public void onAddActivityTeam(ActionEvent event) {
         try {
             FXRouter.goTo("add-schedule-team", this.routeProvider);
         } catch (Exception e) {
@@ -167,7 +169,7 @@ public class EventTeamDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onBack(ActionEvent event) {
+    public void onBack(ActionEvent event) {
         try {
             FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (Exception e) {
@@ -176,14 +178,14 @@ public class EventTeamDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onViewActivityTeam(ActionEvent event) {
+    public void onViewActivityTeam(ActionEvent event) {
         try {
             if (selectActivitiesTeam == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
                 alert.showAndWait();
                 return;
             }
-            this.routeProvider.addHashMap("comment-view-team",this.selectActivitiesTeam);
+            this.routeProvider.addHashMap("activity-team-select",this.selectActivitiesTeam);
             FXRouter.goTo("comment-activity-team",this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -191,17 +193,36 @@ public class EventTeamDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onEditActivityTeam(ActionEvent event) {
+    public void onEditActivityTeam(ActionEvent event) {
         try {
             if (selectActivitiesTeam == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
                 alert.showAndWait();
                 return;
             }
-            this.routeProvider.addHashMap("select-activity-team", this.selectActivitiesTeam);
+            this.routeProvider.addHashMap("activity-team-select", this.selectActivitiesTeam);
             FXRouter.goTo("edit-schedule-team", this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onActivityEventTeamDelete(){
+        if(selectActivitiesTeam != null){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to delete : " + selectActivitiesTeam.getTitle() + " ?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.NO) {
+                return;
+            }
+            ActivitiesTeamCollection newActivityTeamCollection = new ActivitiesTeamCollection();
+            for(ActivitiesTeam activitiesTeam : activitiesTeamCollection.getActivitiesArrayList()){
+                if(!activitiesTeam.getId().equals(selectActivitiesTeam.getId())){
+                    newActivityTeamCollection.add(activitiesTeam);
+                }
+            }
+            activitiesTeamFileListDatesource.writeData(newActivityTeamCollection);
+            activitiesTeamCollection = newActivityTeamCollection;
+            showTableActivityTeam(activitiesTeamCollection);
         }
     }
 
@@ -277,18 +298,4 @@ public class EventTeamDetailController extends ComponentRegister {
         }
     }
 
-    @FXML
-    public void onToCommentEvent(){
-        try {
-            if (selectActivitiesTeam == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
-                alert.showAndWait();
-                return;
-            }
-            this.routeProvider.addHashMap("activity-team-select", this.selectActivitiesTeam);
-//            FXRouter.goTo("edit-schedule-participant", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

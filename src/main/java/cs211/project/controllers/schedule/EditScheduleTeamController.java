@@ -47,7 +47,7 @@ public class EditScheduleTeamController extends ComponentRegister {
     @FXML
     public void initialize(){
         routeProvider = (RouteProvider<Event>) FXRouter.getData();
-        this.activitiesTeam = (ActivitiesTeam) routeProvider.getDataHashMap().get("select-activity-team");
+        this.activitiesTeam = (ActivitiesTeam) routeProvider.getDataHashMap().get("activity-team-select");
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
