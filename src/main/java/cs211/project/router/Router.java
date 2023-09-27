@@ -60,6 +60,9 @@ public class Router extends Application {
         //about us routes
         FXRouter.when("about-us", resourcesPath + "about-us.fxml");
 
+        //setting
+        FXRouter.when("setting-page", resourcesPath + "setting-page.fxml");
+
     }
 
 
