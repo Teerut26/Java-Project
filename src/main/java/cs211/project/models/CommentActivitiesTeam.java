@@ -4,15 +4,11 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CommentActivitiesTeam extends Comment {
-    private Team team;
+    private ActivitiesTeam activitiesTeam;
 
-    public CommentActivitiesTeam(String id, String message, User owner, Team team, LocalDateTime timeStamps) {
+    public CommentActivitiesTeam(String id, String message, User owner, ActivitiesTeam activitiesTeam, LocalDateTime timeStamps) {
         super(id, message, owner, timeStamps);
-        this.team = team;
-    }
-
-    public Team getTeam() {
-        return team;
+        this.activitiesTeam = activitiesTeam;
     }
 
     @Override
@@ -24,7 +20,11 @@ public class CommentActivitiesTeam extends Comment {
         return this.getId().equals(that.getId());
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public ActivitiesTeam getActivitiesTeam() {
+        return activitiesTeam;
+    }
+
+    public void setActivitiesTeam(ActivitiesTeam activitiesTeam) {
+        this.activitiesTeam = activitiesTeam;
     }
 }

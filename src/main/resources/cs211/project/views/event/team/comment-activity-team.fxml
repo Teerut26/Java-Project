@@ -39,34 +39,34 @@
                     </children>
                 </AnchorPane>
             </left>
-            <right>
-                <VBox prefHeight="931.0" prefWidth="1119.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
-                    <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="936.0" spacing="20.0">
-                            <children>
-                                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="btn-secondary" text="Back">
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </Button>
-                            </children>
-                            <opaqueInsets>
-                                <Insets />
-                            </opaqueInsets>
-                        </HBox>
+         <center>
+            <VBox prefHeight="931.0" prefWidth="1119.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="936.0" spacing="20.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onBack" prefHeight="40.0" prefWidth="100.0" styleClass="btn-secondary" text="Back">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
                   <Pane prefHeight="545.0" prefWidth="936.0">
                      <children>
-                        <ScrollPane layoutX="1.0" layoutY="25.0" prefHeight="445.0" prefWidth="934.0">
+                        <ScrollPane fx:id="commentListScrollPane" hbarPolicy="NEVER" layoutX="1.0" layoutY="25.0" prefHeight="445.0" prefWidth="932.0">
                            <content>
-                              <VBox prefWidth="929.0" />
+                              <VBox fx:id="CommentList" prefWidth="918.0" />
                            </content>
                         </ScrollPane>
-                        <TextField layoutX="2.0" layoutY="484.0" prefHeight="55.0" prefWidth="811.0" promptText="Comment" styleClass="input">
+                        <TextField fx:id="commentInput" layoutX="2.0" layoutY="484.0" prefHeight="55.0" prefWidth="811.0" promptText="Comment" styleClass="input">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Button layoutX="825.0" layoutY="483.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="101.0" styleClass="btn-primary-active" text="Send">
+                        <Button layoutX="825.0" layoutY="483.0" mnemonicParsing="false" onAction="#onSend" prefHeight="55.0" prefWidth="101.0" styleClass="btn-primary-active" text="Send">
                            <font>
                               <Font size="21.0" />
                            </font>
@@ -80,7 +80,7 @@
                                           <Image url="@../../../assets/image/icons/users.png" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Name">
+                                    <Text fx:id="teamName" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Team">
                                        <font>
                                           <Font size="21.0" />
                                        </font>
@@ -94,7 +94,7 @@
                                           <Image url="@../../../assets/image/icons/gantt-chart-square.png" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Activity name">
+                                    <Text fx:id="activityName" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity name">
                                        <font>
                                           <Font size="21.0" />
                                        </font>
@@ -105,12 +105,12 @@
                         </HBox>
                      </children>
                   </Pane>
-                    </children>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </VBox>
-            </right>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </center>
         </BorderPane>
     </children>
 </AnchorPane>

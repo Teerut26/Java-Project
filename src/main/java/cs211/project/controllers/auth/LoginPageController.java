@@ -87,6 +87,7 @@ public class LoginPageController {
             }
             this.updateLastLogin(user);
             FXRouter.goTo("event-list", routeProvider);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

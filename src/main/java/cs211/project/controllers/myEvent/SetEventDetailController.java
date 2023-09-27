@@ -379,7 +379,7 @@ public class SetEventDetailController extends ComponentRegister {
                 alert.showAndWait();
                 return;
             }
-            this.routeProvider.addHashMap("comment-view-event",this.activitySelect);
+            this.routeProvider.addHashMap("activity-select",this.activitySelect);
             FXRouter.goTo("comment-activity-event",this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
