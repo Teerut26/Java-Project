@@ -12,11 +12,16 @@ import cs211.project.services.datasource.ManyToManyFileListDatasource;
 import cs211.project.utils.ComponentLoader;
 import cs211.project.utils.ComponentRegister;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -40,6 +45,8 @@ public class EventListController extends ComponentRegister {
     private Label loading;
     @FXML
     private ScrollPane eventListScrollPane;
+    @FXML
+    private TextField searchBar;
     private int currentBatch = 0;
     private int batchSize = 5;
     private EventCollection eventCollection;
@@ -66,6 +73,7 @@ public class EventListController extends ComponentRegister {
 
         this.initEventListScrollPane();
         this.eventListScrollPaneListener();
+        this.searchEngine();
     }
 
     private void loadNextBatch(List<Event> events) {
@@ -111,6 +119,28 @@ public class EventListController extends ComponentRegister {
         });
 
         executor.shutdown();
+    }
+
+    public void searchEngine(){
+        ObservableList<Event> observableEvents = FXCollections.observableArrayList(eventCollection.getEvents());
+        FilteredList<Event> filteredEvents = new FilteredList<>(observableEvents);
+
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredEvents.setPredicate(event -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCase = newValue.toLowerCase();
+                if (event.getNameEvent().toLowerCase().indexOf(lowerCase) == -1) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+            vBoxEventlist.getChildren().clear();
+            currentBatch = 0;
+            loadNextBatch(filteredEvents);
+        });
     }
 
     @FXML

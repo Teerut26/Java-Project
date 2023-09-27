@@ -64,6 +64,9 @@ public class Router extends Application {
         FXRouter.when("comment-activity-event", resourcesPath + "event/comment-activity-event.fxml");
         FXRouter.when("comment-activity-team", resourcesPath + "event/team/comment-activity-team.fxml");
 
+        //setting
+        FXRouter.when("setting-page", resourcesPath + "setting-page.fxml");
+
     }
 
 

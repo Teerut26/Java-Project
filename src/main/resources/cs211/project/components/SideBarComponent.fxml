@@ -22,6 +22,11 @@
                 <Font name="System Bold" size="18.0" />
             </font>
         </Button>
+      <Button mnemonicParsing="false" onAction="#goToSetting" prefHeight="50.0" prefWidth="293.0" styleClass="btn-primary" text="Setting">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
     </children>
     <opaqueInsets>
         <Insets />
