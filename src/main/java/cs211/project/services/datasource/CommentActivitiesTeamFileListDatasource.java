@@ -36,16 +36,16 @@ public class CommentActivitiesTeamFileListDatasource implements DatasourceInterf
                 String id = data[0].trim();
                 String message = data[1].trim();
                 String ownerId = data[2].trim();
-                String teamId = data[3].trim();
+                String activityId = data[3].trim();
                 LocalDateTime timeStamps = LocalDateTime.parse(data[4].trim());
 
                 UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
                 User owner = userFileListDatasource.readData().findById(ownerId);
 
-                TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
-                Team team = teamFileListDatasource.readData().findById(teamId);
+                ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
+                ActivitiesTeam activitiesTeam = activitiesTeamFileListDatesource.readData().findById(activityId);
 
-                CommentActivitiesTeam comment = new CommentActivitiesTeam(id, message, owner, team, timeStamps);
+                CommentActivitiesTeam comment = new CommentActivitiesTeam(id, message, owner, activitiesTeam, timeStamps);
 
                 commentCollection.add(comment);
             }
@@ -67,7 +67,7 @@ public class CommentActivitiesTeamFileListDatasource implements DatasourceInterf
         BufferedWriter buffer = this.fileIO.writer();
         try {
             for (CommentActivitiesTeam comment : data.getComments()) {
-                String line = comment.getId() + "," + comment.getMessage() + "," + comment.getOwner().getId() + "," + comment.getTeam().getId() + "," + comment.getTimeStamps().toString();
+                String line = comment.getId() + "," + comment.getMessage() + "," + comment.getOwner().getId() + "," + comment.getActivitiesTeam().getId() + "," + comment.getTimeStamps().toString();
                 buffer.append(line);
                 buffer.append("\n");
             }

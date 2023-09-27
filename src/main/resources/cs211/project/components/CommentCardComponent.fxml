@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" style="-fx-opacity: 100;" styleClass="comment-card" stylesheets="@../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.components.CommentCardComponentController">
+   <children>
+      <Circle fx:id="profileImage" fill="DODGERBLUE" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
+      <VBox prefHeight="79.0" spacing="6.0" styleClass="comment-content">
+         <children>
+            <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="Teerut Srithongdee">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fx:id="content" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="250.0" /> <!-- Adjust wrappingWidth as needed -->
+            <Text fx:id="timestamp" fill="#868686" strokeType="OUTSIDE" strokeWidth="0.0" text="20/09/23 14:20">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</HBox>
