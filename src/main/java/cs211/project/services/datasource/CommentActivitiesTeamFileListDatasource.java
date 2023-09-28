@@ -1,8 +1,7 @@
 package cs211.project.services.datasource;
 
 import cs211.project.models.*;
-import cs211.project.models.collections.CommentActivitiesEventCollection;
-import cs211.project.models.collections.CommentActivitiesTeamCollection;
+import cs211.project.models.collections.*;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
 
@@ -27,6 +26,8 @@ public class CommentActivitiesTeamFileListDatasource implements DatasourceInterf
         String line = "";
         try {
             CommentActivitiesTeamCollection commentCollection = new CommentActivitiesTeamCollection();
+            UserCollection userCollection = new UserFileListDatasource().readData();
+            ActivitiesTeamCollection activitiesTeamCollection = new ActivitiesTeamFileListDatesource().readData();
 
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
@@ -39,11 +40,8 @@ public class CommentActivitiesTeamFileListDatasource implements DatasourceInterf
                 String activityId = data[3].trim();
                 LocalDateTime timeStamps = LocalDateTime.parse(data[4].trim());
 
-                UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-                User owner = userFileListDatasource.readData().findById(ownerId);
-
-                ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
-                ActivitiesTeam activitiesTeam = activitiesTeamFileListDatesource.readData().findById(activityId);
+                User owner = userCollection.findById(ownerId);
+                ActivitiesTeam activitiesTeam = activitiesTeamCollection.findById(activityId);
 
                 CommentActivitiesTeam comment = new CommentActivitiesTeam(id, message, owner, activitiesTeam, timeStamps);
 

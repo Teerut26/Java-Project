@@ -6,6 +6,8 @@ import cs211.project.models.Event;
 import cs211.project.models.Team;
 import cs211.project.models.collections.ActivitiesEventCollection;
 import cs211.project.models.collections.ActivitiesTeamCollection;
+import cs211.project.models.collections.EventCollection;
+import cs211.project.models.collections.TeamCollection;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
 
@@ -30,6 +32,8 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
         String line = "";
         try {
             ActivitiesTeamCollection activitiesTeamCollection = new ActivitiesTeamCollection();
+            TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
+            TeamCollection teamCollection = teamFileListDatasource.readData();
 
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
@@ -43,8 +47,7 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
                 LocalDateTime dateEnd = LocalDateTime.parse(data[4].trim());
                 String teamId = data[5].trim();
 
-                TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
-                Team team = teamFileListDatasource.readData().findById(teamId);
+                Team team = teamCollection.findById(teamId);
 
                 ActivitiesTeam activitiesTeam = new ActivitiesTeam(id, title, detail, dateStart, dateEnd, team);
 

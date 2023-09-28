@@ -185,7 +185,7 @@ public class EventTeamDetailController extends ComponentRegister {
                 alert.showAndWait();
                 return;
             }
-            this.routeProvider.addHashMap("activity-team-select",this.selectActivitiesTeam);
+            this.routeProvider.addHashMap("activity-select",this.selectActivitiesTeam);
             FXRouter.goTo("comment-activity-team",this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);

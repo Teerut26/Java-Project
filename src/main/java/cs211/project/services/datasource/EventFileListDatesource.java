@@ -28,7 +28,7 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
         BufferedReader buffer = this.fileIO.reader();
         String line = "";
         try {
-            UserCollection userFileListDatasourceCollection = new UserFileListDatasource().readData();
+            UserCollection userCollection = new UserFileListDatasource().readData();
             EventCollection eventCollection = new EventCollection();
 
             while ((line = buffer.readLine()) != null) {
@@ -47,7 +47,7 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
                 boolean isPublic = Boolean.parseBoolean(data[8].trim());
                 String ownerId = data[9].trim();
 
-                User owner = userFileListDatasourceCollection.findById(ownerId);
+                User owner = userCollection.findById(ownerId);
                 Event event = new Event(eventID, nameEvent, imageEvent, descriptionEvent, location, startDate, endDate, quantityEvent, isPublic, owner);
 
                 eventCollection.add(event);

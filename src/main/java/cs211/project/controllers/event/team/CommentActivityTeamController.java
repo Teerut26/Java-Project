@@ -1,22 +1,22 @@
-package cs211.project.controllers.event;
+package cs211.project.controllers.event.team;
 
 import cs211.project.controllers.components.CommentCardComponentController;
 import cs211.project.models.ActivitiesEvent;
+import cs211.project.models.ActivitiesTeam;
 import cs211.project.models.CommentActivitiesEvent;
-import cs211.project.models.Event;
+import cs211.project.models.CommentActivitiesTeam;
 import cs211.project.models.collections.CommentActivitiesEventCollection;
+import cs211.project.models.collections.CommentActivitiesTeamCollection;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
-import cs211.project.services.SingletonStorage;
 import cs211.project.services.datasource.CommentActivitiesEventFileListDatasource;
-import cs211.project.services.datasource.EventFileListDatesource;
+import cs211.project.services.datasource.CommentActivitiesTeamFileListDatasource;
 import cs211.project.utils.ComponentLoader;
 import cs211.project.utils.ComponentRegister;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -31,15 +31,15 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CommentActivityEventController {
+public class CommentActivityTeamController {
+    @FXML
+    private VBox CommentList;
+
     @FXML
     private HBox NavBarHBox;
 
     @FXML
     private VBox SideBarVBox;
-
-    @FXML
-    private VBox CommentList;
 
     @FXML
     private Text activityName;
@@ -48,22 +48,23 @@ public class CommentActivityEventController {
     private TextField commentInput;
 
     @FXML
-    private Text eventName;
+    private ScrollPane commentListScrollPane;
 
     @FXML
-    private ScrollPane commentListScrollPane;
+    private Text teamName;
+
     private int batchSize = 5;
     private int currentBatchStart = 0;
-    private CommentActivitiesEventFileListDatasource commentActivitiesEventFileListDatasource;
-    private CommentActivitiesEventCollection commentActivitiesEventCollection;
+    private CommentActivitiesTeamFileListDatasource commentActivitiesTeamFileListDatasource;
+    private CommentActivitiesTeamCollection commentActivitiesTeamCollection;
     private RouteProvider routeProvider;
-    private ActivitiesEvent activitiesEvent;
+    private ActivitiesTeam activitiesTeam;
 
     @FXML
     public void initialize() {
         this.routeProvider = (RouteProvider) FXRouter.getData();
-        this.activitiesEvent = (ActivitiesEvent) routeProvider.getDataHashMap().get("activity-event-select");
-        this.commentActivitiesEventFileListDatasource = new CommentActivitiesEventFileListDatasource();
+        this.activitiesTeam = (ActivitiesTeam) routeProvider.getDataHashMap().get("activity-select");
+        this.commentActivitiesTeamFileListDatasource = new CommentActivitiesTeamFileListDatasource();
 
         ComponentRegister componentRegister = new ComponentRegister();
         componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
@@ -77,41 +78,19 @@ public class CommentActivityEventController {
             }
         });
 
-        this.eventName.setText(this.activitiesEvent.getEvent().getNameEvent());
-        this.activityName.setText(this.activitiesEvent.getTitle());
+        this.teamName.setText(this.activitiesTeam.getTeam().getName());
+        this.activityName.setText(this.activitiesTeam.getTitle());
         this.loadNextBatch();
     }
 
-    private void loadNextBatch() {
-        List<CommentActivitiesEvent> comments = commentActivitiesEventCollection.getComments();
-        int currentBatchEnd = Math.min(currentBatchStart + batchSize, comments.size());
-
-        for (int i = currentBatchStart; i < currentBatchEnd; i++) {
-            CommentActivitiesEvent comment = comments.get(i);
-            loadComment(comment);
-        }
-
-        currentBatchStart = currentBatchEnd;
-
-        if (currentBatchStart < comments.size()) {
-            Platform.runLater(this::loadNextBatch);
-        }else {
-           Platform.runLater(()->{
-                commentListScrollPane.layout();
-                commentListScrollPane.setVvalue(1.0);
-           });
-        }
-    }
-
     private void readData() {
-        commentActivitiesEventCollection = this.commentActivitiesEventFileListDatasource.readData();
+        this.commentActivitiesTeamCollection = this.commentActivitiesTeamFileListDatasource.readData();
     }
 
-    private void loadComment(CommentActivitiesEvent comment) {
-        if (!(comment.equalsEvent(this.activitiesEvent))) {
+    private void loadComment(CommentActivitiesTeam comment) {
+        if (!(comment.equalsTeam(this.activitiesTeam))) {
             return;
         }
-
         try {
             FXMLLoader fxmlLoader = new ComponentLoader("CommentCardComponent.fxml").getFxmlLoader();
             Pane eventCardComponent = fxmlLoader.load();
@@ -123,10 +102,31 @@ public class CommentActivityEventController {
         }
     }
 
+    private void loadNextBatch() {
+        List<CommentActivitiesTeam> comments = commentActivitiesTeamCollection.getComments();
+        int currentBatchEnd = Math.min(currentBatchStart + batchSize, comments.size());
+
+        for (int i = currentBatchStart; i < currentBatchEnd; i++) {
+            CommentActivitiesTeam comment = comments.get(i);
+            loadComment(comment);
+        }
+
+        currentBatchStart = currentBatchEnd;
+
+        if (currentBatchStart < comments.size()) {
+            Platform.runLater(this::loadNextBatch);
+        } else {
+            Platform.runLater(() -> {
+                commentListScrollPane.layout();
+                commentListScrollPane.setVvalue(1.0);
+            });
+        }
+    }
+
     @FXML
     void onBack(ActionEvent event) {
         try {
-            FXRouter.goTo("set-event-detail");
+            FXRouter.goTo("event-team-detail");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -138,14 +138,15 @@ public class CommentActivityEventController {
             return;
         }
         String commentId = UUID.randomUUID().toString();
-        CommentActivitiesEvent commentActivitiesEvent1 = new CommentActivitiesEvent(commentId, commentInput.getText(), this.routeProvider.getUserSession(), this.activitiesEvent, LocalDateTime.now());
-        commentActivitiesEventCollection.add(commentActivitiesEvent1);
-        this.commentActivitiesEventFileListDatasource.writeData(commentActivitiesEventCollection);
+        CommentActivitiesTeam commentActivitiesTeam1 = new CommentActivitiesTeam(commentId, commentInput.getText(), this.routeProvider.getUserSession(), this.activitiesTeam, LocalDateTime.now());
+        System.out.println(commentActivitiesTeam1);
+        commentActivitiesTeamCollection.add(commentActivitiesTeam1);
+        this.commentActivitiesTeamFileListDatasource.writeData(commentActivitiesTeamCollection);
 
         ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.execute(() -> {
             Platform.runLater(() -> {
-                loadComment(commentActivitiesEvent1);
+                loadComment(commentActivitiesTeam1);
             });
             Platform.runLater(() -> {
                 commentInput.setText("");

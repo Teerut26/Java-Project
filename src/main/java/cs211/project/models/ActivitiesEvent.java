@@ -32,4 +32,5 @@ public class ActivitiesEvent extends Activities {
     public int hashCode() {
         return Objects.hash(event.getEventID());
     }
+
 }
