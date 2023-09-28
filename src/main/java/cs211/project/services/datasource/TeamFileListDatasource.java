@@ -4,6 +4,7 @@ import cs211.project.models.Event;
 import cs211.project.models.ManyToMany;
 import cs211.project.models.Team;
 import cs211.project.models.User;
+import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.ManyToManyCollection;
 import cs211.project.models.collections.TeamCollection;
 import cs211.project.models.collections.UserCollection;
@@ -26,11 +27,13 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
 
     @Override
     public TeamCollection readData() {
-
         BufferedReader buffer = this.fileIO.reader();
 
         String line = "";
         try {
+            EventCollection eventCollection = new EventFileListDatesource().readData();
+            UserCollection userCollection = new UserFileListDatasource().readData();
+
             TeamCollection teamCollection = new TeamCollection();
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
@@ -45,11 +48,8 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
                 String ownerID = data[5].trim();
                 String eventID = data[6].trim();
 
-                EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
-                Event event = eventFileListDatesource.readData().findById(eventID);
-
-                UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-                User user = userFileListDatasource.readData().findById(ownerID);
+                Event event = eventCollection.findById(eventID);
+                User user = userCollection.findById(ownerID);
 
                 Team team = new Team(id, name, quantity, startRecruitDate, endRecruitDate, user, event);
 

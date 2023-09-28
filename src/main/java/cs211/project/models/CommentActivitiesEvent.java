@@ -20,6 +20,10 @@ public class CommentActivitiesEvent extends Comment {
         return this.getId().equals(that.getId());
     }
 
+    public boolean equalsEvent(ActivitiesEvent that) {
+        return this.getActivitiesEvent().equals(that);
+    }
+
     public void setActivitiesEvent(ActivitiesEvent activitiesEvent) {
         this.activitiesEvent = activitiesEvent;
     }

@@ -20,11 +20,23 @@ public class CommentActivitiesTeam extends Comment {
         return this.getId().equals(that.getId());
     }
 
+    public boolean equalsTeam(ActivitiesTeam that) {
+        return this.getActivitiesTeam().equals(that);
+    }
+
     public ActivitiesTeam getActivitiesTeam() {
         return activitiesTeam;
     }
 
     public void setActivitiesTeam(ActivitiesTeam activitiesTeam) {
         this.activitiesTeam = activitiesTeam;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentActivitiesTeam{" +
+                "activitiesTeam=" + activitiesTeam +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

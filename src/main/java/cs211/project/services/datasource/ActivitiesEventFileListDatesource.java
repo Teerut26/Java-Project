@@ -5,6 +5,7 @@ import cs211.project.models.ActivitiesEvent;
 import cs211.project.models.Event;
 import cs211.project.models.collections.ActivitiesCollection;
 import cs211.project.models.collections.ActivitiesEventCollection;
+import cs211.project.models.collections.EventCollection;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
 
@@ -27,6 +28,8 @@ public class ActivitiesEventFileListDatesource implements DatasourceInterface<Ac
         String line = "";
         try {
             ActivitiesEventCollection activitiesEventCollection = new ActivitiesEventCollection();
+            EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
+            EventCollection eventCollection = eventFileListDatesource.readData();
 
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
@@ -40,8 +43,7 @@ public class ActivitiesEventFileListDatesource implements DatasourceInterface<Ac
                 LocalDateTime dateEnd = LocalDateTime.parse(data[4].trim());
                 String eventId = data[5].trim();
 
-                EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
-                Event event = eventFileListDatesource.readData().findById(eventId);
+                Event event = eventCollection.findById(eventId);
 
                 ActivitiesEvent activitiesEvent = new ActivitiesEvent(id, title, detail, dateStart, dateEnd, event);
 
