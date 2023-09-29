@@ -11,12 +11,10 @@ import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.utils.ImageSaver;
+import cs211.project.utils.TimeValidate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -46,6 +44,11 @@ public class EditEventDetailFormController extends ComponentRegister {
     private HBox NavBarHBox;
     @FXML
     private CheckBox publicCheckBox;
+    @FXML
+    private TextField timeStart;
+    @FXML
+    private TextField timeEnd;
+
     private Event event;
     private EventCollection eventCollection;
     private EventFileListDatesource eventFileListDatesource;
@@ -55,7 +58,7 @@ public class EditEventDetailFormController extends ComponentRegister {
     @FXML
     public void initialize() {
 
-        routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        routeProvider = (RouteProvider) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
@@ -77,6 +80,8 @@ public class EditEventDetailFormController extends ComponentRegister {
         publicCheckBox.setSelected(event.isPublic());
         Image image = new Image("file:" + event.getImageEvent());
         addImage.setImage(image);
+        timeStart.setText(event.getStartTimeEvent());
+        timeEnd.setText(event.getEndTimeEvent());
     }
 
     @FXML
@@ -100,16 +105,30 @@ public class EditEventDetailFormController extends ComponentRegister {
             this.event.setImageEvent("data/images/event/"+ this.event.getEventID() + "."+ imageSaver.extention);
         }
 
+        TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), DataTimeStart.getValue().atStartOfDay());
+        TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), DataTimeEnd.getValue().atStartOfDay());
+
+        if (!timeEndUtils.validate() || !timeStartUtils.validate()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Time");
+            alert.setContentText("Please enter a valid time according to pattern 00:00:00");
+            alert.show();
+            return;
+        }
+
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute(), timeEndUtils.getSecond());
+
         this.event.setNameEvent(TextFieldName.getText());
         this.event.setDescriptionEvent(TextAreaDescription.getText());
         this.event.setLocation(locationEvent.getText());
-        this.event.setStartDate(DataTimeStart.getValue().atStartOfDay());
-        this.event.setEndDate(DataTimeEnd.getValue().atStartOfDay());
+        this.event.setStartDate(timeStartUtils.getRefLocalDateTime());
+        this.event.setEndDate(timeEndUtils.getRefLocalDateTime());
         this.event.setQuantityEvent(Integer.parseInt(TextFieldQuantity.getText()));
         this.event.setPublic(publicCheckBox.isSelected());
 
         eventCollection.update(this.event);
-
         eventFileListDatesource.writeData(eventCollection);
 
         navigateToSetEvent();

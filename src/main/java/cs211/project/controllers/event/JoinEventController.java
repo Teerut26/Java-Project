@@ -80,8 +80,8 @@ public class JoinEventController extends ComponentRegister {
         UserCollection newUserCollection = new UserCollection();
         userCollection.getUsers().forEach((user) -> {
             boolean isSuspend = manyToManyCollection.findsByA(user.getId()).size() > 0;
-            boolean isJoid = manyToManyCollectionUserEvent.checkIsExisted(new ManyToMany(user.getId(), event.getEventID()));
-            if (!isSuspend && isJoid) {
+            boolean isJoin = manyToManyCollectionUserEvent.checkIsExisted(new ManyToMany(user.getId(), event.getEventID()));
+            if (!isSuspend && isJoin) {
                 newUserCollection.add(user);
             }
         });
@@ -106,10 +106,10 @@ public class JoinEventController extends ComponentRegister {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 
         TableColumn<User, String> startDateColumn = new TableColumn<>("startDate");
-        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateStart"));
 
         TableColumn<User, String> endDateColumn = new TableColumn<>("endDate");
-        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateEnd"));
 
         activitiesTableView.getColumns().clear();
         activitiesTableView.getColumns().add(titleColumn);

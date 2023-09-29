@@ -94,7 +94,7 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     private void initializeComponents() {
-        routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        routeProvider = (RouteProvider) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
     }
@@ -155,7 +155,8 @@ public class SetEventDetailController extends ComponentRegister {
         eventDescription.setText(event.getDescriptionEvent());
         currentUserJoinAmount.setText(String.valueOf(currentMemberJoin));
         quantityLabel.setText(String.valueOf(event.getQuantityEvent()));
-        timeLabel.setText(event.getStartDate().format(cs211.project.models.Event.DATE_FORMATTER) + " - " + event.getEndDate().format(cs211.project.models.Event.DATE_FORMATTER));
+
+        timeLabel.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
         Image img = new Image("file:" + event.getImageEvent());
         imageEvent.setFill(new ImagePattern(img));
     }
@@ -273,7 +274,7 @@ public class SetEventDetailController extends ComponentRegister {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Team, String> parameter) {
                 Team team = parameter.getValue();
-                return Bindings.createStringBinding(() -> team.getStartRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+                return Bindings.createStringBinding(() -> team.getStartRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             }
         });
 
@@ -282,7 +283,7 @@ public class SetEventDetailController extends ComponentRegister {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Team, String> parameter) {
                 Team team = parameter.getValue();
-                return Bindings.createStringBinding(() -> team.getEndRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+                return Bindings.createStringBinding(() -> team.getEndRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             }
         });
 

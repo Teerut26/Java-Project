@@ -73,7 +73,7 @@ public class AddScheduleTeamController extends ComponentRegister {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Invalid Time");
-            alert.setContentText("Please enter a valid time");
+            alert.setContentText("Please enter a valid time according to pattern 00:00:00");
             alert.show();
             return;
         }

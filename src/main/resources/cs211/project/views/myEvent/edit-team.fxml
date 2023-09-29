@@ -38,7 +38,7 @@
             </AnchorPane>
          </left>
          <right>
-            <VBox prefHeight="651.0" prefWidth="956.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="651.0" prefWidth="956.0" spacing="5.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
                      <children>
@@ -55,9 +55,9 @@
                         <Insets left="25.0" right="25.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="495.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                  <HBox prefHeight="477.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
                      <children>
-                        <VBox prefHeight="387.0" prefWidth="494.0" spacing="10.0">
+                        <VBox prefHeight="407.0" prefWidth="478.0" spacing="8.0">
                            <padding>
                               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                            </padding>
@@ -66,7 +66,7 @@
                                  <children>
                                     <Label text="Team Name">
                                        <font>
-                                          <Font name="Hiragino Sans W6" size="24.0" />
+                                          <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -90,7 +90,7 @@
                                  <children>
                                     <Label prefHeight="16.0" prefWidth="155.0" text="Quantity">
                                        <font>
-                                          <Font name="Hiragino Sans W6" size="24.0" />
+                                          <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -120,36 +120,61 @@
                               </Label>
                               <HBox prefHeight="29.0" prefWidth="560.0" spacing="16.0">
                                  <children>
-                                    <Label text="Opening Date">
+                                    <Label text="Opening">
                                        <font>
-                                          <Font name="Hiragino Sans W6" size="24.0" />
+                                          <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Pane prefHeight="29.0" prefWidth="41.0" />
+                                    <Pane prefHeight="24.0" prefWidth="123.0" />
                                     <Label text="Deadline">
                                        <font>
-                                          <Font name="Hiragino Sans W6" size="24.0" />
+                                          <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                                  <padding>
-                                    <Insets left="20.0" />
+                                    <Insets left="20.0" top="5.0" />
                                  </padding>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="540.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="39.0" prefWidth="446.0">
                                  <children>
-                                    <DatePicker fx:id="DateOpeningDate" prefHeight="38.0" prefWidth="185.0">
+                                    <DatePicker fx:id="DateOpeningDate" prefHeight="30.0" prefWidth="183.0" promptText="dd/mm/yyyy">
                                        <HBox.margin>
                                           <Insets left="20.0" />
                                        </HBox.margin>
                                     </DatePicker>
                                     <Pane prefHeight="56.0" prefWidth="62.0" />
-                                    <DatePicker fx:id="DataDeadline" prefHeight="38.0" prefWidth="185.0" />
+                                    <DatePicker fx:id="DataDeadline" prefHeight="30.0" prefWidth="184.0" promptText="dd/mm/yyyy" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="35.0" prefWidth="446.0" spacing="16.0">
+                                 <children>
+                                    <Label text="Time Start">
+                                       <font>
+                                          <Font name="Hiragino Sans W6" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Pane prefHeight="30.0" prefWidth="99.0" />
+                                    <Label text="Time End">
+                                       <font>
+                                          <Font name="Hiragino Sans W6" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="39.0" prefWidth="433.0">
+                                 <children>
+                                    <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="176.0" promptText="00:00:00" styleClass="input" />
+                                    <Pane prefHeight="56.0" prefWidth="62.0" />
+                                    <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="168.0" promptText="00:00:00" styleClass="input" />
                                  </children>
                               </HBox>
                            </children>
                            <HBox.margin>
-                              <Insets bottom="20.0" left="220.0" top="20.0" />
+                              <Insets left="220.0" />
                            </HBox.margin>
                         </VBox>
                      </children>
