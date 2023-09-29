@@ -16,10 +16,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -43,6 +40,8 @@ public class EventTeamDetailController extends ComponentRegister {
     @FXML
     private TableView<User> memberTeamTableView;
 
+    @FXML
+    private Label teamNameLabel;
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
     private ActivitiesTeamCollection activitiesTeamCollection;
     private ActivitiesTeam selectActivitiesTeam;
@@ -66,7 +65,7 @@ public class EventTeamDetailController extends ComponentRegister {
     }
 
     private void initializeComponents() {
-        routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        routeProvider = (RouteProvider) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
     }
@@ -77,6 +76,8 @@ public class EventTeamDetailController extends ComponentRegister {
         activitiesTeamCollection = activitiesTeamFileListDatesource.readData();
 
         this.team = (Team) this.routeProvider.getDataHashMap().get("team-select");
+
+        teamNameLabel.setText(team.getName());
 
         ActivitiesTeamCollection newActivityTeamCollection = new ActivitiesTeamCollection();
         activitiesTeamCollection.getActivitiesArrayList().forEach((activitiesTeam -> {
@@ -151,7 +152,7 @@ public class EventTeamDetailController extends ComponentRegister {
         });
 
         activityTeamTableView.getColumns().clear();
-        activityTeamTableView.getColumns().addAll(titleColumn,detailColumn,statusColumn,startDateColumn,endDateColumn);
+        activityTeamTableView.getColumns().addAll(titleColumn,detailColumn,startDateColumn,endDateColumn,statusColumn);
         activityTeamTableView.getItems().clear();
 
         for (ActivitiesTeam activitiesTeam : activitiesTeamCollection.getActivitiesArrayList()) {

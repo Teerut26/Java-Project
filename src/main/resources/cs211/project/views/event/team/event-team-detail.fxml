@@ -44,7 +44,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="936.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                      <children>
-                        <Label text="Team name">
+                        <Label fx:id="teamNameLabel" text="Team name">
                            <font>
                               <Font name="Hiragino Sans W6" size="20.0" />
                            </font>

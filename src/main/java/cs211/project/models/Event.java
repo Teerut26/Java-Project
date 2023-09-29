@@ -21,6 +21,9 @@ public class Event {
     private boolean isPublic = false;
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+    private String startTimeEvent;
+    private String endTimeEvent;
+
     public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, String location, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, boolean isPublic, User owner) {
         this.eventID = eventID;
         this.nameEvent = nameEvent;
@@ -32,6 +35,7 @@ public class Event {
         this.quantityEvent = quantityEvent;
         this.isPublic = isPublic;
         this.owner = owner;
+        this.setTimeToLocalDateTime();
     }
 
     public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, String location, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, User owner) {
@@ -45,6 +49,19 @@ public class Event {
         this.quantityEvent = quantityEvent;
         this.isPublic = false;
         this.owner = owner;
+        this.setTimeToLocalDateTime();
+    }
+    private void setTimeToLocalDateTime() {
+        String hourStart = String.valueOf(this.startDate.getHour());
+        String minuteStart = String.valueOf(this.startDate.getMinute());
+        String secondStart = String.valueOf(this.startDate.getSecond());
+
+        String hourEnd = String.valueOf(this.endDate.getHour());
+        String minuteEnd = String.valueOf(this.endDate.getMinute());
+        String secondEnd = String.valueOf(this.endDate.getSecond());
+
+        this.startTimeEvent = hourStart + ":" + minuteStart + ":" + secondStart;
+        this.endTimeEvent = hourEnd + ":" + minuteEnd+ ":" + secondEnd;
     }
 
     public Event() {}
@@ -127,6 +144,14 @@ public class Event {
 
     public LocalDateTime getEndDate() {
         return endDate;
+    }
+
+    public String getStartTimeEvent(){
+        return startTimeEvent;
+    }
+
+    public String getEndTimeEvent(){
+        return endTimeEvent;
     }
 
     public Integer getQuantityEvent() {

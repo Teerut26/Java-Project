@@ -80,9 +80,9 @@
                                         </Button>
                                     </children>
                                 </VBox>
-                                <VBox prefHeight="546.0" prefWidth="688.0" spacing="10.0">
+                                <VBox prefHeight="546.0" prefWidth="688.0" spacing="5.0">
                                     <padding>
-                                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                        <Insets bottom="10.0" left="16.0" right="16.0" top="16.0" />
                                     </padding>
                                     <children>
                                         <Label text="name">
@@ -107,7 +107,7 @@
                                     <TextField fx:id="textFieldLocation" prefHeight="38.0" prefWidth="270.0" style="-fx-background-radius: 5; -fx-border-radius: 5;" />
                                  </children>
                               </HBox>
-                                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0">
+                                        <HBox prefHeight="71.0" prefWidth="560.0" spacing="16.0">
                                             <children>
                                                 <VBox prefHeight="52.0" prefWidth="190.0">
                                                     <children>
@@ -116,36 +116,64 @@
                                                                 <Font size="20.0" />
                                                             </font>
                                                         </Label>
-                                                        <DatePicker fx:id="DataTimeStart" prefHeight="26.0" prefWidth="150.0" />
+                                                        <DatePicker fx:id="DataTimeStart" prefHeight="26.0" prefWidth="150.0" promptText="dd/mm/yyyy" />
                                                     </children>
                                                 </VBox>
-                                                <VBox prefHeight="71.0" prefWidth="211.0">
+                                                <VBox prefHeight="71.0" prefWidth="174.0">
                                                     <children>
                                                         <Label text="end date">
                                                             <font>
                                                                 <Font size="20.0" />
                                                             </font>
                                                         </Label>
-                                                        <DatePicker fx:id="DataTimeEnd" prefHeight="26.0" prefWidth="150.0" />
+                                                        <DatePicker fx:id="DataTimeEnd" prefHeight="26.0" prefWidth="150.0" promptText="dd/mm/yyyy" />
                                                     </children>
                                                 </VBox>
+                                    <VBox prefHeight="71.0" prefWidth="133.0">
+                                       <children>
+                                          <Label text="Quantity">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="TextFieldQuantity" prefHeight="29.0" prefWidth="132.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" />
+                                       </children>
+                                    </VBox>
                                             </children>
                                         </HBox>
-                              <Label text="Quantity">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
                               <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="560.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                                  <children>
-                                    <TextField fx:id="TextFieldQuantity" prefHeight="29.0" prefWidth="125.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" />
+                                    <VBox prefHeight="62.0" prefWidth="150.0">
+                                       <children>
+                                          <Label text="Time Start">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="timeStart" prefHeight="26.0" prefWidth="130.0" promptText="00:00:00" />
+                                       </children>
+                                    </VBox>
+                                    <Pane prefHeight="62.0" prefWidth="56.0" />
+                                    <VBox prefHeight="62.0" prefWidth="150.0">
+                                       <children>
+                                          <Label text="Time End">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="timeEnd" prefHeight="26.0" prefWidth="130.0" promptText="00:00:00" />
+                                       </children>
+                                    </VBox>
                                  </children>
                               </HBox>
                                     </children>
                                 </VBox>
                             </children>
                             <padding>
-                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                <Insets bottom="16.0" left="16.0" right="16.0" />
                             </padding>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">

@@ -8,8 +8,10 @@ import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.utils.ImageSaver;
+import cs211.project.utils.TimeValidate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -45,6 +47,10 @@ public class CreateEventDetailFormController extends ComponentRegister {
     private HBox NavBarHBox;
     @FXML
     private VBox SideBarVBox;
+    @FXML
+    private TextField timeStart;
+    @FXML
+    private TextField timeEnd;
     private String eventID;
     private String imageFilePath;
     private RouteProvider routeProvider;
@@ -81,13 +87,28 @@ public class CreateEventDetailFormController extends ComponentRegister {
         ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
         imageSaver.saveImage();
 
+        TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), DataTimeStart.getValue().atStartOfDay());
+        TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), DataTimeEnd.getValue().atStartOfDay());
+
+        if (!timeEndUtils.validate() || !timeStartUtils.validate()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Time");
+            alert.setContentText("Please enter a valid time according to pattern 00:00:00");
+            alert.show();
+            return;
+        }
+
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute(), timeEndUtils.getSecond());
+
         Event newEvent = new Event(this.eventID,
                 TextFieldName.getText(),
                 "data/images/event/" + this.eventID + "." + imageSaver.extention,
                 TextAreaDescription.getText(),
                 textFieldLocation.getText(),
-                DataTimeStart.getValue().atStartOfDay(),
-                DataTimeEnd.getValue().atStartOfDay(),
+                timeStartUtils.getRefLocalDateTime(),
+                timeEndUtils.getRefLocalDateTime(),
                 Integer.parseInt(TextFieldQuantity.getText()),
                 routeProvider.getUserSession());
 

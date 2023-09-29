@@ -15,6 +15,9 @@ public class Team {
     private Event event;
 
     private String joinStatus;
+
+    private String startTimeTeam;
+    private String endTimeTeam;
     private UserCollection userInTeam = new UserCollection();
 
     public Event getEvent() {
@@ -32,6 +35,20 @@ public class Team {
         this.owner = owner;
         this.event = event;
         this.joinStatus = "Not Joined";
+        this.setTimeToLocalDateTime();
+    }
+
+    private void setTimeToLocalDateTime() {
+        String hourStart = String.valueOf(this.startRecruitDate.getHour());
+        String minuteStart = String.valueOf(this.startRecruitDate.getMinute());
+        String secondStart = String.valueOf(this.startRecruitDate.getSecond());
+
+        String hourEnd = String.valueOf(this.endRecruitDate.getHour());
+        String minuteEnd = String.valueOf(this.endRecruitDate.getMinute());
+        String secondEnd = String.valueOf(this.endRecruitDate.getSecond());
+
+        this.startTimeTeam = hourStart + ":" + minuteStart + ":" + secondStart;
+        this.endTimeTeam = hourEnd + ":" + minuteEnd+ ":" + secondEnd;
     }
 
     public void setId(String id) {
@@ -64,6 +81,14 @@ public class Team {
 
     public LocalDateTime getEndRecruitDate() {
         return endRecruitDate;
+    }
+
+    public String getStartTimeTeam(){
+        return startTimeTeam;
+    }
+
+    public String getEndTimeTeam(){
+        return endTimeTeam;
     }
 
     public String getJoinStatus() {
