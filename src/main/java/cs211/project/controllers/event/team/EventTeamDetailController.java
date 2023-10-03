@@ -41,7 +41,8 @@ public class EventTeamDetailController extends ComponentRegister {
     private TableView<User> memberTeamTableView;
 
     @FXML
-    private Label teamNameLabel;
+    private Label teamName;
+
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
     private ActivitiesTeamCollection activitiesTeamCollection;
     private ActivitiesTeam selectActivitiesTeam;
@@ -76,9 +77,7 @@ public class EventTeamDetailController extends ComponentRegister {
         activitiesTeamCollection = activitiesTeamFileListDatesource.readData();
 
         this.team = (Team) this.routeProvider.getDataHashMap().get("team-select");
-
-        teamNameLabel.setText(team.getName());
-
+        this.teamName.setText(this.team.getName());
         ActivitiesTeamCollection newActivityTeamCollection = new ActivitiesTeamCollection();
         activitiesTeamCollection.getActivitiesArrayList().forEach((activitiesTeam -> {
             if (activitiesTeam.getTeam().getId().equals(this.team.getId())) {
