@@ -1,8 +1,10 @@
 package cs211.project.controllers.components;
 
 import cs211.project.models.Comment;
+import cs211.project.services.SingletonStorage;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -18,6 +20,15 @@ public class CommentCardComponentController {
     private Circle profileImage;
     @FXML
     private Text timestamp;
+    @FXML
+    private HBox hboxStatusRole;
+    @FXML
+    private Text textStatusRole;
+
+    @FXML
+    public void initialize() {
+        this.hboxStatusRole.setVisible(false);
+    }
 
     public void setContent(Comment comment) {
         double desiredWrappingWidth = calculateDesiredWrappingWidth(comment.getMessage());
@@ -34,10 +45,15 @@ public class CommentCardComponentController {
             Image img = new Image("file:" + comment.getOwner().getImageProfile());
             profileImage.setFill(new ImagePattern(img));
         }
+
+        if (SingletonStorage.getInstance().userSession.equals(comment.getOwner())) {
+            this.hboxStatusRole.setVisible(true);
+            this.textStatusRole.setText("You");
+        }
     }
 
     private double calculateDesiredWrappingWidth(String text) {
-        double wrappingMultiplier = 5.0 ;
+        double wrappingMultiplier = 5.0;
         int maxWidth = 500;
         int minWidth = 200;
 

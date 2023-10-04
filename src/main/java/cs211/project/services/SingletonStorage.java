@@ -6,10 +6,6 @@ public class SingletonStorage {
     private static SingletonStorage single_instance = null;
     public User userSession;
 
-    public User getUserSession() {
-        return userSession;
-    }
-
     private SingletonStorage() {
     }
 
@@ -20,8 +16,7 @@ public class SingletonStorage {
         return single_instance;
     }
 
-    private void updateUserSession() {
-        User newData = new UserFileListDatasource().readData().findById(this.userSession.getId());
+    public void setUserSession(User userSession) {
         this.userSession = userSession;
     }
 }

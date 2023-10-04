@@ -12,11 +12,27 @@
       <Circle fx:id="profileImage" fill="DODGERBLUE" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
       <VBox prefHeight="79.0" spacing="6.0" styleClass="comment-content">
          <children>
-            <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="Teerut Srithongdee">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+               <children>
+                  <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="Teerut Srithongdee">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <HBox fx:id="hboxStatusRole" alignment="CENTER" style="-fx-background-color: #BB716F; -fx-background-radius: 5;">
+                     <children>
+                        <Text fx:id="textStatusRole" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Owner">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </HBox>
             <Text fx:id="content" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="250.0" /> <!-- Adjust wrappingWidth as needed -->
             <Text fx:id="timestamp" fill="#868686" strokeType="OUTSIDE" strokeWidth="0.0" text="20/09/23 14:20">
                <font>
