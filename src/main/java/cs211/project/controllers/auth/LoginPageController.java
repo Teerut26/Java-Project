@@ -82,6 +82,7 @@ public class LoginPageController {
             routeProvider.setUserSession(user);
 
             if (user.isAdmin()) {
+                this.updateLastLogin(user);
                 FXRouter.goTo("admin-manage-user", routeProvider);
                 return;
             }

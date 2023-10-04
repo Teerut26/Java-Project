@@ -44,6 +44,8 @@ module cs211.project {
     opens cs211.project.models to javafx.fxml;
     exports cs211.project.services.datasource;
     opens cs211.project.services.datasource to javafx.fxml;
+    exports cs211.project.services.comparator;
+    opens cs211.project.services.comparator to javafx.fxml;
 
 
 }
