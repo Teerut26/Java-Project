@@ -45,9 +45,9 @@
             <right>
                 <VBox prefHeight="651.0" prefWidth="956.0" spacing="8.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="956.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="940.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onBack" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E8E8E8; -fx-background-radius: 10; -fx-border-radius: 10;" text="back">
+                                <Button mnemonicParsing="false" onAction="#onBack" prefHeight="40.0" prefWidth="100.0" style="-fx-border-radius: ;" styleClass="btn-secondary" text="back">
                                     <font>
                                         <Font name="Hiragino Sans W7" size="18.0" />
                                     </font>
@@ -96,12 +96,12 @@
                                                          <children>
                                                             <Text layoutX="7.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joined" wrappingWidth="77.8565673828125">
                                                                <font>
-                                                                  <Font size="21.0" />
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
                                                                </font>
                                                             </Text>
                                                          </children>
                                                       </Pane>
-                                                      <Pane prefHeight="52.0" prefWidth="52.0" />
+                                                      <Pane prefHeight="52.0" prefWidth="50.0" />
                                                       <Label fx:id="currentUserAmount" text="0" textFill="#5d863b">
                                                          <font>
                                                             <Font name="Hiragino Sans W6" size="20.0" />
@@ -124,7 +124,6 @@
                                                          </padding>
                                                       </Label>
                                                       <Pane prefHeight="52.0" prefWidth="280.0" />
-                                                      <Button mnemonicParsing="false" onAction="#goToTeamList" prefHeight="37.0" prefWidth="90.0" styleClass="btn-primary" text="view team" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -140,7 +139,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                               </VBox>
-                              <TableView fx:id="memberTableView" layoutX="20.0" layoutY="726.0" maxWidth="930.0" prefHeight="200.0" prefWidth="909.0">
+                              <TableView fx:id="memberTableView" layoutX="20.0" layoutY="753.0" maxWidth="930.0" prefHeight="200.0" prefWidth="909.0">
                                  <columns>
                                     <TableColumn prefWidth="162.07382202148438" text="name" />
                                     <TableColumn prefWidth="338.0" text="detail" />
@@ -158,14 +157,14 @@
                                     <TableColumn prefWidth="193.0" text="status" />
                                  </columns>
                               </TableView>
-                              <Label layoutX="23.0" layoutY="697.0" text="Member List">
+                              <Label layoutX="23.0" layoutY="722.0" text="Member List">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="Hiragino Sans W6" size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="20.0" layoutY="444.0" text="Activities List">
+                              <Label layoutX="20.0" layoutY="442.0" text="Activities List">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font name="Hiragino Sans W6" size="18.0" />
                                  </font>
                               </Label>
                            </children>
