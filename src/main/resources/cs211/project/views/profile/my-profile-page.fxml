@@ -16,22 +16,14 @@
    <children>
       <BorderPane prefHeight="720.0" prefWidth="1280.0">
          <left>
-            <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0">
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </AnchorPane>
+            <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER" />
          </left>
          <right>
             <VBox prefHeight="626.0" prefWidth="946.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="61.0" prefWidth="946.0" style="-fx-background-color: white; -fx-background-radius: 10;">
                      <children>
-                        <Label prefHeight="62.0" prefWidth="720.0" text=" My Profile" textAlignment="CENTER">
+                        <Label prefHeight="62.0" prefWidth="899.0" text=" My Profile" textAlignment="CENTER">
                            <font>
                               <Font name="System Bold" size="40.0" />
                            </font>
@@ -78,22 +70,49 @@
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
                               </Label>
-                              <TextField fx:id="TextFieldName" prefHeight="50.0" prefWidth="604.0" promptText="name" style="-fx-background-color: FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </TextField>
+                              <HBox prefHeight="54.0" prefWidth="606.0">
+                                 <children>
+                                    <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="66.0" prefWidth="354.0" spacing="10.0">
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                       <children>
+                                          <TextField fx:id="TextFieldName" prefHeight="57.0" prefWidth="344.0" promptText="name" styleClass="btn-primary">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                               <Label prefHeight="46.0" prefWidth="614.0" text=" Username">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
                               </Label>
-                              <TextField fx:id="TextFieldUserName" prefHeight="50.0" prefWidth="604.0" promptText="username" style="-fx-background-color: FAF2E3; -fx-background-radius: 10; -fx-border-radius: 10;">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </TextField>
+                              <HBox prefHeight="50.0" prefWidth="606.0">
+                                 <children>
+                                    <TextField fx:id="TextFieldUserName" prefHeight="50.0" prefWidth="346.0" promptText="username" styleClass="btn-primary">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
                               <Pane prefHeight="10.0" prefWidth="10.0" />
                               <Label fx:id="errorLabel" textFill="RED">
                                  <VBox.margin>
@@ -107,19 +126,22 @@
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#onChangePasswordClick" prefHeight="50.0" prefWidth="221.0" styleClass="btn-primary-active" text="Change Password">
                                        <font>
-                                          <Font name="Hiragino Sans W6" size="20.0" />
+                                          <Font size="20.0" />
                                        </font>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#onSave" prefHeight="50.0" styleClass="btn-primary-active" text="Save">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
                                     </Button>
                                  </children>
                               </HBox>
-                              <Button mnemonicParsing="false" onAction="#onSave" prefHeight="25.0" styleClass="btn-primary-active" text="Save">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Button>
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
