@@ -95,11 +95,11 @@ public class CommentActivityEventController {
 
         if (currentBatchStart < comments.size()) {
             Platform.runLater(this::loadNextBatch);
-        }else {
-           Platform.runLater(()->{
+        } else {
+            Platform.runLater(() -> {
                 commentListScrollPane.layout();
                 commentListScrollPane.setVvalue(1.0);
-           });
+            });
         }
     }
 
@@ -126,7 +126,12 @@ public class CommentActivityEventController {
     @FXML
     void onBack(ActionEvent event) {
         try {
-            FXRouter.goTo("set-event-detail");
+            if (this.routeProvider.getDataHashMap().get("back-value") != null) {
+                FXRouter.goTo((String) this.routeProvider.getDataHashMap().get("back-value"));
+            } else {
+                FXRouter.goTo("set-event-detail");
+            }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
