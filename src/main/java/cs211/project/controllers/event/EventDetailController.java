@@ -98,4 +98,21 @@ public class EventDetailController extends ComponentRegister {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void goToTeamList () {
+//        if (this.routeProvider.getUserSession().getId().equals(this.event.getOwner().getId())) {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error");
+//            alert.setHeaderText("You can't join your own event");
+//            alert.setContentText("You can't join your own event");
+//            alert.show();
+//            return;
+//        }
+        try {
+            FXRouter.goTo("event-team-list", this.routeProvider);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

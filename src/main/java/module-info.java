@@ -32,6 +32,9 @@ module cs211.project {
     exports cs211.project.controllers.eventHistory;
     opens cs211.project.controllers.eventHistory to javafx.fxml;
 
+    exports cs211.project.controllers.myTeam;
+    opens cs211.project.controllers.myTeam to javafx.fxml;
+
     exports cs211.project.controllers.profile;
     opens cs211.project.controllers.profile to javafx.fxml;
 

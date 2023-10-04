@@ -46,6 +46,8 @@ public class Router extends Application {
         FXRouter.when("my-event", resourcesPath + "myEvent/my-event-view.fxml");
         FXRouter.when("set-event-detail", resourcesPath + "myEvent/set-event-detail.fxml");
 
+        //my-team routes
+        FXRouter.when("my-team", resourcesPath + "myTeam/my-team.fxml");
 
         //profile routes
         FXRouter.when("change-password-profile-page", resourcesPath + "profile/change-password-profile-page.fxml");

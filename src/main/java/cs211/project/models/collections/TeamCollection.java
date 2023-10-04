@@ -29,6 +29,8 @@ public class TeamCollection {
         return this.teams;
     }
 
+
+
     public void setTeams(ArrayList<Team> teams) {
         this.teams = teams;
     }

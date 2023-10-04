@@ -17,6 +17,11 @@
                 <Font name="System Bold" size="18.0" />
             </font>
         </Button>
+        <Button mnemonicParsing="false" onAction="#goToHistoryTeam" prefHeight="50.0" prefWidth="293.0" styleClass="btn-primary" text="Team History">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Button>
         <Button mnemonicParsing="false" onAction="#goToMyEvent" prefHeight="50.0" prefWidth="293.0" styleClass="btn-primary" text="My Event">
             <font>
                 <Font name="System Bold" size="18.0" />

@@ -80,6 +80,7 @@ public class EventTeamListController extends ComponentRegister {
         routeProvider = (RouteProvider<Event>) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+
         teamFileListDatasource = new TeamFileListDatasource();
         teamCollection = teamFileListDatasource.readData();
 
@@ -90,7 +91,7 @@ public class EventTeamListController extends ComponentRegister {
             }
         }));
 
-        setTeamListView();
+        setTeamTableView();
         errorLabel.setVisible(false);
         successLabel.setVisible(false);
         joinTeamButton.setDisable(true);
@@ -101,7 +102,7 @@ public class EventTeamListController extends ComponentRegister {
         endDateLabel.setVisible(false);
     }
 
-    public void setTeamListView() {
+    public void setTeamTableView() {
         if (teamForTableView == null) {
             System.out.println("No teams");
         } else {
@@ -125,10 +126,30 @@ public class EventTeamListController extends ComponentRegister {
             });
 
             TableColumn<Team, String> teamStartDate = new TableColumn<>("Start date");
-            teamStartDate.setCellValueFactory(new PropertyValueFactory<>("startRecruitDate"));
+            teamStartDate.setCellValueFactory(param -> {
+                if (param.getValue() != null) {
+                    Team team = param.getValue();
+                    String startDate =formateDate(team.getStartRecruitDate());
+                    return new ReadOnlyStringWrapper(startDate);
+                } else {
+                    return new ReadOnlyStringWrapper("");
+
+
+                }
+            });
+
+
 
             TableColumn<Team, String> teamEndDate = new TableColumn<>("End date");
-            teamEndDate.setCellValueFactory(new PropertyValueFactory<>("endRecruitDate"));
+            teamEndDate.setCellValueFactory(param -> {
+                if (param.getValue() != null) {
+                    Team team = param.getValue();
+                    String endDate = formateDate(team.getEndRecruitDate());
+                    return new ReadOnlyStringWrapper(endDate);
+                } else {
+                    return new ReadOnlyStringWrapper("");
+                }
+            });
 
             TableColumn<Team, String> teamStatus = new TableColumn<>("Status");
             teamStatus.setCellValueFactory(new PropertyValueFactory<>("joinStatus"));
@@ -176,7 +197,6 @@ public class EventTeamListController extends ComponentRegister {
                 startDateLabel.setVisible(true);
                 endDateLabel.setVisible(true);
                 joinTeamButton.setDisable(false);
-                checkJoinTeamButtonStatus();
 
 
             });
@@ -245,6 +265,7 @@ public class EventTeamListController extends ComponentRegister {
             if (manyToManyManager.checkAHaveB(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId())) {
                 joinTeamButton.setText("cancel");
                 viewTeamButton.setVisible(true);
+                viewTeamButton.setDisable(false);
             } else {
                 if (this.currentTeamSelect.getQuantity() == manyToManyManager.countByB(this.currentTeamSelect.getId())) {
                     joinTeamButton.setDisable(true);
@@ -275,7 +296,7 @@ public class EventTeamListController extends ComponentRegister {
         }
 
     }
-    private String formateDate (LocalDateTime localDateTime) {
+    public String formateDate (LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return localDateTime.format(formatter);
     }

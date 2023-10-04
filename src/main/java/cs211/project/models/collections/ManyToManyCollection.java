@@ -64,6 +64,10 @@ public class ManyToManyCollection {
         return this.manyToManies;
     }
 
+    public int size() {
+        return this.manyToManies.size();
+    }
+
 
     public void setManyToManies(ArrayList<ManyToMany> manyToManies) {
         this.manyToManies = manyToManies;

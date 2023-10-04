@@ -116,7 +116,7 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="TeamEvent">
+                        <Button onAction="#goToTeamList" mnemonicParsing="false" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="TeamEvent">
                            <font>
                               <Font size="18.0" />
                            </font>

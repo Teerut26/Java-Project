@@ -8,6 +8,7 @@ import cs211.project.models.collections.UserCollection;
 import cs211.project.services.FXRouter;
 import cs211.project.services.ManyToManyManager;
 import cs211.project.services.RouteProvider;
+import cs211.project.services.SingletonStorage;
 import cs211.project.services.datasource.*;
 import cs211.project.utils.ComponentRegister;
 import javafx.beans.binding.Binding;
@@ -62,7 +63,6 @@ public class EventTeamDetailController extends ComponentRegister {
         selectActivityTeamOnTableView();
         showTableActivityTeam(activitiesTeamCollection);
         selectUserTeamOnTableView();
-
     }
 
     private void initializeComponents() {
