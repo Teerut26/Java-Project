@@ -4,6 +4,7 @@ import cs211.project.models.User;
 import cs211.project.models.collections.UserCollection;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
+import cs211.project.services.SingletonStorage;
 import cs211.project.services.datasource.UserFileListDatasource;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.utils.ImageSaver;
@@ -90,8 +91,10 @@ public class MyProfilePageController extends ComponentRegister {
         if (!user.getNameUser().equals(TextFieldName.getText())) {
             if (TextFieldName.getText().isEmpty()) {
                 errorLabel.setText("Name is empty");
+                return;
             } else if (userCollection.findByName(TextFieldName.getText()) != null) {
                 errorLabel.setText("Name already taken");
+                return;
             } else {
                 user.setNameUser(TextFieldName.getText());
             }

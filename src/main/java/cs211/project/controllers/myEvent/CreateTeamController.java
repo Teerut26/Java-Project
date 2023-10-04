@@ -10,8 +10,10 @@ import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.utils.ImageSaver;
+import cs211.project.utils.TimeValidate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -38,6 +40,10 @@ public class CreateTeamController extends ComponentRegister {
     private TextField TextFieldTeamName;
     @FXML
     private Label errorLabel;
+    @FXML
+    private TextField timeStart;
+    @FXML
+    private TextField timeEnd;
     private String teamID;
     private Event event;
     private EventCollection eventCollection;
@@ -57,7 +63,6 @@ public class CreateTeamController extends ComponentRegister {
 
         event = routeProvider.getData();
         errorLabel.setText("");
-
     }
 
     @FXML
@@ -76,15 +81,32 @@ public class CreateTeamController extends ComponentRegister {
     }
 
     private Team creatNewTeam(){
+
+        TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), DateOpeningDate.getValue().atStartOfDay());
+        TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), DataDeadline.getValue().atStartOfDay());
+
+        if (!timeEndUtils.validate() || !timeStartUtils.validate()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Time");
+            alert.setContentText("Please enter a valid time according to pattern 00:00:00");
+            alert.show();
+            return null;
+        }
+
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute(), timeEndUtils.getSecond());
+
         return new Team(this.teamID,
                 TextFieldTeamName.getText(),
                 Integer.parseInt(TextFieldQuantity.getText()),
-                DateOpeningDate.getValue().atStartOfDay(),
-                DataDeadline.getValue().atStartOfDay(),
+                timeStartUtils.getRefLocalDateTime(),
+                timeEndUtils.getRefLocalDateTime(),
                 routeProvider.getUserSession(),
                 event
         );
     }
+
     private void clearField(){
         TextFieldTeamName.clear();
         TextFieldQuantity.clear();

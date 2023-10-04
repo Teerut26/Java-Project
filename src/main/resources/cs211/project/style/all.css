@@ -115,3 +115,13 @@
     -fx-background-color: #397D54;
     -fx-cursor: hand;
 }
+
+.comment-content {
+    -fx-background-color: #FAF2E3;
+    -fx-background-radius: 20;
+}
+
+.comment-card {
+    -fx-background-color: rgba(255, 255, 255, 0);
+
+}

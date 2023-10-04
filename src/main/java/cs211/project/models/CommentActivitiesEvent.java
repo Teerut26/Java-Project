@@ -4,15 +4,11 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CommentActivitiesEvent extends Comment {
-    private Event event;
+    private ActivitiesEvent activitiesEvent;
 
-    public CommentActivitiesEvent(String id, String message, User owner, Event event, LocalDateTime timeStamps) {
+    public CommentActivitiesEvent(String id, String message, User owner, ActivitiesEvent activitiesEvent, LocalDateTime timeStamps) {
         super(id, message, owner, timeStamps);
-        this.event = event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
+        this.activitiesEvent = activitiesEvent;
     }
 
     @Override
@@ -24,7 +20,15 @@ public class CommentActivitiesEvent extends Comment {
         return this.getId().equals(that.getId());
     }
 
-    public Event getEvent() {
-        return event;
+    public boolean equalsEvent(ActivitiesEvent that) {
+        return this.getActivitiesEvent().equals(that);
+    }
+
+    public void setActivitiesEvent(ActivitiesEvent activitiesEvent) {
+        this.activitiesEvent = activitiesEvent;
+    }
+
+    public ActivitiesEvent getActivitiesEvent() {
+        return activitiesEvent;
     }
 }

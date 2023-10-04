@@ -80,9 +80,9 @@
                                                 <Font name="Hiragino Sans W7" size="24.0" />
                                              </font>
                                           </Label>
-                                          <HBox prefHeight="353.0" prefWidth="886.0" spacing="50.0">
+                                          <HBox prefHeight="407.0" prefWidth="886.0" spacing="50.0">
                                              <children>
-                                                <VBox prefHeight="343.0" prefWidth="266.0" spacing="8.0">
+                                                <VBox prefHeight="407.0" prefWidth="322.0" spacing="8.0">
                                                    <children>
                                                       <Rectangle fx:id="imageEvent" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="324.0" stroke="BLACK" strokeType="INSIDE" width="256.0" />
                                                       <Label fx:id="timeLabel" prefHeight="15.0" prefWidth="289.0" text="17 July 23 6:00 - 18 July 23 23:00" textFill="#bb716f">
@@ -196,7 +196,7 @@
                                                                         <Font name="Hiragino Sans W6" size="18.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label text="supend">
+                                                                  <Label text="suspend">
                                                                      <font>
                                                                         <Font name="Hiragino Sans W6" size="18.0" />
                                                                      </font>
@@ -400,6 +400,12 @@
                                                       </TableView>
                                                       <HBox alignment="CENTER" prefHeight="104.0" prefWidth="890.0">
                                                          <children>
+                                                            <Button mnemonicParsing="false" onAction="#onActivityEventDelete" prefHeight="45.0" prefWidth="120.0" styleClass="btn-delete" text="Delete">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Pane prefHeight="80.0" prefWidth="65.0" />
                                                             <Button mnemonicParsing="false" onAction="#onEditActivityEvent" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />

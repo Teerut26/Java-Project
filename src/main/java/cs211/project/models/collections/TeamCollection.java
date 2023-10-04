@@ -1,4 +1,5 @@
 package cs211.project.models.collections;
+import cs211.project.models.Event;
 import cs211.project.models.Team;
 import java.util.ArrayList;
 
@@ -46,6 +47,14 @@ public class TeamCollection {
             }
         }
         return null;
+    }
+
+    public void update(Team team) {
+        for (int i = 0; i < this.teams.size(); i++) {
+            if (this.teams.get(i).getId().equals(team.getId())) {
+                this.teams.set(i, team);
+            }
+        }
     }
 
     public Team findById(String id) {

@@ -1,9 +1,6 @@
 package cs211.project.controllers.event;
 
-import cs211.project.models.ActivitiesEvent;
-import cs211.project.models.Event;
-import cs211.project.models.ManyToMany;
-import cs211.project.models.User;
+import cs211.project.models.*;
 import cs211.project.models.collections.ActivitiesEventCollection;
 import cs211.project.models.collections.ManyToManyCollection;
 import cs211.project.models.collections.UserCollection;
@@ -14,9 +11,12 @@ import cs211.project.services.datasource.ActivitiesEventFileListDatesource;
 import cs211.project.services.datasource.ManyToManyFileListDatasource;
 import cs211.project.services.datasource.UserFileListDatasource;
 import cs211.project.utils.ComponentRegister;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -58,6 +58,24 @@ public class JoinEventController extends ComponentRegister {
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.event = routeProvider.getData();
         this.setContent();
+
+        activitiesTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ActivitiesEvent>() {
+            @Override
+            public void changed(ObservableValue<? extends ActivitiesEvent> observableValue, ActivitiesEvent oldValue, ActivitiesEvent newValue) {
+                if (newValue != null) {
+                    routeProvider.addHashMap("activity-event-select", newValue);
+                    routeProvider.addHashMap("back-value","event-detail-joined");
+                    try {
+                        FXRouter.goTo("comment-activity-event", routeProvider);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
+
+        });
+
     }
 
     public void setContent() {
@@ -80,8 +98,8 @@ public class JoinEventController extends ComponentRegister {
         UserCollection newUserCollection = new UserCollection();
         userCollection.getUsers().forEach((user) -> {
             boolean isSuspend = manyToManyCollection.findsByA(user.getId()).size() > 0;
-            boolean isJoid = manyToManyCollectionUserEvent.checkIsExisted(new ManyToMany(user.getId(), event.getEventID()));
-            if (!isSuspend && isJoid) {
+            boolean isJoin = manyToManyCollectionUserEvent.checkIsExisted(new ManyToMany(user.getId(), event.getEventID()));
+            if (!isSuspend && isJoin) {
                 newUserCollection.add(user);
             }
         });
@@ -99,17 +117,18 @@ public class JoinEventController extends ComponentRegister {
         }
     }
 
-    private void showTableActivities(){
+
+    private void showTableActivities() {
         ActivitiesEventCollection activitiesEventCollection = new ActivitiesEventFileListDatesource().readData().finsdByEventId(event.getEventID());
 
         TableColumn<User, String> titleColumn = new TableColumn<>("Title");
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 
         TableColumn<User, String> startDateColumn = new TableColumn<>("startDate");
-        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateStart"));
 
         TableColumn<User, String> endDateColumn = new TableColumn<>("endDate");
-        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("dateEnd"));
 
         activitiesTableView.getColumns().clear();
         activitiesTableView.getColumns().add(titleColumn);
@@ -120,10 +139,11 @@ public class JoinEventController extends ComponentRegister {
             activitiesTableView.getItems().add(activitiesEvent);
         }
 
+
     }
 
     @FXML
-    public void goToTeamList () {
+    public void goToTeamList() {
         try {
             FXRouter.goTo("event-team-list", this.routeProvider);
 
@@ -140,8 +160,6 @@ public class JoinEventController extends ComponentRegister {
             throw new RuntimeException(e);
         }
     }
-
-
 
 
 }

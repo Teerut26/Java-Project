@@ -2,6 +2,7 @@ package cs211.project.controllers.myEvent;
 
 import cs211.project.models.*;
 import cs211.project.models.collections.ActivitiesEventCollection;
+import cs211.project.models.collections.ActivitiesTeamCollection;
 import cs211.project.models.collections.TeamCollection;
 
 import cs211.project.models.collections.UserCollection;
@@ -74,6 +75,7 @@ public class SetEventDetailController extends ComponentRegister {
     private ActivitiesEventFileListDatesource activitiesEventFileListDatesource;
     private ActivitiesEventCollection activitiesEventCollection;
     private ActivitiesEvent activitySelect;
+    private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
 
 
     @FXML
@@ -92,7 +94,7 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     private void initializeComponents() {
-        routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        routeProvider = (RouteProvider) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
     }
@@ -153,7 +155,8 @@ public class SetEventDetailController extends ComponentRegister {
         eventDescription.setText(event.getDescriptionEvent());
         currentUserJoinAmount.setText(String.valueOf(currentMemberJoin));
         quantityLabel.setText(String.valueOf(event.getQuantityEvent()));
-        timeLabel.setText(event.getStartDate().format(cs211.project.models.Event.DATE_FORMATTER) + " - " + event.getEndDate().format(cs211.project.models.Event.DATE_FORMATTER));
+
+        timeLabel.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
         Image img = new Image("file:" + event.getImageEvent());
         imageEvent.setFill(new ImagePattern(img));
     }
@@ -217,9 +220,9 @@ public class SetEventDetailController extends ComponentRegister {
     @FXML
     public void onSuspendUser(ActionEvent event) {
         if (userSelect != null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to suspend : " + userSelect.getUserName() + " ?", ButtonType.OK, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to suspend : " + userSelect.getUserName() + " ?", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
-            if (alert.getResult() == ButtonType.OK) {
+            if (alert.getResult() == ButtonType.YES) {
                 System.out.println(userSelect);
                 ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
                 manyToManyManager.add(new ManyToMany(userSelect.getId(), this.event.getEventID()));
@@ -234,9 +237,9 @@ public class SetEventDetailController extends ComponentRegister {
     @FXML
     public void onUnCancelSuspend() {
         if (userSelect != null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to cancel cancel suspend : " + userSelect.getUserName() + " ?", ButtonType.OK, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to cancel cancel suspend : " + userSelect.getUserName() + " ?", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
-            if (alert.getResult() == ButtonType.OK) {
+            if (alert.getResult() == ButtonType.YES) {
                 ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
                 manyToManyManager.remove(new ManyToMany(userSelect.getId(), this.event.getEventID()));
                 this.teamSelect = null;
@@ -271,7 +274,7 @@ public class SetEventDetailController extends ComponentRegister {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Team, String> parameter) {
                 Team team = parameter.getValue();
-                return Bindings.createStringBinding(() -> team.getStartRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+                return Bindings.createStringBinding(() -> team.getStartRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             }
         });
 
@@ -280,7 +283,7 @@ public class SetEventDetailController extends ComponentRegister {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Team, String> parameter) {
                 Team team = parameter.getValue();
-                return Bindings.createStringBinding(() -> team.getEndRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+                return Bindings.createStringBinding(() -> team.getEndRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             }
         });
 
@@ -299,9 +302,9 @@ public class SetEventDetailController extends ComponentRegister {
     @FXML
     public void onTeamDelete(ActionEvent event) {
         if (teamSelect != null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to delete : " + teamSelect.getName() + " ?", ButtonType.OK, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to delete : " + teamSelect.getName() + " ?", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
-            if (alert.getResult() == ButtonType.CANCEL) {
+            if (alert.getResult() == ButtonType.NO) {
                 return;
             }
             TeamCollection newTeamCollection = new TeamCollection();
@@ -309,10 +312,60 @@ public class SetEventDetailController extends ComponentRegister {
                 if (!team.getId().equals(teamSelect.getId())) {
                     newTeamCollection.add(team);
                 }
+                if(team.getId().equals(teamSelect.getId())){
+
+                    activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
+
+                    ActivitiesTeamCollection newActivitiesTeamCollection = new ActivitiesTeamCollection();
+                    activitiesTeamFileListDatesource.readData().getActivitiesArrayList().forEach(activitiesTeam -> {
+                        if(!activitiesTeam.getTeam().getId().equals(teamSelect.getId())){
+                            newActivitiesTeamCollection.add(activitiesTeam);
+                        }
+                    });
+                    activitiesTeamFileListDatesource.writeData(newActivitiesTeamCollection);
+                }
             }
             teamFileListDatasource.writeData(newTeamCollection);
             teamCollection = newTeamCollection;
             showTableTeam(teamCollection);
+        }
+    }
+    @FXML
+    void onAddTeam(ActionEvent event) {
+        try {
+            FXRouter.goTo("create-team", this.routeProvider);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void onTeamEdit(ActionEvent event) {
+        try {
+            if (teamSelect == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            this.routeProvider.addHashMap("team-select", this.teamSelect);
+            FXRouter.goTo("edit-team", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onManageTeam(ActionEvent event) {
+        try {
+            if (teamSelect == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            this.routeProvider.addHashMap("team-select", this.teamSelect);
+            FXRouter.goTo("event-team-detail", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -364,7 +417,8 @@ public class SetEventDetailController extends ComponentRegister {
         });
 
         activityEventTableView.getColumns().clear();
-        activityEventTableView.getColumns().addAll(titleColumn, detailColumn, startDateColumn, endDateColumn);
+        activityEventTableView.getColumns().addAll(titleColumn, detailColumn, startDateColumn, endDateColumn, statusColumn);
+        activityEventTableView.getItems().clear();
 
         for (ActivitiesEvent activitiesEvent : activitiesEventCollection.getActivitiesArrayList()) {
             activityEventTableView.getItems().add(activitiesEvent);
@@ -372,14 +426,14 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onViewActivityEvent(ActionEvent event) {
+    public void onViewActivityEvent(ActionEvent event) {
         try {
             if (activitySelect == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
                 alert.showAndWait();
                 return;
             }
-            this.routeProvider.addHashMap("comment-view-event",this.activitySelect);
+            this.routeProvider.addHashMap("activity-event-select",this.activitySelect);
             FXRouter.goTo("comment-activity-event",this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -387,7 +441,27 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onEditActivityEvent() {
+    public void onActivityEventDelete(ActionEvent event) {
+        if(activitySelect != null){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to delete : " + activitySelect.getTitle() + " ?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.NO) {
+                return;
+            }
+            ActivitiesEventCollection newActivityEventCollection = new ActivitiesEventCollection();
+            for(ActivitiesEvent activitiesEvent : activitiesEventCollection.getActivitiesArrayList()){
+                if(!activitiesEvent.getId().equals(activitySelect.getId())){
+                    newActivityEventCollection.add(activitiesEvent);
+                }
+            }
+            activitiesEventFileListDatesource.writeData(newActivityEventCollection);
+            activitiesEventCollection = newActivityEventCollection;
+            showTableActivities(activitiesEventCollection);
+        }
+    }
+
+    @FXML
+    public void onEditActivityEvent() {
         try {
             if (activitySelect == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
@@ -419,57 +493,4 @@ public class SetEventDetailController extends ComponentRegister {
         }
     }
 
-    @FXML
-    void onAddTeam(ActionEvent event) {
-        try {
-            FXRouter.goTo("create-team", this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    void onTeamEdit(ActionEvent event) {
-        try {
-            if (teamSelect == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
-                alert.showAndWait();
-                return;
-            }
-            this.routeProvider.addHashMap("team-select", teamSelect);
-            FXRouter.goTo("edit-team", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    public void onManageTeam(ActionEvent event) {
-        try {
-            if (teamSelect == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
-                alert.showAndWait();
-                return;
-            }
-            this.routeProvider.addHashMap("team-select", teamSelect);
-            FXRouter.goTo("event-team-detail", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    public void onToCommentEvent(){
-        try {
-            if (activitySelect == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
-                alert.showAndWait();
-                return;
-            }
-            this.routeProvider.addHashMap("activity-event-select", this.activitySelect);
-//            FXRouter.goTo("edit-schedule-participant", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

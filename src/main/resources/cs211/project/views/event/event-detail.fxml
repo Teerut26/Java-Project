@@ -61,7 +61,7 @@
                         </Label>
                         <HBox prefHeight="353.0" prefWidth="886.0" spacing="50.0">
                            <children>
-                              <VBox prefHeight="343.0" prefWidth="266.0" spacing="8.0">
+                              <VBox prefHeight="353.0" prefWidth="346.0" spacing="8.0">
                                  <children>
                                     <Rectangle fx:id="eventImage" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="324.0" stroke="BLACK" strokeType="INSIDE" width="256.0" />
                                     <Label fx:id="eventTime" prefHeight="15.0" prefWidth="289.0" text="17 July 23 6:00 - 18 July 23 23:00" textFill="#bb716f">

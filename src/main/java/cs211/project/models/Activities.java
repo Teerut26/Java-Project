@@ -111,4 +111,5 @@ public class Activities {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

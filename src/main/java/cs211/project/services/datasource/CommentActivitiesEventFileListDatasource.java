@@ -1,10 +1,9 @@
 package cs211.project.services.datasource;
 
-import cs211.project.models.CommentActivitiesEvent;
-import cs211.project.models.Event;
-import cs211.project.models.Team;
-import cs211.project.models.User;
+import cs211.project.models.*;
+import cs211.project.models.collections.ActivitiesEventCollection;
 import cs211.project.models.collections.CommentActivitiesEventCollection;
+import cs211.project.models.collections.UserCollection;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
 
@@ -29,6 +28,8 @@ public class CommentActivitiesEventFileListDatasource implements DatasourceInter
         String line = "";
         try {
             CommentActivitiesEventCollection commentCollection = new CommentActivitiesEventCollection();
+            UserCollection userCollection = new UserFileListDatasource().readData();
+            ActivitiesEventCollection activitiesEventCollection = new ActivitiesEventFileListDatesource().readData();
 
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
@@ -38,16 +39,13 @@ public class CommentActivitiesEventFileListDatasource implements DatasourceInter
                 String id = data[0].trim();
                 String message = data[1].trim();
                 String ownerId = data[2].trim();
-                String eventId = data[3].trim();
+                String activityId = data[3].trim();
                 LocalDateTime timeStamps = LocalDateTime.parse(data[4].trim());
 
-                UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-                User owner = userFileListDatasource.readData().findById(ownerId);
+                User owner = userCollection.findById(ownerId);
+                ActivitiesEvent activitiesEvent = activitiesEventCollection.findById(activityId);
 
-                EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
-                Event event = eventFileListDatesource.readData().findById(eventId);
-
-                CommentActivitiesEvent comment = new CommentActivitiesEvent(id, message, owner, event, timeStamps);
+                CommentActivitiesEvent comment = new CommentActivitiesEvent(id, message, owner, activitiesEvent, timeStamps);
 
                 commentCollection.add(comment);
             }
@@ -69,7 +67,7 @@ public class CommentActivitiesEventFileListDatasource implements DatasourceInter
         BufferedWriter buffer = this.fileIO.writer();
         try {
             for (CommentActivitiesEvent comment : data.getComments()) {
-                String line = comment.getId() + "," + comment.getMessage() + "," + comment.getOwner().getId() + "," + comment.getEvent().getEventID() + "," + comment.getTimeStamps().toString();
+                String line = comment.getId() + "," + comment.getMessage() + "," + comment.getOwner().getId() + "," + comment.getActivitiesEvent().getId() + "," + comment.getTimeStamps().toString();
                 buffer.append(line);
                 buffer.append("\n");
             }

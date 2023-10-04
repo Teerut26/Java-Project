@@ -5,6 +5,7 @@ import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.TeamCollection;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class User {
     private String id;
@@ -128,11 +129,18 @@ public class User {
         return lastLogin;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        User that = (User) o;
-//        return this.id.equals(that.id);
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return this.id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     @Override
     public String toString() {
