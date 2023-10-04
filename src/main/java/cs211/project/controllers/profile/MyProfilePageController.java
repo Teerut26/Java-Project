@@ -22,7 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-public class MyProfilePageController extends ComponentRegister {
+public class MyProfilePageController {
     @FXML
     private VBox SideBarVBox;
     @FXML
@@ -40,18 +40,21 @@ public class MyProfilePageController extends ComponentRegister {
     private UserCollection userCollection;
     private User user;
     private Image image;
-    private RouteProvider<String> routeProvider;
+    private RouteProvider routeProvider;
 
 
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        if (this.routeProvider.getData() != null && this.routeProvider.getData().equals("admin")) {
-            this.loadSideBarComponentAdmin(SideBarVBox, "AdminSideBarComponent.fxml", this.routeProvider);
-            this.loadNavBarComponentAdmin(NavBarHBox, "AdminNavbarComponent.fxml", this.routeProvider);
+        boolean isAdmin = SingletonStorage.getInstance().userSession.isAdmin();
+        ComponentRegister cr = new ComponentRegister();
+
+        if (isAdmin) {
+            cr.loadSideBarComponentAdmin(SideBarVBox, "AdminSideBarComponent.fxml", this.routeProvider);
+            cr.loadNavBarComponentAdmin(NavBarHBox, "AdminNavbarComponent.fxml", this.routeProvider);
         } else {
-            this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-            this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+            cr.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+            cr.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         }
         this.profileID = UUID.randomUUID().toString();
         userFileListDatasource = new UserFileListDatasource();
