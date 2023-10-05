@@ -151,7 +151,7 @@
                   </HBox>
                </children>
                <padding>
-                  <Insets left="10.0" right="10.0" top="10.0" />
+                  <Insets right="10.0" top="10.0" />
                </padding>
             </VBox>
          </right>
@@ -167,7 +167,11 @@
             </AnchorPane>
          </top>
          <left>
-            <VBox fx:id="SideBarVBox" prefHeight="625.0" prefWidth="322.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="625.0" prefWidth="322.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox fx:id="SideBarVBox" prefHeight="625.0" prefWidth="322.0" />
+               </children>
+            </AnchorPane>
          </left>
       </BorderPane>
    </children>
