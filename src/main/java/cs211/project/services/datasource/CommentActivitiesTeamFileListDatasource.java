@@ -4,6 +4,7 @@ import cs211.project.models.*;
 import cs211.project.models.collections.*;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
+import cs211.project.utils.ReplaceComma;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,8 +15,10 @@ public class CommentActivitiesTeamFileListDatasource implements DatasourceInterf
     private String basePath = "data/csv/";
     private String fileName = "commentsActivitiesTeam.csv";
     private FileIO fileIO;
+    private ReplaceComma replaceComma;
 
     public CommentActivitiesTeamFileListDatasource() {
+        this.replaceComma = new ReplaceComma();
         this.fileIO = new FileIO(this.basePath + this.fileName);
     }
 
@@ -39,6 +42,8 @@ public class CommentActivitiesTeamFileListDatasource implements DatasourceInterf
                 String ownerId = data[2].trim();
                 String activityId = data[3].trim();
                 LocalDateTime timeStamps = LocalDateTime.parse(data[4].trim());
+
+                message = this.replaceComma.replaceBack(message);
 
                 User owner = userCollection.findById(ownerId);
                 ActivitiesTeam activitiesTeam = activitiesTeamCollection.findById(activityId);
@@ -65,7 +70,7 @@ public class CommentActivitiesTeamFileListDatasource implements DatasourceInterf
         BufferedWriter buffer = this.fileIO.writer();
         try {
             for (CommentActivitiesTeam comment : data.getComments()) {
-                String line = comment.getId() + "," + comment.getMessage() + "," + comment.getOwner().getId() + "," + comment.getActivitiesTeam().getId() + "," + comment.getTimeStamps().toString();
+                String line = comment.getId() + "," + this.replaceComma.replace(comment.getMessage()) + "," + comment.getOwner().getId() + "," + comment.getActivitiesTeam().getId() + "," + comment.getTimeStamps().toString();
                 buffer.append(line);
                 buffer.append("\n");
             }

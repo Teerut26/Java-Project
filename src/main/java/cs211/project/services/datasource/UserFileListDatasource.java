@@ -4,6 +4,7 @@ import cs211.project.models.*;
 import cs211.project.models.collections.*;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
+import cs211.project.utils.ReplaceComma;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -13,8 +14,10 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
     private String basePath = "data/csv/";
     private String fileName = "users.csv";
     private FileIO fileIO;
+    private ReplaceComma replaceComma;
 
     public UserFileListDatasource() {
+        this.replaceComma = new ReplaceComma();
         this.fileIO = new FileIO(this.basePath + this.fileName);
     }
 
@@ -38,6 +41,9 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
                 String imagePath = data[5].trim();
                 LocalDateTime lastLogin = LocalDateTime.parse(data[6].trim());
 
+                nameUser = this.replaceComma.replaceBack(nameUser);
+                userName = this.replaceComma.replaceBack(userName);
+
                 User user = new User(id, nameUser, userName, password, role, imagePath, lastLogin);
 
                 userCollection.add(user);
@@ -60,7 +66,7 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
 
         try {
             for (User user : data.getUsers()) {
-                String line = user.getId() + "," + user.getNameUser() + "," + user.getUserName() + "," + user.getPassword() + "," + user.getRole() + "," + user.getImageProfile() + "," + user.getLastLogin().toString();
+                String line = user.getId() + "," + this.replaceComma.replace(user.getNameUser()) + "," + this.replaceComma.replace(user.getUserName()) + "," + user.getPassword() + "," + user.getRole() + "," + user.getImageProfile() + "," + user.getLastLogin().toString();
                 buffer.append(line);
                 buffer.append("\n");
             }
