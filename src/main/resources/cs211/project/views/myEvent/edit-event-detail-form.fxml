@@ -63,7 +63,11 @@
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="408.0" spacing="10.0">
                            <children>
-                              <ImageView fx:id="addImage" fitHeight="372.0" fitWidth="278.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="addImage" fitHeight="296.0" fitWidth="233.0" pickOnBounds="true" preserveRatio="true">
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin></ImageView>
+                              <Pane prefHeight="15.0" prefWidth="312.0" />
                               <Button mnemonicParsing="false" onAction="#importImage" styleClass="btn-secondary" text="Import">
                                  <font>
                                     <Font name="Hiragino Sans W6" size="20.0" />

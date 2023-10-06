@@ -1,18 +1,15 @@
 package cs211.project.controllers.myEvent;
 
 import cs211.project.models.*;
-import cs211.project.models.collections.ActivitiesEventCollection;
-import cs211.project.models.collections.ActivitiesTeamCollection;
-import cs211.project.models.collections.TeamCollection;
+import cs211.project.models.collections.*;
 
-import cs211.project.models.collections.UserCollection;
 import cs211.project.services.FXRouter;
 import cs211.project.services.ManyToManyManager;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.*;
 import cs211.project.utils.ComponentRegister;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyStringWrapper;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -20,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -27,8 +25,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 
 public class SetEventDetailController extends ComponentRegister {
     @FXML
@@ -76,6 +74,7 @@ public class SetEventDetailController extends ComponentRegister {
     private ActivitiesEventCollection activitiesEventCollection;
     private ActivitiesEvent activitySelect;
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
+    private CommentActivitiesEventFileListDatasource commentActivitiesEventFileListDatasource;
 
 
     @FXML
@@ -187,6 +186,32 @@ public class SetEventDetailController extends ComponentRegister {
 
         ManyToManyManager manyToManyManagerSuspend = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
 
+        TableColumn<User, String> imageColumn = new TableColumn<>("Profile");
+        imageColumn.setCellValueFactory(new PropertyValueFactory<>("imageProfile"));
+
+        imageColumn.setCellFactory(new Callback<TableColumn<User, String>, TableCell<User, String>>(){
+            @Override
+            public TableCell<User, String> call(TableColumn<User, String> param) {
+                return new TableCell<User, String>() {
+                    private ImageView imageView = new ImageView();
+
+                    @Override
+                    protected void updateItem(String imageUrl, boolean empty) {
+                        super.updateItem(imageUrl, empty);
+                        if (imageUrl == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            Image image = new Image("file:" + imageUrl);
+                            imageView.setImage(image);
+                            imageView.setFitWidth(50);
+                            imageView.setFitHeight(50);
+                            setGraphic(imageView);
+                        }
+                    }
+                };
+            }
+        });
+
         TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
@@ -210,7 +235,7 @@ public class SetEventDetailController extends ComponentRegister {
         userJoinTableView.getColumns().clear();
         userJoinTableView.getItems().clear();
 
-        userJoinTableView.getColumns().addAll(usernameColumn, nameColumn, lastLoginColumn, statusUserColumnColumn);
+        userJoinTableView.getColumns().addAll(imageColumn, usernameColumn, nameColumn, lastLoginColumn, statusUserColumnColumn);
 
         for (User user : userCollection.getUsers()) {
             userJoinTableView.getItems().add(user);
@@ -323,6 +348,7 @@ public class SetEventDetailController extends ComponentRegister {
                         }
                     });
                     activitiesTeamFileListDatesource.writeData(newActivitiesTeamCollection);
+
                 }
             }
             teamFileListDatasource.writeData(newTeamCollection);
@@ -452,6 +478,18 @@ public class SetEventDetailController extends ComponentRegister {
             for(ActivitiesEvent activitiesEvent : activitiesEventCollection.getActivitiesArrayList()){
                 if(!activitiesEvent.getId().equals(activitySelect.getId())){
                     newActivityEventCollection.add(activitiesEvent);
+                }
+                if(activitiesEvent.getId().equals(activitySelect.getId())){
+
+                    commentActivitiesEventFileListDatasource = new CommentActivitiesEventFileListDatasource();
+
+                    CommentActivitiesEventCollection newCommentActivitiesEventCollection = new CommentActivitiesEventCollection();
+                    commentActivitiesEventFileListDatasource.readData().getComments().forEach(commentActivitiesEvent -> {
+                        if(!commentActivitiesEvent.getActivitiesEvent().getId().equals(activitySelect.getId())){
+                            newCommentActivitiesEventCollection.add(commentActivitiesEvent);
+                        }
+                    });
+                    commentActivitiesEventFileListDatasource.writeData(newCommentActivitiesEventCollection);
                 }
             }
             activitiesEventFileListDatesource.writeData(newActivityEventCollection);

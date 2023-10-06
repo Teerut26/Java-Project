@@ -72,8 +72,8 @@ public class EditTeam extends ComponentRegister {
     public void showCurrentData() {
         teamNameEd.setText(team.getName());
         quantityEd.setText(String.valueOf(team.getQuantity()));
-        DataDeadline.setValue(team.getStartRecruitDate().toLocalDate());
-        DateOpeningDate.setValue(team.getEndRecruitDate().toLocalDate());
+        DateOpeningDate.setValue(team.getStartRecruitDate().toLocalDate());
+        DataDeadline.setValue(team.getEndRecruitDate().toLocalDate());
         timeStart.setText(team.getStartTimeTeam());
         timeEnd.setText(team.getEndTimeTeam());
     }
