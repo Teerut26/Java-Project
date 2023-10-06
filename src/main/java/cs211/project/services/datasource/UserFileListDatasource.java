@@ -54,6 +54,7 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
         }
     }
 
+
     @Override
     public void writeData(UserCollection data) {
         BufferedWriter buffer = this.fileIO.writer();
