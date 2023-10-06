@@ -23,7 +23,9 @@ public class RouteProvider<T> {
 
     public RouteProvider() {
         this.data = null;
+        this.dataHashMap = new HashMap<String, Object>();
     }
+
 
     public T getData() {
         return data;

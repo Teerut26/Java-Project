@@ -78,22 +78,39 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="547.0">
+                                    <HBox prefHeight="44.0" prefWidth="499.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#onJoin" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
+                                          <Button mnemonicParsing="false" onAction="#onJoin" prefHeight="55.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
                                              <font>
                                                 <Font name="Hiragino Sans W7" size="16.0" />
                                              </font>
                                           </Button>
-                                          <Pane prefHeight="52.0" prefWidth="60.0" />
+                                          <Pane prefHeight="44.0" prefWidth="17.0" />
+                                          <Button mnemonicParsing="false" onAction="#goToTeamList" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="Join team">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="499.0">
+                                       <children>
+                                          <Label text="Joined" textFill="#1e7945">
+                                             <padding>
+                                                <Insets right="20.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
                                           <Label fx:id="currentUserAmount" text="0" textFill="#5d863b">
                                              <font>
-                                                <Font name="Hiragino Sans W6" size="20.0" />
+                                                <Font name="Hiragino Sans W6" size="16.0" />
                                              </font>
                                           </Label>
                                           <Label text="/" textFill="#5d863b">
                                              <font>
-                                                <Font name="Hiragino Sans W6" size="20.0" />
+                                                <Font name="Hiragino Sans W6" size="16.0" />
                                              </font>
                                              <padding>
                                                 <Insets left="4.0" />
@@ -101,13 +118,16 @@
                                           </Label>
                                           <Label fx:id="maxUserAmount" text="200" textFill="#5d863b">
                                              <font>
-                                                <Font name="Hiragino Sans W6" size="20.0" />
+                                                <Font name="Hiragino Sans W6" size="16.0" />
                                              </font>
                                              <padding>
                                                 <Insets left="4.0" />
                                              </padding>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="15.0" />
+                                       </VBox.margin>
                                     </HBox>
                                  </children>
                                  <padding>
@@ -116,11 +136,6 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Button onAction="#goToTeamList" mnemonicParsing="false" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="TeamEvent">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
                      </children>
                      <opaqueInsets>
                         <Insets />

@@ -11,11 +11,9 @@ import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.services.datasource.UserFileListDatasource;
 import cs211.project.utils.ComponentRegister;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -65,11 +63,13 @@ public class MyTeamController {
     private Team currentTeamSelect;
 
     @FXML
-    private TableView<Activities> activityTableView = new TableView<>();
+    private TableView<ActivitiesTeam> activityTableView = new TableView<>();
     @FXML
     private ActivitiesTeamCollection activitiesCollection;
     @FXML
     private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
+    @FXML
+    private ActivitiesTeam currentActivitySelect;
 
     //selected activity
     @FXML
@@ -78,6 +78,7 @@ public class MyTeamController {
     private UserCollection userCollection;
     @FXML
     private UserCollection userForTableView = new UserCollection();
+
 
 
 
@@ -196,40 +197,47 @@ public class MyTeamController {
         activitiesCollection = new ActivitiesTeamCollection();
         activitiesCollection = activitiesTeamCollection.findByTeamId(currentTeamSelect.getId());
 
-         TableColumn<Activities, String> activityName = new TableColumn<>("Activity Name");
+         TableColumn<ActivitiesTeam, String> activityName = new TableColumn<>("Activity Name");
           activityName.setCellValueFactory(new PropertyValueFactory<>("title"));
-        TableColumn<Activities, String> activityDetail = new TableColumn<>("Detail");
+        TableColumn<ActivitiesTeam, String> activityDetail = new TableColumn<>("Detail");
         activityDetail.setCellValueFactory(new PropertyValueFactory<>("detail"));
-        TableColumn<Activities, String> activityStartDate = new TableColumn<>("Start date");
+        TableColumn<ActivitiesTeam, String> activityStartDate = new TableColumn<>("Start date");
         activityStartDate.setCellValueFactory(param -> {
             if (param.getValue() != null) {
-                Activities activities = param.getValue();
+                ActivitiesTeam activities = param.getValue();
                 String startDate =formateDate(activities.getDateStart());
                 return new ReadOnlyStringWrapper(startDate);
             } else {
                 return new ReadOnlyStringWrapper("");
             }});
-        TableColumn<Activities, String> activityEndDate = new TableColumn<>("End date");
+        TableColumn<ActivitiesTeam, String> activityEndDate = new TableColumn<>("End date");
         activityEndDate.setCellValueFactory(param -> {
             if (param.getValue() != null) {
-                Activities activities = param.getValue();
+                ActivitiesTeam activities = param.getValue();
                 String endDate =formateDate(activities.getDateEnd());
                 return new ReadOnlyStringWrapper(endDate);
             } else {
                 return new ReadOnlyStringWrapper("");
             }});
-        TableColumn<Activities, String> activityStartTime = new TableColumn<>("Start time");
+        TableColumn<ActivitiesTeam, String> activityStartTime = new TableColumn<>("Start time");
         activityStartTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        TableColumn<Activities, String> activityEndTime = new TableColumn<>("End time");
+        TableColumn<ActivitiesTeam, String> activityEndTime = new TableColumn<>("End time");
         activityEndTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
 
         activityTableView.getColumns().clear();
         activityTableView.getColumns().addAll(activityName, activityDetail, activityStartDate, activityEndDate, activityStartTime, activityEndTime);
         activityTableView.getItems().clear();
 
-        for (Activities activities : activitiesCollection.getActivities()) {
-            activityTableView.getItems().add(activities);
+        for (ActivitiesTeam activitiesTeam : activitiesCollection.getActivitiesArrayList()) {
+            activityTableView.getItems().add(activitiesTeam);
         }
+
+        activityTableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                   currentActivitySelect = activityTableView.getSelectionModel().getSelectedItem();
+                   System.out.println(currentActivitySelect.getTitle());
+            }
+        });
 
 
     }
@@ -268,8 +276,29 @@ public class MyTeamController {
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
         manyToManyManager.remove(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
         clearTeamInfo();
-        setTeamInTableView();
+        //reload this page
+        try {
+            FXRouter.goTo("my-team",this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
+    }
+
+    @FXML
+    public void onViewActivityTeam(ActionEvent event) {
+        try {
+            if (currentActivitySelect == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            System.out.println(currentActivitySelect.getTitle());
+            this.routeProvider.addHashMap("activity-select", currentActivitySelect);
+            FXRouter.goTo("comment-activity-team",this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
