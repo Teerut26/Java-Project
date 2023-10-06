@@ -67,7 +67,7 @@ public class ManageUserController extends ComponentRegister {
 
     private void showTable() {
         this.userId.setText("");
-        TableColumn<User, String> imageColumn = new TableColumn<>("Image");
+        TableColumn<User, String> imageColumn = new TableColumn<>("Profile");
         imageColumn.setCellValueFactory(new PropertyValueFactory<>("imageProfile"));
 
         imageColumn.setCellFactory(new Callback<TableColumn<User, String>, TableCell<User, String>>() {

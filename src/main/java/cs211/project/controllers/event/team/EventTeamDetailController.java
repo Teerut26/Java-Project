@@ -1,10 +1,7 @@
 package cs211.project.controllers.event.team;
 
 import cs211.project.models.*;
-import cs211.project.models.collections.ActivitiesTeamCollection;
-import cs211.project.models.collections.ManyToManyCollection;
-import cs211.project.models.collections.TeamCollection;
-import cs211.project.models.collections.UserCollection;
+import cs211.project.models.collections.*;
 import cs211.project.services.FXRouter;
 import cs211.project.services.ManyToManyManager;
 import cs211.project.services.RouteProvider;
@@ -19,6 +16,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
@@ -55,6 +54,8 @@ public class EventTeamDetailController extends ComponentRegister {
     private EventFileListDatesource eventFileListDatesource;
 
     private RouteProvider<Event> routeProvider;
+    private CommentActivitiesTeamFileListDatasource commentActivitiesTeamFileListDatasource;
+    private CommentActivitiesEventCollection commentActivitiesEventCollection;
 
     @FXML
     public void initialize() {
@@ -219,6 +220,18 @@ public class EventTeamDetailController extends ComponentRegister {
                 if(!activitiesTeam.getId().equals(selectActivitiesTeam.getId())){
                     newActivityTeamCollection.add(activitiesTeam);
                 }
+                if(activitiesTeam.getId().equals(selectActivitiesTeam.getId())){
+
+                    commentActivitiesTeamFileListDatasource = new CommentActivitiesTeamFileListDatasource();
+
+                    CommentActivitiesTeamCollection newCommentActivitiesTeamCollection = new CommentActivitiesTeamCollection();
+                    commentActivitiesTeamFileListDatasource.readData().getComments().forEach(commentActivitiesTeam -> {
+                        if(!commentActivitiesTeam.getActivitiesTeam().getId().equals(selectActivitiesTeam.getId())){
+                            newCommentActivitiesTeamCollection.add(commentActivitiesTeam);
+                        }
+                    });
+                    commentActivitiesTeamFileListDatasource.writeData(newCommentActivitiesTeamCollection);
+                }
             }
             activitiesTeamFileListDatesource.writeData(newActivityTeamCollection);
             activitiesTeamCollection = newActivityTeamCollection;
@@ -242,10 +255,36 @@ public class EventTeamDetailController extends ComponentRegister {
     public void showTableMemberInTeam(UserCollection userInTeamCollection) {
         ManyToManyManager manyToManyManagerSuspend = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM_SUSPEND);
 
-        TableColumn<User, String> userNameColumn = new TableColumn<>("userName");
+        TableColumn<User, String> imageColumn = new TableColumn<>("Profile");
+        imageColumn.setCellValueFactory(new PropertyValueFactory<>("imageProfile"));
+        imageColumn.setCellFactory(new Callback<TableColumn<User, String>, TableCell<User, String>>(){
+            @Override
+            public TableCell<User, String> call(TableColumn<User, String> param) {
+                return new TableCell<User, String>() {
+                    private ImageView imageView = new ImageView();
+
+                    @Override
+                    protected void updateItem(String imageUrl, boolean empty) {
+                        super.updateItem(imageUrl, empty);
+                        if (imageUrl == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            Image image = new Image("file:" + imageUrl);
+                            imageView.setImage(image);
+                            imageView.setFitWidth(50);
+                            imageView.setFitHeight(50);
+                            setGraphic(imageView);
+                        }
+                    }
+                };
+            }
+        });
+
+
+        TableColumn<User, String> userNameColumn = new TableColumn<>("UserName");
         userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
-        TableColumn<User, String> nameUserColumn = new TableColumn<>("nameUser");
+        TableColumn<User, String> nameUserColumn = new TableColumn<>("Name");
         nameUserColumn.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
 
         TableColumn<User, String> statusColumn = new TableColumn<>("nameUser");
@@ -261,7 +300,7 @@ public class EventTeamDetailController extends ComponentRegister {
 
         memberTeamTableView.getColumns().clear();
         memberTeamTableView.getItems().clear();
-        memberTeamTableView.getColumns().addAll(userNameColumn, nameUserColumn, statusColumn);
+        memberTeamTableView.getColumns().addAll(imageColumn,userNameColumn, nameUserColumn, statusColumn);
 
         for (User user : userInTeamCollection.getUsers()) {
             memberTeamTableView.getItems().add(user);
