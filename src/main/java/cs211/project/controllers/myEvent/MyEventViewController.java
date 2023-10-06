@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MyEventViewController extends ComponentRegister {
+public class MyEventViewController {
 
     @FXML
     private VBox SideBarVBox;
@@ -43,15 +43,16 @@ public class MyEventViewController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
         this.eventCollection = new EventCollection();
 
         eventFileListDatesource.readData().getEvents().forEach(event -> {
 
-            if (this.routeProvider.getUserSession().getId().equals(event.getOwner().getId())) {
+            if (this.routeProvider.getUserSession().equals(event.getOwner())) {
                 this.eventCollection.add(event);
             }
         });

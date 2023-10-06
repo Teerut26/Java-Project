@@ -6,6 +6,7 @@ import cs211.project.models.collections.CommentActivitiesEventCollection;
 import cs211.project.models.collections.UserCollection;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
+import cs211.project.utils.ReplaceComma;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,8 +17,10 @@ public class CommentActivitiesEventFileListDatasource implements DatasourceInter
     private String basePath = "data/csv/";
     private String fileName = "commentsActivitiesEvent.csv";
     private FileIO fileIO;
+    private ReplaceComma replaceComma;
 
     public CommentActivitiesEventFileListDatasource() {
+        this.replaceComma = new ReplaceComma();
         this.fileIO = new FileIO(this.basePath + this.fileName);
     }
 
@@ -41,6 +44,8 @@ public class CommentActivitiesEventFileListDatasource implements DatasourceInter
                 String ownerId = data[2].trim();
                 String activityId = data[3].trim();
                 LocalDateTime timeStamps = LocalDateTime.parse(data[4].trim());
+
+                message = this.replaceComma.replaceBack(message);
 
                 User owner = userCollection.findById(ownerId);
                 ActivitiesEvent activitiesEvent = activitiesEventCollection.findById(activityId);
@@ -67,7 +72,7 @@ public class CommentActivitiesEventFileListDatasource implements DatasourceInter
         BufferedWriter buffer = this.fileIO.writer();
         try {
             for (CommentActivitiesEvent comment : data.getComments()) {
-                String line = comment.getId() + "," + comment.getMessage() + "," + comment.getOwner().getId() + "," + comment.getActivitiesEvent().getId() + "," + comment.getTimeStamps().toString();
+                String line = comment.getId() + "," + this.replaceComma.replace(comment.getMessage()) + "," + comment.getOwner().getId() + "," + comment.getActivitiesEvent().getId() + "," + comment.getTimeStamps().toString();
                 buffer.append(line);
                 buffer.append("\n");
             }

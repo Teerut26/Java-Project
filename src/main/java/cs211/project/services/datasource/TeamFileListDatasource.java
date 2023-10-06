@@ -10,6 +10,7 @@ import cs211.project.models.collections.TeamCollection;
 import cs211.project.models.collections.UserCollection;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
+import cs211.project.utils.ReplaceComma;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -18,10 +19,11 @@ import java.time.LocalDateTime;
 public class TeamFileListDatasource implements DatasourceInterface<TeamCollection> {
     private String basePath = "data/csv/";
     private String fileName = "team.csv";
-
     private FileIO fileIO;
+    private ReplaceComma replaceComma;
 
     public TeamFileListDatasource() {
+        this.replaceComma = new ReplaceComma();
         this.fileIO = new FileIO(this.basePath + this.fileName);
     }
 
@@ -47,6 +49,8 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
                 LocalDateTime endRecruitDate = LocalDateTime.parse(data[4].trim());
                 String ownerID = data[5].trim();
                 String eventID = data[6].trim();
+
+                name = this.replaceComma.replaceBack(name);
 
                 Event event = eventCollection.findById(eventID);
                 User user = userCollection.findById(ownerID);
@@ -74,7 +78,7 @@ public class TeamFileListDatasource implements DatasourceInterface<TeamCollectio
         try {
             for (Team team : data.getTeams()) {
                 String line = team.getId() + "," +
-                        team.getName() + "," +
+                        this.replaceComma.replace(team.getName()) + "," +
                         team.getQuantity() + "," +
                         team.getStartRecruitDate() + "," +
                         team.getEndRecruitDate() + "," +

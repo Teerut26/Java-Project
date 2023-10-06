@@ -134,7 +134,14 @@
                   </HBox>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Text fx:id="TextError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="TextError" />
+                        <Text fx:id="TextError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="TextError">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Hiragino Sans W6" size="13.0" />
+                           </font></Text>
+                        <Pane prefHeight="37.0" prefWidth="680.0" />
                         <Button mnemonicParsing="false" onAction="#GetStartButton" prefHeight="50.0" prefWidth="400.0" styleClass="btn-primary-active" text="Get start" textFill="WHITE">
                            <font>
                               <Font name="Hiragino Sans W7" size="20.0" />

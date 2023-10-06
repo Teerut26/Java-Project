@@ -10,6 +10,7 @@ import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.TeamCollection;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
+import cs211.project.utils.ReplaceComma;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,8 +21,11 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
     private String basePath = "data/csv/";
     private String fileName = "activitiesTeam.csv";
     private FileIO fileIO;
+    private ReplaceComma replaceComma;
+
 
     public ActivitiesTeamFileListDatesource() {
+        this.replaceComma = new ReplaceComma();
         this.fileIO = new FileIO(this.basePath + this.fileName);
     }
 
@@ -46,6 +50,9 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
                 LocalDateTime dateStart = LocalDateTime.parse(data[3].trim());
                 LocalDateTime dateEnd = LocalDateTime.parse(data[4].trim());
                 String teamId = data[5].trim();
+
+                title = this.replaceComma.replaceBack(title);
+                detail = this.replaceComma.replaceBack(detail);
 
                 Team team = teamCollection.findById(teamId);
 
@@ -74,7 +81,7 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
 
         try {
             for (ActivitiesTeam activities : data.getActivitiesArrayList()) {
-                String line = activities.getId() + "," + activities.getTitle() + "," + activities.getDetail() + "," + activities.getDateStart() + "," + activities.getDateEnd() + "," + activities.getTeam().getId();
+                String line = activities.getId() + "," + this.replaceComma.replace(activities.getTitle()) + "," + this.replaceComma.replace(activities.getDetail()) + "," + activities.getDateStart() + "," + activities.getDateEnd() + "," + activities.getTeam().getId();
                 buffer.append(line);
                 buffer.append("\n");
             }

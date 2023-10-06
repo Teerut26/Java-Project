@@ -51,9 +51,9 @@
                                     </font>
                                 </Label>
                                 <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                <Button mnemonicParsing="false" onAction="#onBack" styleClass="btn-secondary" text="go back">
+                                <Button mnemonicParsing="false" onAction="#onBack" prefWidth="100.0" styleClass="btn-secondary" text="back">
                                     <font>
-                                        <Font size="24.0" />
+                                        <Font name="Hiragino Sans W6" size="20.0" />
                                     </font>
                                     <padding>
                                         <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
