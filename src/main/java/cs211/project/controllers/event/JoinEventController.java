@@ -20,6 +20,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -28,6 +29,8 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 
 public class JoinEventController extends ComponentRegister {
+    @FXML
+    private BorderPane parentBorderPane;
     @FXML
     private VBox SideBarVBox;
     @FXML
@@ -76,6 +79,41 @@ public class JoinEventController extends ComponentRegister {
 
         });
 
+        this.initializeThemeMode();
+        this.initializeFont();
+    }
+
+
+    @FXML
+    public void initializeThemeMode(){
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+            parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
+        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+            parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
+        }
+    }
+
+    @FXML
+    public void initializeFont(){
+        String currentFont =this.routeProvider.getUserSession().getFont();
+        clearFontStyle();
+        if (currentFont.equals("font-style1")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
+        }else if (currentFont.equals("font-style2")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
+        }else if (currentFont.equals("font-style3")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
+        }
+
+    }
+
+    @FXML
+    public void clearFontStyle(){
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
 
     public void setContent() {

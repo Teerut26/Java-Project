@@ -18,12 +18,17 @@ public class User {
     private EventCollection eventCollection;
     private TeamCollection teamCollection;
 
+    private String themeMode = "light";
+
+    private String font ="font-style1";
+
     public User(String id, String nameUser, String userName, String password, LocalDateTime lastLogin) {
         this.id = id;
         this.nameUser = nameUser;
         this.userName = userName;
         this.password = password;
         this.lastLogin = lastLogin;
+
     }
 
     public User(String id, String nameUser, String userName, String password, String role, String imagePath, LocalDateTime lastLogin) {
@@ -34,6 +39,33 @@ public class User {
         this.role = role;
         this.imageProfile = imagePath;
         this.lastLogin = lastLogin;
+    }
+
+    public User(String id, String nameUser, String userName, String password, String role, String imagePath, LocalDateTime lastLogin, String teamMode) {
+        this.id = id;
+        this.nameUser = nameUser;
+        this.userName = userName;
+        this.password = password;
+        this.role = role;
+        this.imageProfile = imagePath;
+        this.lastLogin = lastLogin;
+        this.teamCollection = new TeamCollection();
+        this.eventCollection = new EventCollection();
+        this.themeMode = teamMode;
+    }
+
+    public User(String id, String nameUser, String userName, String password, String role, String imagePath, LocalDateTime lastLogin, String teamMode, String font) {
+        this.id = id;
+        this.nameUser = nameUser;
+        this.userName = userName;
+        this.password = password;
+        this.role = role;
+        this.imageProfile = imagePath;
+        this.lastLogin = lastLogin;
+        this.teamCollection = new TeamCollection();
+        this.eventCollection = new EventCollection();
+        this.themeMode = teamMode;
+        this.font = font;
     }
 
     public boolean isAdmin() {
@@ -127,6 +159,22 @@ public class User {
 
     public LocalDateTime getLastlogin() {
         return lastLogin;
+    }
+
+    public String getThemeMode() {
+        return themeMode;
+    }
+
+    public void setThemeMode(String themeMode) {
+        this.themeMode = themeMode;
+    }
+
+    public String getFont() {
+        return font;
+    }
+
+    public void setFont(String font) {
+        this.font = font;
     }
 
     @Override

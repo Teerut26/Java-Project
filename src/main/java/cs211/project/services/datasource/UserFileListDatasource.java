@@ -40,11 +40,14 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
                 String role = data[4].trim();
                 String imagePath = data[5].trim();
                 LocalDateTime lastLogin = LocalDateTime.parse(data[6].trim());
+                String teamMode = data[7].trim();
+                String font = data[8].trim();
 
                 nameUser = this.replaceComma.replaceBack(nameUser);
                 userName = this.replaceComma.replaceBack(userName);
 
-                User user = new User(id, nameUser, userName, password, role, imagePath, lastLogin);
+
+                User user = new User(id, nameUser, userName, password, role, imagePath, lastLogin , teamMode , font);
 
                 userCollection.add(user);
             }
@@ -67,7 +70,7 @@ public class UserFileListDatasource implements DatasourceInterface<UserCollectio
 
         try {
             for (User user : data.getUsers()) {
-                String line = user.getId() + "," + this.replaceComma.replace(user.getNameUser()) + "," + this.replaceComma.replace(user.getUserName()) + "," + user.getPassword() + "," + user.getRole() + "," + user.getImageProfile() + "," + user.getLastLogin().toString();
+                String line = user.getId() + "," + this.replaceComma.replace(user.getNameUser()) + "," + this.replaceComma.replace(user.getUserName()) + "," + user.getPassword() + "," + user.getRole() + "," + user.getImageProfile() + "," + user.getLastLogin().toString() + "," + user.getThemeMode() + "," + user.getFont();
                 buffer.append(line);
                 buffer.append("\n");
             }

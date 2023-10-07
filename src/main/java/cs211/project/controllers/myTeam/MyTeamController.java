@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -22,6 +23,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class MyTeamController {
+    @FXML
+    private BorderPane parentBorderPane;
     @FXML
     private VBox SideBarVBox;
     @FXML
@@ -66,8 +69,7 @@ public class MyTeamController {
     private TableView<ActivitiesTeam> activityTableView = new TableView<>();
     @FXML
     private ActivitiesTeamCollection activitiesCollection;
-    @FXML
-    private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
+
     @FXML
     private ActivitiesTeam currentActivitySelect;
 
@@ -92,7 +94,47 @@ public class MyTeamController {
         //get team by user
         setTeamInTableView();
         clearTeamInfo();
+
+        this.initializeThemeMode();
+        this.initializeFont();
     }
+
+
+
+    @FXML
+    public void initializeThemeMode(){
+        System.out.println("InitializeThemeMode" + this.routeProvider.getUserSession().getThemeMode());
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+            parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
+        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+            parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
+        }
+    }
+
+    @FXML
+    public void initializeFont(){
+        String currentFont =this.routeProvider.getUserSession().getFont();
+        clearFontStyle();
+        if (currentFont.equals("font-style1")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
+        }else if (currentFont.equals("font-style2")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
+        }else if (currentFont.equals("font-style3")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
+        }
+
+    }
+
+    @FXML
+    public void clearFontStyle(){
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
+    }
+
+
 
     public void setTeamInTableView() {
        TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
@@ -293,7 +335,6 @@ public class MyTeamController {
                 alert.showAndWait();
                 return;
             }
-            System.out.println(currentActivitySelect.getTitle());
             this.routeProvider.addHashMap("activity-select", currentActivitySelect);
             FXRouter.goTo("comment-activity-team",this.routeProvider);
         } catch (Exception e) {

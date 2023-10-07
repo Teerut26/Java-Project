@@ -18,7 +18,7 @@
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.EditEventDetailFormController">
 
     <children>
-        <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
+        <BorderPane fx:id="parentBorderPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@../../style/dark-mode.css">
             <top>
                 <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
                     <children>
@@ -33,7 +33,7 @@
             <left>
                 <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
                     <children>
-                        <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0">
+                        <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0" styleClass="primary-color">
                             <padding>
                                 <Insets top="10.0" />
                             </padding>
@@ -42,11 +42,11 @@
                 </AnchorPane>
             </left>
             <right>
-                <VBox prefHeight="651.0" prefWidth="956.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+                <VBox prefHeight="651.0" prefWidth="956.0" spacing="10.0" styleClass="primary-color" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 16; -fx-border-radius: 16;" styleClass="secondary-color">
                             <children>
-                                <Label maxWidth="1280.0" prefWidth="0.0" text="Edit Events" HBox.hgrow="ALWAYS">
+                                <Label maxWidth="1280.0" prefWidth="0.0" styleClass="secondary-color" text="Edit Events" HBox.hgrow="ALWAYS">
                                     <font>
                                         <Font name="System Bold" size="36.0" />
                                     </font>
@@ -59,7 +59,7 @@
                                 <Insets left="25.0" right="25.0" />
                             </padding>
                         </HBox>
-                  <HBox prefHeight="495.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                  <HBox prefHeight="495.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;" styleClass="secondary-color">
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="408.0" spacing="10.0">
                            <children>
@@ -83,58 +83,58 @@
                               <Insets bottom="10.0" left="16.0" right="16.0" top="16.0" />
                            </padding>
                            <children>
-                              <Label text="name">
+                              <Label styleClass="secondary-color" text="name">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="TextFieldName" prefHeight="42.0" prefWidth="560.0" />
-                              <Label text="description">
+                              <TextField fx:id="TextFieldName" prefHeight="42.0" prefWidth="560.0" styleClass="input-color" />
+                              <Label styleClass="secondary-color" text="description">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="TextAreaDescription" prefHeight="119.0" prefWidth="560.0" wrapText="true" />
-                              <Label text="Location">
+                              <TextArea fx:id="TextAreaDescription" prefHeight="119.0" prefWidth="560.0" styleClass="input-color" wrapText="true" />
+                              <Label styleClass="secondary-color" text="Location">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
                               <HBox prefHeight="38.0" prefWidth="560.0">
                                  <children>
-                                    <TextField fx:id="locationEvent" prefHeight="26.0" prefWidth="270.0" />
+                                    <TextField fx:id="locationEvent" prefHeight="26.0" prefWidth="270.0" styleClass="input-color" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="60.0" prefWidth="560.0" spacing="16.0">
                                  <children>
                                     <VBox prefHeight="52.0" prefWidth="183.0">
                                        <children>
-                                          <Label text="start date">
+                                          <Label styleClass="secondary-color" text="start date">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <DatePicker fx:id="DataTimeStart" prefHeight="26.0" prefWidth="150.0" promptText="dd/mm/yyyy" />
+                                          <DatePicker fx:id="DataTimeStart" prefHeight="26.0" prefWidth="150.0" promptText="dd/mm/yyyy" styleClass="input-color" />
                                        </children>
                                     </VBox>
                                     <VBox prefHeight="71.0" prefWidth="174.0">
                                        <children>
-                                          <Label text="end date">
+                                          <Label styleClass="secondary-color" text="end date">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <DatePicker fx:id="DataTimeEnd" prefHeight="26.0" prefWidth="150.0" promptText="dd/mm/yyyy" />
+                                          <DatePicker fx:id="DataTimeEnd" prefHeight="26.0" prefWidth="150.0" promptText="dd/mm/yyyy" styleClass="input-color" />
                                        </children>
                                     </VBox>
                                     <VBox prefHeight="52.0" prefWidth="133.0">
                                        <children>
-                                          <Label text="Quantity">
+                                          <Label styleClass="secondary-color" text="Quantity">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="TextFieldQuantity" prefHeight="29.0" prefWidth="125.0" />
+                                          <TextField fx:id="TextFieldQuantity" prefHeight="29.0" prefWidth="125.0" styleClass="input-color" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -143,29 +143,29 @@
                                  <children>
                                     <VBox prefHeight="62.0" prefWidth="150.0">
                                        <children>
-                                          <Label text="Time Start">
+                                          <Label styleClass="secondary-color" text="Time Start">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="timeStart" prefHeight="26.0" prefWidth="130.0" promptText="00:00:00" />
+                                          <TextField fx:id="timeStart" prefHeight="26.0" prefWidth="130.0" promptText="00:00:00" styleClass="input-color" />
                                        </children>
                                     </VBox>
                                     <Pane prefHeight="49.0" prefWidth="49.0" />
                                     <VBox prefHeight="62.0" prefWidth="150.0">
                                        <children>
-                                          <Label text="Time End">
+                                          <Label styleClass="secondary-color" text="Time End">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="timeEnd" prefHeight="26.0" prefWidth="130.0" promptText="00:00:00" />
+                                          <TextField fx:id="timeEnd" prefHeight="26.0" prefWidth="130.0" promptText="00:00:00" styleClass="input-color" />
                                        </children>
                                     </VBox>
                                     <Pane prefHeight="49.0" prefWidth="19.0" />
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <CheckBox fx:id="publicCheckBox" mnemonicParsing="false" text="public" />
+                                          <CheckBox fx:id="publicCheckBox" mnemonicParsing="false" styleClass="secondary-color" text="public" />
                                        </children>
                                        <padding>
                                           <Insets top="10.0" />
@@ -186,7 +186,7 @@
                         <Insets bottom="16.0" left="16.0" right="16.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="16.0" style="-fx-background-radius: 16; -fx-border-radius: 16;" styleClass="secondary-color">
                      <children>
                         <Button mnemonicParsing="false" onAction="#onCancel" prefHeight="45.0" prefWidth="135.0" styleClass="btn-error" text="cancel">
                            <font>

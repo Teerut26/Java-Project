@@ -17,7 +17,7 @@
 
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.SetEventDetailController">
     <children>
-        <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
+        <BorderPane fx:id="parentBorderPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" styleClass="primary-color" stylesheets="@../../style/dark-mode.css">
             <top>
                 <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
                     <children>
@@ -32,7 +32,7 @@
             <left>
                 <AnchorPane prefHeight="662.0" prefWidth="321.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
                     <children>
-                        <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" layoutY="-1.0" prefHeight="627.0" prefWidth="319.0" spacing="10.0">
+                        <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" layoutY="-1.0" prefHeight="627.0" prefWidth="319.0" spacing="10.0" styleClass="primary-color">
                             <padding>
                                 <Insets top="10.0" />
                             </padding>
@@ -41,11 +41,11 @@
                 </AnchorPane>
             </left>
             <right>
-                <VBox prefHeight="931.0" prefWidth="1119.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+                <VBox prefHeight="931.0" prefWidth="1119.0" spacing="10.0" styleClass="primary-color" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10;">
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" styleClass="primary-color">
                             <children>
-                                <Label text="My Events">
+                                <Label styleClass="primary-color" text="My Events">
                                     <font>
                                         <Font name="System Bold" size="24.0" />
                                     </font>
@@ -73,9 +73,9 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox prefHeight="547.0" prefWidth="936.0" spacing="20.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10;">
+                                    <VBox prefHeight="547.0" prefWidth="936.0" spacing="20.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" styleClass="secondary-color">
                                        <children>
-                                          <Label fx:id="nameEvent" text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
+                                          <Label fx:id="nameEvent" styleClass="secondary-color" text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
                                              <font>
                                                 <Font name="Hiragino Sans W7" size="24.0" />
                                              </font>
@@ -94,7 +94,7 @@
                                                 </VBox>
                                                 <VBox prefHeight="328.0" prefWidth="567.0" spacing="10.0">
                                                    <children>
-                                                      <Label fx:id="eventDescription" alignment="TOP_LEFT" prefHeight="225.0" prefWidth="489.0" text="null" wrapText="true">
+                                                      <Label fx:id="eventDescription" alignment="TOP_LEFT" prefHeight="225.0" prefWidth="489.0" styleClass="secondary-color" text="null" wrapText="true">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -153,7 +153,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox layoutX="1.0" layoutY="2.0" prefHeight="516.0" prefWidth="939.0" spacing="20.0" style="-fx-background-color: white;">
+                                    <VBox layoutX="1.0" layoutY="2.0" prefHeight="516.0" prefWidth="939.0" spacing="20.0" styleClass="secondary-color">
                                        <children>
                                           <HBox prefHeight="111.0" prefWidth="904.0">
                                              <children>
@@ -170,17 +170,17 @@
                                                                   </Label>
                                                                   <HBox alignment="CENTER" prefHeight="57.0" prefWidth="357.0">
                                                                      <children>
-                                                                        <Label fx:id="currentMemberAmount" alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="152.0" text="25" textFill="#eaa807">
+                                                                        <Label fx:id="currentMemberAmount" alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="152.0" style="-fx-font-size: 52px;" text="25" textFill="#eaa807">
                                                                            <font>
                                                                               <Font size="52.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label text="/" textFill="#eaa807">
+                                                                        <Label style="-fx-font-size: 52px;" text="/" textFill="#eaa807">
                                                                            <font>
                                                                               <Font size="52.0" />
                                                                            </font>
                                                                         </Label>
-                                                                        <Label fx:id="maxMember" prefHeight="46.0" prefWidth="131.0" text="25" textFill="#eaa807">
+                                                                        <Label fx:id="maxMember" prefHeight="46.0" prefWidth="131.0" style="-fx-font-size: 52px;" text="25" textFill="#eaa807">
                                                                            <font>
                                                                               <Font size="37.0" />
                                                                            </font>
@@ -234,7 +234,7 @@
                                                 </AnchorPane>
                                              </children>
                                           </HBox>
-                                          <Label text="participant list">
+                                          <Label style="-fx-font-size: 24px;" styleClass="secondary-color" text="participant list">
                                              <font>
                                                 <Font name="Hiragino Sans W6" size="20.0" />
                                              </font>
@@ -287,7 +287,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox layoutX="-3.0" prefHeight="501.0" prefWidth="944.0" style="-fx-background-color: white;">
+                                    <VBox layoutX="-3.0" prefHeight="501.0" prefWidth="944.0" styleClass="secondary-color">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="944.0">
                                              <padding>
@@ -297,7 +297,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                              <children>
-                                                <Label text="Team">
+                                                <Label style="-fx-font-size: 24px;" styleClass="secondary-color" text="Team">
                                                    <font>
                                                       <Font name="Hiragino Sans W6" size="24.0" />
                                                    </font>
@@ -362,14 +362,14 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox prefHeight="501.0" prefWidth="944.0" style="-fx-background-color: white;">
+                                    <VBox prefHeight="501.0" prefWidth="944.0" styleClass="secondary-color">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="944.0">
                                              <padding>
                                                 <Insets left="20.0" right="20.0" />
                                              </padding>
                                              <children>
-                                                <Label text="Activity">
+                                                <Label style="-fx-font-size: 24px;" styleClass="secondary-color" text="Activity">
                                                    <font>
                                                       <Font name="Hiragino Sans W6" size="24.0" />
                                                    </font>

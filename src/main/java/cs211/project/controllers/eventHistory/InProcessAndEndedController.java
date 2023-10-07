@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -29,6 +30,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class InProcessAndEndedController extends ComponentRegister {
+    @FXML
+    private BorderPane parentBorderPane;
     @FXML
     private VBox SideBarVBox;
     @FXML
@@ -64,10 +67,12 @@ public class InProcessAndEndedController extends ComponentRegister {
 
     @FXML
     public void initialize() {
+
         routeProvider = (RouteProvider) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
-
+        InitializeThemeMode();
+        initializeFont();
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
 
         this.inProcessEventCollection = new EventCollection();
@@ -120,7 +125,42 @@ public class InProcessAndEndedController extends ComponentRegister {
                 e.printStackTrace();
             }
         });
+
     }
+
+    @FXML
+    public void InitializeThemeMode(){
+        System.out.println("InitializeThemeMode" + this.routeProvider.getUserSession().getThemeMode());
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+            parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
+        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+            parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
+        }
+    }
+
+    @FXML
+    public void initializeFont(){
+        String currentFont =this.routeProvider.getUserSession().getFont();
+        clearFontStyle();
+        if (currentFont.equals("font-style1")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
+        }else if (currentFont.equals("font-style2")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
+        }else if (currentFont.equals("font-style3")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
+        }
+
+    }
+
+    @FXML
+    public void clearFontStyle(){
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
+    }
+
 
     private void loadNextBatchInProcess(List<Event> events) {
         for (int i = inprocessCurrentBatch; i < Math.min(inprocessCurrentBatch + inprocessbatchSize, events.size()); i++) {

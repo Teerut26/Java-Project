@@ -14,7 +14,7 @@
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.event.EventDetailController">
 
     <children>
-        <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
+        <BorderPane fx:id="parentBorderPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" styleClass="primary-color" stylesheets="@../../style/dark-mode.css">
             <top>
                 <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
                     <children>
@@ -27,7 +27,7 @@
                 </AnchorPane>
             </top>
             <left>
-                <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0;" BorderPane.alignment="CENTER">
                     <children>
                         <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0">
                             <padding>
@@ -38,12 +38,12 @@
                 </AnchorPane>
             </left>
             <right>
-                <VBox prefHeight="651.0" prefWidth="956.0" spacing="5.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+                <VBox prefHeight="651.0" prefWidth="956.0" spacing="5.0" BorderPane.alignment="CENTER">
                     <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                     </padding>
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="936.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="936.0" styleClass="primary-color">
                      <children>
                         <Button mnemonicParsing="false" onAction="#onBack" prefHeight="40.0" prefWidth="100.0" styleClass="btn-secondary" text="back">
                            <font>
@@ -52,7 +52,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <VBox prefHeight="547.0" prefWidth="936.0" spacing="20.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10;">
+                  <VBox prefHeight="547.0" prefWidth="936.0" spacing="20.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="secondary-color">
                      <children>
                         <Label fx:id="eventNameLabel" text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
                            <font>
@@ -73,7 +73,7 @@
                               </VBox>
                               <VBox prefHeight="328.0" prefWidth="567.0" spacing="10.0">
                                  <children>
-                                    <Label fx:id="eventDescriptionLabel" alignment="TOP_LEFT" prefHeight="225.0" prefWidth="489.0" text="null" wrapText="true">
+                                    <Label fx:id="eventDescriptionLabel" alignment="TOP_LEFT" prefHeight="225.0" prefWidth="489.0" styleClass="secondary-color" text="null" wrapText="true">
                                        <font>
                                           <Font size="18.0" />
                                        </font>

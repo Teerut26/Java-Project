@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.EditTeam">
    <children>
-      <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
+      <BorderPane fx:id="parentBorderPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@../../style/dark-mode.css">
          <top>
             <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
                <children>
@@ -29,7 +29,7 @@
          <left>
             <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0">
+                  <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0" styleClass="primary-color">
                      <padding>
                         <Insets top="10.0" />
                      </padding>
@@ -38,11 +38,11 @@
             </AnchorPane>
          </left>
          <right>
-            <VBox prefHeight="651.0" prefWidth="956.0" spacing="5.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="651.0" prefWidth="956.0" spacing="5.0" style="-fx-background-color: #F8F8F8;" styleClass="primary-color" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 16; -fx-border-radius: 16;" styleClass="secondary-color">
                      <children>
-                        <Label maxWidth="1280.0" prefWidth="0.0" text="Edit Team" HBox.hgrow="ALWAYS">
+                        <Label maxWidth="1280.0" prefWidth="0.0" styleClass="secondary-color" text="Edit Team" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>
@@ -55,7 +55,7 @@
                         <Insets left="25.0" right="25.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="477.0" prefWidth="936.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                  <HBox prefHeight="477.0" prefWidth="936.0" style="-fx-background-radius: 16; -fx-border-radius: 16;" styleClass="secondary-color">
                      <children>
                         <VBox prefHeight="407.0" prefWidth="478.0" spacing="8.0">
                            <padding>
@@ -64,7 +64,7 @@
                            <children>
                               <HBox prefHeight="29.0" prefWidth="560.0" spacing="16.0">
                                  <children>
-                                    <Label text="Team Name">
+                                    <Label styleClass="secondary-color" text="Team Name">
                                        <font>
                                           <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
@@ -79,7 +79,7 @@
                                     <Insets left="20.0" />
                                  </VBox.margin>
                                  <children>
-                                    <TextField fx:id="teamNameEd" prefHeight="50.0" prefWidth="400.0" promptText="Team Name" styleClass="input">
+                                    <TextField fx:id="teamNameEd" prefHeight="50.0" prefWidth="400.0" promptText="Team Name" styleClass="input-color">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -88,7 +88,7 @@
                               </HBox>
                               <HBox prefHeight="23.0" prefWidth="560.0" spacing="16.0">
                                  <children>
-                                    <Label prefHeight="16.0" prefWidth="155.0" text="Quantity">
+                                    <Label prefHeight="16.0" prefWidth="155.0" styleClass="secondary-color" text="Quantity">
                                        <font>
                                           <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
@@ -100,7 +100,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="540.0">
                                  <children>
-                                    <TextField fx:id="quantityEd" prefHeight="50.0" prefWidth="400.0" promptText="Quantity" styleClass="input">
+                                    <TextField fx:id="quantityEd" prefHeight="50.0" prefWidth="400.0" promptText="Quantity" styleClass="input-color">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -120,13 +120,13 @@
                               </Label>
                               <HBox prefHeight="29.0" prefWidth="560.0" spacing="16.0">
                                  <children>
-                                    <Label text="Opening">
+                                    <Label styleClass="secondary-color" text="Opening">
                                        <font>
                                           <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
                                     </Label>
                                     <Pane prefHeight="24.0" prefWidth="123.0" />
-                                    <Label text="Deadline">
+                                    <Label styleClass="secondary-color" text="Deadline">
                                        <font>
                                           <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
@@ -138,24 +138,24 @@
                               </HBox>
                               <HBox alignment="TOP_CENTER" prefHeight="39.0" prefWidth="446.0">
                                  <children>
-                                    <DatePicker fx:id="DateOpeningDate" prefHeight="30.0" prefWidth="183.0" promptText="dd/mm/yyyy">
+                                    <DatePicker fx:id="DateOpeningDate" prefHeight="30.0" prefWidth="183.0" promptText="dd/mm/yyyy" styleClass="input-color">
                                        <HBox.margin>
                                           <Insets left="20.0" />
                                        </HBox.margin>
                                     </DatePicker>
                                     <Pane prefHeight="56.0" prefWidth="62.0" />
-                                    <DatePicker fx:id="DataDeadline" prefHeight="30.0" prefWidth="184.0" promptText="dd/mm/yyyy" />
+                                    <DatePicker fx:id="DataDeadline" prefHeight="30.0" prefWidth="184.0" promptText="dd/mm/yyyy" styleClass="input-color" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="35.0" prefWidth="446.0" spacing="16.0">
                                  <children>
-                                    <Label text="Time Start">
+                                    <Label styleClass="secondary-color" text="Time Start">
                                        <font>
                                           <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
                                     </Label>
                                     <Pane prefHeight="30.0" prefWidth="99.0" />
-                                    <Label text="Time End">
+                                    <Label styleClass="secondary-color" text="Time End">
                                        <font>
                                           <Font name="Hiragino Sans W6" size="20.0" />
                                        </font>
@@ -167,9 +167,9 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="39.0" prefWidth="433.0">
                                  <children>
-                                    <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="176.0" promptText="00:00:00" styleClass="input" />
+                                    <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="176.0" promptText="00:00:00" styleClass="input-color" />
                                     <Pane prefHeight="56.0" prefWidth="62.0" />
-                                    <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="168.0" promptText="00:00:00" styleClass="input" />
+                                    <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="168.0" promptText="00:00:00" styleClass="input-color" />
                                  </children>
                               </HBox>
                            </children>
@@ -182,7 +182,7 @@
                         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="16.0" style="-fx-background-radius: 16; -fx-border-radius: 16;" styleClass="secondary-color">
                      <children>
                         <Button mnemonicParsing="false" onAction="#onCancel" prefHeight="45.0" prefWidth="135.0" styleClass="btn-error" text="Cancel">
                            <font>

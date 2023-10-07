@@ -14,27 +14,23 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.schedule.AddScheduleParticipantController">
    <children>
-      <BorderPane prefHeight="720.0" prefWidth="1280.0">
+      <BorderPane fx:id="parentBorderPane" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/dark-mode.css">
          <top>
-            <HBox fx:id="NavBarHBox" alignment="CENTER_LEFT" maxWidth="1280.0" minWidth="1280.0" prefHeight="100.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets left="35.0" right="35.0" />
-               </padding>
-            </HBox>
+            <HBox fx:id="NavBarHBox" alignment="CENTER_LEFT" maxWidth="1332.0" minWidth="1280.0" prefHeight="100.0" prefWidth="1332.0" BorderPane.alignment="CENTER" />
          </top>
          <left>
-            <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0" styleClass="primary-color" BorderPane.alignment="CENTER">
                <padding>
                   <Insets top="10.0" />
                </padding>
             </VBox>
          </left>
          <right>
-            <VBox prefHeight="651.0" prefWidth="947.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="619.0" prefWidth="956.0" spacing="10.0" styleClass="primary-color" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="64.0" prefWidth="927.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                  <HBox prefHeight="64.0" prefWidth="927.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="secondary-color">
                      <children>
-                        <Label prefHeight="58.0" prefWidth="789.0" text=" Add Activities - Participant" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                        <Label prefHeight="58.0" prefWidth="789.0" styleClass="secondary-color" text=" Add Activities - Participant" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="40.0" />
                            </font>
@@ -52,9 +48,9 @@
                   </HBox>
                   <HBox prefHeight="469.0" prefWidth="927.0">
                      <children>
-                        <VBox prefHeight="442.0" prefWidth="927.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                        <VBox prefHeight="442.0" prefWidth="927.0" style="-fx-background-radius: 16; -fx-border-radius: 16;" styleClass="secondary-color">
                            <children>
-                              <Label prefHeight="42.0" prefWidth="67.0" text="Name">
+                              <Label prefHeight="42.0" prefWidth="67.0" styleClass="secondary-color" text="Name">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -64,7 +60,7 @@
                               </Label>
                               <HBox prefHeight="49.0" prefWidth="934.0">
                                  <children>
-                                    <TextField fx:id="TextFieldName" prefHeight="50.0" prefWidth="400.0" promptText="name" styleClass="input">
+                                    <TextField fx:id="TextFieldName" prefHeight="50.0" prefWidth="400.0" promptText="name" styleClass="input-color">
                                        <HBox.margin>
                                           <Insets left="29.0" />
                                        </HBox.margin>
@@ -74,7 +70,7 @@
                                     </TextField>
                                  </children>
                               </HBox>
-                              <Label prefHeight="42.0" prefWidth="67.0" text="Detail">
+                              <Label prefHeight="42.0" prefWidth="67.0" styleClass="secondary-color" text="Detail">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -84,7 +80,7 @@
                               </Label>
                               <HBox prefHeight="102.0" prefWidth="934.0">
                                  <children>
-                                    <TextField fx:id="TextFieldDetail" prefHeight="102.0" prefWidth="474.0" promptText="detail" styleClass="input">
+                                    <TextField fx:id="TextFieldDetail" prefHeight="102.0" prefWidth="474.0" promptText="detail" styleClass="input-color">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -96,26 +92,26 @@
                               </HBox>
                               <Pane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <DatePicker fx:id="dateEnd" layoutX="28.0" layoutY="140.0" promptText="dd/mm/yyyy" />
-                                    <Label layoutX="29.0" layoutY="98.0" prefHeight="42.0" prefWidth="119.0" text="Date End">
+                                    <DatePicker fx:id="dateEnd" layoutX="28.0" layoutY="140.0" promptText="dd/mm/yyyy" styleClass="input-color" />
+                                    <Label layoutX="29.0" layoutY="98.0" prefHeight="42.0" prefWidth="119.0" styleClass="secondary-color" text="Date End">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="dateStart" layoutX="30.0" layoutY="60.0" promptText="dd/mm/yyyy" />
-                                    <Label layoutX="31.0" layoutY="18.0" prefHeight="42.0" prefWidth="117.0" text="Date Start">
+                                    <DatePicker fx:id="dateStart" layoutX="30.0" layoutY="60.0" promptText="dd/mm/yyyy" styleClass="input-color" />
+                                    <Label layoutX="31.0" layoutY="18.0" prefHeight="42.0" prefWidth="117.0" styleClass="secondary-color" text="Date Start">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="timeStart" layoutX="292.0" layoutY="59.0" promptText="00:00:00" styleClass="input" />
-                                    <TextField fx:id="timeEnd" layoutX="293.0" layoutY="139.0" promptText="00:00:00" styleClass="input" />
-                                    <Label layoutX="294.0" layoutY="99.0" prefHeight="42.0" prefWidth="119.0" text="Time End">
+                                    <TextField fx:id="timeStart" layoutX="292.0" layoutY="59.0" promptText="00:00:00" styleClass="input-color" />
+                                    <TextField fx:id="timeEnd" layoutX="293.0" layoutY="139.0" promptText="00:00:00" styleClass="input-color" />
+                                    <Label layoutX="294.0" layoutY="99.0" prefHeight="42.0" prefWidth="119.0" styleClass="secondary-color" text="Time End">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="296.0" layoutY="19.0" prefHeight="42.0" prefWidth="117.0" text="Time Start">
+                                    <Label layoutX="296.0" layoutY="19.0" prefHeight="42.0" prefWidth="117.0" styleClass="secondary-color" text="Time Start">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -129,7 +125,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="74.0" prefWidth="927.0" spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16;">
+                  <HBox alignment="CENTER" prefHeight="74.0" prefWidth="927.0" spacing="16.0" style="-fx-background-radius: 16; -fx-border-radius: 16;" styleClass="secondary-color">
                      <children>
                         <Button mnemonicParsing="false" onAction="#onCancel" prefHeight="45.0" prefWidth="135.0" styleClass="btn-error" text="Cancel">
                            <font>
