@@ -28,8 +28,12 @@
     -fx-text-fill: #000000 !important;
 }
 
-
-
+.side-bar-button{
+    -fx-background-radius: 10;
+    -fx-background-color: #FAF2E3;
+    -fx-border-color: #ECBF73;
+    -fx-border-radius: 10;
+}
 
 .navbar{
     -fx-background-color: #EAA807 !important;

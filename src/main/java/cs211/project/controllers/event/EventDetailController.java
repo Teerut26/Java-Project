@@ -56,8 +56,8 @@ public class EventDetailController extends ComponentRegister {
 
         this.setContent();
 
-        this.initializeThemeMode();
-        this.initializeFont();
+//        this.initializeThemeMode();
+//        this.initializeFont();
     }
 
 

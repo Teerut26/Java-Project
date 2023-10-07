@@ -30,6 +30,14 @@
     -fx-text-fill: #ffffff !important;
 }
 
+.side-bar-button{
+    -fx-background-color: #b2b2b2 !important;
+    -fx-border-color: #EAA807 !important;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-text-fill: #000000;
+}
+
 .navbar{
     -fx-background-color: #EAA807 !important;
     -fx-text-fill: #ffffff !important;

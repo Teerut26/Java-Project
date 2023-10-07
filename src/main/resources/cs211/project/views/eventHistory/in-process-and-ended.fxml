@@ -64,7 +64,7 @@
                                  <children>
                                     <ScrollPane fx:id="inprocessEventListScrollPane" prefHeight="530.0" prefWidth="939.0" styleClass="secondary-color">
                                        <content>
-                                          <VBox fx:id="vBoxEventlistInProcess" prefHeight="528.0" prefWidth="931.0" spacing="15.0" styleClass="secondary-color">
+                                          <VBox fx:id="vBoxEventlistInProcess" minHeight="528.0" minWidth="931.0" spacing="15.0" styleClass="secondary-color">
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
@@ -81,7 +81,7 @@
                                  <children>
                                     <ScrollPane fx:id="endedEventListScrollPane" prefHeight="530.0" prefWidth="939.0" styleClass="secondary-color">
                                        <content>
-                                          <VBox fx:id="vBoxEventlistEnded" prefHeight="528.0" prefWidth="931.0" spacing="15.0" styleClass="secondary-color">
+                                          <VBox fx:id="vBoxEventlistEnded" minHeight="528.0" minWidth="931.0" spacing="15.0" styleClass="secondary-color">
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                              </padding>
