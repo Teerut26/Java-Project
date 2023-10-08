@@ -9,6 +9,8 @@ import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
+import cs211.project.services.datasource.TeamFileListDatasource;
+import cs211.project.services.deleterelated.DeleteyRelatedOfPrimaryKeyEvent;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.utils.ImageSaver;
 import cs211.project.utils.TimeValidate;
@@ -23,6 +25,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 public class EditEventDetailFormController extends ComponentRegister {
     @FXML
@@ -60,7 +63,6 @@ public class EditEventDetailFormController extends ComponentRegister {
 
     @FXML
     public void initialize() {
-
         routeProvider = (RouteProvider) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
@@ -68,7 +70,7 @@ public class EditEventDetailFormController extends ComponentRegister {
         this.eventFileListDatesource = new EventFileListDatesource();
         this.eventCollection = eventFileListDatesource.readData();
 
-        this.event = routeProvider.getData();
+        this.event = eventCollection.findById(((Event)routeProvider.getData()).getEventID());
 
         this.showCurrentData();
         this.initializeThemeMode();
@@ -157,7 +159,6 @@ public class EditEventDetailFormController extends ComponentRegister {
     @FXML
     public void onSave() {
         ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
-//        Event newEvent = new Event();
         if (imageSaver != null) {
             imageSaver.saveImage();
             this.event.setImageEvent("data/images/event/"+ this.event.getEventID() + "."+ imageSaver.extention);
@@ -170,13 +171,13 @@ public class EditEventDetailFormController extends ComponentRegister {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Invalid Time");
-            alert.setContentText("Please enter a valid time according to pattern 00:00:00");
+            alert.setContentText("Please enter a valid time according to pattern 00:00");
             alert.show();
             return;
         }
 
-        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
-        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute(), timeEndUtils.getSecond());
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute());
 
         this.event.setNameEvent(TextFieldName.getText());
         this.event.setDescriptionEvent(TextAreaDescription.getText());
@@ -205,8 +206,36 @@ public class EditEventDetailFormController extends ComponentRegister {
         }
     }
 
+    public  void navigateToMyEvent(){
+        try{
+            FXRouter.goTo("my-event", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @FXML
     public void onCancel() {
         navigateToSetEvent();
+    }
+
+    @FXML
+    private void onDelete(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Event");
+        alert.setHeaderText("Are you sure you want to delete this event?");
+        alert.setContentText("This action cannot be undone.");
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.OK) {
+            DeleteyRelatedOfPrimaryKeyEvent deleteyRelatedOfPrimaryKeyEvent = new DeleteyRelatedOfPrimaryKeyEvent(this.event);
+            deleteyRelatedOfPrimaryKeyEvent.delete();
+
+            eventCollection.remove(this.event);
+            eventFileListDatesource.writeData(eventCollection);
+
+            navigateToMyEvent();
+        }
+
     }
 }

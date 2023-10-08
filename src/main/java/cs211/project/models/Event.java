@@ -5,6 +5,7 @@ import cs211.project.models.collections.UserCollection;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Event {
     private String eventID;
@@ -54,14 +55,12 @@ public class Event {
     private void setTimeToLocalDateTime() {
         String hourStart = String.valueOf(this.startDate.getHour());
         String minuteStart = String.valueOf(this.startDate.getMinute());
-        String secondStart = String.valueOf(this.startDate.getSecond());
 
         String hourEnd = String.valueOf(this.endDate.getHour());
         String minuteEnd = String.valueOf(this.endDate.getMinute());
-        String secondEnd = String.valueOf(this.endDate.getSecond());
 
-        this.startTimeEvent = hourStart + ":" + minuteStart + ":" + secondStart;
-        this.endTimeEvent = hourEnd + ":" + minuteEnd+ ":" + secondEnd;
+        this.startTimeEvent = hourStart + ":" + minuteStart;
+        this.endTimeEvent = hourEnd + ":" + minuteEnd;
     }
 
     public Event() {}
@@ -196,8 +195,15 @@ public class Event {
 
     @Override
     public boolean equals(Object o) {
-        Event that = (Event) o;
-        return this.eventID.equals(that.eventID);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return eventID.equals(event.eventID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eventID);
     }
 
     @Override

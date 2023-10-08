@@ -66,5 +66,23 @@ public class TeamCollection {
         return null;
     }
 
+    public TeamCollection findByEvent(Event event) {
+        TeamCollection teamCollection = new TeamCollection();
+        for (int i = 0; i < this.teams.size(); i++) {
+            if (this.teams.get(i).getEvent().equals(event)) {
+                teamCollection.add(this.teams.get(i));
+            }
+        }
+        return teamCollection;
+    }
+
+    public void removeByEvent(Event event) {
+        for (int i = 0; i < this.teams.size(); i++) {
+            System.out.println(this.teams.get(i));
+            if (this.teams.get(i).getEvent().equals(event)) {
+                this.teams.remove(i);
+            }
+        }
+    }
 
 }

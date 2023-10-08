@@ -148,7 +148,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="timeStart" prefHeight="26.0" prefWidth="130.0" promptText="00:00:00" styleClass="input-color" />
+                                          <TextField fx:id="timeStart" prefHeight="26.0" prefWidth="130.0" promptText="00:00" />
                                        </children>
                                     </VBox>
                                     <Pane prefHeight="49.0" prefWidth="49.0" />
@@ -159,7 +159,7 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="timeEnd" prefHeight="26.0" prefWidth="130.0" promptText="00:00:00" styleClass="input-color" />
+                                          <TextField fx:id="timeEnd" prefHeight="26.0" prefWidth="130.0" promptText="00:00" />
                                        </children>
                                     </VBox>
                                     <Pane prefHeight="49.0" prefWidth="19.0" />
@@ -188,7 +188,13 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="16.0" style="-fx-background-radius: 16; -fx-border-radius: 16;" styleClass="secondary-color">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onCancel" prefHeight="45.0" prefWidth="135.0" styleClass="btn-error" text="cancel">
+                        <Button mnemonicParsing="false" onAction="#onCancel" prefHeight="45.0" prefWidth="135.0" styleClass="btn-secondary" text="cancel">
+                           <font>
+                              <Font name="Hiragino Sans W6" size="24.0" />
+                           </font>
+                        </Button>
+                        <Pane prefHeight="63.0" prefWidth="26.0" />
+                        <Button mnemonicParsing="false" onAction="#onDelete" prefHeight="45.0" prefWidth="135.0" styleClass="btn-error" text="Delete">
                            <font>
                               <Font name="Hiragino Sans W6" size="24.0" />
                            </font>
