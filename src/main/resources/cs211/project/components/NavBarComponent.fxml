@@ -11,12 +11,20 @@
 
 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1280.0" styleClass="bg-primary" stylesheets="@../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.components.NavBarComponentController">
    <children>
-      <Label prefHeight="46.0" prefWidth="459.0" text="Event Manager">
+      <Label prefHeight="46.0" prefWidth="120.0" text="Event">
          <font>
             <Font name="Verdana Bold" size="36.0" />
          </font>
       </Label>
-      <Pane prefHeight="100.0" prefWidth="562.0" />
+      <Label style="-fx-background-color: #262626; -fx-background-radius: 8px;" text="hub" textFill="#eaa807">
+         <font>
+            <Font name="Verdana Bold" size="36.0" />
+         </font>
+         <padding>
+            <Insets left="4.0" right="4.0" />
+         </padding>
+      </Label>
+      <Pane prefHeight="100.0" prefWidth="682.0" HBox.hgrow="ALWAYS" />
       <Circle fx:id="userProfileCircle" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
       <Pane prefHeight="100.0" prefWidth="31.0" />
       <Text fx:id="username" onMouseClicked="#goToProfile" strokeType="OUTSIDE" strokeWidth="0.0" text="Teerut">
