@@ -30,8 +30,8 @@
 
 .side-bar-button{
     -fx-background-radius: 10;
-    -fx-background-color: #FAF2E3;
-    -fx-border-color: #ECBF73;
+    -fx-background-color: #FAF2E3 !important;
+    -fx-border-color: #ECBF73 !important;
     -fx-border-radius: 10;
 }
 
