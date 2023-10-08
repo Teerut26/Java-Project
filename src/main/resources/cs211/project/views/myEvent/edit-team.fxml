@@ -167,9 +167,9 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="39.0" prefWidth="433.0">
                                  <children>
-                                    <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="176.0" promptText="00:00:00" styleClass="input-color" />
+                                    <TextField fx:id="timeStart" prefHeight="30.0" prefWidth="176.0" promptText="00:00" styleClass="input" />
                                     <Pane prefHeight="56.0" prefWidth="62.0" />
-                                    <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="168.0" promptText="00:00:00" styleClass="input-color" />
+                                    <TextField fx:id="timeEnd" prefHeight="30.0" prefWidth="168.0" promptText="00:00" styleClass="input" />
                                  </children>
                               </HBox>
                            </children>

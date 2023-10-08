@@ -18,7 +18,7 @@ public class TimeValidate {
     }
 
     public boolean validate() {
-        String timePattern = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$";
+        String timePattern = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]|[0-9])$";
         Pattern pattern = Pattern.compile(timePattern);
         Matcher matcher = pattern.matcher(this.timeInput);
         return matcher.matches();
@@ -34,11 +34,6 @@ public class TimeValidate {
         return Integer.parseInt(time[1]);
     }
 
-    public Integer getSecond() {
-        String[] time = this.timeInput.split(":");
-        return Integer.parseInt(time[2]);
-    }
-
     public void addHour(Integer hour) {
         refLocalDateTime = refLocalDateTime.plusHours(hour);
     }
@@ -47,14 +42,10 @@ public class TimeValidate {
         refLocalDateTime = refLocalDateTime.plusMinutes(minute);
     }
 
-    public void addSecond(Integer second) {
-        refLocalDateTime = refLocalDateTime.plusSeconds(second);
-    }
 
-    public void addTime(Integer hour, Integer minute, Integer second) {
+    public void addTime(Integer hour, Integer minute) {
         refLocalDateTime = refLocalDateTime.plusHours(hour);
         refLocalDateTime = refLocalDateTime.plusMinutes(minute);
-        refLocalDateTime = refLocalDateTime.plusSeconds(second);
     }
 
     public String getTimeInput() {

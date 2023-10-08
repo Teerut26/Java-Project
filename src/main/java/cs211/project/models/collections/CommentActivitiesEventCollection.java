@@ -1,5 +1,6 @@
 package cs211.project.models.collections;
 
+import cs211.project.models.ActivitiesEvent;
 import cs211.project.models.Comment;
 import cs211.project.models.CommentActivitiesEvent;
 
@@ -22,5 +23,17 @@ public class CommentActivitiesEventCollection {
 
     public void setComments(ArrayList<CommentActivitiesEvent> comments) {
         this.comments = comments;
+    }
+
+    public void remove(CommentActivitiesEvent comment) {
+        this.comments.remove(comment);
+    }
+
+    public void removeByActivitiesEvent(ActivitiesEvent activitiesEvent) {
+        for (int i = 0; i < this.comments.size(); i++) {
+            if (this.comments.get(i).getActivitiesEvent().equals(activitiesEvent)) {
+                this.comments.remove(i);
+            }
+        }
     }
 }
