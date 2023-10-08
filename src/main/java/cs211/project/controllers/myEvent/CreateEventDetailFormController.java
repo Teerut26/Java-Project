@@ -155,9 +155,15 @@ public class CreateEventDetailFormController extends ComponentRegister {
 
         clearField();
 
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Event Created");
+        alert.setContentText("Event has been created successfully");
+        alert.showAndWait();
         try {
             FXRouter.goTo("my-event",this.routeProvider);
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

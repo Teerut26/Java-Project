@@ -120,9 +120,27 @@ public class EditEventDetailFormController extends ComponentRegister {
         publicCheckBox.setSelected(event.isPublic());
         Image image = new Image("file:" + event.getImageEvent());
         addImage.setImage(image);
-        timeStart.setText(event.getStartTimeEvent());
-        timeEnd.setText(event.getEndTimeEvent());
+        timeStart.setText(formatTime(event.getStartTimeEvent()));
+        timeEnd.setText(formatTime(event.getEndTimeEvent()));
     }
+
+    public String formatTime(String time) {
+        String[] timeArr = time.split(":");
+        String hour = timeArr[0];
+        String minute = timeArr[1];
+        String second = timeArr[2];
+        if (hour.length() == 1) {
+            hour = "0" + hour;
+        }
+        if (minute.length() == 1) {
+            minute = "0" + minute;
+        }
+        if (second.length() == 1) {
+            second = "0" + second;
+        }
+        return hour + ":" + minute + ":" + second;
+    }
+
 
     @FXML
     public void importImage(ActionEvent event) {
@@ -171,7 +189,13 @@ public class EditEventDetailFormController extends ComponentRegister {
         eventCollection.update(this.event);
         eventFileListDatesource.writeData(eventCollection);
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Event Updated");
+        alert.setContentText("Event has been updated successfully");
+        alert.showAndWait();
         navigateToSetEvent();
+
     }
     public void navigateToSetEvent(){
         try{

@@ -117,24 +117,51 @@ public class EditTeam extends ComponentRegister {
         quantityEd.setText(String.valueOf(team.getQuantity()));
         DateOpeningDate.setValue(team.getStartRecruitDate().toLocalDate());
         DataDeadline.setValue(team.getEndRecruitDate().toLocalDate());
-        timeStart.setText(team.getStartTimeTeam());
-        timeEnd.setText(team.getEndTimeTeam());
+        timeStart.setText(formatTime(team.getStartTimeTeam()));
+        timeEnd.setText(formatTime(team.getEndTimeTeam()));
+    }
+
+    public String formatTime(String time) {
+        String[] timeArr = time.split(":");
+        String hour = timeArr[0];
+        String minute = timeArr[1];
+        String second = timeArr[2];
+        if (hour.length() == 1) {
+            hour = "0" + hour;
+        }
+        if (minute.length() == 1) {
+            minute = "0" + minute;
+        }
+        if (second.length() == 1) {
+            second = "0" + second;
+        }
+        return hour + ":" + minute + ":" + second;
     }
 
     @FXML
     void onSave(ActionEvent event) {
         try {
             Integer.parseInt(quantityEd.getText());
-            editTeam();
+            Boolean status = editTeam();
+            if (!status) {
+                return;
+            }
             teamCollection.update(this.team);
             teamFileListDatasource.writeData(teamCollection);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Team Edited");
+            alert.setContentText("Team has been edited successfully");
+            alert.showAndWait();
+
             navigateToSetEvent();
         } catch (NumberFormatException e) {
             errorLabel.setText("quantity must be number");
         }
     }
 
-    private void editTeam() {
+    private Boolean editTeam() {
 
         TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), DateOpeningDate.getValue().atStartOfDay());
         TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), DataDeadline.getValue().atStartOfDay());
@@ -145,7 +172,7 @@ public class EditTeam extends ComponentRegister {
             alert.setHeaderText("Invalid Time");
             alert.setContentText("Please enter a valid time according to pattern 00:00:00");
             alert.show();
-            return;
+            return false;
         }
 
         timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
@@ -155,6 +182,8 @@ public class EditTeam extends ComponentRegister {
         team.setQuantity(Integer.parseInt(quantityEd.getText()));
         team.setEndRecruitDate(timeEndUtils.getRefLocalDateTime());
         team.setStartRecruitDate(timeStartUtils.getRefLocalDateTime());
+
+        return true;
     }
 
     private void navigateToSetEvent() {

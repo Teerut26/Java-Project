@@ -129,6 +129,12 @@ public class AddScheduleParticipantController extends ComponentRegister {
         dateStart.setValue(null);
         dateEnd.setValue(null);
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Create New Activities Participant");
+          alert.setContentText("New Activities Participant has been created");
+        alert.showAndWait();
+
         try {
             FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (IOException e) {

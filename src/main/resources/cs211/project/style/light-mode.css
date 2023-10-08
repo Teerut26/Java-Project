@@ -38,5 +38,7 @@
 .navbar{
     -fx-background-color: #EAA807 !important;
     -fx-text-fill: #ffffff !important;
+    -fx-font-family: Verdana !important;
+    -fx-font-weight: bold !important;
 }
 

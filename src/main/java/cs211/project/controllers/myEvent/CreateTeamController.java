@@ -116,9 +116,17 @@ public class CreateTeamController extends ComponentRegister {
             teamCollection.add(newTeam);
             teamFileListDatasource.writeData(teamCollection);
             clearField();
+
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Team Created");
+            alert.setContentText("Team Created Successfully");
+            alert.showAndWait();
             navigateToEventDetail();
         } catch (NumberFormatException e) {
             errorLabel.setText("quantity must be number");
+
         }
     }
 

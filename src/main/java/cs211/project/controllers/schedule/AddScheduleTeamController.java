@@ -127,6 +127,11 @@ public class AddScheduleTeamController extends ComponentRegister {
         activitiesTeamCollection.add(newActivitiesTeam);
         activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Create new Activities Team");
+        alert.setContentText("Create new Activities Team successfully");
+        alert.showAndWait();
 
         try {
             FXRouter.goTo("event-team-detail",this.routeProvider);

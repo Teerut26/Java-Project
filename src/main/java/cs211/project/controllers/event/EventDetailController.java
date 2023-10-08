@@ -2,6 +2,7 @@ package cs211.project.controllers.event;
 
 import cs211.project.models.Event;
 import cs211.project.models.ManyToMany;
+import cs211.project.models.User;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.ManyToManyCollection;
 import cs211.project.models.collections.UserCollection;
@@ -10,6 +11,7 @@ import cs211.project.services.FXRouter;
 import cs211.project.services.ManyToManyManager;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.services.datasource.ManyToManyFileListDatasource;
+import cs211.project.services.datasource.UserFileListDatasource;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.services.RouteProvider;
 import javafx.fxml.FXML;
@@ -42,6 +44,8 @@ public class EventDetailController extends ComponentRegister {
     @FXML
     private Label eventTime;
     @FXML
+    private Label UserOwnerLabel;
+    @FXML
     private Label maxUserAmount;
     private Event event;
     private RouteProvider<Event> routeProvider;
@@ -66,6 +70,8 @@ public class EventDetailController extends ComponentRegister {
         if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
+
+
         }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
@@ -105,6 +111,14 @@ public class EventDetailController extends ComponentRegister {
         this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
         Image img = new Image("file:" + event.getImageEvent());
         this.eventImage.setFill(new ImagePattern(img));
+
+
+
+        UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
+        UserCollection userCollection = userFileListDatasource.readData();
+        User user = userCollection.findById(event.getOwner().getId());
+        this.UserOwnerLabel.setText(user.getNameUser());
+
     }
 
     @FXML

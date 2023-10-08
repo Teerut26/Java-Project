@@ -69,6 +69,12 @@
                                           <Font name="Hiragino Sans W6" size="13.0" />
                                        </font>
                                     </Label>
+                                    <HBox prefHeight="26.0" prefWidth="296.0">
+                                       <children>
+                                          <Label styleClass="secondary-color" text="Created By: " />
+                                          <Label fx:id="UserOwnerLabel" styleClass="secondary-color" text="Label" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
                               <VBox prefHeight="328.0" prefWidth="567.0" spacing="10.0">

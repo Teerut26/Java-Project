@@ -173,6 +173,28 @@
                                  </children>
                               </HBox>
                               <Pane prefHeight="19.0" prefWidth="604.0" />
+<!--                              <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="604.0" styleClass="*">-->
+<!--                                 <children>-->
+<!--                                    <Label prefHeight="32.0" prefWidth="140.0" styleClass="secondary-color" text="Font size" textAlignment="RIGHT">-->
+<!--                                       <font>-->
+<!--                                          <Font name="Hiragino Sans W6" size="20.0" />-->
+<!--                                       </font>-->
+<!--                                       <HBox.margin>-->
+<!--                                          <Insets left="10.0" />-->
+<!--                                       </HBox.margin>-->
+<!--                                    </Label>-->
+<!--                                    <ComboBox fx:id="fontComboBox1" onAction="#onSelectFont" prefWidth="150.0" promptText="select font" />-->
+<!--                                    <Label fx:id="fontSelectChangeLabel1" text="change ara not saving" textFill="#ff0101">-->
+<!--                                       <font>-->
+<!--                                          <Font size="12.0" />-->
+<!--                                       </font>-->
+<!--                                       <padding>-->
+<!--                                          <Insets left="10.0" />-->
+<!--                                       </padding>-->
+<!--                                    </Label>-->
+<!--                                 </children>-->
+<!--                              </HBox>-->
+<!--                              <Pane prefHeight="19.0" prefWidth="604.0" />-->
                               <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="604.0">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#onChangePasswordClick" prefHeight="50.0" prefWidth="221.0" styleClass="btn-primary-active" text="Change Password">

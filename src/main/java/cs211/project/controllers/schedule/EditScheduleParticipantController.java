@@ -126,6 +126,12 @@ public class EditScheduleParticipantController extends ComponentRegister {
         activitiesEventCollection.update(activitiesEvent);
         activitiesEventFileListDatesource.writeData(activitiesEventCollection);
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Edit Activities Participant Success");
+        alert.setContentText("Edit Activities Participant Success");
+        alert.showAndWait();
+
         try {
             FXRouter.goTo("set-event-detail",this.routeProvider);
         } catch (IOException e) {

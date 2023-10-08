@@ -44,7 +44,7 @@
                            </font>
                         </Label>
                         <Pane prefHeight="19.0" prefWidth="16.0" />
-                        <Label fx:id="eventLocation" text="location" />
+                        <Label fx:id="eventLocation" styleClass="primary-color" text="location" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />

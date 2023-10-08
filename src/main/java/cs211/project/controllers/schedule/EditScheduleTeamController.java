@@ -127,6 +127,12 @@ public class EditScheduleTeamController extends ComponentRegister {
 
         activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Edit Activities Team Success");
+        alert.setContentText("Edit Activities Team Success");
+        alert.showAndWait();
+
         try {
             FXRouter.goTo("event-team-detail",this.routeProvider);
         } catch (IOException e) {
