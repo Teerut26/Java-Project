@@ -86,13 +86,13 @@
                                     </Label>
                                     <HBox prefHeight="44.0" prefWidth="499.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#onJoin" prefHeight="55.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
+                                          <Button fx:id="joinButton" mnemonicParsing="false" onAction="#onJoin" prefHeight="55.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
                                              <font>
                                                 <Font name="Hiragino Sans W7" size="16.0" />
                                              </font>
                                           </Button>
                                           <Pane prefHeight="44.0" prefWidth="17.0" />
-                                          <Button mnemonicParsing="false" onAction="#goToTeamList" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="Join team">
+                                          <Button fx:id="joinTeamButton" mnemonicParsing="false" onAction="#goToTeamList" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="Join team">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>

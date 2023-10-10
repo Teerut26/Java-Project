@@ -70,47 +70,45 @@ public class EditEventDetailFormController extends ComponentRegister {
         this.eventFileListDatesource = new EventFileListDatesource();
         this.eventCollection = eventFileListDatesource.readData();
 
-        this.event = eventCollection.findById(((Event)routeProvider.getData()).getEventID());
+        this.event = eventCollection.findById(((Event) routeProvider.getData()).getEventID());
 
         this.showCurrentData();
         this.initializeThemeMode();
         this.initializeFont();
     }
 
-
     @FXML
-    public void initializeThemeMode(){
+    public void initializeThemeMode() {
         System.out.println("InitializeThemeMode" + this.routeProvider.getUserSession().getThemeMode());
-        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
-        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+        } else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
         }
     }
 
     @FXML
-    public void initializeFont(){
-        String currentFont =this.routeProvider.getUserSession().getFont();
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
         clearFontStyle();
-        if (currentFont.equals("font-style1")){
+        if (currentFont.equals("font-style1")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
-        }else if (currentFont.equals("font-style2")){
+        } else if (currentFont.equals("font-style2")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
-        }else if (currentFont.equals("font-style3")){
+        } else if (currentFont.equals("font-style3")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
         }
 
     }
 
     @FXML
-    public void clearFontStyle(){
+    public void clearFontStyle() {
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
-
 
     public void showCurrentData() {
         TextFieldName.setText(event.getNameEvent());
@@ -130,19 +128,15 @@ public class EditEventDetailFormController extends ComponentRegister {
         String[] timeArr = time.split(":");
         String hour = timeArr[0];
         String minute = timeArr[1];
-        String second = timeArr[2];
         if (hour.length() == 1) {
             hour = "0" + hour;
         }
         if (minute.length() == 1) {
             minute = "0" + minute;
         }
-        if (second.length() == 1) {
-            second = "0" + second;
-        }
-        return hour + ":" + minute + ":" + second;
-    }
 
+        return hour + ":" + minute;
+    }
 
     @FXML
     public void importImage(ActionEvent event) {
@@ -161,7 +155,7 @@ public class EditEventDetailFormController extends ComponentRegister {
         ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
         if (imageSaver != null) {
             imageSaver.saveImage();
-            this.event.setImageEvent("data/images/event/"+ this.event.getEventID() + "."+ imageSaver.extention);
+            this.event.setImageEvent("data/images/event/" + this.event.getEventID() + "." + imageSaver.extention);
         }
 
         TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), DataTimeStart.getValue().atStartOfDay());
@@ -198,16 +192,17 @@ public class EditEventDetailFormController extends ComponentRegister {
         navigateToSetEvent();
 
     }
-    public void navigateToSetEvent(){
-        try{
+
+    public void navigateToSetEvent() {
+        try {
             FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public  void navigateToMyEvent(){
-        try{
+    public void navigateToMyEvent() {
+        try {
             FXRouter.goTo("my-event", this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -220,7 +215,7 @@ public class EditEventDetailFormController extends ComponentRegister {
     }
 
     @FXML
-    private void onDelete(){
+    private void onDelete() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Event");
         alert.setHeaderText("Are you sure you want to delete this event?");
@@ -228,7 +223,8 @@ public class EditEventDetailFormController extends ComponentRegister {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.OK) {
-            DeleteyRelatedOfPrimaryKeyEvent deleteyRelatedOfPrimaryKeyEvent = new DeleteyRelatedOfPrimaryKeyEvent(this.event);
+            DeleteyRelatedOfPrimaryKeyEvent deleteyRelatedOfPrimaryKeyEvent = new DeleteyRelatedOfPrimaryKeyEvent(
+                    this.event);
             deleteyRelatedOfPrimaryKeyEvent.delete();
 
             eventCollection.remove(this.event);

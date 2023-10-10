@@ -14,10 +14,7 @@ import cs211.project.utils.ComponentRegister;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -54,12 +51,33 @@ public class JoinEventController extends ComponentRegister {
     private Event event;
     private RouteProvider<Event> routeProvider;
 
+    private Boolean isSuspending = false;
+    @FXML
+    private Label suspendLabel;
+
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.event = routeProvider.getData();
+
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
+        Boolean isSuspend =   manyToManyManager.checkIsExisted(new ManyToMany(routeProvider.getUserSession().getId(),event.getEventID()));
+        if(isSuspend){
+            this.isSuspending = true;
+            suspendLabel.setVisible(true);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setHeaderText("You are suspended from this event");
+            alert.setContentText("You can't see any activity in this event");
+            alert.showAndWait();
+
+        }else{
+            this.isSuspending = false;
+            suspendLabel.setVisible(false);
+        }
+
         this.setContent();
 
         activitiesTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ActivitiesEvent>() {
@@ -79,9 +97,16 @@ public class JoinEventController extends ComponentRegister {
 
         });
 
+
         this.initializeThemeMode();
         this.initializeFont();
+
+
     }
+
+
+
+
 
 
     @FXML
@@ -125,6 +150,7 @@ public class JoinEventController extends ComponentRegister {
         Image img = new Image("file:" + event.getImageEvent());
         this.eventImage.setFill(new ImagePattern(img));
         this.showTableMember();
+
         this.showTableActivities();
     }
 
@@ -135,9 +161,8 @@ public class JoinEventController extends ComponentRegister {
 
         UserCollection newUserCollection = new UserCollection();
         userCollection.getUsers().forEach((user) -> {
-            boolean isSuspend = manyToManyCollection.findsByA(user.getId()).size() > 0;
             boolean isJoin = manyToManyCollectionUserEvent.checkIsExisted(new ManyToMany(user.getId(), event.getEventID()));
-            if (!isSuspend && isJoin) {
+            if ( isJoin) {
                 newUserCollection.add(user);
             }
         });
@@ -173,6 +198,10 @@ public class JoinEventController extends ComponentRegister {
         activitiesTableView.getColumns().add(startDateColumn);
         activitiesTableView.getColumns().add(endDateColumn);
         activitiesTableView.getItems().clear();
+
+        if (this.isSuspending){
+            return;
+        }
         for (ActivitiesEvent activitiesEvent : activitiesEventCollection.getActivitiesArrayList()) {
             activitiesTableView.getItems().add(activitiesEvent);
         }

@@ -74,43 +74,39 @@ public class EditTeam extends ComponentRegister {
         this.initializeFont();
     }
 
-
     @FXML
-    public void initializeThemeMode(){
+    public void initializeThemeMode() {
         System.out.println("InitializeThemeMode" + this.routeProvider.getUserSession().getThemeMode());
-        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
-        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+        } else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
         }
 
-
-
     }
 
     @FXML
-    public void initializeFont(){
-        String currentFont =this.routeProvider.getUserSession().getFont();
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
         clearFontStyle();
-        if (currentFont.equals("font-style1")){
+        if (currentFont.equals("font-style1")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
-        }else if (currentFont.equals("font-style2")){
+        } else if (currentFont.equals("font-style2")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
-        }else if (currentFont.equals("font-style3")){
+        } else if (currentFont.equals("font-style3")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
         }
 
     }
 
     @FXML
-    public void clearFontStyle(){
+    public void clearFontStyle() {
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
-
 
     public void showCurrentData() {
         teamNameEd.setText(team.getName());
@@ -125,17 +121,14 @@ public class EditTeam extends ComponentRegister {
         String[] timeArr = time.split(":");
         String hour = timeArr[0];
         String minute = timeArr[1];
-        String second = timeArr[2];
         if (hour.length() == 1) {
             hour = "0" + hour;
         }
         if (minute.length() == 1) {
             minute = "0" + minute;
         }
-        if (second.length() == 1) {
-            second = "0" + second;
-        }
-        return hour + ":" + minute + ":" + second;
+
+        return hour + ":" + minute;
     }
 
     @FXML

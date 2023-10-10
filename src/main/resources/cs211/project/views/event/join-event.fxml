@@ -165,11 +165,12 @@
                                     <Font name="Hiragino Sans W6" size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="20.0" layoutY="442.0" styleClass="primary-color" text="Activities List">
+                              <Label contentDisplay="RIGHT" layoutX="20.0" layoutY="442.0" styleClass="primary-color" text="Activities List">
                                  <font>
                                     <Font name="Hiragino Sans W6" size="18.0" />
                                  </font>
                               </Label>
+                              <Label fx:id="suspendLabel" contentDisplay="RIGHT" layoutX="158.0" layoutY="443.0" text="You can't see any activity in this event because you are suspended from this event" textFill="RED" />
                            </children>
                         </AnchorPane>
                      </content>

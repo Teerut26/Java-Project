@@ -5,17 +5,20 @@ import cs211.project.models.ManyToMany;
 import cs211.project.models.User;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.ManyToManyCollection;
+import cs211.project.models.collections.TeamCollection;
 import cs211.project.models.collections.UserCollection;
 import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.ManyToManyManager;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.services.datasource.ManyToManyFileListDatasource;
+import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.services.datasource.UserFileListDatasource;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.services.RouteProvider;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -47,8 +50,14 @@ public class EventDetailController extends ComponentRegister {
     private Label UserOwnerLabel;
     @FXML
     private Label maxUserAmount;
+    @FXML
+    private Button joinButton;
+    @FXML
+    private Button joinTeamButton;
     private Event event;
     private RouteProvider<Event> routeProvider;
+
+    private Boolean isJoinTeam = false;
 
     @FXML
     public void initialize() {
@@ -59,9 +68,10 @@ public class EventDetailController extends ComponentRegister {
         this.event = routeProvider.getData();
 
         this.setContent();
+ this.checkJoinTeam();
 
-//        this.initializeThemeMode();
-//        this.initializeFont();
+        this.initializeThemeMode();
+        this.initializeFont();
     }
 
 
@@ -151,6 +161,32 @@ public class EventDetailController extends ComponentRegister {
             throw new RuntimeException(e);
         }
     }
+
+    public void checkJoinTeam(){
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
+        TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
+        TeamCollection teamCollection = teamFileListDatasource.readData().findByEvent(this.event);
+        teamCollection.getTeams().forEach(team -> {
+            if (manyToManyManager.checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), team.getId()))){
+                joinButton.setVisible(false);
+                this.isJoinTeam = true;
+            }
+        });
+
+
+
+        Boolean haveTeam= manyToManyManager.checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), this.event.getEventID()));
+        if (haveTeam){
+            joinButton.setVisible(false);
+            joinTeamButton.setVisible(true);
+
+        }else{
+            joinButton.setVisible(true);
+            joinTeamButton.setVisible(true);
+        }
+    }
+
+
     @FXML
     public void goToTeamList () {
 //        if (this.routeProvider.getUserSession().getId().equals(this.event.getOwner().getId())) {

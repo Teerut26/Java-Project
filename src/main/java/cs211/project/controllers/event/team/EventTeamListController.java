@@ -323,6 +323,7 @@ public class EventTeamListController extends ComponentRegister {
 
     }
 
+
     private void setStatusJoinInTable () {
         teamTableView.getItems().clear();
         for (Team team : teamForTableView.getTeams()) {
@@ -340,6 +341,16 @@ public class EventTeamListController extends ComponentRegister {
     public String formateDate (LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return localDateTime.format(formatter);
+    }
+
+    @FXML
+    public void onClickButtonViewTeam() {
+        try {
+            routeProvider.addHashMap("teamJoined", this.currentTeamSelect);
+            FXRouter.goTo("my-team", this.routeProvider);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
