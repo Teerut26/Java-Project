@@ -7,6 +7,7 @@ import cs211.project.services.FXRouter;
 import cs211.project.services.ManyToManyManager;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.*;
+import cs211.project.services.deleterelated.DeleteRelatedOfPrimaryKeyTeam;
 import cs211.project.utils.ComponentRegister;
 import javafx.beans.binding.Bindings;
 
@@ -170,7 +171,7 @@ public class SetEventDetailController extends ComponentRegister {
         teamFileListDatasource = new TeamFileListDatasource();
         TeamCollection newTeamCollection = new TeamCollection();
         teamFileListDatasource.readData().getTeams().forEach((team) -> {
-            if (team.getEvent().getEventID().equals(routeProvider.getData().getEventID())) {
+            if (team.getEvent().equals(routeProvider.getData())) {
                 newTeamCollection.add(team);
             }
         });
@@ -375,29 +376,9 @@ public class SetEventDetailController extends ComponentRegister {
             if (alert.getResult() == ButtonType.NO) {
                 return;
             }
-            TeamCollection newTeamCollection = new TeamCollection();
-            for (Team team : teamCollection.getTeams()) {
-                if (!team.getId().equals(teamSelect.getId())) {
-                    newTeamCollection.add(team);
-                }
-                if(team.getId().equals(teamSelect.getId())){
-
-                    // delete activity
-                    activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
-                    ActivitiesTeamCollection newActivitiesTeamCollection = new ActivitiesTeamCollection();
-                    activitiesTeamFileListDatesource.readData().getActivitiesArrayList().forEach(activitiesTeam -> {
-                        if(!activitiesTeam.getTeam().getId().equals(teamSelect.getId())){
-                            newActivitiesTeamCollection.add(activitiesTeam);
-                        }
-                    });
-                    activitiesTeamFileListDatesource.writeData(newActivitiesTeamCollection);
-
-                    // delete user in team
-
-                }
-            }
-            teamFileListDatasource.writeData(newTeamCollection);
-            teamCollection = newTeamCollection;
+            DeleteRelatedOfPrimaryKeyTeam deleteRelatedOfPrimaryKeyTeam = new DeleteRelatedOfPrimaryKeyTeam();
+            deleteRelatedOfPrimaryKeyTeam.delete(teamSelect);
+            teamCollection = (teamFileListDatasource.readData()).findByEvent(this.event);
             showTableTeam(teamCollection);
         }
     }

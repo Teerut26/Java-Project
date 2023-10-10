@@ -1,16 +1,11 @@
 package cs211.project.controllers.myEvent;
 
 import cs211.project.models.Event;
-import cs211.project.models.Activities;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import cs211.project.models.collections.EventCollection;
-import cs211.project.services.Authentication;
-import cs211.project.services.FXRouter;
-import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
-import cs211.project.services.datasource.TeamFileListDatasource;
-import cs211.project.services.deleterelated.DeleteyRelatedOfPrimaryKeyEvent;
+import cs211.project.services.deleterelated.DeleteRelatedOfPrimaryKeyEvent;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.utils.ImageSaver;
 import cs211.project.utils.TimeValidate;
@@ -24,8 +19,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
-import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 
 public class EditEventDetailFormController extends ComponentRegister {
     @FXML
@@ -224,8 +217,8 @@ public class EditEventDetailFormController extends ComponentRegister {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.OK) {
-            DeleteyRelatedOfPrimaryKeyEvent deleteyRelatedOfPrimaryKeyEvent = new DeleteyRelatedOfPrimaryKeyEvent(this.event);
-            deleteyRelatedOfPrimaryKeyEvent.delete();
+            DeleteRelatedOfPrimaryKeyEvent deleteRelatedOfPrimaryKeyEvent = new DeleteRelatedOfPrimaryKeyEvent();
+            deleteRelatedOfPrimaryKeyEvent.delete(this.event);
 
             eventCollection.remove(this.event);
             eventFileListDatesource.writeData(eventCollection);

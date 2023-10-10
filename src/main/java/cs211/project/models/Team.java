@@ -21,7 +21,7 @@ public class Team {
     private UserCollection userInTeam = new UserCollection();
 
     public Event getEvent() {
-        return event;
+        return this.event;
     }
 
 

@@ -3,6 +3,7 @@ package cs211.project.models.collections;
 import cs211.project.models.Activities;
 import cs211.project.models.ActivitiesEvent;
 import cs211.project.models.ActivitiesTeam;
+import cs211.project.models.Team;
 
 import java.util.ArrayList;
 
@@ -62,6 +63,27 @@ public class ActivitiesTeamCollection {
                 activitiesTeamCollection.add(activities);
             }
         }
+        return activitiesTeamCollection;
+    }
+
+    public ActivitiesTeamCollection findByTeam(Team team) {
+        ActivitiesTeamCollection activitiesTeamCollection = new ActivitiesTeamCollection();
+        for (ActivitiesTeam activities : this.activitiesArrayList) {
+            if (activities.getTeam().equals(team)) {
+                activitiesTeamCollection.add(activities);
+            }
+        }
+        return activitiesTeamCollection;
+    }
+
+    public ActivitiesTeamCollection removeByTeam(Team team) {
+        ActivitiesTeamCollection activitiesTeamCollection = new ActivitiesTeamCollection();
+        for (ActivitiesTeam activities : this.activitiesArrayList) {
+            if (!activities.getTeam().equals(team)) {
+                activitiesTeamCollection.add(activities);
+            }
+        }
+        this.activitiesArrayList = activitiesTeamCollection.getActivitiesArrayList();
         return activitiesTeamCollection;
     }
 
