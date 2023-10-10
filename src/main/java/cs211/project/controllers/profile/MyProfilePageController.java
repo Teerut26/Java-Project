@@ -193,7 +193,7 @@ public class MyProfilePageController {
             user.setImageProfile("data/images/user/" + userID + "." + imageSaver.extention);
         }
         errorLabel.setText("");
-        userCollection.add(user);
+        userCollection.update(user);
         userFileListDatasource.writeData(userCollection);
         themeModeChangeLabel.setText((""));
         fontSelectChangeLabel.setText((""));

@@ -20,6 +20,13 @@ public class UserCollection {
         }
 
     }
+    public void update(User user){
+        for(int i = 0; i < userArrayList.size(); i++){
+            if(userArrayList.get(i).getId().equals(user.getId())){
+                userArrayList.set(i, user);
+            }
+        }
+    }
 
     public User findByName(String title) {
         for (User user : this.userArrayList) {
