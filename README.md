@@ -31,7 +31,6 @@ https://saacsos.notion.site/Project-CS211-2566-1c8e195c0ebd4071aea8f733692e3989?
 │   │   │   ├── _userToEventSuspend.csv
 │   │   │   ├── _userToTeam.csv
 │   │   │   ├── _userToTeamSuspend.csv
-│   │   │   └── null
 │   │   ├── team.csv
 │   │   └── users.csv
 │   └── images
