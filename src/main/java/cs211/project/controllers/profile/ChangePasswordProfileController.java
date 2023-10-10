@@ -4,6 +4,7 @@ import cs211.project.models.User;
 import cs211.project.models.collections.UserCollection;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
+import cs211.project.services.SingletonStorage;
 import cs211.project.services.datasource.UserFileListDatasource;
 import cs211.project.utils.ComponentRegister;
 import javafx.fxml.FXML;
@@ -38,8 +39,17 @@ public class ChangePasswordProfileController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+
+        boolean isAdmin = SingletonStorage.getInstance().userSession.isAdmin();
+        ComponentRegister cr = new ComponentRegister();
+
+        if (isAdmin) {
+            cr.loadSideBarComponentAdmin(SideBarVBox, "AdminSideBarComponent.fxml", this.routeProvider);
+            cr.loadNavBarComponentAdmin(NavBarHBox, "AdminNavbarComponent.fxml", this.routeProvider);
+        } else {
+            cr.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+            cr.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        }
 
         this.initializeThemeMode();
         this.initializeFont();

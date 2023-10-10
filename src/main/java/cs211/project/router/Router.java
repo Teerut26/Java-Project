@@ -24,7 +24,6 @@ public class Router extends Application {
         FXRouter.when("register-page", resourcesPath + "auth/register-page.fxml");
 
         //admin routes
-        FXRouter.when("admin-change-password", resourcesPath + "admin/change-password-admin.fxml");
         FXRouter.when("admin-manage-user", resourcesPath + "admin/manage-user.fxml");
 
         //event routes
