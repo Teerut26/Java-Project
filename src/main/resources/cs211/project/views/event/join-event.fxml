@@ -142,7 +142,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
                               </VBox>
-                              <TableView fx:id="memberTableView" layoutX="20.0" layoutY="753.0" maxWidth="930.0" prefHeight="200.0" prefWidth="909.0">
+                              <TableView fx:id="memberTableView" layoutX="20.0" layoutY="774.0" maxWidth="930.0" prefHeight="200.0" prefWidth="909.0">
                                  <columns>
                                     <TableColumn prefWidth="162.07382202148438" text="name" />
                                     <TableColumn prefWidth="338.0" text="detail" />
@@ -160,7 +160,7 @@
                                     <TableColumn prefWidth="193.0" text="status" />
                                  </columns>
                               </TableView>
-                              <Label layoutX="23.0" layoutY="722.0" styleClass="primary-color" text="Member List">
+                              <Label layoutX="23.0" layoutY="740.0" styleClass="primary-color" text="Member List">
                                  <font>
                                     <Font name="Hiragino Sans W6" size="18.0" />
                                  </font>
@@ -170,6 +170,7 @@
                                     <Font name="Hiragino Sans W6" size="18.0" />
                                  </font>
                               </Label>
+                              <Button fx:id="commentActivityEvent" layoutX="754.0" layoutY="698.0" mnemonicParsing="false" onAction="#commentActivityEvent" prefHeight="45.0" prefWidth="120.0" styleClass="bg-primary" text="comment" />
                            </children>
                         </AnchorPane>
                      </content>

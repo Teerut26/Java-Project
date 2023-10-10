@@ -70,7 +70,7 @@ public class EditEventDetailFormController extends ComponentRegister {
         this.eventFileListDatesource = new EventFileListDatesource();
         this.eventCollection = eventFileListDatesource.readData();
 
-        this.event = eventCollection.findById(((Event)routeProvider.getData()).getEventID());
+        this.event = eventCollection.findById(routeProvider.getData().getEventID());
 
         this.showCurrentData();
         this.initializeThemeMode();
@@ -130,17 +130,13 @@ public class EditEventDetailFormController extends ComponentRegister {
         String[] timeArr = time.split(":");
         String hour = timeArr[0];
         String minute = timeArr[1];
-        String second = timeArr[2];
         if (hour.length() == 1) {
             hour = "0" + hour;
         }
         if (minute.length() == 1) {
             minute = "0" + minute;
         }
-        if (second.length() == 1) {
-            second = "0" + second;
-        }
-        return hour + ":" + minute + ":" + second;
+        return hour + ":" + minute;
     }
 
 
@@ -179,15 +175,15 @@ public class EditEventDetailFormController extends ComponentRegister {
         timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute());
         timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute());
 
-        this.event.setNameEvent(TextFieldName.getText());
-        this.event.setDescriptionEvent(TextAreaDescription.getText());
-        this.event.setLocation(locationEvent.getText());
-        this.event.setStartDate(timeStartUtils.getRefLocalDateTime());
-        this.event.setEndDate(timeEndUtils.getRefLocalDateTime());
-        this.event.setQuantityEvent(Integer.parseInt(TextFieldQuantity.getText()));
-        this.event.setPublic(publicCheckBox.isSelected());
+        event.setNameEvent(TextFieldName.getText());
+        event.setDescriptionEvent(TextAreaDescription.getText());
+        event.setLocation(locationEvent.getText());
+        event.setStartDate(timeStartUtils.getRefLocalDateTime());
+        event.setEndDate(timeEndUtils.getRefLocalDateTime());
+        event.setQuantityEvent(Integer.parseInt(TextFieldQuantity.getText()));
+        event.setPublic(publicCheckBox.isSelected());
 
-        eventCollection.update(this.event);
+        eventCollection.update(event);
         eventFileListDatesource.writeData(eventCollection);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
