@@ -1,19 +1,22 @@
-<!-- # CS211-661-Project
-> Project ภาคต้น 2566
-
-## Project detail
-https://saacsos.notion.site/Project-CS211-2566-1c8e195c0ebd4071aea8f733692e3989?pvs=4
-
---- -->
 # EventHub
 
-## การติดตั้งโปรแกรม
 
+## การติดตั้งโปรแกรม
+### MacOS Install
+#### Chip Apple Silicon
+![Chip Apple Silicon](./image/Screenshot%202566-10-10%20at%2023.03.52.png)
+#### Chip Intel
+### Windows Install
 ## ตัวอย่างข้อมูลผู้ใช้ในระบบ (username,password)
 
 | username | password | role     |
 | :------- | :------- | :------- |
 | admin | admin     | `admin` |
+
+## Documentation
+
+[Documentation](./docs/manual.pdf)
+
 
 ## Folder Structure
 ```
@@ -235,3 +238,8 @@ https://saacsos.notion.site/Project-CS211-2566-1c8e195c0ebd4071aea8f733692e3989?
                     │   └── ManyToManyManagerTest.java
                     └── utils
 ```
+## สมาชิกผู้จัดทำ
+- ธีรุฒ ศรีทองดี `6510405601` [@Teerut26](https://www.github.com/Teerut26) `หมู่เรียนที่ 12`
+- กรรวี ศิริขันธ์ `6510405270` [@pwknnn](https://www.github.com/pwknnn) `หมู่เรียนที่ 12`
+- ศราวุธ  อินพล `6510405822` [@beerth21624](https://www.github.com/beerth21624) `หมู่เรียนที่ 11`
+- เบญจพร สุขไพบูลย์ `6510405636` [@JarBenjaporn](https://www.github.com/JarBenjaporn) `หมู่เรียนที่ 12`
