@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -32,6 +33,8 @@ public class ManageUserController extends ComponentRegister {
     private HBox NavBarHBox;
     @FXML
     private TableView userTableView;
+    @FXML
+    private BorderPane parentBorderPane;
     private RouteProvider routeProvider;
     private UserCollection userCollection;
     private User userSelect;
@@ -48,6 +51,35 @@ public class ManageUserController extends ComponentRegister {
 
         this.showTable();
         this.setUpUserTableViewOnSelect();
+
+    }
+    @FXML
+    public void initializeThemeMode(){
+        if(routeProvider.getUserSession().getThemeMode().equals("dark")){
+            parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
+        } else if (routeProvider.getUserSession().getThemeMode().equals("light")) {
+            parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
+        }
+    }
+
+    @FXML
+    public void initializeFont(){
+        clearFontStyle();
+        if(routeProvider.getUserSession().getFont().equals("font-style1")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
+        } else if (routeProvider.getUserSession().getFont().equals("font-style2")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
+        } else if (routeProvider.getUserSession().getFont().equals("font-style3")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
+        }
+    }
+
+    public void clearFontStyle(){
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
 
     private void setUpUserTableViewOnSelect() {
@@ -100,9 +132,6 @@ public class ManageUserController extends ComponentRegister {
         TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
-        TableColumn<User, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
-
         TableColumn<User, String> lastLoginColumn = new TableColumn<>("lastLogin");
         lastLoginColumn.setCellValueFactory(new PropertyValueFactory<>("lastLogin"));
 
@@ -115,11 +144,7 @@ public class ManageUserController extends ComponentRegister {
         });
 
         userTableView.getColumns().clear();
-        userTableView.getColumns().add(imageColumn);
-        userTableView.getColumns().add(idColumn);
-        userTableView.getColumns().add(usernameColumn);
-        userTableView.getColumns().add(nameColumn);
-        userTableView.getColumns().add(lastLoginColumn);
+        userTableView.getColumns().addAll(imageColumn, idColumn, usernameColumn, lastLoginColumn);
 
         userTableView.getItems().clear();
 

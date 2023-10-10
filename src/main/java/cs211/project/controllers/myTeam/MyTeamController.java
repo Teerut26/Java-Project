@@ -5,10 +5,7 @@ import cs211.project.models.collections.*;
 import cs211.project.services.FXRouter;
 import cs211.project.services.ManyToManyManager;
 import cs211.project.services.RouteProvider;
-import cs211.project.services.datasource.ActivitiesTeamFileListDatesource;
-import cs211.project.services.datasource.ManyToManyFileListDatasource;
-import cs211.project.services.datasource.TeamFileListDatasource;
-import cs211.project.services.datasource.UserFileListDatasource;
+import cs211.project.services.datasource.*;
 import cs211.project.utils.ComponentRegister;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
@@ -160,9 +157,20 @@ public class MyTeamController {
             return;
         }
 
+        TableColumn<Team, String> eventNameColumn = new TableColumn<>("Event");
+        eventNameColumn.setCellValueFactory(param -> {
+            if (param.getValue() != null) {
+                Team team = param.getValue();
+                String eventName = team.getEvent().getNameEvent();
+                return new ReadOnlyStringWrapper(eventName);
+            } else {
+                return new ReadOnlyStringWrapper("");
+            }
+        });
 
         TableColumn<Team, String> teamName = new TableColumn<>("Team Name");
         teamName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
         TableColumn<Team, String> teamStartDate = new TableColumn<>("Start date");
         teamStartDate.setCellValueFactory(param -> {
             if (param.getValue() != null) {
@@ -188,7 +196,7 @@ public class MyTeamController {
 
 
         teamTableView.getColumns().clear();
-        teamTableView.getColumns().addAll(teamName, teamStartDate, teamEndDate);
+        teamTableView.getColumns().addAll(eventNameColumn, teamName, teamStartDate, teamEndDate);
         teamTableView.getItems().clear();
 
         for (Team team : teamForTableView.getTeams()) {
@@ -261,13 +269,9 @@ public class MyTeamController {
             } else {
                 return new ReadOnlyStringWrapper("");
             }});
-        TableColumn<ActivitiesTeam, String> activityStartTime = new TableColumn<>("Start time");
-        activityStartTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        TableColumn<ActivitiesTeam, String> activityEndTime = new TableColumn<>("End time");
-        activityEndTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
 
         activityTableView.getColumns().clear();
-        activityTableView.getColumns().addAll(activityName, activityDetail, activityStartDate, activityEndDate, activityStartTime, activityEndTime);
+        activityTableView.getColumns().addAll(activityName, activityDetail, activityStartDate, activityEndDate);
         activityTableView.getItems().clear();
 
         for (ActivitiesTeam activitiesTeam : activitiesCollection.getActivitiesArrayList()) {
@@ -336,6 +340,7 @@ public class MyTeamController {
                 return;
             }
             this.routeProvider.addHashMap("activity-select", currentActivitySelect);
+            this.routeProvider.addHashMap("back-my-team", "my-team");
             FXRouter.goTo("comment-activity-team",this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);

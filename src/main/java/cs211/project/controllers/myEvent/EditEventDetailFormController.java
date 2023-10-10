@@ -70,7 +70,7 @@ public class EditEventDetailFormController extends ComponentRegister {
         this.eventFileListDatesource = new EventFileListDatesource();
         this.eventCollection = eventFileListDatesource.readData();
 
-        this.event = eventCollection.findById(((Event)routeProvider.getData()).getEventID());
+        this.event = eventCollection.findById(routeProvider.getData().getEventID());
 
         this.showCurrentData();
         this.initializeThemeMode();
@@ -175,15 +175,15 @@ public class EditEventDetailFormController extends ComponentRegister {
         timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute());
         timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute());
 
-        this.event.setNameEvent(TextFieldName.getText());
-        this.event.setDescriptionEvent(TextAreaDescription.getText());
-        this.event.setLocation(locationEvent.getText());
-        this.event.setStartDate(timeStartUtils.getRefLocalDateTime());
-        this.event.setEndDate(timeEndUtils.getRefLocalDateTime());
-        this.event.setQuantityEvent(Integer.parseInt(TextFieldQuantity.getText()));
-        this.event.setPublic(publicCheckBox.isSelected());
+        event.setNameEvent(TextFieldName.getText());
+        event.setDescriptionEvent(TextAreaDescription.getText());
+        event.setLocation(locationEvent.getText());
+        event.setStartDate(timeStartUtils.getRefLocalDateTime());
+        event.setEndDate(timeEndUtils.getRefLocalDateTime());
+        event.setQuantityEvent(Integer.parseInt(TextFieldQuantity.getText()));
+        event.setPublic(publicCheckBox.isSelected());
 
-        eventCollection.update(this.event);
+        eventCollection.update(event);
         eventFileListDatesource.writeData(eventCollection);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

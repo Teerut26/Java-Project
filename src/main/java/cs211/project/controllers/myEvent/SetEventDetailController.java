@@ -68,6 +68,7 @@ public class SetEventDetailController extends ComponentRegister {
     private Label currentMemberAmount;
     private Event event;
     private UserCollection userCollection;
+    private UserFileListDatasource userFileListDatasource;
     private User userSelect;
     private TeamCollection teamCollection;
     private Team teamSelect;
@@ -381,8 +382,8 @@ public class SetEventDetailController extends ComponentRegister {
                 }
                 if(team.getId().equals(teamSelect.getId())){
 
+                    // delete activity
                     activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
-
                     ActivitiesTeamCollection newActivitiesTeamCollection = new ActivitiesTeamCollection();
                     activitiesTeamFileListDatesource.readData().getActivitiesArrayList().forEach(activitiesTeam -> {
                         if(!activitiesTeam.getTeam().getId().equals(teamSelect.getId())){
@@ -390,6 +391,8 @@ public class SetEventDetailController extends ComponentRegister {
                         }
                     });
                     activitiesTeamFileListDatesource.writeData(newActivitiesTeamCollection);
+
+                    // delete user in team
 
                 }
             }

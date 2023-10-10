@@ -166,7 +166,11 @@ public class CommentActivityTeamController {
     @FXML
     void onBack(ActionEvent event) {
         try {
-            FXRouter.goTo("event-team-detail");
+            if(this.routeProvider.getDataHashMap().get("back-my-team") != null){
+                FXRouter.goTo((String) this.routeProvider.getDataHashMap().get("back-my-team"));
+            }else{
+                FXRouter.goTo("event-team-detail");
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

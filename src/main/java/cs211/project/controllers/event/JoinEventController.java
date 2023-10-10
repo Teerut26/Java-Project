@@ -4,6 +4,7 @@ import cs211.project.models.*;
 import cs211.project.models.collections.ActivitiesEventCollection;
 import cs211.project.models.collections.ManyToManyCollection;
 import cs211.project.models.collections.UserCollection;
+
 import cs211.project.services.FXRouter;
 import cs211.project.services.ManyToManyManager;
 import cs211.project.services.RouteProvider;
@@ -14,10 +15,7 @@ import cs211.project.utils.ComponentRegister;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -52,6 +50,7 @@ public class JoinEventController extends ComponentRegister {
     @FXML
     private TableView activitiesTableView;
     private Event event;
+    private ActivitiesEvent activitiesEventSelect;
     private RouteProvider<Event> routeProvider;
 
     @FXML
@@ -62,25 +61,9 @@ public class JoinEventController extends ComponentRegister {
         this.event = routeProvider.getData();
         this.setContent();
 
-        activitiesTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ActivitiesEvent>() {
-            @Override
-            public void changed(ObservableValue<? extends ActivitiesEvent> observableValue, ActivitiesEvent oldValue, ActivitiesEvent newValue) {
-                if (newValue != null) {
-                    routeProvider.addHashMap("activity-event-select", newValue);
-                    routeProvider.addHashMap("back-value","event-detail-joined");
-                    try {
-                        FXRouter.goTo("comment-activity-event", routeProvider);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-
-
-        });
-
         this.initializeThemeMode();
         this.initializeFont();
+
     }
 
 
@@ -177,7 +160,28 @@ public class JoinEventController extends ComponentRegister {
             activitiesTableView.getItems().add(activitiesEvent);
         }
 
+        activitiesTableView.setOnMouseClicked(param -> {
+            if (param.getClickCount() == 1) {
+                activitiesEventSelect = (ActivitiesEvent) activitiesTableView.getSelectionModel().getSelectedItem();
+            }
+        });
 
+    }
+
+    @FXML
+    public void commentActivityEvent(){
+        if(activitiesEventSelect == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+        try{
+            this.routeProvider.addHashMap("activity-event-select", activitiesEventSelect);
+            this.routeProvider.addHashMap("back-value", "event-detail-joined");
+            FXRouter.goTo("comment-activity-event", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
