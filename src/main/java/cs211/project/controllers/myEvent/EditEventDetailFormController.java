@@ -127,10 +127,8 @@ public class EditEventDetailFormController extends ComponentRegister {
         if (minute.length() == 1) {
             minute = "0" + minute;
         }
-        if (second.length() == 1) {
-            second = "0" + second;
-        }
-        return hour + ":" + minute + ":" + second;
+
+        return hour + ":" + minute + ":" ;
     }
 
     @FXML
@@ -218,12 +216,8 @@ public class EditEventDetailFormController extends ComponentRegister {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.OK) {
-            DeleteyRelatedOfPrimaryKeyEvent deleteyRelatedOfPrimaryKeyEvent = new DeleteyRelatedOfPrimaryKeyEvent(
-                    this.event);
-            deleteyRelatedOfPrimaryKeyEvent.delete();
-
-            eventCollection.remove(this.event);
-            eventFileListDatesource.writeData(eventCollection);
+             DeleteRelatedOfPrimaryKeyEvent deleteyRelatedOfPrimaryKeyEvent = new DeleteRelatedOfPrimaryKeyEvent();
+            deleteyRelatedOfPrimaryKeyEvent.delete(this.event);
 
             navigateToMyEvent();
         }
