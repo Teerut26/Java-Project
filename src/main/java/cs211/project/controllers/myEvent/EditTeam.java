@@ -125,17 +125,13 @@ public class EditTeam extends ComponentRegister {
         String[] timeArr = time.split(":");
         String hour = timeArr[0];
         String minute = timeArr[1];
-        String second = timeArr[2];
         if (hour.length() == 1) {
             hour = "0" + hour;
         }
         if (minute.length() == 1) {
             minute = "0" + minute;
         }
-        if (second.length() == 1) {
-            second = "0" + second;
-        }
-        return hour + ":" + minute + ":" + second;
+        return hour + ":" + minute;
     }
 
     @FXML

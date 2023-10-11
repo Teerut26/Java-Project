@@ -54,7 +54,6 @@ public class CreateEventDetailFormController extends ComponentRegister {
     @FXML
     private TextField timeEnd;
     private String eventID;
-    private String imageFilePath;
     private RouteProvider routeProvider;
     private EventFileListDatesource eventFileListDatesource;
     private EventCollection eventCollection;

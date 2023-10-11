@@ -48,17 +48,11 @@ public class MyTeamController {
     @FXML
     private  Button commentTeamButton;
 
-
-    //table all team
     @FXML
     private TableView<Team> teamTableView = new TableView<>();
 
     @FXML
-    private TeamFileListDatasource teamFileListDatasource;
-    @FXML
     private TeamCollection teamForTableView = new TeamCollection();
-
-//selected team
     @FXML
     private Team currentTeamSelect;
 
@@ -70,15 +64,12 @@ public class MyTeamController {
     @FXML
     private ActivitiesTeam currentActivitySelect;
 
-    //selected activity
     @FXML
     private TableView<User> userTableView = new TableView<>();
     @FXML
     private UserCollection userCollection;
     @FXML
     private UserCollection userForTableView = new UserCollection();
-
-
 
 
     @FXML
@@ -88,15 +79,12 @@ public class MyTeamController {
         componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
-        //get team by user
         setTeamInTableView();
         clearTeamInfo();
 
         this.initializeThemeMode();
         this.initializeFont();
     }
-
-
 
     @FXML
     public void initializeThemeMode(){
@@ -131,8 +119,6 @@ public class MyTeamController {
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
 
-
-
     public void setTeamInTableView() {
        TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
          TeamCollection teamCollection = teamFileListDatasource.readData();
@@ -144,8 +130,6 @@ public class MyTeamController {
             Team team = teamCollection.findById(manyToMany.getB());
             teamForTableView.add(team);
         });
-
-
 
         if (teamForTableView.getTeams().size() == 0) {
             teamNameLabel.setText("No team");
@@ -194,7 +178,6 @@ public class MyTeamController {
             }
         });
 
-
         teamTableView.getColumns().clear();
         teamTableView.getColumns().addAll(eventNameColumn, teamName, teamStartDate, teamEndDate);
         teamTableView.getItems().clear();
@@ -202,8 +185,6 @@ public class MyTeamController {
         for (Team team : teamForTableView.getTeams()) {
             teamTableView.getItems().add(team);
         }
-
-
 
         teamTableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
@@ -213,9 +194,6 @@ public class MyTeamController {
                 setUserTableView();
             }
         });
-
-
-
     }
 
     public void clearTeamInfo() {
@@ -322,7 +300,6 @@ public class MyTeamController {
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
         manyToManyManager.remove(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
         clearTeamInfo();
-        //reload this page
         try {
             FXRouter.goTo("my-team",this.routeProvider);
         } catch (Exception e) {
@@ -349,7 +326,7 @@ public class MyTeamController {
 
 
     public String formateDate (LocalDateTime localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return localDateTime.format(formatter);
     }
 

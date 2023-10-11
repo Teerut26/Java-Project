@@ -81,8 +81,8 @@ public class EventListController extends ComponentRegister {
         this.initEventListScrollPane();
         this.eventListScrollPaneListener();
         this.searchEngine();
-        this.initializeThemeMode();
         this.initializeFont();
+        this.initializeThemeMode();
     }
 
 
@@ -186,13 +186,5 @@ public class EventListController extends ComponentRegister {
         });
     }
 
-    @FXML
-    public void onGotoDetail() {
-        try {
-            FXRouter.goTo("event-detail",this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 }

@@ -51,10 +51,13 @@ public class ManageUserController extends ComponentRegister {
 
         this.showTable();
         this.setUpUserTableViewOnSelect();
-
+        this.initializeFont();
+        this.initializeThemeMode();
     }
+
     @FXML
     public void initializeThemeMode(){
+        System.out.println("InitializeThemeMode" + this.routeProvider.getUserSession().getThemeMode());
         if(routeProvider.getUserSession().getThemeMode().equals("dark")){
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
