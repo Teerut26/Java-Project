@@ -63,6 +63,8 @@ public class SetEventDetailController extends ComponentRegister {
     private Label memberSupend;
     @FXML
     private Label currentMemberAmount;
+    @FXML
+    private Label locationLabel;
     private Event event;
     private UserCollection userCollection;
     private User userSelect;
@@ -182,6 +184,7 @@ public class SetEventDetailController extends ComponentRegister {
 
         nameEvent.setText(this.event.getNameEvent());
         eventDescription.setText(event.getDescriptionEvent());
+        locationLabel.setText(event.getLocation());
         Integer currentMemberJoin = this.userCollection.getUsers().size();
         currentUserJoinAmount.setText(String.valueOf(currentMemberJoin));
         quantityLabel.setText(String.valueOf(event.getQuantityEvent()));
