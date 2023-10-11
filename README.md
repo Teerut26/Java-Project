@@ -1,19 +1,22 @@
-<!-- # CS211-661-Project
-> Project ภาคต้น 2566
-
-## Project detail
-https://saacsos.notion.site/Project-CS211-2566-1c8e195c0ebd4071aea8f733692e3989?pvs=4
-
---- -->
 # EventHub
 
-## การติดตั้งโปรแกรม
 
+## การติดตั้งโปรแกรม
+### MacOS Install
+#### Chip Apple Silicon
+![Chip Apple Silicon](./image/Screenshot%202566-10-11%20at%2012.52.17.png)
+#### Chip Intel
+### Windows Install
 ## ตัวอย่างข้อมูลผู้ใช้ในระบบ (username,password)
 
 | username | password | role     |
 | :------- | :------- | :------- |
 | admin | admin     | `admin` |
+
+## Documentation
+
+[Documentation](./docs/manual.pdf)
+
 
 ## Folder Structure
 ```
