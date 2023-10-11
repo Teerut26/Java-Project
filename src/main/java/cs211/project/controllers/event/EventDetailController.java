@@ -152,11 +152,10 @@ public class EventDetailController extends ComponentRegister {
                 return;
             }
 
-
             // TODO: Add user to event
             ManyToManyManager manyToManyManager = new ManyToManyManager(
                     new ManyToManyFileListDatasource().MTM_USER_EVENT);
-            if(manyToManyManager.findsByB(this.event.getEventID()).size() >= this.event.getQuantityEvent()){
+            if (manyToManyManager.findsByB(this.event.getEventID()).size() >= this.event.getQuantityEvent()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Event is full");
@@ -164,7 +163,6 @@ public class EventDetailController extends ComponentRegister {
                 alert.show();
                 return;
             }
-
 
             manyToManyManager.add(new ManyToMany(this.routeProvider.getUserSession().getId(), this.event.getEventID()));
 
@@ -200,6 +198,7 @@ public class EventDetailController extends ComponentRegister {
                 alert.show();
                 return;
             }
+            routeProvider.addHashMap("oldRoute", "event-detail");
             FXRouter.goTo("event-team-list", this.routeProvider);
 
         } catch (IOException e) {

@@ -425,7 +425,9 @@ public class EventTeamListController extends ComponentRegister {
     @FXML
     public void onBack() {
         try {
-            FXRouter.goTo("event-detail-joined", this.routeProvider);
+            if(this.routeProvider.getDataHashMap().get("oldRoute") != null){
+                FXRouter.goTo((String) this.routeProvider.getDataHashMap().get("oldRoute"), this.routeProvider);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

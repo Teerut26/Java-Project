@@ -79,6 +79,7 @@ public class InTeamCardComponentController {
                 return;
             }
             routeProvider.addHashMap("eventID", this.event.getEventID());
+            routeProvider.addHashMap("oldRoute", "event-history");
             FXRouter.goTo("event-team-list", this.routeProvider);
 
         } catch (IOException e) {
