@@ -61,8 +61,8 @@ public class EditScheduleParticipantController extends ComponentRegister {
         TextFieldDetail.setText(activitiesEvent.getDetail());
         dateStart.setValue(activitiesEvent.getDateStart().toLocalDate());
         dateEnd.setValue(activitiesEvent.getDateEnd().toLocalDate());
-        timeStart.setText(activitiesEvent.getStartTime());
-        timeEnd.setText(activitiesEvent.getEndTime());
+        timeStart.setText(formatTime(activitiesEvent.getStartTime()));
+        timeEnd.setText(formatTime(activitiesEvent.getEndTime()));
 
 
         this.initializeThemeMode();
@@ -137,6 +137,19 @@ public class EditScheduleParticipantController extends ComponentRegister {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public String formatTime(String time) {
+        String[] timeArr = time.split(":");
+        String hour = timeArr[0];
+        String minute = timeArr[1];
+        if (hour.length() == 1) {
+            hour = "0" + hour;
+        }
+        if (minute.length() == 1) {
+            minute = "0" + minute;
+        }
+
+        return hour + ":" + minute;
     }
 
     @FXML

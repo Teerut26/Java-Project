@@ -449,7 +449,7 @@ public class SetEventDetailController extends ComponentRegister {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
                 ActivitiesEvent activitiesEvent = parameter.getValue();
-                return Bindings.createStringBinding(() -> activitiesEvent.getDateStart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+                return Bindings.createStringBinding(() -> activitiesEvent.getDateStart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             }
         });
 
@@ -458,7 +458,7 @@ public class SetEventDetailController extends ComponentRegister {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
                 ActivitiesEvent activitiesEvent = parameter.getValue();
-                return Bindings.createStringBinding(() -> activitiesEvent.getDateEnd().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+                return Bindings.createStringBinding(() -> activitiesEvent.getDateEnd().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             }
         });
 
