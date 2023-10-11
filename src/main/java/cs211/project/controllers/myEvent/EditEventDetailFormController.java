@@ -195,14 +195,6 @@ public class EditEventDetailFormController extends ComponentRegister {
         }
     }
 
-    public  void navigateToMyEvent(){
-        try{
-            FXRouter.goTo("my-event", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @FXML
     public void onCancel() {
         navigateToSetEvent();
@@ -226,5 +218,12 @@ public class EditEventDetailFormController extends ComponentRegister {
             navigateToMyEvent();
         }
 
+    }
+    public  void navigateToMyEvent(){
+        try{
+            FXRouter.goTo("my-event", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

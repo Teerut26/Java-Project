@@ -60,12 +60,9 @@ public class JoinEventController extends ComponentRegister {
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.event = routeProvider.getData();
         this.setContent();
-
-        this.initializeThemeMode();
         this.initializeFont();
-
+        this.initializeThemeMode();
     }
-
 
     @FXML
     public void initializeThemeMode(){
@@ -125,11 +122,11 @@ public class JoinEventController extends ComponentRegister {
             }
         });
 
-        TableColumn<User, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
+        TableColumn<User, String> userNameColumn = new TableColumn<>("UserName");
+        userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
         memberTableView.getColumns().clear();
-        memberTableView.getColumns().add(nameColumn);
+        memberTableView.getColumns().add(userNameColumn);
 
         memberTableView.getItems().clear();
 

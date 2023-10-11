@@ -34,8 +34,6 @@ public class EventTeamDetailController extends ComponentRegister {
 
     @FXML
     private VBox SideBarVBox;
-    @FXML
-    private TableColumn<ActivitiesTeam, String> statusActivityTeamCol;
 
     @FXML
     private TableView<ActivitiesTeam> activityTeamTableView;
@@ -50,15 +48,10 @@ public class EventTeamDetailController extends ComponentRegister {
     private ActivitiesTeamCollection activitiesTeamCollection;
     private ActivitiesTeam selectActivitiesTeam;
     private UserCollection userInTeamCollection;
-    private UserFileListDatasource userFileListDatasource;
     private User selectMemberInTeam;
     private Team team;
-    private Event event;
-    private EventFileListDatesource eventFileListDatesource;
-
     private RouteProvider<Event> routeProvider;
     private CommentActivitiesTeamFileListDatasource commentActivitiesTeamFileListDatasource;
-    private CommentActivitiesEventCollection commentActivitiesEventCollection;
 
     @FXML
     public void initialize() {
@@ -168,7 +161,7 @@ public class EventTeamDetailController extends ComponentRegister {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesTeam, String> parameter) {
                 ActivitiesTeam activitiesTeam= parameter.getValue();
-                return Bindings.createStringBinding(() -> activitiesTeam.getDateStart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+                return Bindings.createStringBinding(() -> activitiesTeam.getDateStart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             }
         });
 
@@ -177,7 +170,7 @@ public class EventTeamDetailController extends ComponentRegister {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesTeam, String> parameter) {
                 ActivitiesTeam activitiesTeam= parameter.getValue();
-                return Bindings.createStringBinding(() -> activitiesTeam.getDateEnd().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+                return Bindings.createStringBinding(() -> activitiesTeam.getDateEnd().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
             }
         });
 

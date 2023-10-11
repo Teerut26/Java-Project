@@ -17,7 +17,6 @@ import java.util.UUID;
 
 public class RegisterPageController {
 
-
     @FXML
     private TextField TextFieldName;
     @FXML

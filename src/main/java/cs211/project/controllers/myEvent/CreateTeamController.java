@@ -49,7 +49,6 @@ public class CreateTeamController extends ComponentRegister {
     private TextField timeEnd;
     private String teamID;
     private Event event;
-    private EventCollection eventCollection;
     private RouteProvider<Event> routeProvider;
     private TeamFileListDatasource teamFileListDatasource;
     private TeamCollection teamCollection;
