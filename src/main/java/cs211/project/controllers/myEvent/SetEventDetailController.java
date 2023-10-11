@@ -11,6 +11,7 @@ import cs211.project.services.deleterelated.DeleteRelatedOfPrimaryKeyTeam;
 import cs211.project.utils.ComponentRegister;
 import javafx.beans.binding.Bindings;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -327,7 +328,18 @@ public class SetEventDetailController extends ComponentRegister {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<Team, String> quantityTeamColumnColumn = new TableColumn<>("quantity");
-        quantityTeamColumnColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityTeamColumnColumn.setCellValueFactory(param -> {
+            if (param.getValue() != null) {
+                ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
+                Team team = param.getValue();
+                String numberJoined = String.valueOf(manyToManyManager.countByB(team.getId()));
+                String quantity = String.valueOf(team.getQuantity());
+                String numberJoinedAndMax = numberJoined + "/" + quantity;
+                return new ReadOnlyStringWrapper(numberJoinedAndMax);
+            } else {
+                return new ReadOnlyStringWrapper("");
+            }
+        });
 
         TableColumn<Team, String> startDateTeamColumn = new TableColumn<>("startRecruitDate");
         startDateTeamColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Team, String>, ObservableValue<String>>() {
