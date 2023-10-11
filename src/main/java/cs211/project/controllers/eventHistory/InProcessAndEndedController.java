@@ -105,33 +105,25 @@ public class InProcessAndEndedController extends ComponentRegister {
             }
         });
 
-        if (newEventCollection.getEvents().size() == 0) {
-            return;
+        if (newEventCollection.getEvents().size() != 0) {
+
+            newEventCollection.getEvents().forEach(event -> {
+                if (event.checkEventEnded()) {
+                    this.endedEventCollection.add(event);
+                } else {
+                    this.inProcessEventCollection.add(event);
+                }
+            });
         }
-        newEventCollection.getEvents().forEach(event -> {
-            if (event.checkEventEnded()) {
-                this.endedEventCollection.add(event);
-            } else {
-                this.inProcessEventCollection.add(event);
-            }
-        });
         TeamCollection teamCollection = new TeamFileListDatasource().readData();
 
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
          manyToManyManager.findsByA(this.routeProvider.getUserSession().getId()).getManyToManies().forEach(manyToMany -> {
              Team team = teamCollection.findById(manyToMany.getB());
-             System.out.println("team" + team);
                 if (team != null) {
                     this.inTeamEventCollection.add(team.getEvent());
                 }
          });
-
-         //print inTeamEventCollection
-            System.out.println("inTeamEventCollection");
-            this.inTeamEventCollection.getEvents().forEach(event -> {
-                System.out.println(event);
-            });
-
 
 
     if (firstLoadTabPane) {
@@ -164,7 +156,6 @@ public class InProcessAndEndedController extends ComponentRegister {
 
     @FXML
     public void InitializeThemeMode(){
-        System.out.println("InitializeThemeMode" + this.routeProvider.getUserSession().getThemeMode());
         if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
