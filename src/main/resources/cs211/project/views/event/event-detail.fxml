@@ -71,7 +71,7 @@
                                     </Label>
                                     <HBox prefHeight="26.0" prefWidth="296.0">
                                        <children>
-                                          <Label styleClass="secondary-color" text="Created By: " />
+                                          <Label text="Created By: " textFill="#ff2828" />
                                           <Label fx:id="UserOwnerLabel" styleClass="secondary-color" text="Label" />
                                        </children>
                                     </HBox>
@@ -84,15 +84,21 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
+                                    <HBox prefHeight="26.0" prefWidth="296.0">
+                                       <children>
+                                          <Label text="Location: " textFill="#ff2828" />
+                                          <Label fx:id="locationLabel" styleClass="secondary-color" text="Label" />
+                                       </children>
+                                    </HBox>
                                     <HBox prefHeight="44.0" prefWidth="499.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#onJoin" prefHeight="55.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
+                                          <Button fx:id="joinButton" mnemonicParsing="false" onAction="#onJoin" prefHeight="55.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
                                              <font>
                                                 <Font name="Hiragino Sans W7" size="16.0" />
                                              </font>
                                           </Button>
                                           <Pane prefHeight="44.0" prefWidth="17.0" />
-                                          <Button mnemonicParsing="false" onAction="#goToTeamList" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="Join team">
+                                          <Button fx:id="joinTeamButton" mnemonicParsing="false" onAction="#goToTeamList" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="Join team">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>

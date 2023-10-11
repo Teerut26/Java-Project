@@ -92,6 +92,31 @@ public class MyTeamController {
         setTeamInTableView();
         clearTeamInfo();
 
+        if(routeProvider.getDataHashMap().get("teamJoined") != null) {
+            Team teamJoined = (Team) routeProvider.getDataHashMap().get("teamJoined");
+            currentTeamSelect = teamJoined;
+            setTeamInfo();
+            setActivityInTableView();
+            setUserTableView();
+
+            teamTableView.scrollTo(teamJoined);
+            teamTableView.setRowFactory(tv -> new TableRow<Team>() {
+                @Override
+                protected void updateItem(Team item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || item.getId() == null) {
+                        setStyle("");
+                    } else if (item.getId().equals(teamJoined.getId())) {
+                        setStyle("-fx-background-color: #2a9df4;");
+                    } else {
+                        setStyle("");
+                    }
+                }
+            });
+
+            routeProvider.getDataHashMap().remove("teamJoined");
+        }
+
         this.initializeThemeMode();
         this.initializeFont();
     }

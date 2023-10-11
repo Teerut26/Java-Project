@@ -5,10 +5,13 @@ import cs211.project.models.Event;
 import cs211.project.models.ManyToMany;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.ManyToManyCollection;
+import cs211.project.models.collections.TeamCollection;
 import cs211.project.services.FXRouter;
+import cs211.project.services.ManyToManyManager;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.services.datasource.ManyToManyFileListDatasource;
+import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.utils.ComponentLoader;
 import cs211.project.utils.ComponentRegister;
 import javafx.application.Platform;
@@ -17,23 +20,19 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class EventListController extends ComponentRegister {
     @FXML
@@ -73,7 +72,8 @@ public class EventListController extends ComponentRegister {
         eventFileListDatesource.readData().getEvents().forEach(event -> {
             boolean isJoined = manyToManyCollectionUserJoinedEvent.checkIsExisted(new ManyToMany(routeProvider.getUserSession().getId(), event.getEventID()));
             boolean isOwner = event.getOwner().getId().equals(routeProvider.getUserSession().getId());
-            if (event.isPublic() && !isJoined) {
+            boolean isTeamMember = checkJoinTeam(event);
+            if (event.isPublic() && !isJoined &&!isTeamMember) {
                 this.eventCollection.add(event);
             }
         });
@@ -184,6 +184,19 @@ public class EventListController extends ComponentRegister {
             currentBatch = 0;
             loadNextBatch(filteredEvents);
         });
+    }
+
+    public Boolean checkJoinTeam(Event event){
+        AtomicReference<Boolean> isJoined = new AtomicReference<>(false);
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
+        TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
+        TeamCollection teamCollection = teamFileListDatasource.readData().findByEvent(event);
+        teamCollection.getTeams().forEach(team -> {
+            if (manyToManyManager.checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), team.getId()))){
+                isJoined.set(true);
+            }
+        });
+        return isJoined.get();
     }
 
     @FXML

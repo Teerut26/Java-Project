@@ -90,6 +90,12 @@
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Label>
+                                                <HBox prefHeight="26.0" prefWidth="296.0">
+                                                   <children>
+                                                      <Label text="Location: " textFill="#ff2828" />
+                                                      <Label fx:id="locationLabel" styleClass="secondary-color" text="Label" />
+                                                   </children>
+                                                </HBox>
                                                 <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="547.0">
                                                    <children>
                                                       <Pane prefHeight="52.0" prefWidth="60.0">
@@ -165,12 +171,13 @@
                                     <Font name="Hiragino Sans W6" size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="20.0" layoutY="442.0" styleClass="primary-color" text="Activities List">
+                              <Label contentDisplay="RIGHT" layoutX="20.0" layoutY="442.0" styleClass="primary-color" text="Activities List">
                                  <font>
                                     <Font name="Hiragino Sans W6" size="18.0" />
                                  </font>
                               </Label>
                               <Button fx:id="commentActivityEvent" layoutX="754.0" layoutY="698.0" mnemonicParsing="false" onAction="#commentActivityEvent" prefHeight="45.0" prefWidth="120.0" styleClass="bg-primary" text="comment" />
+                              <Label fx:id="suspendLabel" contentDisplay="RIGHT" layoutX="158.0" layoutY="443.0" text="You can't see any activity in this event because you are suspended from this event" textFill="RED" />
                            </children>
                         </AnchorPane>
                      </content>

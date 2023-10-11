@@ -68,7 +68,7 @@
                               <TableColumn prefWidth="84.5" text="Status" />
                           </columns>
                         </TableView>
-                        <Label layoutX="12.0" layoutY="8.0" prefHeight="33.0" prefWidth="104.0" styleClass="secondary-color" text="Team List">
+                        <Label layoutX="12.0" layoutY="8.0" prefHeight="33.0" styleClass="secondary-color" text="Team List">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -100,7 +100,7 @@
                            </font>
                         </Label>
                         <Label fx:id="errorLabel" layoutX="630.0" layoutY="467.0" prefHeight="17.0" prefWidth="221.0" text="error" textFill="RED" />
-                        <Button fx:id="viewTeamButton" layoutX="736.0" layoutY="429.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="88.0" styleClass="btn-primary-active" text="view team" />
+                        <Button fx:id="viewTeamButton" layoutX="736.0" layoutY="429.0" mnemonicParsing="false" onAction="#onClickButtonViewTeam" prefHeight="39.0" prefWidth="88.0" styleClass="btn-primary-active" text="view team" />
                         <Label fx:id="successLabel" layoutX="630.0" layoutY="483.0" prefHeight="17.0" prefWidth="244.0" text="success" textFill="#088a3c" />
                         <Label fx:id="teamNameLabel" layoutX="751.0" layoutY="58.0" styleClass="secondary-color" text="Label" />
                         <Label fx:id="teamQuantityLabel" layoutX="751.0" layoutY="97.0" styleClass="secondary-color" text="Label" />
