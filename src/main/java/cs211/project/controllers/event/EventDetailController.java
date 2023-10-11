@@ -41,6 +41,8 @@ public class EventDetailController extends ComponentRegister {
     @FXML
     private Label eventDescriptionLabel;
     @FXML
+    private Label locationLabel;
+    @FXML
     private Rectangle eventImage;
     @FXML
     private Label eventNameLabel;
@@ -112,6 +114,7 @@ public class EventDetailController extends ComponentRegister {
     public void setContent() {
         this.eventNameLabel.setText(event.getNameEvent());
         this.eventDescriptionLabel.setText(event.getDescriptionEvent());
+        this.locationLabel.setText(event.getLocation());
 
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
         Integer currentMemberParticipatingAmount = manyToManyManager.countByB(event.getEventID());
@@ -168,22 +171,12 @@ public class EventDetailController extends ComponentRegister {
         TeamCollection teamCollection = teamFileListDatasource.readData().findByEvent(this.event);
         teamCollection.getTeams().forEach(team -> {
             if (manyToManyManager.checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), team.getId()))){
-                joinButton.setVisible(false);
+                System.out.println("Join team");
+                joinButton.setDisable(true);
                 this.isJoinTeam = true;
             }
         });
 
-
-
-        Boolean haveTeam= manyToManyManager.checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), this.event.getEventID()));
-        if (haveTeam){
-            joinButton.setVisible(false);
-            joinTeamButton.setVisible(true);
-
-        }else{
-            joinButton.setVisible(true);
-            joinTeamButton.setVisible(true);
-        }
     }
 
 

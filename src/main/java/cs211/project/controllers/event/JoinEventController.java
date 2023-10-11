@@ -37,6 +37,8 @@ public class JoinEventController extends ComponentRegister {
     @FXML
     private Label eventDescriptionLabel;
     @FXML
+    private Label locationLabel;
+    @FXML
     private Rectangle eventImage;
     @FXML
     private Label eventNameLabel;
@@ -144,6 +146,7 @@ public class JoinEventController extends ComponentRegister {
     public void setContent() {
         this.eventNameLabel.setText(event.getNameEvent());
         this.eventDescriptionLabel.setText(event.getDescriptionEvent());
+        this.locationLabel.setText(event.getLocation());
         this.currentUserAmount.setText(String.valueOf(event.getCurrentMemberParticipatingAmount()));
         this.maxUserAmount.setText(String.valueOf(event.getQuantityEvent()));
         this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
