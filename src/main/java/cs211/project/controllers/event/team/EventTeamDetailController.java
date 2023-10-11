@@ -5,10 +5,8 @@ import cs211.project.models.collections.*;
 import cs211.project.services.FXRouter;
 import cs211.project.services.ManyToManyManager;
 import cs211.project.services.RouteProvider;
-import cs211.project.services.SingletonStorage;
 import cs211.project.services.datasource.*;
 import cs211.project.utils.ComponentRegister;
-import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,8 +21,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class EventTeamDetailController extends ComponentRegister {
     @FXML
@@ -52,6 +50,8 @@ public class EventTeamDetailController extends ComponentRegister {
     private Team team;
     private RouteProvider<Event> routeProvider;
     private CommentActivitiesTeamFileListDatasource commentActivitiesTeamFileListDatasource;
+
+
 
     @FXML
     public void initialize() {
@@ -321,6 +321,25 @@ public class EventTeamDetailController extends ComponentRegister {
 
         TableColumn<User, String> statusColumn = new TableColumn<>("nameUser");
 
+        TableColumn<User, String> roleColumn = new TableColumn<>("Role");
+        roleColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> parameter) {
+                User user = parameter.getValue();
+                AtomicReference<Boolean> isHead = new AtomicReference<>(false);
+                ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
+                TeamCollection teamCollection = new TeamFileListDatasource().readData().findByEvent(team.getEvent());
+                teamCollection.getTeams().forEach(teamInEvent -> {
+                    if(manyToManyManager.checkIsExisted(new ManyToMany(user.getId(), teamInEvent.getId()))){
+                        isHead.set(true);
+                    }
+
+
+                });
+                return Bindings.createStringBinding(() -> isHead.get() ? "Extra Member" : "Member");
+            }
+        });
+
         statusColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> parameter) {
@@ -332,12 +351,43 @@ public class EventTeamDetailController extends ComponentRegister {
 
         memberTeamTableView.getColumns().clear();
         memberTeamTableView.getItems().clear();
-        memberTeamTableView.getColumns().addAll(imageColumn,userNameColumn, nameUserColumn, statusColumn);
+        memberTeamTableView.getColumns().addAll(imageColumn,userNameColumn, nameUserColumn, statusColumn ,roleColumn);
 
         for (User user : userInTeamCollection.getUsers()) {
             memberTeamTableView.getItems().add(user);
         }
 
+    }
+
+
+
+    @FXML
+    void onSetHeadOfTeam(){
+        if (selectMemberInTeam != null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to set head of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
+                manyToManyManager.add(new ManyToMany(selectMemberInTeam.getId(), team.getId()));
+                selectMemberInTeam = null;
+                this.showTableMemberInTeam(this.userInTeamCollection);
+            }
+        }
+
+    }
+
+    @FXML
+    void onUnSetHeadOfTeam(){
+        if (selectMemberInTeam != null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to unset head of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK, ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
+                manyToManyManager.remove(new ManyToMany(selectMemberInTeam.getId(), team.getId()));
+                selectMemberInTeam = null;
+                this.showTableMemberInTeam(this.userInTeamCollection);
+            }
+        }
     }
 
 
@@ -368,5 +418,7 @@ public class EventTeamDetailController extends ComponentRegister {
             }
         }
     }
+
+
 
 }

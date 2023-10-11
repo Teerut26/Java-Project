@@ -165,9 +165,22 @@
                                           </TableView>
                                           <HBox alignment="CENTER" prefHeight="71.0" prefWidth="902.0">
                                              <children>
+                                                <Button mnemonicParsing="false" onAction="#onSetHeadOfTeam" prefHeight="44.0" styleClass="btn-Done" text="set extra member">
+                                                   <font>
+                                                      <Font name="Hiragino Sans W6" size="20.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#onUnSetHeadOfTeam" prefHeight="44.0" styleClass="btn-delete" text="cancel extra member">
+                                                   <font>
+                                                      <Font name="Hiragino Sans W6" size="20.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="24.0" />
+                                                   </HBox.margin>
+                                                </Button>
                                                 <Button mnemonicParsing="false" onAction="#onUsCancelSuspend" prefHeight="44.0" prefWidth="171.0" styleClass="btn-secondary" text="un suspend">
                                                    <HBox.margin>
-                                                      <Insets right="100.0" />
+                                                      <Insets left="24.0" right="24.0" />
                                                    </HBox.margin>
                                                    <font>
                                                       <Font name="Hiragino Sans W6" size="20.0" />
