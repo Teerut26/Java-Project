@@ -20,7 +20,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -46,7 +45,6 @@ public class EventTeamListController extends ComponentRegister {
     @FXML
     private Label successLabel;
     private RouteProvider<Event> routeProvider;
-
 
     @FXML
     private TableView<Team> teamTableView = new TableView<>();
@@ -75,16 +73,14 @@ public class EventTeamListController extends ComponentRegister {
     @FXML
     private Label extrauserLabel;
 
-
     @FXML
     private Team currentTeamSelect;
 
-    private Boolean isJoinedTeam ;
+    private Boolean isJoinedTeam;
 
     private Boolean isExtraUser = false;
 
-    public  String eventID;
-
+    public String eventID;
 
     @FXML
     public void initialize() {
@@ -94,8 +90,7 @@ public class EventTeamListController extends ComponentRegister {
 
         teamFileListDatasource = new TeamFileListDatasource();
         teamCollection = teamFileListDatasource.readData();
-         eventID = (String) routeProvider.getDataHashMap().get("eventID");
-        System.out.println("eventID: " + eventID);
+        eventID = (String) routeProvider.getDataHashMap().get("eventID");
         teamCollection.getTeams().forEach((team -> {
             if (team.getEvent().getEventID().equals(eventID)) {
                 teamForTableView.add(team);
@@ -113,55 +108,48 @@ public class EventTeamListController extends ComponentRegister {
         endDateLabel.setVisible(false);
         extrauserLabel.setVisible(false);
 
-
         this.initializeThemeMode();
         this.initializeFont();
         checkIsExtraUser();
-        if (isExtraUser){
+        if (isExtraUser) {
             extrauserLabel.setVisible(true);
         }
     }
 
-
     @FXML
-    public void initializeThemeMode(){
-        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+    public void initializeThemeMode() {
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
-        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+        } else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
         }
     }
 
     @FXML
-    public void initializeFont(){
-        String currentFont =this.routeProvider.getUserSession().getFont();
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
         clearFontStyle();
-        if (currentFont.equals("font-style1")){
+        if (currentFont.equals("font-style1")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
-        }else if (currentFont.equals("font-style2")){
+        } else if (currentFont.equals("font-style2")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
-        }else if (currentFont.equals("font-style3")){
+        } else if (currentFont.equals("font-style3")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
         }
 
     }
 
     @FXML
-    public void clearFontStyle(){
+    public void clearFontStyle() {
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
 
-
-
     public void setTeamTableView() {
-        if (teamForTableView == null) {
-            System.out.println("No teams");
-        } else {
-
+        if (teamForTableView != null) {
 
             TableColumn<Team, String> teamName = new TableColumn<>("Team name");
             teamName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -169,7 +157,8 @@ public class EventTeamListController extends ComponentRegister {
             TableColumn<Team, String> teamQuantity = new TableColumn<>("Team quantity");
             teamQuantity.setCellValueFactory(param -> {
                 if (param.getValue() != null) {
-                    ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
+                    ManyToManyManager manyToManyManager = new ManyToManyManager(
+                            new ManyToManyFileListDatasource().MTM_USER_TEAM);
                     Team team = param.getValue();
                     String numberJoined = String.valueOf(manyToManyManager.countByB(team.getId()));
                     String quantity = String.valueOf(team.getQuantity());
@@ -184,11 +173,10 @@ public class EventTeamListController extends ComponentRegister {
             teamStartDate.setCellValueFactory(param -> {
                 if (param.getValue() != null) {
                     Team team = param.getValue();
-                    String startDate =formateDate(team.getStartRecruitDate());
+                    String startDate = formateDate(team.getStartRecruitDate());
                     return new ReadOnlyStringWrapper(startDate);
                 } else {
                     return new ReadOnlyStringWrapper("");
-
 
                 }
             });
@@ -207,15 +195,16 @@ public class EventTeamListController extends ComponentRegister {
             TableColumn<Team, String> teamStatus = new TableColumn<>("Status");
             teamStatus.setCellValueFactory(new PropertyValueFactory<>("joinStatus"));
 
-
             teamTableView.getColumns().clear();
             teamTableView.getColumns().addAll(teamName, teamQuantity, teamStartDate, teamEndDate, teamStatus);
             teamTableView.getItems().clear();
 
             for (Team team : teamForTableView.getTeams()) {
-                ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
-                Boolean isJoin = manyToManyManager.checkAHaveB(this.routeProvider.getUserSession().getId(), team.getId());
-                        if (isJoin) {
+                ManyToManyManager manyToManyManager = new ManyToManyManager(
+                        new ManyToManyFileListDatasource().MTM_USER_TEAM);
+                Boolean isJoin = manyToManyManager.checkAHaveB(this.routeProvider.getUserSession().getId(),
+                        team.getId());
+                if (isJoin) {
                     team.setJoinStatus("Joined");
                 } else {
                     team.setJoinStatus("Not joined");
@@ -230,12 +219,13 @@ public class EventTeamListController extends ComponentRegister {
                     Team selectedTeam = teamTableView.getSelectionModel().getSelectedItem();
                     this.currentTeamSelect = selectedTeam;
                     teamNameLabel.setText(selectedTeam.getName());
-                    ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
+                    ManyToManyManager manyToManyManager = new ManyToManyManager(
+                            new ManyToManyFileListDatasource().MTM_USER_TEAM);
                     String numberJoined = String.valueOf(manyToManyManager.countByB(selectedTeam.getId()));
                     String quantity = String.valueOf(selectedTeam.getQuantity());
                     String numberJoinedAndMax = numberJoined + "/" + quantity;
                     teamQuantityLabel.setText(numberJoinedAndMax);
-                    String startDate  =formateDate(selectedTeam.getStartRecruitDate());
+                    String startDate = formateDate(selectedTeam.getStartRecruitDate());
                     startDateLabel.setText(startDate);
                     String endDate = formateDate(selectedTeam.getEndRecruitDate());
                     endDateLabel.setText(endDate);
@@ -249,8 +239,6 @@ public class EventTeamListController extends ComponentRegister {
                     checkJoinTeamButtonStatus();
                 }
 
-
-
             });
 
         }
@@ -263,8 +251,10 @@ public class EventTeamListController extends ComponentRegister {
         }
         Boolean isJoined = checkJoinedTeam();
         if (isJoined) {
-            ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
-            manyToManyManager.remove(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
+            ManyToManyManager manyToManyManager = new ManyToManyManager(
+                    new ManyToManyFileListDatasource().MTM_USER_TEAM);
+            manyToManyManager.remove(
+                    new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
             viewTeamButton.setVisible(false);
             joinTeamButton.setText("Join");
             successLabel.setText("Canceled join team successfully");
@@ -277,9 +267,11 @@ public class EventTeamListController extends ComponentRegister {
             alert.setContentText("Canceled join team successfully");
             alert.showAndWait();
         } else {
-            ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
+            ManyToManyManager manyToManyManager = new ManyToManyManager(
+                    new ManyToManyFileListDatasource().MTM_USER_TEAM);
 
-            manyToManyManager.add(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
+            manyToManyManager
+                    .add(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
             joinTeamButton.setText("cancel");
             viewTeamButton.setVisible(true);
             viewTeamButton.setDisable(false);
@@ -295,7 +287,6 @@ public class EventTeamListController extends ComponentRegister {
             alert.showAndWait();
         }
 
-
     }
 
     private void closeSuccessLabel() {
@@ -306,75 +297,75 @@ public class EventTeamListController extends ComponentRegister {
                         successLabel.setVisible(false);
                     }
                 },
-                3000
-        );
+                3000);
     }
 
     private Boolean checkJoinedTeam() {
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
-        if (manyToManyManager.checkAHaveB(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId())) {
-            System.out.println("Joined");
+        if (manyToManyManager.checkAHaveB(this.routeProvider.getUserSession().getId(),
+                this.currentTeamSelect.getId())) {
             return true;
         } else {
-            System.out.println("Join");
             return false;
         }
     }
 
     private void checkJoinTeamButtonStatus() {
-        System.out.println("checkJoinTeamButtonStatus"+ isExtraUser);
         this.checkJoinTeam();
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
-            if (manyToManyManager.checkAHaveB(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId())) {
-                joinTeamButton.setText("cancel");
-                joinTeamButton.getStyleClass().remove("btn-done");
-                joinTeamButton.getStyleClass().add("btn-error");
+        if (manyToManyManager.checkAHaveB(this.routeProvider.getUserSession().getId(),
+                this.currentTeamSelect.getId())) {
+            joinTeamButton.setText("cancel");
+            joinTeamButton.getStyleClass().remove("btn-done");
+            joinTeamButton.getStyleClass().add("btn-error");
+            viewTeamButton.setVisible(true);
+            viewTeamButton.setDisable(false);
+        } else {
+            joinTeamButton.getStyleClass().remove("btn-error");
+            joinTeamButton.getStyleClass().add("btn-done");
+            if (this.currentTeamSelect.getQuantity() == manyToManyManager.countByB(this.currentTeamSelect.getId())) {
+                joinTeamButton.setDisable(true);
+                joinTeamButton.setText("Full");
                 viewTeamButton.setVisible(true);
-                viewTeamButton.setDisable(false);
+
             } else {
-                joinTeamButton.getStyleClass().remove("btn-error");
-                joinTeamButton.getStyleClass().add("btn-done");
-                if (this.currentTeamSelect.getQuantity() == manyToManyManager.countByB(this.currentTeamSelect.getId())) {
+                if (isExtraUser) {
+                    joinTeamButton.setDisable(false);
+                    joinTeamButton.setText("join");
+                    viewTeamButton.setVisible(false);
+                } else if (isJoinedTeam) {
                     joinTeamButton.setDisable(true);
-                    joinTeamButton.setText("Full");
-                    viewTeamButton.setVisible(true);
+                    viewTeamButton.setVisible(false);
+                    joinTeamButton.setText("Join");
 
                 } else {
-                    if(isExtraUser){
-                        joinTeamButton.setDisable(false);
-                        joinTeamButton.setText("join");
-                        viewTeamButton.setVisible(false);
-                    }else if(isJoinedTeam){
-                        joinTeamButton.setDisable(true);
-                        viewTeamButton.setVisible(false);
-                        joinTeamButton.setText("Join");
-
-                    }else {
-                        joinTeamButton.setDisable(false);
-                        joinTeamButton.setText("Join");
-                        viewTeamButton.setVisible(false);
-                    }
+                    joinTeamButton.setDisable(false);
+                    joinTeamButton.setText("Join");
+                    viewTeamButton.setVisible(false);
                 }
-
             }
 
+        }
 
     }
 
-    private void checkIsExtraUser(){
-        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
-        manyToManyManager.findsByA(this.routeProvider.getUserSession().getId()).getManyToManies().forEach(manyToMany -> {
-            if(teamForTableView.findById(manyToMany.getB()) != null){
-                isExtraUser = true;
-            }
-        });
+    private void checkIsExtraUser() {
+        ManyToManyManager manyToManyManager = new ManyToManyManager(
+                new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
+        manyToManyManager.findsByA(this.routeProvider.getUserSession().getId()).getManyToManies()
+                .forEach(manyToMany -> {
+                    if (teamForTableView.findById(manyToMany.getB()) != null) {
+                        isExtraUser = true;
+                    }
+                });
 
     }
 
-    private void setStatusJoinInTable () {
+    private void setStatusJoinInTable() {
         teamTableView.getItems().clear();
         for (Team team : teamForTableView.getTeams()) {
-            ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
+            ManyToManyManager manyToManyManager = new ManyToManyManager(
+                    new ManyToManyFileListDatasource().MTM_USER_TEAM);
             Boolean isJoin = manyToManyManager.checkAHaveB(this.routeProvider.getUserSession().getId(), team.getId());
             if (isJoin) {
                 team.setJoinStatus("Joined");
@@ -385,7 +376,8 @@ public class EventTeamListController extends ComponentRegister {
         }
 
     }
-    public String formateDate (LocalDateTime localDateTime) {
+
+    public String formateDate(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return localDateTime.format(formatter);
     }
@@ -400,7 +392,7 @@ public class EventTeamListController extends ComponentRegister {
         }
     }
 
-    public void checkJoinTeam(){
+    public void checkJoinTeam() {
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
         EventCollection eventCollection = eventFileListDatesource.readData();
@@ -410,25 +402,24 @@ public class EventTeamListController extends ComponentRegister {
         TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
         TeamCollection teamCollection = teamFileListDatasource.readData().findByEvent(event);
         teamCollection.getTeams().forEach(team -> {
-            if (manyToManyManager.checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), team.getId()))){
+            if (manyToManyManager
+                    .checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), team.getId()))) {
                 this.isJoinedTeam = true;
 
             }
         });
-
 
     }
 
     @FXML
     public void onBack() {
         try {
-            if(this.routeProvider.getDataHashMap().get("oldRoute") != null){
+            if (this.routeProvider.getDataHashMap().get("oldRoute") != null) {
                 FXRouter.goTo((String) this.routeProvider.getDataHashMap().get("oldRoute"), this.routeProvider);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 }

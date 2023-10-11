@@ -76,7 +76,6 @@ public class EditTeam extends ComponentRegister {
 
     @FXML
     public void initializeThemeMode() {
-        System.out.println("InitializeThemeMode" + this.routeProvider.getUserSession().getThemeMode());
         if (this.routeProvider.getUserSession().getThemeMode().equals("dark")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");

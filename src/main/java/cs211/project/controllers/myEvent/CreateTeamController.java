@@ -70,52 +70,48 @@ public class CreateTeamController extends ComponentRegister {
         this.initializeFont();
     }
 
-
     @FXML
-    public void initializeThemeMode(){
-        System.out.println("InitializeThemeMode" + this.routeProvider.getUserSession().getThemeMode());
-        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+    public void initializeThemeMode() {
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
-        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+        } else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
         }
     }
 
     @FXML
-    public void initializeFont(){
-        String currentFont =this.routeProvider.getUserSession().getFont();
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
         clearFontStyle();
-        if (currentFont.equals("font-style1")){
+        if (currentFont.equals("font-style1")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
-        }else if (currentFont.equals("font-style2")){
+        } else if (currentFont.equals("font-style2")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
-        }else if (currentFont.equals("font-style3")){
+        } else if (currentFont.equals("font-style3")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
         }
 
     }
 
     @FXML
-    public void clearFontStyle(){
+    public void clearFontStyle() {
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
 
-
-
     @FXML
     public void onSave() {
 
-        try{
+        try {
             Integer.parseInt(TextFieldQuantity.getText());
-            Team newTeam = creatNewTeam();;
+            Team newTeam = creatNewTeam();
+            ;
             teamCollection.add(newTeam);
             teamFileListDatasource.writeData(teamCollection);
             clearField();
-
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
@@ -129,7 +125,7 @@ public class CreateTeamController extends ComponentRegister {
         }
     }
 
-    private Team creatNewTeam(){
+    private Team creatNewTeam() {
 
         TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), DateOpeningDate.getValue().atStartOfDay());
         TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), DataDeadline.getValue().atStartOfDay());
@@ -152,20 +148,19 @@ public class CreateTeamController extends ComponentRegister {
                 timeStartUtils.getRefLocalDateTime(),
                 timeEndUtils.getRefLocalDateTime(),
                 routeProvider.getUserSession(),
-                event
-        );
+                event);
     }
 
-    private void clearField(){
+    private void clearField() {
         TextFieldTeamName.clear();
         TextFieldQuantity.clear();
         DateOpeningDate.setValue(null);
         DataDeadline.setValue(null);
     }
 
-    private void navigateToEventDetail(){
+    private void navigateToEventDetail() {
         try {
-            FXRouter.goTo("set-event-detail",this.routeProvider);
+            FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -174,9 +169,10 @@ public class CreateTeamController extends ComponentRegister {
     @FXML
     public void onCancel() {
         try {
-            FXRouter.goTo("set-event-detail",this.routeProvider);
+            FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
-        };
+        }
+        ;
     }
 }

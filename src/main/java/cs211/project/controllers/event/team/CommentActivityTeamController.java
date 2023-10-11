@@ -90,38 +90,36 @@ public class CommentActivityTeamController {
     }
 
     @FXML
-    public void initializeThemeMode(){
-        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+    public void initializeThemeMode() {
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
-        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+        } else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
         }
     }
 
     @FXML
-    public void initializeFont(){
-        String currentFont =this.routeProvider.getUserSession().getFont();
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
         clearFontStyle();
-        if (currentFont.equals("font-style1")){
+        if (currentFont.equals("font-style1")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
-        }else if (currentFont.equals("font-style2")){
+        } else if (currentFont.equals("font-style2")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
-        }else if (currentFont.equals("font-style3")){
+        } else if (currentFont.equals("font-style3")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
         }
 
     }
 
     @FXML
-    public void clearFontStyle(){
+    public void clearFontStyle() {
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
-
-
 
     private void readData() {
         this.commentActivitiesTeamCollection = this.commentActivitiesTeamFileListDatasource.readData();
@@ -166,9 +164,9 @@ public class CommentActivityTeamController {
     @FXML
     void onBack(ActionEvent event) {
         try {
-            if(this.routeProvider.getDataHashMap().get("back-my-team") != null){
+            if (this.routeProvider.getDataHashMap().get("back-my-team") != null) {
                 FXRouter.goTo((String) this.routeProvider.getDataHashMap().get("back-my-team"));
-            }else{
+            } else {
                 FXRouter.goTo("event-team-detail");
             }
         } catch (IOException e) {
@@ -182,8 +180,8 @@ public class CommentActivityTeamController {
             return;
         }
         String commentId = UUID.randomUUID().toString();
-        CommentActivitiesTeam commentActivitiesTeam1 = new CommentActivitiesTeam(commentId, commentInput.getText(), this.routeProvider.getUserSession(), this.activitiesTeam, LocalDateTime.now());
-        System.out.println(commentActivitiesTeam1);
+        CommentActivitiesTeam commentActivitiesTeam1 = new CommentActivitiesTeam(commentId, commentInput.getText(),
+                this.routeProvider.getUserSession(), this.activitiesTeam, LocalDateTime.now());
         commentActivitiesTeamCollection.add(commentActivitiesTeam1);
         this.commentActivitiesTeamFileListDatasource.writeData(commentActivitiesTeamCollection);
 

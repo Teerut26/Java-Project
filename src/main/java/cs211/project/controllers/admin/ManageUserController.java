@@ -56,9 +56,8 @@ public class ManageUserController extends ComponentRegister {
     }
 
     @FXML
-    public void initializeThemeMode(){
-        System.out.println("InitializeThemeMode" + this.routeProvider.getUserSession().getThemeMode());
-        if(routeProvider.getUserSession().getThemeMode().equals("dark")){
+    public void initializeThemeMode() {
+        if (routeProvider.getUserSession().getThemeMode().equals("dark")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
         } else if (routeProvider.getUserSession().getThemeMode().equals("light")) {
@@ -68,9 +67,9 @@ public class ManageUserController extends ComponentRegister {
     }
 
     @FXML
-    public void initializeFont(){
+    public void initializeFont() {
         clearFontStyle();
-        if(routeProvider.getUserSession().getFont().equals("font-style1")){
+        if (routeProvider.getUserSession().getFont().equals("font-style1")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
         } else if (routeProvider.getUserSession().getFont().equals("font-style2")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
@@ -79,7 +78,7 @@ public class ManageUserController extends ComponentRegister {
         }
     }
 
-    public void clearFontStyle(){
+    public void clearFontStyle() {
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
@@ -138,13 +137,15 @@ public class ManageUserController extends ComponentRegister {
         TableColumn<User, String> lastLoginColumn = new TableColumn<>("lastLogin");
         lastLoginColumn.setCellValueFactory(new PropertyValueFactory<>("lastLogin"));
 
-        lastLoginColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> parameter) {
-                User user = parameter.getValue();
-                return Bindings.createStringBinding(() -> user.getLastLogin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
-            }
-        });
+        lastLoginColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> parameter) {
+                        User user = parameter.getValue();
+                        return Bindings.createStringBinding(
+                                () -> user.getLastLogin().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                    }
+                });
 
         userTableView.getColumns().clear();
         userTableView.getColumns().addAll(imageColumn, idColumn, usernameColumn, lastLoginColumn);
@@ -158,7 +159,6 @@ public class ManageUserController extends ComponentRegister {
         }
     }
 
-
     @FXML
     void onUserDelete(ActionEvent event) {
         if (userSelect.isAdmin()) {
@@ -167,7 +167,8 @@ public class ManageUserController extends ComponentRegister {
             return;
         }
         if (userSelect != null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You want delete : " + userSelect.getUserName() + " ?", ButtonType.OK, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want delete : " + userSelect.getUserName() + " ?",
+                    ButtonType.OK, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.CANCEL) {
                 return;

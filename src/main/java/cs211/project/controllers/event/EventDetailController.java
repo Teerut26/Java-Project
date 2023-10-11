@@ -179,7 +179,6 @@ public class EventDetailController extends ComponentRegister {
         teamCollection.getTeams().forEach(team -> {
             if (manyToManyManager
                     .checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), team.getId()))) {
-                System.out.println("Join team");
                 joinButton.setDisable(true);
                 this.isJoinTeam = true;
             }

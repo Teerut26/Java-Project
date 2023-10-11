@@ -46,7 +46,7 @@ public class MyTeamController {
     private Button cancelTeamButton;
 
     @FXML
-    private  Button commentTeamButton;
+    private Button commentTeamButton;
 
     @FXML
     private TableView<Team> teamTableView = new TableView<>();
@@ -71,7 +71,6 @@ public class MyTeamController {
     @FXML
     private UserCollection userForTableView = new UserCollection();
 
-
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
@@ -82,7 +81,7 @@ public class MyTeamController {
         setTeamInTableView();
         clearTeamInfo();
 
-        if(routeProvider.getDataHashMap().get("teamJoined") != null) {
+        if (routeProvider.getDataHashMap().get("teamJoined") != null) {
             Team teamJoined = (Team) routeProvider.getDataHashMap().get("teamJoined");
             currentTeamSelect = teamJoined;
             setTeamInfo();
@@ -112,44 +111,42 @@ public class MyTeamController {
     }
 
     @FXML
-    public void initializeThemeMode(){
-        System.out.println("InitializeThemeMode" + this.routeProvider.getUserSession().getThemeMode());
-        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+    public void initializeThemeMode() {
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
-        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+        } else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
         }
     }
 
     @FXML
-    public void initializeFont(){
-        String currentFont =this.routeProvider.getUserSession().getFont();
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
         clearFontStyle();
-        if (currentFont.equals("font-style1")){
+        if (currentFont.equals("font-style1")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
-        }else if (currentFont.equals("font-style2")){
+        } else if (currentFont.equals("font-style2")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
-        }else if (currentFont.equals("font-style3")){
+        } else if (currentFont.equals("font-style3")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
         }
 
     }
 
     @FXML
-    public void clearFontStyle(){
+    public void clearFontStyle() {
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
 
     public void setTeamInTableView() {
-       TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
-         TeamCollection teamCollection = teamFileListDatasource.readData();
+        TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
+        TeamCollection teamCollection = teamFileListDatasource.readData();
 
-
-        ManyToManyManager manyToManyManager= new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
         ManyToManyCollection manyToManyCollection = manyToManyManager.getAll();
         manyToManyCollection.findsByA(this.routeProvider.getUserSession().getId()).forEach(manyToMany -> {
             Team team = teamCollection.findById(manyToMany.getB());
@@ -184,11 +181,10 @@ public class MyTeamController {
         teamStartDate.setCellValueFactory(param -> {
             if (param.getValue() != null) {
                 Team team = param.getValue();
-                String startDate =formateDate(team.getStartRecruitDate());
+                String startDate = formateDate(team.getStartRecruitDate());
                 return new ReadOnlyStringWrapper(startDate);
             } else {
                 return new ReadOnlyStringWrapper("");
-
 
             }
         });
@@ -250,28 +246,30 @@ public class MyTeamController {
         activitiesCollection = new ActivitiesTeamCollection();
         activitiesCollection = activitiesTeamCollection.findByTeamId(currentTeamSelect.getId());
 
-         TableColumn<ActivitiesTeam, String> activityName = new TableColumn<>("Activity Name");
-          activityName.setCellValueFactory(new PropertyValueFactory<>("title"));
+        TableColumn<ActivitiesTeam, String> activityName = new TableColumn<>("Activity Name");
+        activityName.setCellValueFactory(new PropertyValueFactory<>("title"));
         TableColumn<ActivitiesTeam, String> activityDetail = new TableColumn<>("Detail");
         activityDetail.setCellValueFactory(new PropertyValueFactory<>("detail"));
         TableColumn<ActivitiesTeam, String> activityStartDate = new TableColumn<>("Start date");
         activityStartDate.setCellValueFactory(param -> {
             if (param.getValue() != null) {
                 ActivitiesTeam activities = param.getValue();
-                String startDate =formateDate(activities.getDateStart());
+                String startDate = formateDate(activities.getDateStart());
                 return new ReadOnlyStringWrapper(startDate);
             } else {
                 return new ReadOnlyStringWrapper("");
-            }});
+            }
+        });
         TableColumn<ActivitiesTeam, String> activityEndDate = new TableColumn<>("End date");
         activityEndDate.setCellValueFactory(param -> {
             if (param.getValue() != null) {
                 ActivitiesTeam activities = param.getValue();
-                String endDate =formateDate(activities.getDateEnd());
+                String endDate = formateDate(activities.getDateEnd());
                 return new ReadOnlyStringWrapper(endDate);
             } else {
                 return new ReadOnlyStringWrapper("");
-            }});
+            }
+        });
 
         activityTableView.getColumns().clear();
         activityTableView.getColumns().addAll(activityName, activityDetail, activityStartDate, activityEndDate);
@@ -283,28 +281,24 @@ public class MyTeamController {
 
         activityTableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
-                   currentActivitySelect = activityTableView.getSelectionModel().getSelectedItem();
-                   System.out.println(currentActivitySelect.getTitle());
+                currentActivitySelect = activityTableView.getSelectionModel().getSelectedItem();
             }
         });
 
-
     }
 
-    public void setUserTableView(){
+    public void setUserTableView() {
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
         ManyToManyCollection manyToManyCollection = manyToManyManager.getAll();
         manyToManyCollection.findsByB(currentTeamSelect.getId()).forEach(manyToMany -> {
             UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
             userCollection = userFileListDatasource.readData();
             User user = userCollection.findById(manyToMany.getA());
-            System.out.println(user.getNameUser());
             userForTableView.add(user);
         });
 
         TableColumn<User, String> userName = new TableColumn<>("User Name");
         userName.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
-
 
         userTableView.getColumns().clear();
         userTableView.getColumns().addAll(userName);
@@ -316,17 +310,16 @@ public class MyTeamController {
 
     }
 
-
-
     public void onCancelTeam() {
         if (currentTeamSelect == null) {
             return;
         }
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
-        manyToManyManager.remove(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
+        manyToManyManager
+                .remove(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
         clearTeamInfo();
         try {
-            FXRouter.goTo("my-team",this.routeProvider);
+            FXRouter.goTo("my-team", this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -343,21 +336,15 @@ public class MyTeamController {
             }
             this.routeProvider.addHashMap("activity-select", currentActivitySelect);
             this.routeProvider.addHashMap("back-my-team", "my-team");
-            FXRouter.goTo("comment-activity-team",this.routeProvider);
+            FXRouter.goTo("comment-activity-team", this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-
-    public String formateDate (LocalDateTime localDateTime) {
+    public String formateDate(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return localDateTime.format(formatter);
     }
-
-
-
-
-
 
 }

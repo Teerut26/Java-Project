@@ -50,7 +50,8 @@ public class InProcessCardComponentController {
         image.setFill(new ImagePattern(img));
         this.title.setText(event.getNameEvent());
         this.descriptions.setText(event.getDescriptionEvent());
-        this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
+        this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - "
+                + event.getEndDate().format(Event.DATE_FORMATTER));
         this.eventLocation.setText(event.getLocation());
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
         Integer currentMemberParticipatingAmount = manyToManyManager.countByB(event.getEventID());
@@ -78,18 +79,16 @@ public class InProcessCardComponentController {
     @FXML
     public void onCanceledEvent(ActionEvent event) {
         Event eventSelected = (Event) this.event;
-        System.out.println(eventSelected.getEventID());
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
-        manyToManyManager.remove(new ManyToMany(this.routeProvider.getUserSession().getId(), eventSelected.getEventID()));
+        manyToManyManager
+                .remove(new ManyToMany(this.routeProvider.getUserSession().getId(), eventSelected.getEventID()));
 
-
-        //reload
+        // reload
         try {
             FXRouter.goTo("event-history", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 }
