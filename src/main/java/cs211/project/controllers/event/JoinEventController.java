@@ -236,6 +236,7 @@ public class JoinEventController extends ComponentRegister {
     @FXML
     public void goToTeamList() {
         try {
+            this.routeProvider.addHashMap("oldRoute", "event-detail-joined");
             FXRouter.goTo("event-team-list", this.routeProvider);
 
         } catch (IOException e) {

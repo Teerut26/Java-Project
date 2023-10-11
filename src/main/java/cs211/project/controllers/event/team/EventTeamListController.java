@@ -3,7 +3,6 @@ package cs211.project.controllers.event.team;
 import cs211.project.models.Event;
 import cs211.project.models.ManyToMany;
 import cs211.project.models.Team;
-import cs211.project.models.User;
 import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.TeamCollection;
 import cs211.project.services.FXRouter;
@@ -13,21 +12,19 @@ import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.services.datasource.ManyToManyFileListDatasource;
 import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.utils.ComponentRegister;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class EventTeamListController extends ComponentRegister {
     @FXML
@@ -75,11 +72,18 @@ public class EventTeamListController extends ComponentRegister {
     @FXML
     private Label endDateLabel;
 
+    @FXML
+    private Label extrauserLabel;
+
 
     @FXML
     private Team currentTeamSelect;
 
-    Boolean isJoinedTeam ;
+    private Boolean isJoinedTeam ;
+
+    private Boolean isExtraUser = false;
+
+    public  String eventID;
 
 
     @FXML
@@ -90,8 +94,11 @@ public class EventTeamListController extends ComponentRegister {
 
         teamFileListDatasource = new TeamFileListDatasource();
         teamCollection = teamFileListDatasource.readData();
-
-        String eventID = routeProvider.getData().getEventID();
+        if (routeProvider.getData()!= null) {
+            eventID = routeProvider.getData().getEventID();
+        } else {
+            eventID = (String) routeProvider.getDataHashMap().get("eventID");
+        }
         teamCollection.getTeams().forEach((team -> {
             if (team.getEvent().getEventID().equals(eventID)) {
                 teamForTableView.add(team);
@@ -107,10 +114,15 @@ public class EventTeamListController extends ComponentRegister {
         teamQuantityLabel.setVisible(false);
         startDateLabel.setVisible(false);
         endDateLabel.setVisible(false);
+        extrauserLabel.setVisible(false);
 
 
         this.initializeThemeMode();
         this.initializeFont();
+        checkIsExtraUser();
+        if (isExtraUser){
+            extrauserLabel.setVisible(true);
+        }
     }
 
 
@@ -262,6 +274,11 @@ public class EventTeamListController extends ComponentRegister {
             closeSuccessLabel();
             setStatusJoinInTable();
             checkJoinTeamButtonStatus();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cancel join team");
+            alert.setHeaderText("Cancel join team");
+            alert.setContentText("Canceled join team successfully");
+            alert.showAndWait();
         } else {
             ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
 
@@ -274,6 +291,11 @@ public class EventTeamListController extends ComponentRegister {
             closeSuccessLabel();
             setStatusJoinInTable();
             checkJoinTeamButtonStatus();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Join team");
+            alert.setHeaderText("Join team");
+            alert.setContentText("Joined team successfully");
+            alert.showAndWait();
         }
 
 
@@ -303,19 +325,29 @@ public class EventTeamListController extends ComponentRegister {
     }
 
     private void checkJoinTeamButtonStatus() {
+        System.out.println("checkJoinTeamButtonStatus"+ isExtraUser);
         this.checkJoinTeam();
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
             if (manyToManyManager.checkAHaveB(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId())) {
                 joinTeamButton.setText("cancel");
+                joinTeamButton.getStyleClass().remove("btn-done");
+                joinTeamButton.getStyleClass().add("btn-error");
                 viewTeamButton.setVisible(true);
                 viewTeamButton.setDisable(false);
             } else {
+                joinTeamButton.getStyleClass().remove("btn-error");
+                joinTeamButton.getStyleClass().add("btn-done");
                 if (this.currentTeamSelect.getQuantity() == manyToManyManager.countByB(this.currentTeamSelect.getId())) {
                     joinTeamButton.setDisable(true);
                     joinTeamButton.setText("Full");
                     viewTeamButton.setVisible(true);
+
                 } else {
-                    if(isJoinedTeam){
+                    if(isExtraUser){
+                        joinTeamButton.setDisable(false);
+                        joinTeamButton.setText("join");
+                        viewTeamButton.setVisible(false);
+                    }else if(isJoinedTeam){
                         joinTeamButton.setDisable(true);
                         viewTeamButton.setVisible(false);
                         joinTeamButton.setText("Join");
@@ -329,6 +361,16 @@ public class EventTeamListController extends ComponentRegister {
 
             }
 
+
+    }
+
+    private void checkIsExtraUser(){
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
+        manyToManyManager.findsByA(this.routeProvider.getUserSession().getId()).getManyToManies().forEach(manyToMany -> {
+            if(teamForTableView.findById(manyToMany.getB()) != null){
+                isExtraUser = true;
+            }
+        });
 
     }
 
@@ -365,7 +407,7 @@ public class EventTeamListController extends ComponentRegister {
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
         EventCollection eventCollection = eventFileListDatesource.readData();
-        Event event = eventCollection.findById(routeProvider.getData().getEventID());
+        Event event = eventCollection.findById(eventID);
 
         this.isJoinedTeam = false;
         TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
@@ -383,7 +425,9 @@ public class EventTeamListController extends ComponentRegister {
     @FXML
     public void onBack() {
         try {
-            FXRouter.goTo("event-detail-joined", this.routeProvider);
+            if(this.routeProvider.getDataHashMap().get("oldRoute") != null){
+                FXRouter.goTo((String) this.routeProvider.getDataHashMap().get("oldRoute"), this.routeProvider);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

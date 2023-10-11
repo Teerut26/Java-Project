@@ -26,6 +26,7 @@ public class TeamCollection {
         return false;
     }
 
+
     public ArrayList<Team> getTeams() {
         return this.teams;
     }
