@@ -199,6 +199,7 @@ public class EventDetailController extends ComponentRegister {
                 return;
             }
             routeProvider.addHashMap("oldRoute", "event-detail");
+            routeProvider.addHashMap("eventID", this.event.getEventID());
             FXRouter.goTo("event-team-list", this.routeProvider);
 
         } catch (IOException e) {

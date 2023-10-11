@@ -94,11 +94,8 @@ public class EventTeamListController extends ComponentRegister {
 
         teamFileListDatasource = new TeamFileListDatasource();
         teamCollection = teamFileListDatasource.readData();
-        if (routeProvider.getData()!= null) {
-            eventID = routeProvider.getData().getEventID();
-        } else {
-            eventID = (String) routeProvider.getDataHashMap().get("eventID");
-        }
+         eventID = (String) routeProvider.getDataHashMap().get("eventID");
+        System.out.println("eventID: " + eventID);
         teamCollection.getTeams().forEach((team -> {
             if (team.getEvent().getEventID().equals(eventID)) {
                 teamForTableView.add(team);
