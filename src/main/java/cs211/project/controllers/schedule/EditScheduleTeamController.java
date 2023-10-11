@@ -61,8 +61,8 @@ public class EditScheduleTeamController extends ComponentRegister {
         TextFieldDetail.setText(activitiesTeam.getDetail());
         dateStart.setValue(activitiesTeam.getDateStart().toLocalDate());
         dateEnd.setValue(activitiesTeam.getDateEnd().toLocalDate());
-        timeStart.setText(activitiesTeam.getStartTime());
-        timeEnd.setText(activitiesTeam.getEndTime());
+        timeStart.setText(formatTime(activitiesTeam.getStartTime()));
+        timeEnd.setText(formatTime(activitiesTeam.getEndTime()));
 
 
         this.initializeThemeMode();
@@ -139,6 +139,19 @@ public class EditScheduleTeamController extends ComponentRegister {
             throw new RuntimeException(e);
 
         }
+    }
+    public String formatTime(String time) {
+        String[] timeArr = time.split(":");
+        String hour = timeArr[0];
+        String minute = timeArr[1];
+        if (hour.length() == 1) {
+            hour = "0" + hour;
+        }
+        if (minute.length() == 1) {
+            minute = "0" + minute;
+        }
+
+        return hour + ":" + minute;
     }
 
     @FXML

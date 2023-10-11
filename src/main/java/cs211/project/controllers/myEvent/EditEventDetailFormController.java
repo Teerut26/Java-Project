@@ -109,7 +109,7 @@ public class EditEventDetailFormController extends ComponentRegister {
         locationEvent.setText(event.getLocation());
         TextFieldQuantity.setText(String.valueOf(event.getQuantityEvent()));
         DataTimeStart.setValue(event.getStartDate().toLocalDate());
-        DataTimeEnd.setValue(event.getStartDate().toLocalDate());
+        DataTimeEnd.setValue(event.getEndDate().toLocalDate());
         publicCheckBox.setSelected(event.isPublic());
         Image image = new Image("file:" + event.getImageEvent());
         addImage.setImage(image);
