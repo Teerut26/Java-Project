@@ -184,8 +184,6 @@ public class EventTeamListController extends ComponentRegister {
                 }
             });
 
-
-
             TableColumn<Team, String> teamEndDate = new TableColumn<>("End date");
             teamEndDate.setCellValueFactory(param -> {
                 if (param.getValue() != null) {
@@ -199,9 +197,6 @@ public class EventTeamListController extends ComponentRegister {
 
             TableColumn<Team, String> teamStatus = new TableColumn<>("Status");
             teamStatus.setCellValueFactory(new PropertyValueFactory<>("joinStatus"));
-
-
-
 
 
             teamTableView.getColumns().clear();
@@ -284,7 +279,6 @@ public class EventTeamListController extends ComponentRegister {
     }
 
     private void closeSuccessLabel() {
-        //when 3 seconds passed, close the success label
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
@@ -296,7 +290,6 @@ public class EventTeamListController extends ComponentRegister {
         );
     }
 
-    //check if joined team already disabled button
     private Boolean checkJoinedTeam() {
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
         if (manyToManyManager.checkAHaveB(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId())) {

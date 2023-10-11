@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class ChangePasswordProfileController extends ComponentRegister {
+public class ChangePasswordProfileController {
 
     @FXML
     BorderPane parentBorderPane;

@@ -128,7 +128,7 @@ public class EditEventDetailFormController extends ComponentRegister {
             minute = "0" + minute;
         }
 
-        return hour + ":" + minute + ":" ;
+        return hour + ":" + minute + ":";
     }
 
     @FXML
@@ -194,14 +194,6 @@ public class EditEventDetailFormController extends ComponentRegister {
         }
     }
 
-    public void navigateToMyEvent() {
-        try {
-            FXRouter.goTo("my-event", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @FXML
     public void onCancel() {
         navigateToSetEvent();
@@ -216,11 +208,19 @@ public class EditEventDetailFormController extends ComponentRegister {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.OK) {
-             DeleteRelatedOfPrimaryKeyEvent deleteyRelatedOfPrimaryKeyEvent = new DeleteRelatedOfPrimaryKeyEvent();
+            DeleteRelatedOfPrimaryKeyEvent deleteyRelatedOfPrimaryKeyEvent = new DeleteRelatedOfPrimaryKeyEvent();
             deleteyRelatedOfPrimaryKeyEvent.delete(this.event);
 
             navigateToMyEvent();
         }
 
+    }
+
+    public void navigateToMyEvent() {
+        try {
+            FXRouter.goTo("my-event", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

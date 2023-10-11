@@ -71,8 +71,8 @@ public class InProcessAndEndedController extends ComponentRegister {
         routeProvider = (RouteProvider) FXRouter.getData();
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
-        InitializeThemeMode();
-        initializeFont();
+        this.InitializeThemeMode();
+        this.initializeFont();
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
 
         this.inProcessEventCollection = new EventCollection();

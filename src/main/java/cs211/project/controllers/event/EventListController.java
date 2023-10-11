@@ -61,19 +61,18 @@ public class EventListController extends ComponentRegister {
         this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
-
-
-
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
 
         this.eventCollection = new EventCollection();
-        ManyToManyCollection manyToManyCollectionUserJoinedEvent = new ManyToManyFileListDatasource(new ManyToManyFileListDatasource().MTM_USER_EVENT).readData();
+        ManyToManyCollection manyToManyCollectionUserJoinedEvent = new ManyToManyFileListDatasource(
+                new ManyToManyFileListDatasource().MTM_USER_EVENT).readData();
 
         eventFileListDatesource.readData().getEvents().forEach(event -> {
-            boolean isJoined = manyToManyCollectionUserJoinedEvent.checkIsExisted(new ManyToMany(routeProvider.getUserSession().getId(), event.getEventID()));
+            boolean isJoined = manyToManyCollectionUserJoinedEvent
+                    .checkIsExisted(new ManyToMany(routeProvider.getUserSession().getId(), event.getEventID()));
             boolean isOwner = event.getOwner().getId().equals(routeProvider.getUserSession().getId());
             boolean isTeamMember = checkJoinTeam(event);
-            if (event.isPublic() && !isJoined &&!isTeamMember) {
+            if (event.isPublic() && !isJoined && !isTeamMember) {
                 this.eventCollection.add(event);
             }
         });
@@ -81,43 +80,41 @@ public class EventListController extends ComponentRegister {
         this.initEventListScrollPane();
         this.eventListScrollPaneListener();
         this.searchEngine();
-        this.initializeThemeMode();
         this.initializeFont();
+        this.initializeThemeMode();
     }
 
-
     @FXML
-    public void initializeThemeMode(){
-        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+    public void initializeThemeMode() {
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
-        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+        } else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
         }
     }
 
     @FXML
-    public void initializeFont(){
-        String currentFont =this.routeProvider.getUserSession().getFont();
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
         clearFontStyle();
-        if (currentFont.equals("font-style1")){
+        if (currentFont.equals("font-style1")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
-        }else if (currentFont.equals("font-style2")){
+        } else if (currentFont.equals("font-style2")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
-        }else if (currentFont.equals("font-style3")){
+        } else if (currentFont.equals("font-style3")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
         }
 
     }
 
     @FXML
-    public void clearFontStyle(){
+    public void clearFontStyle() {
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
-
 
     private void loadNextBatch(List<Event> events) {
         for (int i = currentBatch; i < Math.min(currentBatch + batchSize, events.size()); i++) {
@@ -164,7 +161,7 @@ public class EventListController extends ComponentRegister {
         executor.shutdown();
     }
 
-    public void searchEngine(){
+    public void searchEngine() {
         ObservableList<Event> observableEvents = FXCollections.observableArrayList(eventCollection.getEvents());
         FilteredList<Event> filteredEvents = new FilteredList<>(observableEvents);
 
@@ -186,13 +183,14 @@ public class EventListController extends ComponentRegister {
         });
     }
 
-    public Boolean checkJoinTeam(Event event){
+    public Boolean checkJoinTeam(Event event) {
         AtomicReference<Boolean> isJoined = new AtomicReference<>(false);
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
         TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
         TeamCollection teamCollection = teamFileListDatasource.readData().findByEvent(event);
         teamCollection.getTeams().forEach(team -> {
-            if (manyToManyManager.checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), team.getId()))){
+            if (manyToManyManager
+                    .checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), team.getId()))) {
                 isJoined.set(true);
             }
         });
@@ -202,7 +200,7 @@ public class EventListController extends ComponentRegister {
     @FXML
     public void onGotoDetail() {
         try {
-            FXRouter.goTo("event-detail",this.routeProvider);
+            FXRouter.goTo("event-detail", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

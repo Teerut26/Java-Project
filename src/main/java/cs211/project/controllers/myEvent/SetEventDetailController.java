@@ -38,10 +38,6 @@ public class SetEventDetailController extends ComponentRegister {
     @FXML
     private HBox NavBarHBox;
     @FXML
-    private Label teamId;
-    @FXML
-    private Label activityId;
-    @FXML
     private TableView<User> userJoinTableView;
     @FXML
     private TableView<Team> teamTableView;
@@ -69,7 +65,6 @@ public class SetEventDetailController extends ComponentRegister {
     private Label currentMemberAmount;
     private Event event;
     private UserCollection userCollection;
-    private UserFileListDatasource userFileListDatasource;
     private User userSelect;
     private TeamCollection teamCollection;
     private Team teamSelect;
@@ -78,7 +73,6 @@ public class SetEventDetailController extends ComponentRegister {
     private ActivitiesEventFileListDatesource activitiesEventFileListDatesource;
     private ActivitiesEventCollection activitiesEventCollection;
     private ActivitiesEvent activitySelect;
-    private ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource;
     private CommentActivitiesEventFileListDatasource commentActivitiesEventFileListDatasource;
 
 
@@ -167,7 +161,7 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     private void loadEventData() {
-        // team in event
+
         teamFileListDatasource = new TeamFileListDatasource();
         TeamCollection newTeamCollection = new TeamCollection();
         teamFileListDatasource.readData().getTeams().forEach((team) -> {
@@ -175,10 +169,8 @@ public class SetEventDetailController extends ComponentRegister {
                 newTeamCollection.add(team);
             }
         });
-
         teamCollection = newTeamCollection;
 
-        // activity in event
         activitiesEventFileListDatesource = new ActivitiesEventFileListDatesource();
         ActivitiesEventCollection newActivityCollection = new ActivitiesEventCollection();
         activitiesEventFileListDatesource.readData().getActivitiesArrayList().forEach((activitiesEvent) -> {
@@ -192,10 +184,9 @@ public class SetEventDetailController extends ComponentRegister {
 
     public void showDetail() {
 
-        Integer currentMemberJoin = this.userCollection.getUsers().size();
-
         nameEvent.setText(this.event.getNameEvent());
         eventDescription.setText(event.getDescriptionEvent());
+        Integer currentMemberJoin = this.userCollection.getUsers().size();
         currentUserJoinAmount.setText(String.valueOf(currentMemberJoin));
         quantityLabel.setText(String.valueOf(event.getQuantityEvent()));
 

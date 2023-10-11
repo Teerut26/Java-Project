@@ -70,42 +70,40 @@ public class EventDetailController extends ComponentRegister {
         this.event = routeProvider.getData();
 
         this.setContent();
- this.checkJoinTeam();
+        this.checkJoinTeam();
 
         this.initializeThemeMode();
         this.initializeFont();
     }
 
-
     @FXML
-    public void initializeThemeMode(){
-        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+    public void initializeThemeMode() {
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
 
-
-        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+        } else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
             parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
         }
     }
 
     @FXML
-    public void initializeFont(){
-        String currentFont =this.routeProvider.getUserSession().getFont();
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
         clearFontStyle();
-        if (currentFont.equals("font-style1")){
+        if (currentFont.equals("font-style1")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
-        }else if (currentFont.equals("font-style2")){
+        } else if (currentFont.equals("font-style2")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
-        }else if (currentFont.equals("font-style3")){
+        } else if (currentFont.equals("font-style3")) {
             parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
         }
 
     }
 
     @FXML
-    public void clearFontStyle(){
+    public void clearFontStyle() {
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
         parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
@@ -121,11 +119,10 @@ public class EventDetailController extends ComponentRegister {
 
         this.currentUserAmount.setText(String.valueOf(currentMemberParticipatingAmount));
         this.maxUserAmount.setText(String.valueOf(event.getQuantityEvent()));
-        this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - " + event.getEndDate().format(Event.DATE_FORMATTER));
+        this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - "
+                + event.getEndDate().format(Event.DATE_FORMATTER));
         Image img = new Image("file:" + event.getImageEvent());
         this.eventImage.setFill(new ImagePattern(img));
-
-
 
         UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
         UserCollection userCollection = userFileListDatasource.readData();
@@ -156,7 +153,8 @@ public class EventDetailController extends ComponentRegister {
             }
 
             // TODO: Add user to event
-            ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
+            ManyToManyManager manyToManyManager = new ManyToManyManager(
+                    new ManyToManyFileListDatasource().MTM_USER_EVENT);
             manyToManyManager.add(new ManyToMany(this.routeProvider.getUserSession().getId(), this.event.getEventID()));
 
             FXRouter.goTo("event-list", this.routeProvider);
@@ -165,12 +163,13 @@ public class EventDetailController extends ComponentRegister {
         }
     }
 
-    public void checkJoinTeam(){
+    public void checkJoinTeam() {
         ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
         TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
         TeamCollection teamCollection = teamFileListDatasource.readData().findByEvent(this.event);
         teamCollection.getTeams().forEach(team -> {
-            if (manyToManyManager.checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), team.getId()))){
+            if (manyToManyManager
+                    .checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), team.getId()))) {
                 System.out.println("Join team");
                 joinButton.setDisable(true);
                 this.isJoinTeam = true;
@@ -179,17 +178,8 @@ public class EventDetailController extends ComponentRegister {
 
     }
 
-
     @FXML
-    public void goToTeamList () {
-//        if (this.routeProvider.getUserSession().getId().equals(this.event.getOwner().getId())) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error");
-//            alert.setHeaderText("You can't join your own event");
-//            alert.setContentText("You can't join your own event");
-//            alert.show();
-//            return;
-//        }
+    public void goToTeamList() {
         try {
             FXRouter.goTo("event-team-list", this.routeProvider);
 

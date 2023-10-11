@@ -4,7 +4,7 @@
 ## การติดตั้งโปรแกรม
 ### MacOS Install
 #### Chip Apple Silicon
-![Chip Apple Silicon](./image/Screenshot%202566-10-10%20at%2023.03.52.png)
+![Chip Apple Silicon](./image/Screenshot%202566-10-11%20at%2012.52.17.png)
 #### Chip Intel
 ### Windows Install
 ## ตัวอย่างข้อมูลผู้ใช้ในระบบ (username,password)

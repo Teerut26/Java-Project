@@ -105,7 +105,6 @@ public class JoinEventController extends ComponentRegister {
                 });
 
         this.initializeThemeMode();
-        this.initializeFont();
     }
 
     @FXML
@@ -171,11 +170,11 @@ public class JoinEventController extends ComponentRegister {
             }
         });
 
-        TableColumn<User, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
+        TableColumn<User, String> userNameColumn = new TableColumn<>("UserName");
+        userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
 
         memberTableView.getColumns().clear();
-        memberTableView.getColumns().add(nameColumn);
+        memberTableView.getColumns().add(userNameColumn);
 
         memberTableView.getItems().clear();
 
