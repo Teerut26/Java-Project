@@ -152,9 +152,20 @@ public class EventDetailController extends ComponentRegister {
                 return;
             }
 
+
             // TODO: Add user to event
             ManyToManyManager manyToManyManager = new ManyToManyManager(
                     new ManyToManyFileListDatasource().MTM_USER_EVENT);
+            if(manyToManyManager.findsByB(this.event.getEventID()).size() >= this.event.getQuantityEvent()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Event is full");
+                alert.setContentText("Event is full");
+                alert.show();
+                return;
+            }
+
+
             manyToManyManager.add(new ManyToMany(this.routeProvider.getUserSession().getId(), this.event.getEventID()));
 
             FXRouter.goTo("event-list", this.routeProvider);
@@ -181,6 +192,14 @@ public class EventDetailController extends ComponentRegister {
     @FXML
     public void goToTeamList() {
         try {
+            if (this.routeProvider.getUserSession().getId().equals(this.event.getOwner().getId())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("You can't join your own event");
+                alert.setContentText("You can't join your own event");
+                alert.show();
+                return;
+            }
             FXRouter.goTo("event-team-list", this.routeProvider);
 
         } catch (IOException e) {

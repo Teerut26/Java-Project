@@ -264,6 +264,7 @@ public class EventTeamListController extends ComponentRegister {
             checkJoinTeamButtonStatus();
         } else {
             ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
+
             manyToManyManager.add(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
             joinTeamButton.setText("cancel");
             viewTeamButton.setVisible(true);
@@ -331,7 +332,6 @@ public class EventTeamListController extends ComponentRegister {
 
     }
 
-
     private void setStatusJoinInTable () {
         teamTableView.getItems().clear();
         for (Team team : teamForTableView.getTeams()) {
@@ -379,8 +379,6 @@ public class EventTeamListController extends ComponentRegister {
 
 
     }
-
-
 
     @FXML
     public void onBack() {

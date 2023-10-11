@@ -128,7 +128,7 @@ public class EditEventDetailFormController extends ComponentRegister {
             minute = "0" + minute;
         }
 
-        return hour + ":" + minute + ":";
+        return hour + ":" + minute;
     }
 
     @FXML
