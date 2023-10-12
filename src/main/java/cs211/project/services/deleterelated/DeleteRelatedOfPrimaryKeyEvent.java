@@ -7,22 +7,18 @@ import cs211.project.services.datasource.*;
 
 public class DeleteRelatedOfPrimaryKeyEvent {
     private TeamFileListDatasource teamFileListDatasource;
-    private ActivitiesEventFileListDatesource activitiesEventFileListDatesource;
     private ManyToManyFileListDatasource manyToManyFileListDatasource;
     private EventFileListDatesource eventFileListDatesource;
     private TeamCollection teamCollection;
-    private ActivitiesEventCollection activitiesEventCollection;
     private ManyToManyCollection manyToManyCollection;
     private EventCollection eventCollection;
 
     public DeleteRelatedOfPrimaryKeyEvent() {
         teamFileListDatasource = new TeamFileListDatasource();
-        activitiesEventFileListDatesource = new ActivitiesEventFileListDatesource();
         manyToManyFileListDatasource = new ManyToManyFileListDatasource(new ManyToManyFileListDatasource().MTM_USER_EVENT);
         eventFileListDatesource = new EventFileListDatesource();
 
         teamCollection = teamFileListDatasource.readData();
-        activitiesEventCollection = activitiesEventFileListDatesource.readData();
         manyToManyCollection = manyToManyFileListDatasource.readData();
         eventCollection = eventFileListDatesource.readData();
     }
