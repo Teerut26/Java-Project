@@ -49,12 +49,5 @@ public class SideBarComponentController {
         }
     }
 
-    @FXML
-    public void goToSetting() {
-        try {
-            FXRouter.goTo("setting-page", this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }

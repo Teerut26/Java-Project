@@ -54,8 +54,6 @@ public class EventDetailController {
     private Label maxUserAmount;
     @FXML
     private Button joinButton;
-    @FXML
-    private Button joinTeamButton;
     private Event event;
     private RouteProvider<Event> routeProvider;
 

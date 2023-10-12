@@ -18,22 +18,11 @@ public class ActivitiesTeamCollection {
         this.activitiesArrayList.add(activities);
     }
 
-    public ActivitiesTeam findByTitle(String title) {
-        for (ActivitiesTeam activities : this.activitiesArrayList) {
-            if (activities.getTitle().equals(title)) {
-                return activities;
-            }
-        }
-        return null;
-    }
 
     public ArrayList<ActivitiesTeam> getActivitiesArrayList() {
         return this.activitiesArrayList;
     }
 
-    public void setActivitiesArrayList(ArrayList<ActivitiesTeam> activitiesArrayList) {
-        this.activitiesArrayList = activitiesArrayList;
-    }
 
     public void update(ActivitiesTeam activitiesTeam) {
         for (int i = 0; i < this.activitiesArrayList.size(); i++) {
@@ -60,16 +49,6 @@ public class ActivitiesTeamCollection {
         ActivitiesTeamCollection activitiesTeamCollection = new ActivitiesTeamCollection();
         for (ActivitiesTeam activities : this.activitiesArrayList) {
             if (activities.getTeam().getId().equals(id)) {
-                activitiesTeamCollection.add(activities);
-            }
-        }
-        return activitiesTeamCollection;
-    }
-
-    public ActivitiesTeamCollection findByTeam(Team team) {
-        ActivitiesTeamCollection activitiesTeamCollection = new ActivitiesTeamCollection();
-        for (ActivitiesTeam activities : this.activitiesArrayList) {
-            if (activities.getTeam().equals(team)) {
                 activitiesTeamCollection.add(activities);
             }
         }

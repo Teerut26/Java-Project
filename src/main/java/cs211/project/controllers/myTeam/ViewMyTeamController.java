@@ -70,12 +70,16 @@ public class ViewMyTeamController {
     private UserCollection userForTableView = new UserCollection();
 
     @FXML
+    private Label suspendAlertLabel;
+
+    @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
         ComponentRegister componentRegister = new ComponentRegister();
         componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         manageTeamButton.setVisible(false);
+        suspendAlertLabel.setVisible(false);
         if (routeProvider.getDataHashMap().get("teamJoined") != null) {
             Team teamJoined = (Team) routeProvider.getDataHashMap().get("teamJoined");
             currentTeamSelect = teamJoined;
@@ -83,6 +87,7 @@ public class ViewMyTeamController {
             setActivityInTableView();
             setUserTableView();
             checkHeadOfTeam();
+            checkSuspend();
             routeProvider.getDataHashMap().remove("teamJoined");
         }
         this.initializeThemeMode();
@@ -257,6 +262,21 @@ public class ViewMyTeamController {
         if(manyToManyManager.checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId())
         )){
             manageTeamButton.setVisible(true);
+        }
+    }
+
+    public void checkSuspend(){
+        ManyToManyManager manyToManyManager = new ManyToManyManager(
+                new ManyToManyFileListDatasource().MTM_USER_TEAM_SUSPEND);
+        Boolean isSuspend = manyToManyManager
+                .checkIsExisted(new ManyToMany(routeProvider.getUserSession().getId(), currentTeamSelect.getId()));
+        if (isSuspend) {
+            activityTableView.getItems().clear();
+            manageTeamButton.setDisable(true);
+            suspendAlertLabel.setVisible(true);
+        }else{
+            manageTeamButton.setDisable(false);
+            suspendAlertLabel.setVisible(false);
         }
     }
 

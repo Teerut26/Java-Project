@@ -164,7 +164,7 @@ public class CommentActivityEventController {
     }
 
     @FXML
-    void onBack(ActionEvent event) {
+    void onBack() {
         try {
             if (this.routeProvider.getDataHashMap().get("back-value") != null) {
                 FXRouter.goTo((String) this.routeProvider.getDataHashMap().get("back-value"));

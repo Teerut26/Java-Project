@@ -21,19 +21,10 @@ public class CommentActivitiesEventCollection {
         return this.comments;
     }
 
-    public void setComments(ArrayList<CommentActivitiesEvent> comments) {
-        this.comments = comments;
-    }
 
     public void remove(CommentActivitiesEvent comment) {
         this.comments.remove(comment);
     }
 
-    public void removeByActivitiesEvent(ActivitiesEvent activitiesEvent) {
-        for (int i = 0; i < this.comments.size(); i++) {
-            if (this.comments.get(i).getActivitiesEvent().equals(activitiesEvent)) {
-                this.comments.remove(i);
-            }
-        }
-    }
+
 }

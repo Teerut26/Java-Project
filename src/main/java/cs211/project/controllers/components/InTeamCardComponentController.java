@@ -36,9 +36,6 @@ public class InTeamCardComponentController {
     private Label title;
     @FXML
     private Label eventLocation;
-
-    private String customPath = null;
-
     private Event event;
     private RouteProvider routeProvider;
 
@@ -61,9 +58,6 @@ public class InTeamCardComponentController {
         this.event = event;
     }
 
-    public void setCustomPath(String customPath) {
-        this.customPath = customPath;
-    }
 
 
     @FXML

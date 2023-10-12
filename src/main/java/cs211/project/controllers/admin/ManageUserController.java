@@ -161,7 +161,7 @@ public class ManageUserController {
     }
 
     @FXML
-    void onUserDelete(ActionEvent event) {
+    void onUserDelete() {
         if (userSelect.isAdmin()) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "You can't delete admin", ButtonType.OK);
             alert.show();

@@ -215,7 +215,7 @@ public class EventTeamDetailController {
     }
 
     @FXML
-    public void onAddActivityTeam(ActionEvent event) {
+    public void onAddActivityTeam() {
         try {
             FXRouter.goTo("add-schedule-team", this.routeProvider);
         } catch (Exception e) {
@@ -224,7 +224,7 @@ public class EventTeamDetailController {
     }
 
     @FXML
-    public void onBack(ActionEvent event) {
+    public void onBack() {
         try {
             if (isHeadOfTeam) {
                 routeProvider.addHashMap("teamJoined", this.team);
@@ -239,7 +239,7 @@ public class EventTeamDetailController {
     }
 
     @FXML
-    public void onViewActivityTeam(ActionEvent event) {
+    public void onViewActivityTeam() {
         try {
             if (selectActivitiesTeam == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
@@ -254,7 +254,7 @@ public class EventTeamDetailController {
     }
 
     @FXML
-    public void onEditActivityTeam(ActionEvent event) {
+    public void onEditActivityTeam() {
         try {
             if (selectActivitiesTeam == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);

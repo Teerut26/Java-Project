@@ -67,7 +67,7 @@ public class EventCardComponentController {
     }
 
     @FXML
-    void goToDetail(ActionEvent event) {
+    void goToDetail() {
         try {
             RouteProvider routeProviderWithEvent = new RouteProvider<Event>(this.event);
             routeProviderWithEvent.setUserSession(this.routeProvider.getUserSession());

@@ -162,7 +162,7 @@ public class CommentActivityTeamController {
     }
 
     @FXML
-    void onBack(ActionEvent event) {
+    void onBack() {
         try {
             if (this.routeProvider.getDataHashMap().get("back-my-team") != null) {
                 routeProvider.addHashMap("teamJoined",this.activitiesTeam.getTeam());

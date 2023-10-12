@@ -86,25 +86,6 @@ public class JoinEventController {
         }
 
         this.setContent();
-
-        activitiesTableView.getSelectionModel().selectedItemProperty()
-                .addListener(new ChangeListener<ActivitiesEvent>() {
-                    @Override
-                    public void changed(ObservableValue<? extends ActivitiesEvent> observableValue,
-                            ActivitiesEvent oldValue, ActivitiesEvent newValue) {
-                        if (newValue != null) {
-                            routeProvider.addHashMap("activity-event-select", newValue);
-                            routeProvider.addHashMap("back-value", "event-detail-joined");
-                            try {
-                                FXRouter.goTo("comment-activity-event", routeProvider);
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    }
-
-                });
-
         this.initializeThemeMode();
     }
 
@@ -230,18 +211,6 @@ public class JoinEventController {
             this.routeProvider.addHashMap("back-value", "event-detail-joined");
             FXRouter.goTo("comment-activity-event", this.routeProvider);
         } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    public void goToTeamList() {
-        try {
-            this.routeProvider.addHashMap("oldRoute", "event-detail-joined");
-            this.routeProvider.addHashMap("eventID", this.event.getEventID());
-            FXRouter.goTo("event-team-list", this.routeProvider);
-
-        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

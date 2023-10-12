@@ -1,8 +1,8 @@
-eba96848-b279-4e52-8718-edabf40f01cc,beer,beer,$2a$12$X9Jvdo9NYDGSnY/ESOgsMOW5qTh2I9R0hyC4.87XtHq1tdaSsKK.y,user,data/images/user/eba96848-b279-4e52-8718-edabf40f01cc.jpg,2023-10-12T19:27:45.930190,dark,font-style2
+eba96848-b279-4e52-8718-edabf40f01cc,beer,beer,$2a$12$X9Jvdo9NYDGSnY/ESOgsMOW5qTh2I9R0hyC4.87XtHq1tdaSsKK.y,user,data/images/user/eba96848-b279-4e52-8718-edabf40f01cc.jpg,2023-10-12T19:45:16.128204,dark,font-style2
 4ba84220-4d98-4db6-8e3a-c90bc91fee3b,noey,noey,$2a$12$5kFbQ1SUNkgjOD6d.4CBV.RZY9YQ27hzEODJ.HuLgfOxAYDWczoau,user,data/images/user/4ba84220-4d98-4db6-8e3a-c90bc91fee3b.PNG,2023-10-12T12:35:35.660470800,dark,font-style3
 d8b13d27-2adf-4e57-af8d-77ff80752acb,flim,flim,$2a$12$sicUb84Pf.Lo65jsU6VK6OfmeKXTk7Pz8efqHujW7dRdHb3k0xzM2,user,data/images/user/d8b13d27-2adf-4e57-af8d-77ff80752acb.PNG,2023-10-12T12:43:44.840712300,dark,font-style1
 bc74100e-cd67-4f5d-ba09-f5a84a320a47,cynteer,cynteer,$2a$12$Tb0LToa2QeEnWL4qJ1L4.OrDaItnnSP8LeEBh4kHuDwyBnxjKgf/a,user,null,2023-10-12T12:50:45.504464600,light,font-style1
-17237209-94ed-4a14-91d0-a6bdaaffa8e5,hope,hope,$2a$12$4Dy9aCTjPmaefIc0mISuGOqC3AgAPoWwEaELnSznLR5hveuO7SQuO,user,null,2023-10-12T12:56:05.333063900,dark,font-style2
+17237209-94ed-4a14-91d0-a6bdaaffa8e5,hope,hope,$2a$12$4Dy9aCTjPmaefIc0mISuGOqC3AgAPoWwEaELnSznLR5hveuO7SQuO,user,null,2023-10-12T20:29:48.075686,dark,font-style2
 ec948b1b-8964-4a94-a0be-382c3749840f,admin,admin,$2a$12$mGy0EWc1XWnLfIh5MswliefK9WdcCmNAe9ZW2KH95UQ824Xu55mhe,admin,null,2023-10-12T11:58:05.406541600,light,font-style1
 dd13b2cc-29e6-479a-9c16-bf167df0dbd8,john,john,$2a$12$.0Vbu04g.jc0ztH0Izn7r.mklxMLybuwl8l1p4d8hKLiK5HJXh6Ie,user,null,2023-10-12T13:01:21.348132600,light,font-style1
 8aa0584a-9f19-4c1f-899a-af1166f98718,alice,alice,$2a$12$m81uKVn6PN6XyMXnEy5gy.DLkO1QvjTiK8zQZaehG1GueeSPwi672,user,null,2023-10-12T13:07:08.718414600,light,font-style1
@@ -17,11 +17,11 @@ f613f520-4a47-4389-bc20-f73b3ddfd7b6,bookworm,bookworm,$2a$12$/4x73toeann5SlXElg
 30bf36e7-6299-4829-8040-ab914c0b4c99,sunshine,sunshine,$2a$12$VbbwNUN//E5WNdtnmx2tZOYHmSdUQCnYkSQGd8TYFhvUceWMwjyjK,user,data/images/user/30bf36e7-6299-4829-8040-ab914c0b4c99.jpg,2023-10-12T12:20:23.966470500,light,font-style1
 181546a1-c551-4436-b75b-12f735ece9df,naturelover,naturelover,$2a$12$sHpWW2VSgdTEOlg9B8dbN.mzJBuX5Uxqhx4QljLDjafLc5UMzZQSe,user,null,2023-10-12T12:20:43.007283500,light,font-style1
 c98757e2-5c4d-495e-b546-07d28f8c7d51,coffeeaddict,coffeeaddict,$2a$12$AxNTHv5Lip8RB3dNjXOLP.7IKueShcwQLyg8J0veRObTNgH7o1orK,user,null,2023-10-12T12:20:56.392901600,light,font-style1
-33e7b8aa-fbfd-4b05-9833-e0b00e43b3d1,foodie,foodie,$2a$12$8OGt1gYlmSaySkHsrJsVmObD7TfZ.uqraNGEQgADbD6KEvB9sSdtq,user,null,2023-10-12T19:29:54.476977,dark,font-style1
+33e7b8aa-fbfd-4b05-9833-e0b00e43b3d1,foodie,foodie,$2a$12$8OGt1gYlmSaySkHsrJsVmObD7TfZ.uqraNGEQgADbD6KEvB9sSdtq,user,null,2023-10-12T20:30:34.938767,dark,font-style1
 a46d3f5b-8985-4e54-ab0d-c5bfbd06728c,sandy,sandy,$2a$12$74hICxwA/uWV7z6ZqyquHO9VQ0wgd4HAhnmzk4BYa2O9ZQuD79n2O,user,null,2023-10-12T12:21:29.088529600,light,font-style1
 c3791095-0d06-4ffe-83d2-911f3398422d,randy,randy,$2a$12$k2bdw07B7wKDoI3EAVU.seRXVBrOw/Y//TTBFPw4EqmLs8oHpRHeK,user,null,2023-10-12T12:21:41.637630400,light,font-style1
 c3adaaf5-6892-4e55-bfb8-4192904cc2f9,velma,velma,$2a$12$BkZb3S4PEUYtwJAcsswsq.8Jq93V2h.Bx18lDRYtsFQEuwLd.pqaS,user,data/images/user/c3adaaf5-6892-4e55-bfb8-4192904cc2f9.jpg,2023-10-12T12:21:57.299387,light,font-style1
-c1ef764e-8b24-487b-bf10-43d8bc141f20,jayden,jayden,$2a$12$dmII9tT8cXd4wro.PBk0xuew5TjIjLd54hBmvuK4yaceBBXLrZgj6,user,data/images/user/c1ef764e-8b24-487b-bf10-43d8bc141f20.jpeg,2023-10-12T12:22:12.619408400,light,font-style1
+c1ef764e-8b24-487b-bf10-43d8bc141f20,jayden,jayden,$2a$12$dmII9tT8cXd4wro.PBk0xuew5TjIjLd54hBmvuK4yaceBBXLrZgj6,user,data/images/user/c1ef764e-8b24-487b-bf10-43d8bc141f20.jpeg,2023-10-12T20:05:06.580563,light,font-style1
 0babe6a7-662d-4d0b-8977-b553ec78f08d,julie,julie,$2a$12$TFEBOWbnYi4mW.5IQqm2K.9OkN.3CZyJSrtBOjTc8LOkxoDe67sV2,user,data/images/user/0babe6a7-662d-4d0b-8977-b553ec78f08d.jpg,2023-10-12T12:22:28.461491200,light,font-style1
 b43757c5-88e3-4272-9abb-8d228bf574cb,jemma,jemma,$2a$12$vGxxxAWf4cityti5rEmDT.vC84X4wOVqkfq8498XjZj7C9I29ffO2,user,data/images/user/b43757c5-88e3-4272-9abb-8d228bf574cb.jpg,2023-10-12T11:58:45.770677500,light,font-style1
 057e8665-83dc-444a-b464-3aff38076411,art,art,$2a$12$EnVYWcpQezNjM/1oEMsb..0kXk8qzrgGi3UPwTHoOa5zt.o.sGU/O,user,null,2023-10-12T12:22:45.414881700,light,font-style1

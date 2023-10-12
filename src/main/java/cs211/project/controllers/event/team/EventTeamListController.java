@@ -305,9 +305,7 @@ public class EventTeamListController {
                 alert.showAndWait();
                 return;
             }
-
-            manyToManyManager
-                    .add(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
+            manyToManyManager.add(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
             joinTeamButton.setText("cancel");
             viewTeamButton.setVisible(true);
             viewTeamButton.setDisable(false);
@@ -459,6 +457,5 @@ public class EventTeamListController {
         }
     }
 
-    // format date form 2023
 
 }

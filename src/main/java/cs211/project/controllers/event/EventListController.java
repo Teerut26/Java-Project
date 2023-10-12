@@ -70,7 +70,6 @@ public class EventListController {
         eventFileListDatesource.readData().getEvents().forEach(event -> {
             boolean isJoined = manyToManyCollectionUserJoinedEvent
                     .checkIsExisted(new ManyToMany(routeProvider.getUserSession().getId(), event.getEventID()));
-            boolean isOwner = event.getOwner().getId().equals(routeProvider.getUserSession().getId());
             boolean isTeamMember = checkJoinTeam(event);
             if (event.isPublic() && !isJoined && !isTeamMember) {
                 this.eventCollection.add(event);
@@ -197,13 +196,6 @@ public class EventListController {
         return isJoined.get();
     }
 
-    @FXML
-    public void onGotoDetail() {
-        try {
-            FXRouter.goTo("event-detail", this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
 }
