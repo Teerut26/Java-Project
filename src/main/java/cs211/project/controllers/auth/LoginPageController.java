@@ -20,7 +20,13 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 public class LoginPageController {
@@ -59,11 +65,40 @@ public class LoginPageController {
         documentHbox.addEventHandler(MouseEvent.MOUSE_CLICKED,new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                HostServices hostServices = SingletonStorage.getInstance().getHostServices();
-                String pdfURL = getClass().getResource("/cs211/project/assets/manual.pdf").toExternalForm();
-                hostServices.showDocument(pdfURL);
+                openPDF();
             }
         });
+    }
+
+    public void openPDF() {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            fileChooser.setInitialFileName("manual.pdf");
+
+            File tempFile = fileChooser.showSaveDialog(null);
+
+            if (tempFile != null) {
+                InputStream is = getClass().getResourceAsStream("/cs211/project/assets/manual.pdf");
+                if (is != null) {
+                    try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        while ((bytesRead = is.read(buffer)) != -1) {
+                            fos.write(buffer, 0, bytesRead);
+                        }
+                    }
+                    is.close();
+                    URI fileUri = Paths.get(tempFile.getAbsolutePath()).toUri();
+                    HostServices hostServices = SingletonStorage.getInstance().getHostServices();
+                    hostServices.showDocument(fileUri.toString());
+                } else {
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception as needed
+        }
     }
 
     @FXML
