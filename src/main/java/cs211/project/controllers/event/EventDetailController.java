@@ -29,7 +29,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
-public class EventDetailController extends ComponentRegister {
+public class EventDetailController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -64,8 +64,9 @@ public class EventDetailController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider<Event>) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         this.event = routeProvider.getData();
 

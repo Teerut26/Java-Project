@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 
-public class ManageUserController extends ComponentRegister {
+public class ManageUserController {
     @FXML
     private VBox SideBarVBox;
     @FXML
@@ -44,8 +44,9 @@ public class ManageUserController extends ComponentRegister {
     @FXML
     private void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponentAdmin(SideBarVBox, "AdminSideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponentAdmin(NavBarHBox, "AdminNavbarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponentAdmin(SideBarVBox, "AdminSideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponentAdmin(NavBarHBox, "AdminNavbarComponent.fxml", this.routeProvider);
 
         userCollection = new UserFileListDatasource().readData();
 

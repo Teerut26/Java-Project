@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class CreateEventDetailFormController extends ComponentRegister {
+public class CreateEventDetailFormController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -61,8 +61,9 @@ public class CreateEventDetailFormController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.eventID = UUID.randomUUID().toString();
 
         eventFileListDatesource = new EventFileListDatesource();

@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class InProcessAndEndedController extends ComponentRegister {
+public class InProcessAndEndedController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -82,8 +82,9 @@ public class InProcessAndEndedController extends ComponentRegister {
     public void initialize() {
 
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.InitializeThemeMode();
         this.initializeFont();
         EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();

@@ -2,36 +2,36 @@ package cs211.project.services.deleterelated;
 
 import cs211.project.models.ActivitiesEvent;
 import cs211.project.models.Event;
-import cs211.project.models.collections.ActivitiesEventCollection;
-import cs211.project.models.collections.CommentActivitiesEventCollection;
-import cs211.project.models.collections.ManyToManyCollection;
-import cs211.project.models.collections.TeamCollection;
-import cs211.project.services.datasource.ActivitiesEventFileListDatesource;
-import cs211.project.services.datasource.CommentActivitiesEventFileListDatasource;
-import cs211.project.services.datasource.ManyToManyFileListDatasource;
-import cs211.project.services.datasource.TeamFileListDatasource;
+import cs211.project.models.collections.*;
+import cs211.project.services.datasource.*;
 
 public class DeleteRelatedOfPrimaryKeyEvent {
     private TeamFileListDatasource teamFileListDatasource;
-    private ActivitiesEventFileListDatesource activitiesEventFileListDatesource;
     private ManyToManyFileListDatasource manyToManyFileListDatasource;
+    private EventFileListDatesource eventFileListDatesource;
     private TeamCollection teamCollection;
-    private ActivitiesEventCollection activitiesEventCollection;
     private ManyToManyCollection manyToManyCollection;
+    private EventCollection eventCollection;
 
     public DeleteRelatedOfPrimaryKeyEvent() {
         teamFileListDatasource = new TeamFileListDatasource();
-        activitiesEventFileListDatesource = new ActivitiesEventFileListDatesource();
         manyToManyFileListDatasource = new ManyToManyFileListDatasource(new ManyToManyFileListDatasource().MTM_USER_EVENT);
+        eventFileListDatesource = new EventFileListDatesource();
 
         teamCollection = teamFileListDatasource.readData();
-        activitiesEventCollection = activitiesEventFileListDatesource.readData();
         manyToManyCollection = manyToManyFileListDatasource.readData();
+        eventCollection = eventFileListDatesource.readData();
     }
 
     public void delete(Event event) {
         deleteTeam(event);
         deleteUserEventMTM(event);
+        deleteEvent(event);
+    }
+
+    private void deleteEvent(Event event) {
+        eventCollection.remove(event);
+        eventFileListDatesource.writeData(eventCollection);
     }
 
     private void deleteTeam(Event event) {
@@ -39,7 +39,6 @@ public class DeleteRelatedOfPrimaryKeyEvent {
         teamCollection.removeByEvent(event);
         teamFileListDatasource.writeData(teamCollection);
 
-        // Delete Relation User Team
         ManyToManyFileListDatasource manyToManyFileListDatasource = new ManyToManyFileListDatasource(new ManyToManyFileListDatasource().MTM_USER_TEAM);
         ManyToManyCollection manyToManyCollection1 = manyToManyFileListDatasource.readData();
         teamCollection1.getTeams().forEach(team -> {

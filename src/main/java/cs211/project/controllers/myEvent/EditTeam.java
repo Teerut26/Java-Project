@@ -26,7 +26,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.UUID;
 
-public class EditTeam extends ComponentRegister {
+public class EditTeam {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -63,8 +63,9 @@ public class EditTeam extends ComponentRegister {
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
         this.team = (Team) routeProvider.getDataHashMap().get("team-select");
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         errorLabel.setText("");
         this.teamFileListDatasource = new TeamFileListDatasource();
         this.teamCollection = teamFileListDatasource.readData();

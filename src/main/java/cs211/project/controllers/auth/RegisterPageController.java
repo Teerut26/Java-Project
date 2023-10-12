@@ -27,9 +27,13 @@ public class RegisterPageController {
     private PasswordField TextFieldPasswordConfirm;
     @FXML
     private Text TextError;
+    private UserFileListDatasource userFileListDatasource;
+    private UserCollection userCollection;
 
     @FXML
     public void initialize() {
+        userFileListDatasource = new UserFileListDatasource();
+        userCollection = userFileListDatasource.readData();
         TextError.setVisible(false);
     }
 
@@ -44,9 +48,7 @@ public class RegisterPageController {
 
     @FXML
     private void GetStartButton() {
-
-        UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-        User user = userFileListDatasource.readData().findByUsername(TextFieldUsername.getText());
+        User user = userCollection.findByUsername(TextFieldUsername.getText());
 
         if (user != null) {
             TextError.setVisible(true);
@@ -70,7 +72,7 @@ public class RegisterPageController {
                 localDateTime
         );
 
-        UserCollection userOldData = userFileListDatasource.readData();
+        UserCollection userOldData = userCollection;
         userOldData.add(newUser);
         userFileListDatasource.writeData(userOldData);
 

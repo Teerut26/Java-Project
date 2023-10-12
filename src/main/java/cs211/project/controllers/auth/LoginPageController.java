@@ -31,9 +31,14 @@ public class LoginPageController {
     private HBox aboutUsHbox;
     @FXML
     private HBox documentHbox;
+    private UserFileListDatasource userFileListDatasource;
+    private UserCollection userCollection;
 
     @FXML
     public void initialize() {
+        userFileListDatasource = new UserFileListDatasource();
+        userCollection = userFileListDatasource.readData();
+
         TextError.setVisible(false);
 
         aboutUsHbox.addEventHandler(MouseEvent.MOUSE_CLICKED,new EventHandler<MouseEvent>() {
@@ -61,8 +66,7 @@ public class LoginPageController {
 
     @FXML
     public void onLoginButtonClick() {
-        UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-        User user = userFileListDatasource.readData().findByUsername(TextFieldUsername.getText());
+        User user = userCollection.findByUsername(TextFieldUsername.getText());
 
         if (user == null) {
             TextError.setVisible(true);
@@ -95,19 +99,14 @@ public class LoginPageController {
     }
 
     private void updateLastLogin(User user) {
-        UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-        UserCollection userCollection = userFileListDatasource.readData();
-
         UserCollection newUserCollection = new UserCollection();
-        for (User userTemp : userCollection.getUsers()) {
+        for (User userTemp : this.userCollection.getUsers()) {
             if (userTemp.getId().equals(user.getId())) {
                 userTemp.setLastLogin(LocalDateTime.now());
             }
             newUserCollection.add(userTemp);
         }
-
         userFileListDatasource.writeData(newUserCollection);
-
     }
 
     @FXML

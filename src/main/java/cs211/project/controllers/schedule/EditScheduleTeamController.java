@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class EditScheduleTeamController extends ComponentRegister {
+public class EditScheduleTeamController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -50,9 +50,10 @@ public class EditScheduleTeamController extends ComponentRegister {
     @FXML
     public void initialize(){
         routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        ComponentRegister componentRegister = new ComponentRegister();
         this.activitiesTeam = (ActivitiesTeam) routeProvider.getDataHashMap().get("activity-team-select");
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
         activitiesTeamCollection = activitiesTeamFileListDatesource.readData();

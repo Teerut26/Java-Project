@@ -26,7 +26,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
-public class JoinEventController extends ComponentRegister {
+public class JoinEventController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -62,8 +62,9 @@ public class JoinEventController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.event = routeProvider.getData();
 
         ManyToManyManager manyToManyManager = new ManyToManyManager(
