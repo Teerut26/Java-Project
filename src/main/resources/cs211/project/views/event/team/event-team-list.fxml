@@ -49,7 +49,13 @@
                            </font>
                         </Label>
                         <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#onBack" styleClass="btn-secondary" text="Back" />
+                        <Button mnemonicParsing="false" onAction="#onBack" styleClass="btn-secondary" text="Back">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+                           </padding></Button>
                      </children>
                      <opaqueInsets>
                         <Insets left="25.0" right="25.0" />

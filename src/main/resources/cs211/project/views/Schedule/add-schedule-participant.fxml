@@ -106,7 +106,7 @@
                                     </Label>
                                     <TextField fx:id="timeStart" layoutX="292.0" layoutY="59.0" promptText="00:00" styleClass="input" />
                                     <TextField fx:id="timeEnd" layoutX="293.0" layoutY="139.0" promptText="00:00" styleClass="input" />
-                                    <Label layoutX="294.0" layoutY="99.0" prefHeight="42.0" prefWidth="119.0" text="Time End">
+                                    <Label layoutX="294.0" layoutY="99.0" prefHeight="42.0" prefWidth="119.0" styleClass="secondary-color" text="Time End">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>

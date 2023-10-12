@@ -96,8 +96,7 @@ public class EventTeamListController {
         teamCollection.getTeams().forEach((team -> {
             if (team.getEvent().getEventID().equals(eventID)) {
 
-                    teamForTableView.add(team);
-
+                teamForTableView.add(team);
 
             }
         }));
@@ -119,14 +118,6 @@ public class EventTeamListController {
         if (isExtraUser) {
             extrauserLabel.setVisible(true);
         }
-
-
-
-
-
-
-
-
 
     }
 
@@ -183,6 +174,22 @@ public class EventTeamListController {
                 }
             });
 
+            TableColumn<Team, String> recruitmentStatus= new TableColumn<>("Status recruitment");
+            recruitmentStatus.setCellValueFactory(param -> {
+                if (param.getValue() != null) {
+                    Team team = param.getValue();
+                    if (team.getStartRecruitDate().isBefore(LocalDate.now().atStartOfDay()) && team.getEndRecruitDate().isAfter(LocalDate.now().atStartOfDay())) {
+                        return new ReadOnlyStringWrapper("Open");
+                    } else if (team.getStartRecruitDate().isAfter(LocalDate.now().atStartOfDay())) {
+                        return new ReadOnlyStringWrapper("Not open");
+                    } else {
+                        return new ReadOnlyStringWrapper("Close");
+                    }
+                } else {
+                    return new ReadOnlyStringWrapper("");
+                }
+            });
+
             TableColumn<Team, String> teamStartDate = new TableColumn<>("Open recruitment");
             teamStartDate.setCellValueFactory(param -> {
                 if (param.getValue() != null) {
@@ -210,7 +217,7 @@ public class EventTeamListController {
             teamStatus.setCellValueFactory(new PropertyValueFactory<>("joinStatus"));
 
             teamTableView.getColumns().clear();
-            teamTableView.getColumns().addAll(teamName, teamQuantity, teamStartDate, teamEndDate, teamStatus);
+            teamTableView.getColumns().addAll(teamName, teamQuantity,recruitmentStatus, teamStartDate, teamEndDate, teamStatus);
             teamTableView.getItems().clear();
 
             for (Team team : teamForTableView.getTeams()) {
@@ -226,7 +233,6 @@ public class EventTeamListController {
 
                 teamTableView.getItems().add(team);
             }
-
 
             teamTableView.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1) {
@@ -259,7 +265,6 @@ public class EventTeamListController {
         }
     }
 
-
     public void onJoinTeam() {
         if (this.currentTeamSelect == null) {
             errorLabel.setText("Please select a team");
@@ -285,14 +290,14 @@ public class EventTeamListController {
         } else {
             ManyToManyManager manyToManyManager = new ManyToManyManager(
                     new ManyToManyFileListDatasource().MTM_USER_TEAM);
-            if (currentTeamSelect.getStartRecruitDate().isBefore(LocalDate.now().atStartOfDay())) {
+            if ((currentTeamSelect.getStartRecruitDate().isAfter(LocalDate.now().atStartOfDay()) )) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Join team");
                 alert.setHeaderText("This team is not recruiting");
                 alert.setContentText("Recruitment time has not started yet");
                 alert.showAndWait();
                 return;
-            }else if (currentTeamSelect.getEndRecruitDate().isAfter(LocalDate.now().atStartOfDay())) {
+            } else if (currentTeamSelect.getEndRecruitDate().isBefore(LocalDate.now().atStartOfDay())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Join team");
                 alert.setHeaderText("This team is not recruiting");
@@ -417,7 +422,8 @@ public class EventTeamListController {
     public void onClickButtonViewTeam() {
         try {
             routeProvider.addHashMap("teamJoined", this.currentTeamSelect);
-            FXRouter.goTo("my-team", this.routeProvider);
+            routeProvider.addHashMap("fromPage", "event-team-list");
+            FXRouter.goTo("view-my-team", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -453,7 +459,6 @@ public class EventTeamListController {
         }
     }
 
-
-    //format date form 2023
+    // format date form 2023
 
 }

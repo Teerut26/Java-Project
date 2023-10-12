@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,28 +30,6 @@ public class MyTeamController {
     private HBox NavBarHBox;
     private RouteProvider<Event> routeProvider;
 
-    @FXML
-    private Label teamNameLabel;
-    @FXML
-    private Label teamQuantityLabel;
-
-    @FXML
-    private Label teamStartDateLabel;
-
-    @FXML
-    private Label teamEndDateLabel;
-
-    @FXML
-    private Label eventTeamNameLabel;
-
-    @FXML
-    private Button cancelTeamButton;
-
-    @FXML
-    private Button commentTeamButton;
-
-    @FXML
-    private Button manageTeamButton;
 
     @FXML
     private TableView<Team> teamTableView = new TableView<>();
@@ -61,19 +40,8 @@ public class MyTeamController {
     private Team currentTeamSelect;
 
     @FXML
-    private TableView<ActivitiesTeam> activityTableView = new TableView<>();
-    @FXML
-    private ActivitiesTeamCollection activitiesCollection;
+    private CheckBox checkBoxIsInProgress;
 
-    @FXML
-    private ActivitiesTeam currentActivitySelect;
-
-    @FXML
-    private TableView<User> userTableView = new TableView<>();
-    @FXML
-    private UserCollection userCollection;
-    @FXML
-    private UserCollection userForTableView = new UserCollection();
 
     @FXML
     public void initialize() {
@@ -81,26 +49,7 @@ public class MyTeamController {
         ComponentRegister componentRegister = new ComponentRegister();
         componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
         componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
-
-        manageTeamButton.setVisible(false);
-
         setTeamInTableView();
-        clearTeamInfo();
-
-        if (routeProvider.getDataHashMap().get("teamJoined") != null) {
-            Team teamJoined = (Team) routeProvider.getDataHashMap().get("teamJoined");
-            currentTeamSelect = teamJoined;
-            setTeamInfo();
-            setActivityInTableView();
-            setUserTableView();
-            checkHeadOfTeam();
-
-            teamTableView.scrollTo(teamJoined);
-            teamTableView.getSelectionModel().select(teamJoined);
-
-            routeProvider.getDataHashMap().remove("teamJoined");
-        }
-
         this.initializeThemeMode();
         this.initializeFont();
     }
@@ -148,16 +97,6 @@ public class MyTeamController {
             teamForTableView.add(team);
         });
 
-        if (teamForTableView.getTeams().size() == 0) {
-            teamNameLabel.setText("No team");
-            teamQuantityLabel.setText("No team");
-            teamStartDateLabel.setText("No team");
-            teamEndDateLabel.setText("No team");
-            cancelTeamButton.setDisable(true);
-            commentTeamButton.setDisable(true);
-            return;
-        }
-
         TableColumn<Team, String> eventNameColumn = new TableColumn<>("Event");
         eventNameColumn.setCellValueFactory(param -> {
             if (param.getValue() != null) {
@@ -203,174 +142,45 @@ public class MyTeamController {
         teamTableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
                 currentTeamSelect = teamTableView.getSelectionModel().getSelectedItem();
-                setTeamInfo();
-                setActivityInTableView();
-                setUserTableView();
-                checkHeadOfTeam();
 
-                //clear style
-                teamTableView.getItems().forEach(team -> {
-                    if (team.getId().equals(currentTeamSelect.getId())) {
-                        teamTableView.getSelectionModel().select(team);
-                    }
-                });
             }
         });
     }
 
-    public void clearTeamInfo() {
-        teamNameLabel.setText("Please select team");
-        teamQuantityLabel.setText("Please select team");
-        teamStartDateLabel.setText("Please select team");
-        teamEndDateLabel.setText("Please select team");
-
-        eventTeamNameLabel.setText("Please select team");
-        cancelTeamButton.setDisable(true);
-        commentTeamButton.setDisable(true);
-
-
-    }
-
-    public void setTeamInfo() {
-        teamNameLabel.setText(currentTeamSelect.getName());
-        teamQuantityLabel.setText(String.valueOf(currentTeamSelect.getQuantity()));
-        teamStartDateLabel.setText(formateDate(currentTeamSelect.getStartRecruitDate()));
-        teamEndDateLabel.setText(formateDate(currentTeamSelect.getEndRecruitDate()));
-        cancelTeamButton.setDisable(false);
-        commentTeamButton.setDisable(false);
-
-    }
-
-    public void setActivityInTableView() {
-        ActivitiesTeamFileListDatesource activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();
-        ActivitiesTeamCollection activitiesTeamCollection = activitiesTeamFileListDatesource.readData();
-
-        activitiesCollection = new ActivitiesTeamCollection();
-        activitiesCollection = activitiesTeamCollection.findByTeamId(currentTeamSelect.getId());
-
-        TableColumn<ActivitiesTeam, String> activityName = new TableColumn<>("Activity Name");
-        activityName.setCellValueFactory(new PropertyValueFactory<>("title"));
-        TableColumn<ActivitiesTeam, String> activityDetail = new TableColumn<>("Detail");
-        activityDetail.setCellValueFactory(new PropertyValueFactory<>("detail"));
-        TableColumn<ActivitiesTeam, String> activityStartDate = new TableColumn<>("Start date");
-        activityStartDate.setCellValueFactory(param -> {
-            if (param.getValue() != null) {
-                ActivitiesTeam activities = param.getValue();
-                String startDate = formateDate(activities.getDateStart());
-                return new ReadOnlyStringWrapper(startDate);
-            } else {
-                return new ReadOnlyStringWrapper("");
+    @FXML
+    public void onCheckInProgress (){
+        if(checkBoxIsInProgress.isSelected()){
+            teamTableView.getItems().clear();
+            for (Team team : teamForTableView.getTeams()) {
+                if(team.getEvent().getEndDate().isAfter(LocalDate.now().atStartOfDay())){
+                    teamTableView.getItems().add(team);
+                }
             }
-        });
-        TableColumn<ActivitiesTeam, String> activityEndDate = new TableColumn<>("End date");
-        activityEndDate.setCellValueFactory(param -> {
-            if (param.getValue() != null) {
-                ActivitiesTeam activities = param.getValue();
-                String endDate = formateDate(activities.getDateEnd());
-                return new ReadOnlyStringWrapper(endDate);
-            } else {
-                return new ReadOnlyStringWrapper("");
-            }
-        });
-
-        activityTableView.getColumns().clear();
-        activityTableView.getColumns().addAll(activityName, activityDetail, activityStartDate, activityEndDate);
-        activityTableView.getItems().clear();
-
-        for (ActivitiesTeam activitiesTeam : activitiesCollection.getActivitiesArrayList()) {
-            activityTableView.getItems().add(activitiesTeam);
         }
-
-        activityTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                currentActivitySelect = activityTableView.getSelectionModel().getSelectedItem();
+        else {
+            teamTableView.getItems().clear();
+            for (Team team : teamForTableView.getTeams()) {
+                teamTableView.getItems().add(team);
             }
-        });
-
-    }
-
-    public void setUserTableView() {
-        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
-        ManyToManyCollection manyToManyCollection = manyToManyManager.getAll();
-        manyToManyCollection.findsByB(currentTeamSelect.getId()).forEach(manyToMany -> {
-            UserFileListDatasource userFileListDatasource = new UserFileListDatasource();
-            userCollection = userFileListDatasource.readData();
-            User user = userCollection.findById(manyToMany.getA());
-            userForTableView.add(user);
-        });
-
-        TableColumn<User, String> userName = new TableColumn<>("User Name");
-        userName.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
-
-        userTableView.getColumns().clear();
-        userTableView.getColumns().addAll(userName);
-        userTableView.getItems().clear();
-
-        for (User user : userForTableView.getUsers()) {
-            userTableView.getItems().add(user);
         }
-
     }
 
-    public void onCancelTeam() {
-        if (currentTeamSelect == null) {
+
+
+    @FXML
+    public void gotoViewTeam() {
+        if(currentTeamSelect == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Please select team");
+            alert.showAndWait();
             return;
         }
-        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
-        manyToManyManager
-                .remove(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
-        clearTeamInfo();
         try {
-            FXRouter.goTo("my-team", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @FXML
-    public void onViewActivityTeam(ActionEvent event) {
-        try {
-            if (currentActivitySelect == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
-                alert.showAndWait();
-                return;
-            }
-            this.routeProvider.addHashMap("activity-select", currentActivitySelect);
-            this.routeProvider.addHashMap("back-my-team", "my-team");
-            FXRouter.goTo("comment-activity-team", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public String formateDate(LocalDateTime localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return localDateTime.format(formatter);
-    }
-
-    public void checkHeadOfTeam(){
-        manageTeamButton.setVisible(false);
-        ManyToManyManager manyToManyManager = new ManyToManyManager(
-                new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
-        if(manyToManyManager.checkIsExisted(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId())
-        )){
-            manageTeamButton.setVisible(true);
-        }
-    }
-
-
-    @FXML
-    public void goToManageTeam() {
-        try {
-            if (this.currentTeamSelect == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
-                alert.showAndWait();
-                return;
-            }
-            this.routeProvider.addHashMap("team-select", this.currentTeamSelect);
-            FXRouter.goTo("event-team-detail", this.routeProvider);
-        } catch (Exception e) {
+            routeProvider.addHashMap("teamJoined", this.currentTeamSelect);
+            routeProvider.addHashMap("fromPage", "my-team");
+            FXRouter.goTo("view-my-team", this.routeProvider);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

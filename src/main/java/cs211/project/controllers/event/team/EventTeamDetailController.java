@@ -62,9 +62,6 @@ public class EventTeamDetailController {
 
     private Boolean isHeadOfTeam = false;
 
-
-
-
     @FXML
     public void initialize() {
         initializeComponents();
@@ -229,10 +226,10 @@ public class EventTeamDetailController {
     @FXML
     public void onBack(ActionEvent event) {
         try {
-            if(isHeadOfTeam){
+            if (isHeadOfTeam) {
                 routeProvider.addHashMap("teamJoined", this.team);
-                FXRouter.goTo("my-team", this.routeProvider);
-            }else {
+                FXRouter.goTo("view-my-team", this.routeProvider);
+            } else {
                 FXRouter.goTo("set-event-detail", this.routeProvider);
             }
 
@@ -311,7 +308,7 @@ public class EventTeamDetailController {
                 if (newValue != null) {
                     selectMemberInTeam = newValue;
                     suspendButton.setVisible(true);
-                    if(!isHeadOfTeam){
+                    if (!isHeadOfTeam) {
                         extraButton.setVisible(true);
                         headOfTeamButton.setVisible(true);
                     }
@@ -324,9 +321,6 @@ public class EventTeamDetailController {
             }
         });
     }
-
-
-
 
     public void showTableMemberInTeam(UserCollection userInTeamCollection) {
         ManyToManyManager manyToManyManagerSuspend = new ManyToManyManager(
@@ -396,29 +390,29 @@ public class EventTeamDetailController {
                     }
                 });
         TableColumn<User, String> roleColumn = new TableColumn<>("Role");
-        roleColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> parameter) {
-            User user = parameter.getValue();
-                AtomicReference<Boolean> isHead = new AtomicReference<>(false);
-            ManyToManyManager manyToManyManager = new ManyToManyManager(
-                    new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
-            TeamCollection teamCollection = new TeamFileListDatasource().readData()
-                    .findByEvent(team.getEvent());
-            teamCollection.getTeams().forEach(teamInEvent -> {
-                if (manyToManyManager.checkIsExisted(new ManyToMany(user.getId(), teamInEvent.getId()))) {
-                    isHead.set(true);
-                }
-            });
-            return Bindings.createStringBinding(() -> isHead.get() ? "Head" : "Member");
-            }
-        });
+        roleColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> parameter) {
+                        User user = parameter.getValue();
+                        AtomicReference<Boolean> isHead = new AtomicReference<>(false);
+                        ManyToManyManager manyToManyManager = new ManyToManyManager(
+                                new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
+                        TeamCollection teamCollection = new TeamFileListDatasource().readData()
+                                .findByEvent(team.getEvent());
+                        teamCollection.getTeams().forEach(teamInEvent -> {
+                            if (manyToManyManager.checkIsExisted(new ManyToMany(user.getId(), teamInEvent.getId()))) {
+                                isHead.set(true);
+                            }
+                        });
+                        return Bindings.createStringBinding(() -> isHead.get() ? "Head" : "Member");
+                    }
+                });
 
-
-
-                memberTeamTableView.getColumns().clear();
+        memberTeamTableView.getColumns().clear();
         memberTeamTableView.getItems().clear();
-        memberTeamTableView.getColumns().addAll(imageColumn, userNameColumn, nameUserColumn, statusColumn,typeColumn ,roleColumn);
+        memberTeamTableView.getColumns().addAll(imageColumn, userNameColumn, nameUserColumn, statusColumn, typeColumn,
+                roleColumn);
 
         for (User user : userInTeamCollection.getUsers()) {
             memberTeamTableView.getItems().add(user);
@@ -431,7 +425,7 @@ public class EventTeamDetailController {
         if (selectMemberInTeam != null) {
             ManyToManyManager manyToManyManager = new ManyToManyManager(
                     new ManyToManyFileListDatasource().MTM_USER_TEAM_EXTRA);
-            if( manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
+            if (manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
                 Alert alert = new Alert(Alert.AlertType.WARNING,
                         "You want to unset extra of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
                         ButtonType.CANCEL);
@@ -439,7 +433,7 @@ public class EventTeamDetailController {
                 if (alert.getResult() == ButtonType.OK) {
                     onUnSetExtraUser();
                 }
-            }else {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING,
                         "You want to set head of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
                         ButtonType.CANCEL);
@@ -476,11 +470,11 @@ public class EventTeamDetailController {
     }
 
     @FXML
-    void onSetHeadOfTeam(){
+    void onSetHeadOfTeam() {
         if (selectMemberInTeam != null) {
             ManyToManyManager manyToManyManager = new ManyToManyManager(
                     new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
-            if( manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
+            if (manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
                 Alert alert = new Alert(Alert.AlertType.WARNING,
                         "You want to unset head of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
                         ButtonType.CANCEL);
@@ -489,7 +483,7 @@ public class EventTeamDetailController {
                     onUnSetHeadOfTeam();
                 }
 
-            }else {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING,
                         "You want to set head of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
                         ButtonType.CANCEL);
@@ -506,35 +500,34 @@ public class EventTeamDetailController {
                 }
             }
         }
-}
+    }
 
+    @FXML
+    public void onUnSetHeadOfTeam() {
+        if (selectMemberInTeam != null) {
 
-        @FXML
-        public void onUnSetHeadOfTeam() {
-            if (selectMemberInTeam != null) {
-
-                    Alert alert = new Alert(Alert.AlertType.WARNING,
-                            "You want to unset head of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
-                            ButtonType.CANCEL);
-                    alert.showAndWait();
-                    if (alert.getResult() == ButtonType.OK) {
-                        ManyToManyManager manyToManyManager = new ManyToManyManager(
-                                new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
-                        manyToManyManager.remove(new ManyToMany(selectMemberInTeam.getId(), team.getId()));
-                        selectMemberInTeam = null;
-                        hideAllButton();
-                        this.showTableMemberInTeam(this.userInTeamCollection);
-                    }
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    "You want to unset head of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
+                    ButtonType.CANCEL);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                ManyToManyManager manyToManyManager = new ManyToManyManager(
+                        new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
+                manyToManyManager.remove(new ManyToMany(selectMemberInTeam.getId(), team.getId()));
+                selectMemberInTeam = null;
+                hideAllButton();
+                this.showTableMemberInTeam(this.userInTeamCollection);
             }
         }
+    }
 
     @FXML
     void onSuspendUser(ActionEvent event) {
         ManyToManyManager manyToManyManager = new ManyToManyManager(
                 new ManyToManyFileListDatasource().MTM_USER_TEAM_SUSPEND);
-        if(manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
+        if (manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
             onUsCancelSuspend(event);
-            }else {
+        } else {
             if (selectMemberInTeam != null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING,
                         "You want to suspend : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
@@ -569,10 +562,10 @@ public class EventTeamDetailController {
         }
     }
 
-    public void checkIsHeadOfTeam(){
+    public void checkIsHeadOfTeam() {
         ManyToManyManager manyToManyManager = new ManyToManyManager(
                 new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
-        if (manyToManyManager.checkIsExisted(new ManyToMany(routeProvider.getUserSession().getId(),team.getId()))) {
+        if (manyToManyManager.checkIsExisted(new ManyToMany(routeProvider.getUserSession().getId(), team.getId()))) {
             headOfTeamButton.setVisible(false);
             extraButton.setVisible(false);
             isHeadOfTeam = true;
@@ -581,60 +574,56 @@ public class EventTeamDetailController {
             extraButton.setVisible(true);
             isHeadOfTeam = false;
 
-
         }
     }
 
-
-
-    public void setSuspendButton(){
+    public void setSuspendButton() {
         ManyToManyManager manyToManyManager = new ManyToManyManager(
                 new ManyToManyFileListDatasource().MTM_USER_TEAM_SUSPEND);
-        if(manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
+        if (manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
             suspendButton.setText("UnSuspend");
             suspendButton.getStyleClass().remove("btn-primary-active");
             suspendButton.getStyleClass().add("btn-error");
-         }else{
+        } else {
             suspendButton.setText("Suspend");
             suspendButton.getStyleClass().remove("btn-error");
             suspendButton.getStyleClass().add("btn-primary-active");
 
         }
-        if(routeProvider.getUserSession().getId().equals(selectMemberInTeam.getId())) {
+        if (routeProvider.getUserSession().getId().equals(selectMemberInTeam.getId())) {
             suspendButton.setDisable(true);
-        }else{
+        } else {
             suspendButton.setDisable(false);
         }
     }
 
-    public void setExtraButton(){
-            ManyToManyManager manyToManyManager = new ManyToManyManager(
-                    new ManyToManyFileListDatasource().MTM_USER_TEAM_EXTRA);
-            if( manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
-                extraButton.setText("UnSet Extra");
-                extraButton.getStyleClass().remove("btn-primary-active");
-                extraButton.getStyleClass().add("btn-error");
-            }else{
-                extraButton.setText("Set Extra");
-                extraButton.getStyleClass().remove("btn-error");
-                extraButton.getStyleClass().add("btn-primary-active");
-            }
+    public void setExtraButton() {
+        ManyToManyManager manyToManyManager = new ManyToManyManager(
+                new ManyToManyFileListDatasource().MTM_USER_TEAM_EXTRA);
+        if (manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
+            extraButton.setText("UnSet Extra");
+            extraButton.getStyleClass().remove("btn-primary-active");
+            extraButton.getStyleClass().add("btn-error");
+        } else {
+            extraButton.setText("Set Extra");
+            extraButton.getStyleClass().remove("btn-error");
+            extraButton.getStyleClass().add("btn-primary-active");
+        }
     }
 
-    public void setHeadOfTeamButton(){
+    public void setHeadOfTeamButton() {
 
-            ManyToManyManager manyToManyManager = new ManyToManyManager(
-                    new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
-            if (manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
-                headOfTeamButton.setText("UnSet Head");
-                headOfTeamButton.getStyleClass().remove("btn-primary-active");
-                headOfTeamButton.getStyleClass().add("btn-error");
-            } else {
-                headOfTeamButton.setText("Set Head");
-                headOfTeamButton.getStyleClass().remove("btn-error");
-                headOfTeamButton.getStyleClass().add("btn-primary-active");
-            }
-
+        ManyToManyManager manyToManyManager = new ManyToManyManager(
+                new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
+        if (manyToManyManager.checkIsExisted(new ManyToMany(selectMemberInTeam.getId(), team.getId()))) {
+            headOfTeamButton.setText("UnSet Head");
+            headOfTeamButton.getStyleClass().remove("btn-primary-active");
+            headOfTeamButton.getStyleClass().add("btn-error");
+        } else {
+            headOfTeamButton.setText("Set Head");
+            headOfTeamButton.getStyleClass().remove("btn-error");
+            headOfTeamButton.getStyleClass().add("btn-primary-active");
+        }
 
     }
 

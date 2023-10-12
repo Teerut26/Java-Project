@@ -50,7 +50,7 @@
                            </font>
                         </Label>
                         <Pane prefHeight="47.0" prefWidth="337.0" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#onBack" styleClass="btn-secondary" text="go back">
+                        <Button mnemonicParsing="false" onAction="#onBack" styleClass="btn-secondary" text="back">
                            <font>
                               <Font size="24.0" />
                            </font>

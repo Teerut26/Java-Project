@@ -47,6 +47,7 @@ public class Router extends Application {
 
         //my-team routes
         FXRouter.when("my-team", resourcesPath + "myTeam/my-team.fxml");
+        FXRouter.when("view-my-team", resourcesPath + "myTeam/view-my-team.fxml");
 
         //profile routes
         FXRouter.when("change-password-profile-page", resourcesPath + "profile/change-password-profile-page.fxml");
