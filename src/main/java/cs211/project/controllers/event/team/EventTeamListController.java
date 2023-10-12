@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicReference;
@@ -93,7 +94,10 @@ public class EventTeamListController extends ComponentRegister {
         eventID = (String) routeProvider.getDataHashMap().get("eventID");
         teamCollection.getTeams().forEach((team -> {
             if (team.getEvent().getEventID().equals(eventID)) {
-                teamForTableView.add(team);
+
+                    teamForTableView.add(team);
+
+
             }
         }));
 
@@ -114,6 +118,15 @@ public class EventTeamListController extends ComponentRegister {
         if (isExtraUser) {
             extrauserLabel.setVisible(true);
         }
+
+
+
+
+
+
+
+
+
     }
 
     @FXML
@@ -169,7 +182,7 @@ public class EventTeamListController extends ComponentRegister {
                 }
             });
 
-            TableColumn<Team, String> teamStartDate = new TableColumn<>("Start date");
+            TableColumn<Team, String> teamStartDate = new TableColumn<>("Open recruitment");
             teamStartDate.setCellValueFactory(param -> {
                 if (param.getValue() != null) {
                     Team team = param.getValue();
@@ -181,7 +194,7 @@ public class EventTeamListController extends ComponentRegister {
                 }
             });
 
-            TableColumn<Team, String> teamEndDate = new TableColumn<>("End date");
+            TableColumn<Team, String> teamEndDate = new TableColumn<>("End recruitment");
             teamEndDate.setCellValueFactory(param -> {
                 if (param.getValue() != null) {
                     Team team = param.getValue();
@@ -212,6 +225,7 @@ public class EventTeamListController extends ComponentRegister {
 
                 teamTableView.getItems().add(team);
             }
+
 
             teamTableView.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1) {
@@ -244,6 +258,7 @@ public class EventTeamListController extends ComponentRegister {
         }
     }
 
+
     public void onJoinTeam() {
         if (this.currentTeamSelect == null) {
             errorLabel.setText("Please select a team");
@@ -269,6 +284,21 @@ public class EventTeamListController extends ComponentRegister {
         } else {
             ManyToManyManager manyToManyManager = new ManyToManyManager(
                     new ManyToManyFileListDatasource().MTM_USER_TEAM);
+            if (currentTeamSelect.getStartRecruitDate().isBefore(LocalDate.now().atStartOfDay())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Join team");
+                alert.setHeaderText("This team is not recruiting");
+                alert.setContentText("Recruitment time has not started yet");
+                alert.showAndWait();
+                return;
+            }else if (currentTeamSelect.getEndRecruitDate().isAfter(LocalDate.now().atStartOfDay())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Join team");
+                alert.setHeaderText("This team is not recruiting");
+                alert.setContentText("Recruitment time has ended");
+                alert.showAndWait();
+                return;
+            }
 
             manyToManyManager
                     .add(new ManyToMany(this.routeProvider.getUserSession().getId(), this.currentTeamSelect.getId()));
@@ -351,7 +381,7 @@ public class EventTeamListController extends ComponentRegister {
 
     private void checkIsExtraUser() {
         ManyToManyManager manyToManyManager = new ManyToManyManager(
-                new ManyToManyFileListDatasource().MTM_USER_TEAM_HEAD);
+                new ManyToManyFileListDatasource().MTM_USER_TEAM_EXTRA);
         manyToManyManager.findsByA(this.routeProvider.getUserSession().getId()).getManyToManies()
                 .forEach(manyToMany -> {
                     if (teamForTableView.findById(manyToMany.getB()) != null) {
@@ -421,5 +451,8 @@ public class EventTeamListController extends ComponentRegister {
             throw new RuntimeException(e);
         }
     }
+
+
+    //format date form 2023
 
 }
