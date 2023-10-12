@@ -57,22 +57,26 @@
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="672.0" spacing="8.0">
                      <children>
-                        <Label fx:id="currentMemberParticipatingAmount" text="23" textFill="#5d863b">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Label text="/" textFill="#5d863b">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="maxMemberParticipating" text="200" textFill="#5d863b">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Pane prefHeight="42.0" prefWidth="455.0" />
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label fx:id="currentMemberParticipatingAmount" text="23" textFill="#5d863b">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="/" textFill="#5d863b">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="maxMemberParticipating" text="200" textFill="#5d863b">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Pane prefHeight="45.0" prefWidth="194.0" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#goToDetail" prefHeight="50.0" prefWidth="110.0" styleClass="btn-primary" text="Detail" textFill="#eaa807">
                            <font>
                               <Font name="Hiragino Sans W7" size="16.0" />

@@ -1,6 +1,8 @@
 package cs211.project.router;
 
+import cs211.project.services.SingletonStorage;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.stage.Stage;
 import cs211.project.services.FXRouter;
 
@@ -10,9 +12,9 @@ public class Router extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         configRoute();
-
         FXRouter.bind(this, stage, "CS211 661 Project");
         FXRouter.goTo("login-page");
+        SingletonStorage.getInstance().setHostServices(this.getHostServices());
     }
 
     private static void configRoute() {
@@ -68,7 +70,6 @@ public class Router extends Application {
 
         //setting
         FXRouter.when("setting-page", resourcesPath + "setting-page.fxml");
-
     }
 
 
