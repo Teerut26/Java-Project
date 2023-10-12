@@ -155,6 +155,25 @@ public class ViewMyTeamController {
         activityName.setCellValueFactory(new PropertyValueFactory<>("title"));
         TableColumn<ActivitiesTeam, String> activityDetail = new TableColumn<>("Detail");
         activityDetail.setCellValueFactory(new PropertyValueFactory<>("detail"));
+
+        TableColumn<ActivitiesTeam, String> activityStatus= new TableColumn<>("Status");
+        activityStatus.setCellValueFactory(param -> {
+            if (param.getValue() != null) {
+                ActivitiesTeam activities = param.getValue();
+                if(activities.getDateStart().isAfter(LocalDate.now().atStartOfDay())){
+                    return new ReadOnlyStringWrapper("Not start yet");
+                }else if(activities.getDateEnd().isBefore(LocalDate.now().atStartOfDay())){
+                    return new ReadOnlyStringWrapper("Ended");
+                }else{
+                    return new ReadOnlyStringWrapper("In progress");
+                }
+            } else {
+                return new ReadOnlyStringWrapper("");
+            }
+        });
+
+
+
         TableColumn<ActivitiesTeam, String> activityStartDate = new TableColumn<>("Start date");
         activityStartDate.setCellValueFactory(param -> {
             if (param.getValue() != null) {
@@ -177,7 +196,7 @@ public class ViewMyTeamController {
         });
 
         activityTableView.getColumns().clear();
-        activityTableView.getColumns().addAll(activityName, activityDetail, activityStartDate, activityEndDate);
+        activityTableView.getColumns().addAll(activityName, activityDetail,activityStatus, activityStartDate, activityEndDate);
         activityTableView.getItems().clear();
 
         for (ActivitiesTeam activitiesTeam : activitiesCollection.getActivitiesArrayList()) {
