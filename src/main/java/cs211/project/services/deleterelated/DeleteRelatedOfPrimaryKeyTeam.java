@@ -27,9 +27,9 @@ public class DeleteRelatedOfPrimaryKeyTeam {
     }
 
     public void delete(Team team) {
-        deleteTeam(team);
         deleteActivity(team);
         deleteUserTeamMTM(team);
+        deleteTeam(team);
     }
 
     private void deleteTeam(Team team) {
@@ -40,7 +40,6 @@ public class DeleteRelatedOfPrimaryKeyTeam {
     private void deleteActivity(Team team) {
         activitiesTeamCollection.removeByTeam(team);
         activitiesTeamFileListDatesource.writeData(activitiesTeamCollection);
-
     }
 
     private void deleteUserTeamMTM(Team team) {

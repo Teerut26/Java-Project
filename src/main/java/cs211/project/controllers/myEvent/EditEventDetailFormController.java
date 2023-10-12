@@ -209,7 +209,6 @@ public class EditEventDetailFormController extends ComponentRegister {
         if (alert.getResult() == ButtonType.OK) {
             DeleteRelatedOfPrimaryKeyEvent deleteyRelatedOfPrimaryKeyEvent = new DeleteRelatedOfPrimaryKeyEvent();
             deleteyRelatedOfPrimaryKeyEvent.delete(this.event);
-
             navigateToMyEvent();
         }
 
