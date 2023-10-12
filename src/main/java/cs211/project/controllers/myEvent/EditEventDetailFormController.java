@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 
-public class EditEventDetailFormController extends ComponentRegister {
+public class EditEventDetailFormController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -57,8 +57,9 @@ public class EditEventDetailFormController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         this.eventFileListDatesource = new EventFileListDatesource();
         this.eventCollection = eventFileListDatesource.readData();

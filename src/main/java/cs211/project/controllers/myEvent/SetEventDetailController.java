@@ -30,7 +30,7 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-public class SetEventDetailController extends ComponentRegister {
+public class SetEventDetailController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -129,8 +129,9 @@ public class SetEventDetailController extends ComponentRegister {
 
     private void initializeComponents() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
     }
 
     private void loadUserData() {

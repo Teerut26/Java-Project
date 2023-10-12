@@ -26,7 +26,7 @@ import javafx.scene.layout.VBox;
 import java.io.File;
 import java.util.UUID;
 
-public class CreateTeamController extends ComponentRegister {
+public class CreateTeamController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -56,8 +56,9 @@ public class CreateTeamController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         this.teamID = UUID.randomUUID().toString();
         teamFileListDatasource = new TeamFileListDatasource();

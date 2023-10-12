@@ -24,7 +24,7 @@ import javafx.util.Callback;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class EventTeamDetailController extends ComponentRegister {
+public class EventTeamDetailController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -100,8 +100,9 @@ public class EventTeamDetailController extends ComponentRegister {
 
     private void initializeComponents() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
     }
 
     private void loadTeamDetailData() {

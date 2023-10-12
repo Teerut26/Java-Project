@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class EditScheduleParticipantController extends ComponentRegister {
+public class EditScheduleParticipantController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -49,9 +49,10 @@ public class EditScheduleParticipantController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        ComponentRegister componentRegister = new ComponentRegister();
         this.activitiesEvent = (ActivitiesEvent) routeProvider.getDataHashMap().get("activity-event-select");
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         activitiesEventFileListDatesource = new ActivitiesEventFileListDatesource();
         activitiesEventCollection = activitiesEventFileListDatesource.readData();

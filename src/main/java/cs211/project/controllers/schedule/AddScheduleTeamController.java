@@ -28,7 +28,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AddScheduleTeamController extends ComponentRegister {
+public class AddScheduleTeamController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -58,9 +58,9 @@ public class AddScheduleTeamController extends ComponentRegister {
     public void initialize() {
         routeProvider = (RouteProvider<Event>) FXRouter.getData();
         this.team = (Team) routeProvider.getDataHashMap().get("team-select");
-
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.activitiesTeamID = UUID.randomUUID().toString();
 
         activitiesTeamFileListDatesource = new ActivitiesTeamFileListDatesource();

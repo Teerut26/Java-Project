@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class EventTeamListController extends ComponentRegister {
+public class EventTeamListController {
     @FXML
     private BorderPane parentBorderPane;
     @FXML
@@ -85,8 +85,9 @@ public class EventTeamListController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider<Event>) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         teamFileListDatasource = new TeamFileListDatasource();
         teamCollection = teamFileListDatasource.readData();
