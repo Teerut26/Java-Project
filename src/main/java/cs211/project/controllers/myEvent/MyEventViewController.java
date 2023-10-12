@@ -3,7 +3,6 @@ package cs211.project.controllers.myEvent;
 import cs211.project.controllers.components.EventCardComponentController;
 import cs211.project.models.Event;
 import cs211.project.models.collections.EventCollection;
-import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;

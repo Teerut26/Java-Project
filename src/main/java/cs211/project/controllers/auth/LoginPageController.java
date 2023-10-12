@@ -2,8 +2,6 @@ package cs211.project.controllers.auth;
 
 import cs211.project.models.User;
 import cs211.project.models.collections.UserCollection;
-import cs211.project.router.Router;
-import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.SingletonStorage;
@@ -11,7 +9,6 @@ import cs211.project.services.datasource.UserFileListDatasource;
 import javafx.application.HostServices;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -24,8 +21,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 

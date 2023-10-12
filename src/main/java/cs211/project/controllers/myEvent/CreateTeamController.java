@@ -2,28 +2,21 @@ package cs211.project.controllers.myEvent;
 
 import cs211.project.models.Event;
 import cs211.project.models.Team;
-import cs211.project.models.collections.EventCollection;
 import cs211.project.models.collections.TeamCollection;
-import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.TeamFileListDatasource;
 import cs211.project.utils.ComponentRegister;
-import cs211.project.utils.ImageSaver;
 import cs211.project.utils.TimeValidate;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
 import java.util.UUID;
 
 public class CreateTeamController {

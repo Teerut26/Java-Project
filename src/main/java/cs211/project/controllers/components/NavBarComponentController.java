@@ -1,7 +1,5 @@
 package cs211.project.controllers.components;
 
-import cs211.project.models.User;
-import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import javafx.fxml.FXML;

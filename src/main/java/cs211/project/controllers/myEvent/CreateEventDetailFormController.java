@@ -2,7 +2,6 @@ package cs211.project.controllers.myEvent;
 
 import cs211.project.models.Event;
 import cs211.project.models.collections.EventCollection;
-import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
@@ -20,11 +19,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class CreateEventDetailFormController {
