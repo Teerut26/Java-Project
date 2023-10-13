@@ -11,7 +11,7 @@
 
 <Pane prefHeight="245.0" prefWidth="906.0" style="-fx-background-color: FFFFFF; -fx-border-color: #B4A78F; -fx-border-radius: 16; -fx-background-radius: 16;" stylesheets="@../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.components.EventCardComponentController">
    <children>
-      <HBox prefHeight="242.0" prefWidth="908.0" spacing="15.0" style="-fx-background-radius: 16; -fx-border-radius: 16;">
+      <HBox prefHeight="242.0" prefWidth="908.0" spacing="15.0" style="-fx-background-radius: 16; -fx-border-radius: 16;" styleClass="primary-color" stylesheets="@../style/all.css">
          <children>
             <Rectangle fx:id="image" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="213.0" stroke="BLACK" strokeType="INSIDE" width="200.0">
                <HBox.margin>
@@ -28,7 +28,7 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="descriptions" alignment="TOP_LEFT" prefHeight="69.0" prefWidth="650.0" text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true">
+                  <Label fx:id="descriptions" alignment="TOP_LEFT" prefHeight="69.0" prefWidth="650.0" styleClass="primary-color" text="Food and Hospitality Thailand (FHT) is the international trade show for the food industry. Premium service in Thailand and the ASEAN region Ready to offer the best products, services and solutions. as well as ideas for future business We connect entrepreneurs with real buyers from businesses, hotels, restaurants, bars, catering, cafes, bakeries, airlines, golf courses, logistics, real estate. including the hospital health business in order to respond to the increasing demand of the market This is in line with the continuing economic and tourism trend." wrapText="true">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -44,7 +44,7 @@
                            </font>
                         </Label>
                         <Pane prefHeight="19.0" prefWidth="16.0" />
-                        <Label fx:id="eventLocation" text="location" />
+                        <Label fx:id="eventLocation" styleClass="primary-color" text="location" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" />
@@ -57,22 +57,26 @@
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="672.0" spacing="8.0">
                      <children>
-                        <Label fx:id="currentMemberParticipatingAmount" text="23" textFill="#5d863b">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Label text="/" textFill="#5d863b">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="maxMemberParticipating" text="200" textFill="#5d863b">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Pane prefHeight="42.0" prefWidth="455.0" />
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label fx:id="currentMemberParticipatingAmount" text="23" textFill="#5d863b">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="/" textFill="#5d863b">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="maxMemberParticipating" text="200" textFill="#5d863b">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Pane prefHeight="45.0" prefWidth="194.0" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#goToDetail" prefHeight="50.0" prefWidth="110.0" styleClass="btn-primary" text="Detail" textFill="#eaa807">
                            <font>
                               <Font name="Hiragino Sans W7" size="16.0" />

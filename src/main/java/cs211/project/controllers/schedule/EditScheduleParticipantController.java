@@ -1,5 +1,6 @@
 package cs211.project.controllers.schedule;
 
+import cs211.project.Main;
 import cs211.project.models.ActivitiesEvent;
 import cs211.project.models.Event;
 import cs211.project.models.collections.ActivitiesEventCollection;
@@ -13,13 +14,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class EditScheduleParticipantController extends ComponentRegister {
+public class EditScheduleParticipantController {
+    @FXML
+    private BorderPane parentBorderPane;
     @FXML
     private VBox SideBarVBox;
 
@@ -44,12 +48,12 @@ public class EditScheduleParticipantController extends ComponentRegister {
     private RouteProvider<Event> routeProvider;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         routeProvider = (RouteProvider<Event>) FXRouter.getData();
+        ComponentRegister componentRegister = new ComponentRegister();
         this.activitiesEvent = (ActivitiesEvent) routeProvider.getDataHashMap().get("activity-event-select");
-        System.out.println(this.activitiesEvent.getTitle());
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
 
         activitiesEventFileListDatesource = new ActivitiesEventFileListDatesource();
         activitiesEventCollection = activitiesEventFileListDatesource.readData();
@@ -58,12 +62,59 @@ public class EditScheduleParticipantController extends ComponentRegister {
         TextFieldDetail.setText(activitiesEvent.getDetail());
         dateStart.setValue(activitiesEvent.getDateStart().toLocalDate());
         dateEnd.setValue(activitiesEvent.getDateEnd().toLocalDate());
-        timeStart.setText(activitiesEvent.getStartTime());
-        timeEnd.setText(activitiesEvent.getEndTime());
+        timeStart.setText(formatTime(activitiesEvent.getStartTime()));
+        timeEnd.setText(formatTime(activitiesEvent.getEndTime()));
+
+        this.initializeThemeMode();
+        this.initializeFont();
     }
 
     @FXML
-    public void onSave(){
+    public void initializeThemeMode(){
+        String className = Main.class.getName().replace('.', '/');
+        String classJar = Main.class.getResource("/" + className + ".class").toString();
+        Boolean isJarFile = classJar.startsWith("jar:");
+        String pathDarkMode;
+        String pathLightMode;
+        if(isJarFile) {
+            pathDarkMode = "/cs211/project/style/dark-mode.css";
+            pathLightMode = "/cs211/project/style/light-mode.css";
+        }else{
+            pathDarkMode = "file:src/main/resources/cs211/project/style/dark-mode.css";
+            pathLightMode = "file:src/main/resources/cs211/project/style/light-mode.css";
+        }
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+            parentBorderPane.getStylesheets().remove(pathLightMode);
+            parentBorderPane.getStylesheets().add(pathDarkMode);
+        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+            parentBorderPane.getStylesheets().remove(pathDarkMode);
+            parentBorderPane.getStylesheets().add(pathLightMode);
+        }
+    }
+
+    @FXML
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
+        clearFontStyle();
+        if (currentFont.equals("font-style1")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
+        } else if (currentFont.equals("font-style2")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
+        } else if (currentFont.equals("font-style3")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
+        }
+
+    }
+
+    @FXML
+    public void clearFontStyle() {
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
+    }
+
+    @FXML
+    public void onSave() {
         TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), dateStart.getValue().atStartOfDay());
         TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), dateEnd.getValue().atStartOfDay());
 
@@ -71,13 +122,13 @@ public class EditScheduleParticipantController extends ComponentRegister {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Invalid Time");
-            alert.setContentText("Please enter a valid time");
+            alert.setContentText("Please enter a valid time according to pattern 00:00");
             alert.show();
             return;
         }
 
-        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
-        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute(), timeEndUtils.getSecond());
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute());
 
         activitiesEvent.setTitle(TextFieldName.getText());
         activitiesEvent.setDetail(TextFieldDetail.getText());
@@ -87,17 +138,37 @@ public class EditScheduleParticipantController extends ComponentRegister {
         activitiesEventCollection.update(activitiesEvent);
         activitiesEventFileListDatesource.writeData(activitiesEventCollection);
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Edit Activities Participant Success");
+        alert.setContentText("Edit Activities Participant Success");
+        alert.showAndWait();
+
         try {
-            FXRouter.goTo("set-event-detail",this.routeProvider);
+            FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public String formatTime(String time) {
+        String[] timeArr = time.split(":");
+        String hour = timeArr[0];
+        String minute = timeArr[1];
+        if (hour.length() == 1) {
+            hour = "0" + hour;
+        }
+        if (minute.length() == 1) {
+            minute = "0" + minute;
+        }
+
+        return hour + ":" + minute;
+    }
+
     @FXML
-    public void onCancel(){
+    public void onCancel() {
         try {
-            FXRouter.goTo("set-event-detail",this.routeProvider);
+            FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

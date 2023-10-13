@@ -32,6 +32,15 @@ public class SideBarComponentController {
     }
 
     @FXML
+    public void goToHistoryTeam() {
+        try {
+            FXRouter.goTo("my-team", this.routeProvider);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
     public void goToMyEvent() {
         try {
             FXRouter.goTo("my-event", this.routeProvider);
@@ -39,4 +48,6 @@ public class SideBarComponentController {
             throw new RuntimeException(e);
         }
     }
+
+
 }

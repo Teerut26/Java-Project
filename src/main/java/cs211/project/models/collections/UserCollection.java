@@ -5,6 +5,7 @@ import cs211.project.models.Event;
 import cs211.project.models.User;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class UserCollection {
     private ArrayList<User> userArrayList;
@@ -18,6 +19,13 @@ public class UserCollection {
             this.userArrayList.add(user);
         }
 
+    }
+    public void update(User user){
+        for(int i = 0; i < userArrayList.size(); i++){
+            if(userArrayList.get(i).getId().equals(user.getId())){
+                userArrayList.set(i, user);
+            }
+        }
     }
 
     public User findByName(String title) {
@@ -57,5 +65,9 @@ public class UserCollection {
 
     public void remove(User user) {
         this.userArrayList.remove(user);
+    }
+
+    public void sort(Comparator<User> cmp){
+        this.userArrayList.sort(cmp);
     }
 }

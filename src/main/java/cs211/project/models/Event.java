@@ -5,6 +5,7 @@ import cs211.project.models.collections.UserCollection;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Event {
     private String eventID;
@@ -21,6 +22,9 @@ public class Event {
     private boolean isPublic = false;
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+    private String startTimeEvent;
+    private String endTimeEvent;
+
     public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, String location, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, boolean isPublic, User owner) {
         this.eventID = eventID;
         this.nameEvent = nameEvent;
@@ -32,6 +36,7 @@ public class Event {
         this.quantityEvent = quantityEvent;
         this.isPublic = isPublic;
         this.owner = owner;
+        this.setTimeToLocalDateTime();
     }
 
     public Event(String eventID, String nameEvent, String imageEvent, String descriptionEvent, String location, LocalDateTime startDate, LocalDateTime endDate, Integer quantityEvent, User owner) {
@@ -45,6 +50,17 @@ public class Event {
         this.quantityEvent = quantityEvent;
         this.isPublic = false;
         this.owner = owner;
+        this.setTimeToLocalDateTime();
+    }
+    private void setTimeToLocalDateTime() {
+        String hourStart = String.valueOf(this.startDate.getHour());
+        String minuteStart = String.valueOf(this.startDate.getMinute());
+
+        String hourEnd = String.valueOf(this.endDate.getHour());
+        String minuteEnd = String.valueOf(this.endDate.getMinute());
+
+        this.startTimeEvent = hourStart + ":" + minuteStart;
+        this.endTimeEvent = hourEnd + ":" + minuteEnd;
     }
 
     public Event() {}
@@ -129,6 +145,14 @@ public class Event {
         return endDate;
     }
 
+    public String getStartTimeEvent(){
+        return startTimeEvent;
+    }
+
+    public String getEndTimeEvent(){
+        return endTimeEvent;
+    }
+
     public Integer getQuantityEvent() {
         return quantityEvent;
     }
@@ -171,8 +195,15 @@ public class Event {
 
     @Override
     public boolean equals(Object o) {
-        Event that = (Event) o;
-        return this.eventID.equals(that.eventID);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return eventID.equals(event.eventID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eventID);
     }
 
     @Override

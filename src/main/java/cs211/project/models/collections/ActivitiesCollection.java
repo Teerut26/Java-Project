@@ -15,24 +15,6 @@ public class ActivitiesCollection {
     public void add(Activities activities) {
         this.activitiesArrayList.add(activities);
     }
-
-    public Activities findByTitle(String title) {
-        for (Activities activities : this.activitiesArrayList) {
-            if (activities.getTitle().equals(title)) {
-                return activities;
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<Activities> getActivitiesArrayList() {
-        return this.activitiesArrayList;
-    }
-
-    public void setActivitiesArrayList(ArrayList<Activities> activitiesArrayList) {
-        this.activitiesArrayList = activitiesArrayList;
-    }
-
     public void remove(Event event) {
         this.activitiesArrayList.remove(event);
     }

@@ -1,31 +1,33 @@
 package cs211.project.controllers.myEvent;
 
+import cs211.project.Main;
 import cs211.project.models.Event;
 import cs211.project.models.collections.EventCollection;
-import cs211.project.services.Authentication;
 import cs211.project.services.FXRouter;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.EventFileListDatesource;
 import cs211.project.utils.ComponentRegister;
 import cs211.project.utils.ImageSaver;
+import cs211.project.utils.TimeValidate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class CreateEventDetailFormController extends ComponentRegister {
-
+public class CreateEventDetailFormController {
+    @FXML
+    private BorderPane parentBorderPane;
     @FXML
     private TextArea TextAreaDescription;
     @FXML
@@ -45,8 +47,11 @@ public class CreateEventDetailFormController extends ComponentRegister {
     private HBox NavBarHBox;
     @FXML
     private VBox SideBarVBox;
+    @FXML
+    private TextField timeStart;
+    @FXML
+    private TextField timeEnd;
     private String eventID;
-    private String imageFilePath;
     private RouteProvider routeProvider;
     private EventFileListDatesource eventFileListDatesource;
     private EventCollection eventCollection;
@@ -54,13 +59,60 @@ public class CreateEventDetailFormController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.eventID = UUID.randomUUID().toString();
 
         eventFileListDatesource = new EventFileListDatesource();
         eventCollection = eventFileListDatesource.readData();
 
+        this.initializeThemeMode();
+        this.initializeFont();
+    }
+
+    @FXML
+    public void initializeThemeMode(){
+        String className = Main.class.getName().replace('.', '/');
+        String classJar = Main.class.getResource("/" + className + ".class").toString();
+        Boolean isJarFile = classJar.startsWith("jar:");
+        String pathDarkMode;
+        String pathLightMode;
+        if(isJarFile) {
+            pathDarkMode = "/cs211/project/style/dark-mode.css";
+            pathLightMode = "/cs211/project/style/light-mode.css";
+        }else{
+            pathDarkMode = "file:src/main/resources/cs211/project/style/dark-mode.css";
+            pathLightMode = "file:src/main/resources/cs211/project/style/light-mode.css";
+        }
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+            parentBorderPane.getStylesheets().remove(pathLightMode);
+            parentBorderPane.getStylesheets().add(pathDarkMode);
+        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+            parentBorderPane.getStylesheets().remove(pathDarkMode);
+            parentBorderPane.getStylesheets().add(pathLightMode);
+        }
+    }
+
+    @FXML
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
+        clearFontStyle();
+        if (currentFont.equals("font-style1")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
+        } else if (currentFont.equals("font-style2")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
+        } else if (currentFont.equals("font-style3")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
+        }
+
+    }
+
+    @FXML
+    public void clearFontStyle() {
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
 
     @FXML
@@ -81,13 +133,28 @@ public class CreateEventDetailFormController extends ComponentRegister {
         ImageSaver imageSaver = (ImageSaver) addImage.getUserData();
         imageSaver.saveImage();
 
+        TimeValidate timeStartUtils = new TimeValidate(timeStart.getText(), DataTimeStart.getValue().atStartOfDay());
+        TimeValidate timeEndUtils = new TimeValidate(timeEnd.getText(), DataTimeEnd.getValue().atStartOfDay());
+
+        if (!timeEndUtils.validate() || !timeStartUtils.validate()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Time");
+            alert.setContentText("Please enter a valid time according to pattern 00:00");
+            alert.show();
+            return;
+        }
+
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute());
+
         Event newEvent = new Event(this.eventID,
                 TextFieldName.getText(),
                 "data/images/event/" + this.eventID + "." + imageSaver.extention,
                 TextAreaDescription.getText(),
                 textFieldLocation.getText(),
-                DataTimeStart.getValue().atStartOfDay(),
-                DataTimeEnd.getValue().atStartOfDay(),
+                timeStartUtils.getRefLocalDateTime(),
+                timeEndUtils.getRefLocalDateTime(),
                 Integer.parseInt(TextFieldQuantity.getText()),
                 routeProvider.getUserSession());
 
@@ -96,14 +163,19 @@ public class CreateEventDetailFormController extends ComponentRegister {
 
         clearField();
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Event Created");
+        alert.setContentText("Event has been created successfully");
+        alert.showAndWait();
         try {
-            FXRouter.goTo("my-event",this.routeProvider);
-        } catch (Exception e) {
+            FXRouter.goTo("my-event", this.routeProvider);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void clearField(){
+    private void clearField() {
         TextFieldName.clear();
         addImage.setImage(null);
         TextAreaDescription.clear();
@@ -116,7 +188,7 @@ public class CreateEventDetailFormController extends ComponentRegister {
     @FXML
     public void onCancel() {
         try {
-            FXRouter.goTo("my-event",this.routeProvider);
+            FXRouter.goTo("my-event", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,5 +1,6 @@
 package cs211.project.controllers.schedule;
 
+import cs211.project.Main;
 import cs211.project.models.Activities;
 import cs211.project.models.ActivitiesEvent;
 import cs211.project.models.Event;
@@ -15,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -22,7 +24,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class AddScheduleParticipantController extends ComponentRegister {
+public class AddScheduleParticipantController {
+    @FXML
+    private BorderPane parentBorderPane;
     @FXML
     private VBox SideBarVBox;
     @FXML
@@ -48,13 +52,62 @@ public class AddScheduleParticipantController extends ComponentRegister {
     @FXML
     public void initialize() {
         routeProvider = (RouteProvider<Event>) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
         this.activitiesEventID = UUID.randomUUID().toString();
 
         activitiesEventFileListDatesource = new ActivitiesEventFileListDatesource();
         activitiesEventCollection = activitiesEventFileListDatesource.readData();
         event = routeProvider.getData();
+
+        this.initializeThemeMode();
+        this.initializeFont();
+    }
+
+    @FXML
+    public void initializeThemeMode(){
+        String className = Main.class.getName().replace('.', '/');
+        String classJar = Main.class.getResource("/" + className + ".class").toString();
+        Boolean isJarFile = classJar.startsWith("jar:");
+        String pathDarkMode;
+        String pathLightMode;
+        if(isJarFile) {
+            pathDarkMode = "/cs211/project/style/dark-mode.css";
+            pathLightMode = "/cs211/project/style/light-mode.css";
+        }else{
+            pathDarkMode = "file:src/main/resources/cs211/project/style/dark-mode.css";
+            pathLightMode = "file:src/main/resources/cs211/project/style/light-mode.css";
+        }
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+            parentBorderPane.getStylesheets().remove(pathLightMode);
+            parentBorderPane.getStylesheets().add(pathDarkMode);
+        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+            parentBorderPane.getStylesheets().remove(pathDarkMode);
+            parentBorderPane.getStylesheets().add(pathLightMode);
+        }
+    }
+
+
+    @FXML
+    public void initializeFont(){
+        String currentFont =this.routeProvider.getUserSession().getFont();
+        clearFontStyle();
+        if (currentFont.equals("font-style1")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
+        }else if (currentFont.equals("font-style2")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
+        }else if (currentFont.equals("font-style3")){
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
+        }
+
+    }
+
+    @FXML
+    public void clearFontStyle(){
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
 
     @FXML
@@ -66,13 +119,13 @@ public class AddScheduleParticipantController extends ComponentRegister {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Invalid Time");
-            alert.setContentText("Please enter a valid time");
+            alert.setContentText("Please enter a valid time according to pattern 00:00");
             alert.show();
             return;
         }
 
-        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute(), timeStartUtils.getSecond());
-        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute(), timeEndUtils.getSecond());
+        timeStartUtils.addTime(timeStartUtils.getHour(), timeStartUtils.getMinute());
+        timeEndUtils.addTime(timeEndUtils.getHour(), timeEndUtils.getMinute());
 
         ActivitiesEvent newActivitiesEvent = new ActivitiesEvent(this.activitiesEventID,
                 TextFieldName.getText(),
@@ -91,8 +144,14 @@ public class AddScheduleParticipantController extends ComponentRegister {
         dateStart.setValue(null);
         dateEnd.setValue(null);
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Create New Activities Participant");
+          alert.setContentText("New Activities Participant has been created");
+        alert.showAndWait();
+
         try {
-            FXRouter.goTo("my-event", this.routeProvider);
+            FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -101,7 +160,7 @@ public class AddScheduleParticipantController extends ComponentRegister {
     @FXML
     public void onCancel() {
         try {
-            FXRouter.goTo("my-event", this.routeProvider);
+            FXRouter.goTo("set-event-detail", this.routeProvider);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

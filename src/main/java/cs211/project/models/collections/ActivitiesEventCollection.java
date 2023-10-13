@@ -17,22 +17,12 @@ public class ActivitiesEventCollection {
         this.activitiesArrayList.add(activities);
     }
 
-    public ActivitiesEvent findByTitle(String title) {
-        for (ActivitiesEvent activities : this.activitiesArrayList) {
-            if (activities.getTitle().equals(title)) {
-                return activities;
-            }
-        }
-        return null;
-    }
 
     public ArrayList<ActivitiesEvent> getActivitiesArrayList() {
         return this.activitiesArrayList;
     }
 
-    public void setActivitiesArrayList(ArrayList<ActivitiesEvent> activitiesArrayList) {
-        this.activitiesArrayList = activitiesArrayList;
-    }
+
 
     public void remove(ActivitiesEvent activitiesEvent) {
         this.activitiesArrayList.remove(activitiesEvent);
@@ -46,6 +36,8 @@ public class ActivitiesEventCollection {
         }
         return null;
     }
+
+
     public void update(ActivitiesEvent activitiesEvent) {
         for (int i = 0; i < this.activitiesArrayList.size(); i++) {
             if (this.activitiesArrayList.get(i).getId().equals(activitiesEvent.getId())) {
@@ -63,4 +55,5 @@ public class ActivitiesEventCollection {
         }
         return activitiesEventCollection;
     }
+
 }

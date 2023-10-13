@@ -1,6 +1,8 @@
 package cs211.project.router;
 
+import cs211.project.services.SingletonStorage;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.stage.Stage;
 import cs211.project.services.FXRouter;
 
@@ -10,9 +12,9 @@ public class Router extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         configRoute();
-
         FXRouter.bind(this, stage, "CS211 661 Project");
         FXRouter.goTo("login-page");
+        SingletonStorage.getInstance().setHostServices(this.getHostServices());
     }
 
     private static void configRoute() {
@@ -24,7 +26,6 @@ public class Router extends Application {
         FXRouter.when("register-page", resourcesPath + "auth/register-page.fxml");
 
         //admin routes
-        FXRouter.when("admin-change-password", resourcesPath + "admin/change-password-admin.fxml");
         FXRouter.when("admin-manage-user", resourcesPath + "admin/manage-user.fxml");
 
         //event routes
@@ -46,6 +47,9 @@ public class Router extends Application {
         FXRouter.when("my-event", resourcesPath + "myEvent/my-event-view.fxml");
         FXRouter.when("set-event-detail", resourcesPath + "myEvent/set-event-detail.fxml");
 
+        //my-team routes
+        FXRouter.when("my-team", resourcesPath + "myTeam/my-team.fxml");
+        FXRouter.when("view-my-team", resourcesPath + "myTeam/view-my-team.fxml");
 
         //profile routes
         FXRouter.when("change-password-profile-page", resourcesPath + "profile/change-password-profile-page.fxml");
@@ -60,6 +64,12 @@ public class Router extends Application {
         //about us routes
         FXRouter.when("about-us", resourcesPath + "about-us.fxml");
 
+        //comment
+        FXRouter.when("comment-activity-event", resourcesPath + "event/comment-activity-event.fxml");
+        FXRouter.when("comment-activity-team", resourcesPath + "event/team/comment-activity-team.fxml");
+
+        //setting
+        FXRouter.when("setting-page", resourcesPath + "setting-page.fxml");
     }
 
 

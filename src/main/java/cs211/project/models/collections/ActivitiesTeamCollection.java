@@ -1,7 +1,9 @@
 package cs211.project.models.collections;
 
+import cs211.project.models.Activities;
 import cs211.project.models.ActivitiesEvent;
 import cs211.project.models.ActivitiesTeam;
+import cs211.project.models.Team;
 
 import java.util.ArrayList;
 
@@ -16,22 +18,11 @@ public class ActivitiesTeamCollection {
         this.activitiesArrayList.add(activities);
     }
 
-    public ActivitiesTeam findByTitle(String title) {
-        for (ActivitiesTeam activities : this.activitiesArrayList) {
-            if (activities.getTitle().equals(title)) {
-                return activities;
-            }
-        }
-        return null;
-    }
 
     public ArrayList<ActivitiesTeam> getActivitiesArrayList() {
         return this.activitiesArrayList;
     }
 
-    public void setActivitiesArrayList(ArrayList<ActivitiesTeam> activitiesArrayList) {
-        this.activitiesArrayList = activitiesArrayList;
-    }
 
     public void update(ActivitiesTeam activitiesTeam) {
         for (int i = 0; i < this.activitiesArrayList.size(); i++) {
@@ -52,5 +43,34 @@ public class ActivitiesTeamCollection {
             }
         }
         return null;
+    }
+
+    public ActivitiesTeamCollection findByTeamId(String id) {
+        ActivitiesTeamCollection activitiesTeamCollection = new ActivitiesTeamCollection();
+        for (ActivitiesTeam activities : this.activitiesArrayList) {
+            if (activities.getTeam().getId().equals(id)) {
+                activitiesTeamCollection.add(activities);
+            }
+        }
+        return activitiesTeamCollection;
+    }
+
+    public ActivitiesTeamCollection removeByTeam(Team team) {
+        ActivitiesTeamCollection activitiesTeamCollection = new ActivitiesTeamCollection();
+        for (ActivitiesTeam activities : this.activitiesArrayList) {
+            if (!activities.getTeam().equals(team)) {
+                activitiesTeamCollection.add(activities);
+            }
+        }
+        this.activitiesArrayList = activitiesTeamCollection.getActivitiesArrayList();
+        return activitiesTeamCollection;
+    }
+
+    public Activities[] getActivities() {
+        Activities[] activities = new Activities[this.activitiesArrayList.size()];
+        for (int i = 0; i < this.activitiesArrayList.size(); i++) {
+            activities[i] = this.activitiesArrayList.get(i);
+        }
+        return activities;
     }
 }

@@ -5,8 +5,10 @@ import cs211.project.models.ActivitiesEvent;
 import cs211.project.models.Event;
 import cs211.project.models.collections.ActivitiesCollection;
 import cs211.project.models.collections.ActivitiesEventCollection;
+import cs211.project.models.collections.EventCollection;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
+import cs211.project.utils.ReplaceComma;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -15,9 +17,11 @@ public class ActivitiesEventFileListDatesource implements DatasourceInterface<Ac
     private String basePath = "data/csv/";
     private String fileName = "activitiesEvent.csv";
     private FileIO fileIO;
+    private ReplaceComma replaceComma;
 
     public ActivitiesEventFileListDatesource() {
         this.fileIO = new FileIO(this.basePath + this.fileName);
+        this.replaceComma = new ReplaceComma();
     }
 
     @Override
@@ -27,6 +31,8 @@ public class ActivitiesEventFileListDatesource implements DatasourceInterface<Ac
         String line = "";
         try {
             ActivitiesEventCollection activitiesEventCollection = new ActivitiesEventCollection();
+            EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
+            EventCollection eventCollection = eventFileListDatesource.readData();
 
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
@@ -40,8 +46,10 @@ public class ActivitiesEventFileListDatesource implements DatasourceInterface<Ac
                 LocalDateTime dateEnd = LocalDateTime.parse(data[4].trim());
                 String eventId = data[5].trim();
 
-                EventFileListDatesource eventFileListDatesource = new EventFileListDatesource();
-                Event event = eventFileListDatesource.readData().findById(eventId);
+                Event event = eventCollection.findById(eventId);
+
+                title = this.replaceComma.replaceBack(title);
+                detail = this.replaceComma.replaceBack(detail);
 
                 ActivitiesEvent activitiesEvent = new ActivitiesEvent(id, title, detail, dateStart, dateEnd, event);
 
@@ -68,7 +76,7 @@ public class ActivitiesEventFileListDatesource implements DatasourceInterface<Ac
 
         try {
             for (ActivitiesEvent activities : data.getActivitiesArrayList()) {
-                String line = activities.getId() + "," + activities.getTitle() + "," + activities.getDetail() + "," + activities.getDateStart() + "," + activities.getDateEnd() + "," + activities.getEvent().getEventID();
+                String line = activities.getId() + "," + this.replaceComma.replace(activities.getTitle()) + "," + this.replaceComma.replace(activities.getDetail()) + "," + activities.getDateStart() + "," + activities.getDateEnd() + "," + activities.getEvent().getEventID();
                 buffer.append(line);
                 buffer.append("\n");
             }

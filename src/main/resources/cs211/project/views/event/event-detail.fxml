@@ -14,7 +14,7 @@
 <AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.event.EventDetailController">
 
     <children>
-        <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
+        <BorderPane fx:id="parentBorderPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" styleClass="primary-color" stylesheets="@../../style/dark-mode.css">
             <top>
                 <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
                     <children>
@@ -27,7 +27,7 @@
                 </AnchorPane>
             </top>
             <left>
-                <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="545.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0;" BorderPane.alignment="CENTER">
                     <children>
                         <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" prefHeight="625.0" prefWidth="322.0" spacing="10.0">
                             <padding>
@@ -38,12 +38,12 @@
                 </AnchorPane>
             </left>
             <right>
-                <VBox prefHeight="651.0" prefWidth="956.0" spacing="5.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+                <VBox prefHeight="651.0" prefWidth="956.0" spacing="5.0" BorderPane.alignment="CENTER">
                     <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                     </padding>
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="936.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="936.0" styleClass="primary-color">
                      <children>
                         <Button mnemonicParsing="false" onAction="#onBack" prefHeight="40.0" prefWidth="100.0" styleClass="btn-secondary" text="back">
                            <font>
@@ -52,7 +52,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <VBox prefHeight="547.0" prefWidth="936.0" spacing="20.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10;">
+                  <VBox prefHeight="547.0" prefWidth="936.0" spacing="20.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="secondary-color">
                      <children>
                         <Label fx:id="eventNameLabel" text="Food &amp; Hospitality Thailand 2023 (FHT 2023)" textFill="#ecbf73" wrapText="true">
                            <font>
@@ -61,7 +61,7 @@
                         </Label>
                         <HBox prefHeight="353.0" prefWidth="886.0" spacing="50.0">
                            <children>
-                              <VBox prefHeight="343.0" prefWidth="266.0" spacing="8.0">
+                              <VBox prefHeight="353.0" prefWidth="346.0" spacing="8.0">
                                  <children>
                                     <Rectangle fx:id="eventImage" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="324.0" stroke="BLACK" strokeType="INSIDE" width="256.0" />
                                     <Label fx:id="eventTime" prefHeight="15.0" prefWidth="289.0" text="17 July 23 6:00 - 18 July 23 23:00" textFill="#bb716f">
@@ -69,31 +69,60 @@
                                           <Font name="Hiragino Sans W6" size="13.0" />
                                        </font>
                                     </Label>
+                                    <HBox prefHeight="26.0" prefWidth="296.0">
+                                       <children>
+                                          <Label text="Created By: " textFill="#ff2828" />
+                                          <Label fx:id="UserOwnerLabel" styleClass="secondary-color" text="Label" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
                               <VBox prefHeight="328.0" prefWidth="567.0" spacing="10.0">
                                  <children>
-                                    <Label fx:id="eventDescriptionLabel" alignment="TOP_LEFT" prefHeight="225.0" prefWidth="489.0" text="null" wrapText="true">
+                                    <Label fx:id="eventDescriptionLabel" alignment="TOP_LEFT" prefHeight="225.0" prefWidth="489.0" styleClass="secondary-color" text="null" wrapText="true">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="547.0">
+                                    <HBox prefHeight="26.0" prefWidth="296.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#onJoin" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
+                                          <Label text="Location: " textFill="#ff2828" />
+                                          <Label fx:id="locationLabel" styleClass="secondary-color" text="Label" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="44.0" prefWidth="499.0">
+                                       <children>
+                                          <Button fx:id="joinButton" mnemonicParsing="false" onAction="#onJoin" prefHeight="55.0" prefWidth="110.0" styleClass="btn-primary-active" text="Join" textFill="WHITE">
                                              <font>
                                                 <Font name="Hiragino Sans W7" size="16.0" />
                                              </font>
                                           </Button>
-                                          <Pane prefHeight="52.0" prefWidth="60.0" />
+                                          <Pane prefHeight="44.0" prefWidth="17.0" />
+                                          <Button fx:id="joinTeamButton" mnemonicParsing="false" onAction="#goToTeamList" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="Join team">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="499.0">
+                                       <children>
+                                          <Label text="Joined" textFill="#1e7945">
+                                             <padding>
+                                                <Insets right="20.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
                                           <Label fx:id="currentUserAmount" text="0" textFill="#5d863b">
                                              <font>
-                                                <Font name="Hiragino Sans W6" size="20.0" />
+                                                <Font name="Hiragino Sans W6" size="16.0" />
                                              </font>
                                           </Label>
                                           <Label text="/" textFill="#5d863b">
                                              <font>
-                                                <Font name="Hiragino Sans W6" size="20.0" />
+                                                <Font name="Hiragino Sans W6" size="16.0" />
                                              </font>
                                              <padding>
                                                 <Insets left="4.0" />
@@ -101,13 +130,16 @@
                                           </Label>
                                           <Label fx:id="maxUserAmount" text="200" textFill="#5d863b">
                                              <font>
-                                                <Font name="Hiragino Sans W6" size="20.0" />
+                                                <Font name="Hiragino Sans W6" size="16.0" />
                                              </font>
                                              <padding>
                                                 <Insets left="4.0" />
                                              </padding>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="15.0" />
+                                       </VBox.margin>
                                     </HBox>
                                  </children>
                                  <padding>
@@ -116,11 +148,6 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="131.0" styleClass="btn-error" text="TeamEvent">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
                      </children>
                      <opaqueInsets>
                         <Insets />

@@ -41,7 +41,7 @@ public class AdminNavbarComponentController {
     }
 
     @FXML
-    void goToLogin(ActionEvent event) {
+    void goToLogin() {
         try {
             FXRouter.goTo("login-page");
         } catch (IOException e) {
@@ -50,7 +50,7 @@ public class AdminNavbarComponentController {
     }
 
     @FXML
-    void goToProfile(MouseEvent event) {
+    void goToProfile() {
         this.routeProvider.setData("admin");
         try {
             FXRouter.goTo("my-profile-page", routeProvider);

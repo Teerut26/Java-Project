@@ -1,0 +1,54 @@
+.primary-color{
+    -fx-background-color: #2f2f2f !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-border-color: #2f2f2f !important;
+
+}
+
+.secondary-color{
+    -fx-background-color: #464646 !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-border-color: #464646 !important;
+
+}
+
+.input-color{
+    -fx-background-color: #7c7c7c !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-border-color: #7c7c7c !important;
+}
+.text-area {
+    text-area-background: #7c7c7c ;
+}
+
+.text-area .content {
+    -fx-background-color: text-area-background ;
+    -fx-text-fill: #ffffff !important;
+}
+.date-picker .text-field {
+    -fx-control-inner-background: #7c7c7c ;
+    -fx-text-fill: #ffffff !important;
+}
+
+.side-bar-button{
+    -fx-background-color: #b2b2b2 !important;
+    -fx-border-color: #EAA807 !important;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-text-fill: #000000;
+}
+
+.navbar{
+    -fx-background-color: #EAA807 !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-font-family: Verdana !important;
+    -fx-font-weight: bold !important;
+}
+
+.fs-20{
+    -fx-font-size: 60px !important;
+}
+
+
+
+

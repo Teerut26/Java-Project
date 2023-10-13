@@ -20,11 +20,4 @@ public class AdminSideBarComponentController {
         }
     }
 
-    @FXML public void goToChangePassword() {
-        try {
-            FXRouter.goTo("admin-change-password", this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

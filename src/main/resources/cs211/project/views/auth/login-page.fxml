@@ -81,7 +81,22 @@
                         <PasswordField fx:id="TextFieldPassword" prefHeight="50.0" prefWidth="400.0" promptText="Password" styleClass="input" />
                      </children>
                   </HBox>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="105.0" prefWidth="680.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="680.0">
+                     <children>
+                        <Text fx:id="TextError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Text">
+                           <font>
+                              <Font name="Hiragino Sans W6" size="13.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="150.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="82.0" prefWidth="680.0">
                      <children>
                         <Button fx:id="buttonLogin" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="50.0" prefWidth="400.0" styleClass="btn-primary-active" text="Login" textFill="WHITE">
                            <font>
@@ -92,7 +107,6 @@
                   </HBox>
                   <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="680.0">
                      <children>
-                        <Text fx:id="TextError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Text" />
                         <Button fx:id="buttonSignUp" mnemonicParsing="false" onAction="#onSignUpButtonClick" prefHeight="50.0" prefWidth="400.0" styleClass="btn-primary" text="Don't have an account ? Sign up" textFill="#eaa807">
                            <font>
                               <Font name="Hiragino Sans W7" size="13.0" />
@@ -100,7 +114,7 @@
                         </Button>
                      </children>
                      <padding>
-                        <Insets top="10.0" />
+                        <Insets top="25.0" />
                      </padding>
                   </VBox>
                </children>

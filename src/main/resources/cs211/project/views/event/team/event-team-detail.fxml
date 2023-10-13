@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../style/all.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.event.team.EventTeamDetailController">
    <children>
-      <BorderPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;">
+      <BorderPane fx:id="parentBorderPane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: white;" stylesheets="@../../../style/dark-mode.css">
          <top>
             <AnchorPane prefHeight="89.0" prefWidth="200.0" style="-fx-background-color: #EAA807;" BorderPane.alignment="CENTER">
                <children>
@@ -31,7 +31,7 @@
          <left>
             <AnchorPane prefHeight="650.0" prefWidth="324.0" style="-fx-border-color: white; -fx-border-style: solid; -fx-border-width: 0 2 0 0; -fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" layoutY="-1.0" prefHeight="627.0" prefWidth="321.0" spacing="10.0">
+                  <VBox fx:id="SideBarVBox" alignment="TOP_CENTER" layoutY="-1.0" prefHeight="627.0" prefWidth="321.0" spacing="10.0" styleClass="primary-color">
                      <padding>
                         <Insets top="10.0" />
                      </padding>
@@ -40,17 +40,17 @@
             </AnchorPane>
          </left>
          <right>
-            <VBox prefHeight="931.0" prefWidth="1119.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="931.0" prefWidth="1119.0" spacing="10.0" style="-fx-background-color: #F8F8F8;" styleClass="primary-color" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="936.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                      <children>
-                        <Label text="Team name">
+                        <Label fx:id="teamName" prefHeight="22.0" styleClass="primary-color" text="Team name">
                            <font>
                               <Font name="Hiragino Sans W6" size="20.0" />
                            </font>
                         </Label>
-                        <Pane prefHeight="47.0" prefWidth="639.0" />
-                        <Button mnemonicParsing="false" onAction="#onBack" styleClass="btn-secondary" text="go back">
+                        <Pane prefHeight="47.0" prefWidth="337.0" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#onBack" styleClass="btn-secondary" text="back">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -72,14 +72,14 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox prefHeight="501.0" prefWidth="944.0" style="-fx-background-color: white;">
+                                    <VBox prefHeight="501.0" prefWidth="944.0" style="-fx-background-color: white;" styleClass="secondary-color">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="944.0">
                                              <padding>
                                                 <Insets left="20.0" right="20.0" />
                                              </padding>
                                              <children>
-                                                <Label text="Activity">
+                                                <Label styleClass="secondary-color" text="Activity">
                                                    <font>
                                                       <Font name="Hiragino Sans W6" size="24.0" />
                                                    </font>
@@ -110,6 +110,12 @@
                                                       </TableView>
                                                       <HBox alignment="CENTER" prefHeight="104.0" prefWidth="890.0">
                                                          <children>
+                                                            <Button mnemonicParsing="false" onAction="#onActivityEventTeamDelete" prefHeight="45.0" prefWidth="120.0" styleClass="btn-delete" text="Delete">
+                                                               <font>
+                                                                  <Font name="Hiragino Sans W6" size="20.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Pane prefHeight="80.0" prefWidth="65.0" />
                                                             <Button mnemonicParsing="false" onAction="#onEditActivityTeam" prefHeight="45.0" prefWidth="120.0" styleClass="btn-primary-active" text="Edit">
                                                                <font>
                                                                   <Font name="Hiragino Sans W6" size="20.0" />
@@ -135,11 +141,11 @@
                         </Tab>
                         <Tab text="Team Member">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="secondary-color">
                                  <children>
                                     <VBox layoutY="1.0" prefHeight="542.0" prefWidth="937.0" spacing="20.0">
                                        <children>
-                                          <Label text="Team Member">
+                                          <Label styleClass="secondary-color" text="Team Member">
                                              <font>
                                                 <Font name="Hiragino Sans W6" size="24.0" />
                                              </font>
@@ -159,18 +165,26 @@
                                           </TableView>
                                           <HBox alignment="CENTER" prefHeight="71.0" prefWidth="902.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#onUsCancelSuspend" prefHeight="44.0" prefWidth="171.0" styleClass="btn-secondary" text="un suspend">
-                                                   <HBox.margin>
-                                                      <Insets right="100.0" />
-                                                   </HBox.margin>
+                                                <Button fx:id="headOfTeamButton" minWidth="150.0" mnemonicParsing="false" onAction="#onSetHeadOfTeam" prefHeight="44.0" styleClass="btn-primary-active" text="head of team">
                                                    <font>
                                                       <Font name="Hiragino Sans W6" size="20.0" />
                                                    </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#onSuspendUser" prefHeight="45.0" prefWidth="135.0" styleClass="btn-error" text="suspend">
+                                                <Button fx:id="extraButton" minWidth="140.0" mnemonicParsing="false" onAction="#onSetExtraUser" prefHeight="44.0" styleClass="btn-primary-active" text="extra">
                                                    <font>
                                                       <Font name="Hiragino Sans W6" size="20.0" />
                                                    </font>
+                                                   <HBox.margin>
+                                                      <Insets left="16.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                                <Button fx:id="suspendButton" minWidth="140.0" mnemonicParsing="false" onAction="#onSuspendUser" prefHeight="45.0" styleClass="btn-primary-active" text="suspend">
+                                                   <font>
+                                                      <Font name="Hiragino Sans W6" size="20.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="16.0" />
+                                                   </HBox.margin>
                                                 </Button>
                                              </children>
                                              <padding>

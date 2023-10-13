@@ -1,16 +1,17 @@
 package cs211.project.controllers.myEvent;
 
+import cs211.project.Main;
 import cs211.project.models.*;
-import cs211.project.models.collections.ActivitiesEventCollection;
-import cs211.project.models.collections.TeamCollection;
+import cs211.project.models.collections.*;
 
-import cs211.project.models.collections.UserCollection;
 import cs211.project.services.FXRouter;
 import cs211.project.services.ManyToManyManager;
 import cs211.project.services.RouteProvider;
 import cs211.project.services.datasource.*;
+import cs211.project.services.deleterelated.DeleteRelatedOfPrimaryKeyTeam;
 import cs211.project.utils.ComponentRegister;
 import javafx.beans.binding.Bindings;
+
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +20,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -26,18 +29,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class SetEventDetailController extends ComponentRegister {
+public class SetEventDetailController {
+    @FXML
+    private BorderPane parentBorderPane;
     @FXML
     private VBox SideBarVBox;
     @FXML
     private HBox NavBarHBox;
-    @FXML
-    private Label teamId;
-    @FXML
-    private Label activityId;
     @FXML
     private TableView<User> userJoinTableView;
     @FXML
@@ -64,6 +64,8 @@ public class SetEventDetailController extends ComponentRegister {
     private Label memberSupend;
     @FXML
     private Label currentMemberAmount;
+    @FXML
+    private Label locationLabel;
     private Event event;
     private UserCollection userCollection;
     private User userSelect;
@@ -74,7 +76,7 @@ public class SetEventDetailController extends ComponentRegister {
     private ActivitiesEventFileListDatesource activitiesEventFileListDatesource;
     private ActivitiesEventCollection activitiesEventCollection;
     private ActivitiesEvent activitySelect;
-
+    private CommentActivitiesEventFileListDatasource commentActivitiesEventFileListDatasource;
 
     @FXML
     public void initialize() {
@@ -89,12 +91,60 @@ public class SetEventDetailController extends ComponentRegister {
         showTableActivities(activitiesEventCollection);
         selectActivityOnTableView();
         this.setMetaData();
+
+        this.initializeThemeMode();
+        this.initializeFont();
+    }
+
+    @FXML
+    public void initializeThemeMode(){
+        String className = Main.class.getName().replace('.', '/');
+        String classJar = Main.class.getResource("/" + className + ".class").toString();
+        Boolean isJarFile = classJar.startsWith("jar:");
+        String pathDarkMode;
+        String pathLightMode;
+        if(isJarFile) {
+            pathDarkMode = "/cs211/project/style/dark-mode.css";
+            pathLightMode = "/cs211/project/style/light-mode.css";
+        }else{
+            pathDarkMode = "file:src/main/resources/cs211/project/style/dark-mode.css";
+            pathLightMode = "file:src/main/resources/cs211/project/style/light-mode.css";
+        }
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+            parentBorderPane.getStylesheets().remove(pathLightMode);
+            parentBorderPane.getStylesheets().add(pathDarkMode);
+        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+            parentBorderPane.getStylesheets().remove(pathDarkMode);
+            parentBorderPane.getStylesheets().add(pathLightMode);
+        }
+    }
+
+    @FXML
+    public void initializeFont() {
+        String currentFont = this.routeProvider.getUserSession().getFont();
+        clearFontStyle();
+        if (currentFont.equals("font-style1")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style1.css");
+        } else if (currentFont.equals("font-style2")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style2.css");
+        } else if (currentFont.equals("font-style3")) {
+            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/font-style3.css");
+        }
+
+    }
+
+    @FXML
+    public void clearFontStyle() {
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style1.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style2.css");
+        parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/font-style3.css");
     }
 
     private void initializeComponents() {
-        routeProvider = (RouteProvider<Event>) FXRouter.getData();
-        this.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
-        this.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
+        routeProvider = (RouteProvider) FXRouter.getData();
+        ComponentRegister componentRegister = new ComponentRegister();
+        componentRegister.loadSideBarComponent(SideBarVBox, "SideBarComponent.fxml", this.routeProvider);
+        componentRegister.loadNavBarComponent(NavBarHBox, "NavBarComponent.fxml", this.routeProvider);
     }
 
     private void loadUserData() {
@@ -110,7 +160,8 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     private void setMetaData() {
-        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
+        ManyToManyManager manyToManyManager = new ManyToManyManager(
+                new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
         Integer suspend = manyToManyManager.countByB(this.event.getEventID());
 
         this.currentMemberAmount.setText(String.valueOf(this.userCollection.getUsers().size()));
@@ -122,18 +173,16 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     private void loadEventData() {
-        // team in event
+
         teamFileListDatasource = new TeamFileListDatasource();
         TeamCollection newTeamCollection = new TeamCollection();
         teamFileListDatasource.readData().getTeams().forEach((team) -> {
-            if (team.getEvent().getEventID().equals(routeProvider.getData().getEventID())) {
+            if (team.getEvent().equals(routeProvider.getData())) {
                 newTeamCollection.add(team);
             }
         });
-
         teamCollection = newTeamCollection;
 
-        // activity in event
         activitiesEventFileListDatesource = new ActivitiesEventFileListDatesource();
         ActivitiesEventCollection newActivityCollection = new ActivitiesEventCollection();
         activitiesEventFileListDatesource.readData().getActivitiesArrayList().forEach((activitiesEvent) -> {
@@ -147,13 +196,15 @@ public class SetEventDetailController extends ComponentRegister {
 
     public void showDetail() {
 
-        Integer currentMemberJoin = this.userCollection.getUsers().size();
-
         nameEvent.setText(this.event.getNameEvent());
         eventDescription.setText(event.getDescriptionEvent());
+        locationLabel.setText(event.getLocation());
+        Integer currentMemberJoin = this.userCollection.getUsers().size();
         currentUserJoinAmount.setText(String.valueOf(currentMemberJoin));
         quantityLabel.setText(String.valueOf(event.getQuantityEvent()));
-        timeLabel.setText(event.getStartDate().format(cs211.project.models.Event.DATE_FORMATTER) + " - " + event.getEndDate().format(cs211.project.models.Event.DATE_FORMATTER));
+
+        timeLabel.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - "
+                + event.getEndDate().format(Event.DATE_FORMATTER));
         Image img = new Image("file:" + event.getImageEvent());
         imageEvent.setFill(new ImagePattern(img));
     }
@@ -182,7 +233,34 @@ public class SetEventDetailController extends ComponentRegister {
 
     public void showTableUserJoin(UserCollection userCollection) {
 
-        ManyToManyManager manyToManyManagerSuspend = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
+        ManyToManyManager manyToManyManagerSuspend = new ManyToManyManager(
+                new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
+
+        TableColumn<User, String> imageColumn = new TableColumn<>("Profile");
+        imageColumn.setCellValueFactory(new PropertyValueFactory<>("imageProfile"));
+
+        imageColumn.setCellFactory(new Callback<TableColumn<User, String>, TableCell<User, String>>() {
+            @Override
+            public TableCell<User, String> call(TableColumn<User, String> param) {
+                return new TableCell<User, String>() {
+                    private ImageView imageView = new ImageView();
+
+                    @Override
+                    protected void updateItem(String imageUrl, boolean empty) {
+                        super.updateItem(imageUrl, empty);
+                        if (imageUrl == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            Image image = new Image("file:" + imageUrl);
+                            imageView.setImage(image);
+                            imageView.setFitWidth(50);
+                            imageView.setFitHeight(50);
+                            setGraphic(imageView);
+                        }
+                    }
+                };
+            }
+        });
 
         TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
@@ -193,21 +271,24 @@ public class SetEventDetailController extends ComponentRegister {
         TableColumn<User, String> lastLoginColumn = new TableColumn<>("lastLogin");
         lastLoginColumn.setCellValueFactory(new PropertyValueFactory<>("lastLogin"));
 
-        TableColumn<User, String> statusUserColumnColumn = new TableColumn<>("lastLogin");
+        TableColumn<User, String> statusUserColumnColumn = new TableColumn<>("Status");
 
-        statusUserColumnColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> param) {
-                User user = param.getValue();
-                boolean isSuspend = manyToManyManagerSuspend.checkIsExisted(new ManyToMany(user.getId(), event.getEventID()));
-                return Bindings.createStringBinding(() -> isSuspend ? "Suspend" : "Active");
-            }
-        });
+        statusUserColumnColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> param) {
+                        User user = param.getValue();
+                        boolean isSuspend = manyToManyManagerSuspend
+                                .checkIsExisted(new ManyToMany(user.getId(), event.getEventID()));
+                        return Bindings.createStringBinding(() -> isSuspend ? "Suspend" : "Active");
+                    }
+                });
 
         userJoinTableView.getColumns().clear();
         userJoinTableView.getItems().clear();
 
-        userJoinTableView.getColumns().addAll(usernameColumn, nameColumn, lastLoginColumn, statusUserColumnColumn);
+        userJoinTableView.getColumns().addAll(imageColumn, usernameColumn, nameColumn, lastLoginColumn,
+                statusUserColumnColumn);
 
         for (User user : userCollection.getUsers()) {
             userJoinTableView.getItems().add(user);
@@ -217,11 +298,12 @@ public class SetEventDetailController extends ComponentRegister {
     @FXML
     public void onSuspendUser(ActionEvent event) {
         if (userSelect != null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to suspend : " + userSelect.getUserName() + " ?", ButtonType.OK, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to suspend : " + userSelect.getUserName() + " ?",
+                    ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
-            if (alert.getResult() == ButtonType.OK) {
-                System.out.println(userSelect);
-                ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
+            if (alert.getResult() == ButtonType.YES) {
+                ManyToManyManager manyToManyManager = new ManyToManyManager(
+                        new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
                 manyToManyManager.add(new ManyToMany(userSelect.getId(), this.event.getEventID()));
                 this.teamSelect = null;
                 this.setMetaData();
@@ -234,10 +316,13 @@ public class SetEventDetailController extends ComponentRegister {
     @FXML
     public void onUnCancelSuspend() {
         if (userSelect != null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to cancel cancel suspend : " + userSelect.getUserName() + " ?", ButtonType.OK, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    "You want to cancel cancel suspend : " + userSelect.getUserName() + " ?", ButtonType.YES,
+                    ButtonType.NO);
             alert.showAndWait();
-            if (alert.getResult() == ButtonType.OK) {
-                ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
+            if (alert.getResult() == ButtonType.YES) {
+                ManyToManyManager manyToManyManager = new ManyToManyManager(
+                        new ManyToManyFileListDatasource().MTM_USER_EVENT_SUSPEND);
                 manyToManyManager.remove(new ManyToMany(userSelect.getId(), this.event.getEventID()));
                 this.teamSelect = null;
                 this.setMetaData();
@@ -258,35 +343,50 @@ public class SetEventDetailController extends ComponentRegister {
         });
     }
 
-
     public void showTableTeam(TeamCollection teamCollection) {
         TableColumn<Team, String> nameColumn = new TableColumn<>("name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<Team, String> quantityTeamColumnColumn = new TableColumn<>("quantity");
-        quantityTeamColumnColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityTeamColumnColumn.setCellValueFactory(param -> {
+            if (param.getValue() != null) {
+                ManyToManyManager manyToManyManager = new ManyToManyManager(
+                        new ManyToManyFileListDatasource().MTM_USER_TEAM);
+                Team team = param.getValue();
+                String numberJoined = String.valueOf(manyToManyManager.countByB(team.getId()));
+                String quantity = String.valueOf(team.getQuantity());
+                String numberJoinedAndMax = numberJoined + "/" + quantity;
+                return new ReadOnlyStringWrapper(numberJoinedAndMax);
+            } else {
+                return new ReadOnlyStringWrapper("");
+            }
+        });
 
         TableColumn<Team, String> startDateTeamColumn = new TableColumn<>("startRecruitDate");
-        startDateTeamColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Team, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Team, String> parameter) {
-                Team team = parameter.getValue();
-                return Bindings.createStringBinding(() -> team.getStartRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
-            }
-        });
+        startDateTeamColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<Team, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<Team, String> parameter) {
+                        Team team = parameter.getValue();
+                        return Bindings.createStringBinding(() -> team.getStartRecruitDate()
+                                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                    }
+                });
 
         TableColumn<Team, String> endRecruitDateColumn = new TableColumn<>("endRecruitDate");
-        endRecruitDateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Team, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Team, String> parameter) {
-                Team team = parameter.getValue();
-                return Bindings.createStringBinding(() -> team.getEndRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
-            }
-        });
-
+        endRecruitDateColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<Team, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<Team, String> parameter) {
+                        Team team = parameter.getValue();
+                        return Bindings.createStringBinding(
+                                () -> team.getEndRecruitDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                    }
+                });
 
         teamTableView.getColumns().clear();
-        teamTableView.getColumns().addAll(nameColumn, quantityTeamColumnColumn, startDateTeamColumn, endRecruitDateColumn);
+        teamTableView.getColumns().addAll(nameColumn, quantityTeamColumnColumn, startDateTeamColumn,
+                endRecruitDateColumn);
 
         teamTableView.getItems().clear();
 
@@ -295,38 +395,74 @@ public class SetEventDetailController extends ComponentRegister {
         }
     }
 
-
     @FXML
     public void onTeamDelete(ActionEvent event) {
         if (teamSelect != null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to delete : " + teamSelect.getName() + " ?", ButtonType.OK, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to delete : " + teamSelect.getName() + " ?",
+                    ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
-            if (alert.getResult() == ButtonType.CANCEL) {
+            if (alert.getResult() == ButtonType.NO) {
                 return;
             }
-            TeamCollection newTeamCollection = new TeamCollection();
-            for (Team team : teamCollection.getTeams()) {
-                if (!team.getId().equals(teamSelect.getId())) {
-                    newTeamCollection.add(team);
-                }
-            }
-            teamFileListDatasource.writeData(newTeamCollection);
-            teamCollection = newTeamCollection;
+            DeleteRelatedOfPrimaryKeyTeam deleteRelatedOfPrimaryKeyTeam = new DeleteRelatedOfPrimaryKeyTeam();
+            deleteRelatedOfPrimaryKeyTeam.delete(teamSelect);
+            teamCollection = (teamFileListDatasource.readData()).findByEvent(this.event);
             showTableTeam(teamCollection);
         }
     }
 
-    public void selectActivityOnTableView() {
-        activityEventTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ActivitiesEvent>() {
-            @Override
-            public void changed(ObservableValue observable, ActivitiesEvent oldValue, ActivitiesEvent newValue) {
-                if (newValue != null) {
-                    activitySelect = newValue;
-                } else {
-                    activitySelect = null;
-                }
+    @FXML
+    void onAddTeam(ActionEvent event) {
+        try {
+            FXRouter.goTo("create-team", this.routeProvider);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void onTeamEdit(ActionEvent event) {
+        try {
+            if (teamSelect == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
+                alert.showAndWait();
+                return;
             }
-        });
+            this.routeProvider.addHashMap("team-select", this.teamSelect);
+            FXRouter.goTo("edit-team", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void onManageTeam(ActionEvent event) {
+        try {
+            if (teamSelect == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+            this.routeProvider.addHashMap("team-select", this.teamSelect);
+            FXRouter.goTo("event-team-detail", this.routeProvider);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void selectActivityOnTableView() {
+        activityEventTableView.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener<ActivitiesEvent>() {
+                    @Override
+                    public void changed(ObservableValue observable, ActivitiesEvent oldValue,
+                            ActivitiesEvent newValue) {
+                        if (newValue != null) {
+                            activitySelect = newValue;
+                        } else {
+                            activitySelect = null;
+                        }
+                    }
+                });
     }
 
     public void showTableActivities(ActivitiesEventCollection activitiesCollection) {
@@ -337,34 +473,44 @@ public class SetEventDetailController extends ComponentRegister {
         detailColumn.setCellValueFactory(new PropertyValueFactory<>("detail"));
 
         TableColumn<ActivitiesEvent, String> startDateColumn = new TableColumn<>("startDate");
-        startDateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
-                ActivitiesEvent activitiesEvent = parameter.getValue();
-                return Bindings.createStringBinding(() -> activitiesEvent.getDateStart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
-            }
-        });
+        startDateColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(
+                            TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
+                        ActivitiesEvent activitiesEvent = parameter.getValue();
+                        return Bindings.createStringBinding(() -> activitiesEvent.getDateStart()
+                                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                    }
+                });
 
         TableColumn<ActivitiesEvent, String> endDateColumn = new TableColumn<>("endDate");
-        endDateColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
-                ActivitiesEvent activitiesEvent = parameter.getValue();
-                return Bindings.createStringBinding(() -> activitiesEvent.getDateEnd().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
-            }
-        });
+        endDateColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(
+                            TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
+                        ActivitiesEvent activitiesEvent = parameter.getValue();
+                        return Bindings.createStringBinding(() -> activitiesEvent.getDateEnd()
+                                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                    }
+                });
 
         TableColumn<ActivitiesEvent, String> statusColumn = new TableColumn<>("Status");
-        statusColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
-                ActivitiesEvent activitiesEvent = parameter.getValue();
-                return Bindings.createStringBinding(() -> activitiesEvent.getStatus());
-            }
-        });
+        statusColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<ActivitiesEvent, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(
+                            TableColumn.CellDataFeatures<ActivitiesEvent, String> parameter) {
+                        ActivitiesEvent activitiesEvent = parameter.getValue();
+                        return Bindings.createStringBinding(() -> activitiesEvent.getStatus());
+                    }
+                });
 
         activityEventTableView.getColumns().clear();
-        activityEventTableView.getColumns().addAll(titleColumn, detailColumn, startDateColumn, endDateColumn);
+        activityEventTableView.getColumns().addAll(titleColumn, detailColumn, startDateColumn, endDateColumn,
+                statusColumn);
+        activityEventTableView.getItems().clear();
 
         for (ActivitiesEvent activitiesEvent : activitiesEventCollection.getActivitiesArrayList()) {
             activityEventTableView.getItems().add(activitiesEvent);
@@ -372,22 +518,57 @@ public class SetEventDetailController extends ComponentRegister {
     }
 
     @FXML
-    void onViewActivityEvent(ActionEvent event) {
+    public void onViewActivityEvent(ActionEvent event) {
         try {
             if (activitySelect == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
                 alert.showAndWait();
                 return;
             }
-            this.routeProvider.addHashMap("comment-view-event",this.activitySelect);
-            FXRouter.goTo("comment-activity-event",this.routeProvider);
+            this.routeProvider.addHashMap("activity-event-select", this.activitySelect);
+            FXRouter.goTo("comment-activity-event", this.routeProvider);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     @FXML
-    void onEditActivityEvent() {
+    public void onActivityEventDelete(ActionEvent event) {
+        if (activitySelect != null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You want to delete : " + activitySelect.getTitle() + " ?",
+                    ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.NO) {
+                return;
+            }
+            ActivitiesEventCollection newActivityEventCollection = new ActivitiesEventCollection();
+            for (ActivitiesEvent activitiesEvent : activitiesEventCollection.getActivitiesArrayList()) {
+                if (!activitiesEvent.getId().equals(activitySelect.getId())) {
+                    newActivityEventCollection.add(activitiesEvent);
+                }
+                if (activitiesEvent.getId().equals(activitySelect.getId())) {
+
+                    commentActivitiesEventFileListDatasource = new CommentActivitiesEventFileListDatasource();
+
+                    CommentActivitiesEventCollection newCommentActivitiesEventCollection = new CommentActivitiesEventCollection();
+                    commentActivitiesEventFileListDatasource.readData().getComments()
+                            .forEach(commentActivitiesEvent -> {
+                                if (!commentActivitiesEvent.getActivitiesEvent().getId()
+                                        .equals(activitySelect.getId())) {
+                                    newCommentActivitiesEventCollection.add(commentActivitiesEvent);
+                                }
+                            });
+                    commentActivitiesEventFileListDatasource.writeData(newCommentActivitiesEventCollection);
+                }
+            }
+            activitiesEventFileListDatesource.writeData(newActivityEventCollection);
+            activitiesEventCollection = newActivityEventCollection;
+            showTableActivities(activitiesEventCollection);
+        }
+    }
+
+    @FXML
+    public void onEditActivityEvent() {
         try {
             if (activitySelect == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
@@ -419,57 +600,4 @@ public class SetEventDetailController extends ComponentRegister {
         }
     }
 
-    @FXML
-    void onAddTeam(ActionEvent event) {
-        try {
-            FXRouter.goTo("create-team", this.routeProvider);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    void onTeamEdit(ActionEvent event) {
-        try {
-            if (teamSelect == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
-                alert.showAndWait();
-                return;
-            }
-            this.routeProvider.addHashMap("team-select", teamSelect);
-            FXRouter.goTo("edit-team", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    public void onManageTeam(ActionEvent event) {
-        try {
-            if (teamSelect == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "please select Team", ButtonType.OK);
-                alert.showAndWait();
-                return;
-            }
-            this.routeProvider.addHashMap("team-select", teamSelect);
-            FXRouter.goTo("event-team-detail", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    public void onToCommentEvent(){
-        try {
-            if (activitySelect == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "please select activity", ButtonType.OK);
-                alert.showAndWait();
-                return;
-            }
-            this.routeProvider.addHashMap("activity-event-select", this.activitySelect);
-//            FXRouter.goTo("edit-schedule-participant", this.routeProvider);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

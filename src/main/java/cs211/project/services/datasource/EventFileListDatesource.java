@@ -8,6 +8,7 @@ import cs211.project.models.collections.ManyToManyCollection;
 import cs211.project.models.collections.UserCollection;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
+import cs211.project.utils.ReplaceComma;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -17,8 +18,10 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
     private String basePath = "data/csv/";
     private String fileName = "events.csv";
     private FileIO fileIO;
+    private ReplaceComma replaceComma;
 
     public EventFileListDatesource() {
+        this.replaceComma = new ReplaceComma();
         this.fileIO = new FileIO(this.basePath + this.fileName);
     }
 
@@ -28,7 +31,7 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
         BufferedReader buffer = this.fileIO.reader();
         String line = "";
         try {
-            UserCollection userFileListDatasourceCollection = new UserFileListDatasource().readData();
+            UserCollection userCollection = new UserFileListDatasource().readData();
             EventCollection eventCollection = new EventCollection();
 
             while ((line = buffer.readLine()) != null) {
@@ -47,7 +50,11 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
                 boolean isPublic = Boolean.parseBoolean(data[8].trim());
                 String ownerId = data[9].trim();
 
-                User owner = userFileListDatasourceCollection.findById(ownerId);
+                nameEvent = this.replaceComma.replaceBack(nameEvent);
+                descriptionEvent = this.replaceComma.replaceBack(descriptionEvent);
+                location = this.replaceComma.replaceBack(location);
+
+                User owner = userCollection.findById(ownerId);
                 Event event = new Event(eventID, nameEvent, imageEvent, descriptionEvent, location, startDate, endDate, quantityEvent, isPublic, owner);
 
                 eventCollection.add(event);
@@ -73,7 +80,7 @@ public class EventFileListDatesource implements DatasourceInterface<EventCollect
 
         try {
             for (Event event : data.getEvents()) {
-                String line = event.getEventID() + "," + event.getNameEvent() + "," + event.getDescriptionEvent() + "," + event.getLocation() + "," + event.getImageEvent() + "," + event.getStartDate().toString() + "," + event.getEndDate().toString() + "," + event.getQuantityEvent() + "," + event.isPublic() + "," + event.getOwner().getId();
+                String line = event.getEventID() + "," + this.replaceComma.replace(event.getNameEvent()) + "," + this.replaceComma.replace(event.getDescriptionEvent()) + "," + this.replaceComma.replace(event.getLocation()) + "," + event.getImageEvent() + "," + event.getStartDate().toString() + "," + event.getEndDate().toString() + "," + event.getQuantityEvent() + "," + event.isPublic() + "," + event.getOwner().getId();
                 buffer.append(line);
                 buffer.append("\n");
             }

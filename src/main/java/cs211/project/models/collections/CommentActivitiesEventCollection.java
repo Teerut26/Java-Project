@@ -1,5 +1,6 @@
 package cs211.project.models.collections;
 
+import cs211.project.models.ActivitiesEvent;
 import cs211.project.models.Comment;
 import cs211.project.models.CommentActivitiesEvent;
 
@@ -17,10 +18,19 @@ public class CommentActivitiesEventCollection {
     }
 
     public ArrayList<CommentActivitiesEvent> getComments() {
-        return this.comments;
+        ArrayList<CommentActivitiesEvent> tempComments = new ArrayList<>();
+        for (CommentActivitiesEvent comment : this.comments) {
+            if (comment.getActivitiesEvent() != null) {
+                tempComments.add(comment);
+            }
+        }
+        return tempComments;
     }
 
-    public void setComments(ArrayList<CommentActivitiesEvent> comments) {
-        this.comments = comments;
+
+    public void remove(CommentActivitiesEvent comment) {
+        this.comments.remove(comment);
     }
+
+
 }

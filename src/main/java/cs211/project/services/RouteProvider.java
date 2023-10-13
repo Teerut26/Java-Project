@@ -10,7 +10,6 @@ public class RouteProvider<T> {
     private T data;
     private HashMap dataHashMap;
     private ArrayList<T> dataArrayList;
-    private User userSession = SingletonStorage.getInstance().userSession;
 
     public RouteProvider(T data) {
         this.data = data;
@@ -24,7 +23,9 @@ public class RouteProvider<T> {
 
     public RouteProvider() {
         this.data = null;
+        this.dataHashMap = new HashMap<String, Object>();
     }
+
 
     public T getData() {
         return data;
@@ -43,11 +44,11 @@ public class RouteProvider<T> {
     }
 
     public User getUserSession() {
-        return userSession;
+        return SingletonStorage.getInstance().userSession;
     }
 
     public void setUserSession(User userSession) {
-        this.userSession = userSession;
+        SingletonStorage.getInstance().setUserSession(userSession);
     }
 
     public void addHashMap(String key, Object value) {

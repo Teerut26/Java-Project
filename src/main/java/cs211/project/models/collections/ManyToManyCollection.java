@@ -59,11 +59,33 @@ public class ManyToManyCollection {
     public void remove(ManyToMany manyToMany) {
         this.manyToManies.remove(manyToMany);
     }
+    public void removeByA(String primary) {
+        ArrayList<ManyToMany> manyToManies = new ArrayList<>();
+        for (ManyToMany manyToMany : this.manyToManies) {
+            if (manyToMany.getA().equals(primary)) {
+                manyToManies.add(manyToMany);
+            }
+        }
+        this.manyToManies.removeAll(manyToManies);
+    }
+
+    public void removeByB(String secondary) {
+        ArrayList<ManyToMany> manyToManies = new ArrayList<>();
+        for (ManyToMany manyToMany : this.manyToManies) {
+            if (manyToMany.getB().equals(secondary)) {
+                manyToManies.add(manyToMany);
+            }
+        }
+        this.manyToManies.removeAll(manyToManies);
+    }
 
     public ArrayList<ManyToMany> getManyToManies() {
         return this.manyToManies;
     }
 
+    public int size() {
+        return this.manyToManies.size();
+    }
 
     public void setManyToManies(ArrayList<ManyToMany> manyToManies) {
         this.manyToManies = manyToManies;

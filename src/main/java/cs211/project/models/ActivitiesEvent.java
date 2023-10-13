@@ -1,5 +1,7 @@
 package cs211.project.models;
 
+import javafx.scene.input.DataFormat;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -32,4 +34,5 @@ public class ActivitiesEvent extends Activities {
     public int hashCode() {
         return Objects.hash(event.getEventID());
     }
+
 }

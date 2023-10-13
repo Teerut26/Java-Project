@@ -6,8 +6,11 @@ import cs211.project.models.Event;
 import cs211.project.models.Team;
 import cs211.project.models.collections.ActivitiesEventCollection;
 import cs211.project.models.collections.ActivitiesTeamCollection;
+import cs211.project.models.collections.EventCollection;
+import cs211.project.models.collections.TeamCollection;
 import cs211.project.services.DatasourceInterface;
 import cs211.project.utils.FileIO;
+import cs211.project.utils.ReplaceComma;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,8 +21,11 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
     private String basePath = "data/csv/";
     private String fileName = "activitiesTeam.csv";
     private FileIO fileIO;
+    private ReplaceComma replaceComma;
+
 
     public ActivitiesTeamFileListDatesource() {
+        this.replaceComma = new ReplaceComma();
         this.fileIO = new FileIO(this.basePath + this.fileName);
     }
 
@@ -30,6 +36,8 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
         String line = "";
         try {
             ActivitiesTeamCollection activitiesTeamCollection = new ActivitiesTeamCollection();
+            TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
+            TeamCollection teamCollection = teamFileListDatasource.readData();
 
             while ((line = buffer.readLine()) != null) {
                 if (line.equals("")) continue;
@@ -43,8 +51,10 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
                 LocalDateTime dateEnd = LocalDateTime.parse(data[4].trim());
                 String teamId = data[5].trim();
 
-                TeamFileListDatasource teamFileListDatasource = new TeamFileListDatasource();
-                Team team = teamFileListDatasource.readData().findById(teamId);
+                title = this.replaceComma.replaceBack(title);
+                detail = this.replaceComma.replaceBack(detail);
+
+                Team team = teamCollection.findById(teamId);
 
                 ActivitiesTeam activitiesTeam = new ActivitiesTeam(id, title, detail, dateStart, dateEnd, team);
 
@@ -71,7 +81,7 @@ public class ActivitiesTeamFileListDatesource implements DatasourceInterface<Act
 
         try {
             for (ActivitiesTeam activities : data.getActivitiesArrayList()) {
-                String line = activities.getId() + "," + activities.getTitle() + "," + activities.getDetail() + "," + activities.getDateStart() + "," + activities.getDateEnd() + "," + activities.getTeam().getId();
+                String line = activities.getId() + "," + this.replaceComma.replace(activities.getTitle()) + "," + this.replaceComma.replace(activities.getDetail()) + "," + activities.getDateStart() + "," + activities.getDateEnd() + "," + activities.getTeam().getId();
                 buffer.append(line);
                 buffer.append("\n");
             }

@@ -17,7 +17,13 @@ public class CommentActivitiesTeamCollection {
     }
 
     public ArrayList<CommentActivitiesTeam> getComments() {
-        return this.comments;
+        ArrayList<CommentActivitiesTeam> tempComments = new ArrayList<>();
+        for (CommentActivitiesTeam comment : this.comments) {
+            if (comment.getActivitiesTeam() != null) {
+                tempComments.add(comment);
+            }
+        }
+        return tempComments;
     }
 
     public void setComments(ArrayList<CommentActivitiesTeam> comments) {

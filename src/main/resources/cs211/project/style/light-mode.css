@@ -1,0 +1,44 @@
+.primary-color{
+    -fx-background-color: #f6f6f6 !important;
+    -fx-text-fill: #000000 !important;
+    -fx-border-color: #f6f6f6 !important;
+}
+
+.secondary-color{
+    -fx-background-color: #ffffff !important;
+    -fx-text-fill: #000000 !important;
+    -fx-border-color: #ffffff !important;
+}
+
+.input-color{
+    -fx-background-color: #ffffff !important;
+    -fx-text-fill: #000000 !important;
+    -fx-border-color: #7c7c7c !important;
+}
+.text-area {
+    text-area-background: #ffffff ;
+}
+
+.text-area .content {
+    -fx-background-color: text-area-background ;
+    -fx-text-fill: #000000 !important;
+}
+.date-picker .text-field {
+    -fx-control-inner-background: #ffffff ;
+    -fx-text-fill: #000000 !important;
+}
+
+.side-bar-button{
+    -fx-background-radius: 10;
+    -fx-background-color: #FAF2E3 !important;
+    -fx-border-color: #ECBF73 !important;
+    -fx-border-radius: 10;
+}
+
+.navbar{
+    -fx-background-color: #EAA807 !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-font-family: Verdana !important;
+    -fx-font-weight: bold !important;
+}
+

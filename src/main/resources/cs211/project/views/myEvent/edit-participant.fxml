@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs211.project.controllers.myEvent.EditParticipantController">
    <children>
-      <BorderPane prefHeight="720.0" prefWidth="1280.0">
+      <BorderPane fx:id="parentBorderPane" prefHeight="720.0" prefWidth="1280.0">
          <top>
             <HBox fx:id="NavBarHBox" alignment="CENTER_LEFT" maxWidth="1280.0" minWidth="1280.0" prefHeight="100.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <padding>
