@@ -1,24 +1,67 @@
 # EventHub
 
-
 ## การติดตั้งโปรแกรม
-### MacOS Install
-#### Chip Apple Silicon
-![Chip Apple Silicon](./image/Screenshot%202566-10-11%20at%2012.52.17.png)
-#### Chip Intel
+
+### MacOS Install (Chip Apple Silicon)
+
+[Download](./release/EventHub-AppleM1.jar)
+
 ### Windows Install
+
+[Download](./release/EventHub-Windows.jar)
+
+### เมื่อ Download เสร็จแล้วสามารถเปิดโปรแกรมได้ 2 วิธี
+
+-   กดเปิดเลย
+-   หรือเปิดผ่าน Command Line
+    -   ใช้คำสั่ง `java -jar EventHub-AppleM1.jar` หรือ `java -jar EventHub-Windows.jar` ตามไฟล์ที่ Download มา
+
+---
+
 ## ตัวอย่างข้อมูลผู้ใช้ในระบบ (username,password)
 
-| username | password | role     |
-| :------- | :------- | :------- |
-| admin | admin     | `admin` |
+| username     | password     | role    |
+| :----------- | :----------- | :------ |
+| admin        | admin        | `admin` |
+| beer         | 1234         | `user`  |
+| noey         | 1234         | `user`  |
+| flim         | 1234         | `user`  |
+| cynteer      | 1234         | `user`  |
+| hope         | hope         | `user`  |
+| john         | john         | `user`  |
+| alice        | alice        | `user`  |
+| susan        | susan        | `user`  |
+| johndoe      | johndoe      | `user`  |
+| ilovecoding  | ilovecoding  | `user`  |
+| thegamer     | thegamer     | `user`  |
+| musiclover   | musiclover   | `user`  |
+| techgeek     | techgeek     | `user`  |
+| bookworm     | bookworm     | `user`  |
+| happyface    | happyface    | `user`  |
+| sunshine     | sunshine     | `user`  |
+| naturelover  | naturelover  | `user`  |
+| coffeeaddict | coffeeaddict | `user`  |
+| foodie       | foodie       | `user`  |
+| sandy        | sandy        | `user`  |
+| randy        | randy        | `user`  |
+| velma        | velma        | `user`  |
+| jayden       | jayden       | `user`  |
+| julie        | julie        | `user`  |
+| jemma        | jemma        | `user`  |
+| art          | art          | `user`  |
+| donn         | donn         | `user`  |
+| james        | james        | `user`  |
+| kelly        | kelly        | `user`  |
+| linda        | linda        | `user`  |
+| fred         | fred         | `user`  |
+| kuwin        | kuwin        | `user`  |
 
 ## Documentation
 
 [Documentation](./docs/manual.pdf)
 
-
 ## Folder Structure
+
 ```
 .
 ├── README.md
@@ -238,8 +281,10 @@
                     │   └── ManyToManyManagerTest.java
                     └── utils
 ```
+
 ## สมาชิกผู้จัดทำ
-- ธีรุฒ ศรีทองดี `6510405601` [@Teerut26](https://www.github.com/Teerut26) `หมู่เรียนที่ 12`
-- กรรวี ศิริขันธ์ `6510405270` [@pwknnn](https://www.github.com/pwknnn) `หมู่เรียนที่ 12`
-- ศราวุธ  อินพล `6510405822` [@beerth21624](https://www.github.com/beerth21624) `หมู่เรียนที่ 11`
-- เบญจพร สุขไพบูลย์ `6510405636` [@JarBenjaporn](https://www.github.com/JarBenjaporn) `หมู่เรียนที่ 12`
+
+-   ธีรุฒ ศรีทองดี `6510405601` [@Teerut26](https://www.github.com/Teerut26) `หมู่เรียนที่ 12`
+-   กรรวี ศิริขันธ์ `6510405270` [@pwknnn](https://www.github.com/pwknnn) `หมู่เรียนที่ 12`
+-   ศราวุธ อินพล `6510405822` [@beerth21624](https://www.github.com/beerth21624) `หมู่เรียนที่ 11`
+-   เบญจพร สุขไพบูลย์ `6510405636` [@JarBenjaporn](https://www.github.com/JarBenjaporn) `หมู่เรียนที่ 12`
