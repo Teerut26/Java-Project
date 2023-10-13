@@ -15,7 +15,6 @@
 - เปิดผ่าน Command Line เลือกใช้คำสั่งตามระบบปฏิบัติการ
     - ใช้คำสั่ง `java -jar EventHub-AppleM1.jar` 
     - ใช้คำสั่ง `java -jar EventHub-Windows.jar` 
-
 ---
 
 ## Documentation
