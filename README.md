@@ -4,17 +4,22 @@
 
 ### MacOS Install (Chip Apple Silicon)
 
-[Download](./release/EventHub-AppleM1.jar)
+[Download](./release/EventHub-AppleM1.zip)
+
+### MacOS Install (Chip Intel)
+
+[Download](./release/EventHub-AppleIntel.zip)
 
 ### Windows Install
 
-[Download](./release/EventHub-Windows.jar)
+[Download](./release/EventHub-Windows.zip)
 
-### เมื่อ Download เสร็จแล้วสามารถเปิดโปรแกรมได้ 2 วิธี
-
--   กดเปิดเลย
--   หรือเปิดผ่าน Command Line
-    -   ใช้คำสั่ง `java -jar EventHub-AppleM1.jar` หรือ `java -jar EventHub-Windows.jar` ตามไฟล์ที่ Download มา
+### เมื่อ Download เสร็จแล้ว
+- แตกไฟล์และเข้าไปใน folder ที่แตก
+- เปิดผ่าน Command Line เลือกใช้คำสั่งตามระบบปฏิบัติการ
+    - ใช้คำสั่ง `java -jar EventHub-AppleM1.jar` 
+    - ใช้คำสั่ง `java -jar EventHub-AppleIntel.jar` 
+    - ใช้คำสั่ง `java -jar EventHub-Windows.jar` 
 
 ---
 
