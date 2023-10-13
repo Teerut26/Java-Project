@@ -6,10 +6,6 @@
 
 [Download](./release/EventHub-AppleM1.zip)
 
-### MacOS Install (Chip Intel)
-
-[Download](./release/EventHub-AppleIntel.zip)
-
 ### Windows Install
 
 [Download](./release/EventHub-Windows.zip)
@@ -18,10 +14,12 @@
 - แตกไฟล์และเข้าไปใน folder ที่แตก
 - เปิดผ่าน Command Line เลือกใช้คำสั่งตามระบบปฏิบัติการ
     - ใช้คำสั่ง `java -jar EventHub-AppleM1.jar` 
-    - ใช้คำสั่ง `java -jar EventHub-AppleIntel.jar` 
     - ใช้คำสั่ง `java -jar EventHub-Windows.jar` 
 
 ---
+
+## Documentation
+[Documentation](./docs/manual.pdf)
 
 ## ตัวอย่างข้อมูลผู้ใช้ในระบบ (username,password)
 
@@ -61,10 +59,6 @@
 | fred         | fred         | `user`  |
 | kuwin        | kuwin        | `user`  |
 
-## Documentation
-
-[Documentation](./docs/manual.pdf)
-
 ## Folder Structure
 
 ```
@@ -81,16 +75,46 @@
 │   │   │   ├── _userToEvent.csv
 │   │   │   ├── _userToEventSuspend.csv
 │   │   │   ├── _userToTeam.csv
+│   │   │   ├── _userToTeamExtra.csv
+│   │   │   ├── _userToTeamHead.csv
 │   │   │   ├── _userToTeamSuspend.csv
 │   │   ├── team.csv
 │   │   └── users.csv
 │   └── images
-│       ├── event *(เก็บรูปปก event)
-│       └── user *(เก็บรูป profile user)
+│           ├── event (เก็บ event image)
+│           └── user (เก็บ user profile image)
 ├── dependency-reduced-pom.xml
+├── docs
+│   └── manual.pdf
+├── image
+│   └── Screenshot 2566-10-11 at 12.52.17.png
 ├── mvnw
 ├── mvnw.cmd
 ├── pom.xml
+├── release
+│   ├── EventHub-AppleM1.jar
+│   ├── EventHub-AppleM1.zip
+│   ├── EventHub-Windows.jar
+│   ├── EventHub-Windows.zip
+│   └── data
+│       ├── csv
+│       │   ├── activitiesEvent.csv
+│       │   ├── activitiesTeam.csv
+│       │   ├── commentsActivitiesEvent.csv
+│       │   ├── commentsActivitiesTeam.csv
+│       │   ├── events.csv
+│       │   ├── mtm
+│       │   │   ├── _userToEvent.csv
+│       │   │   ├── _userToEventSuspend.csv
+│       │   │   ├── _userToTeam.csv
+│       │   │   ├── _userToTeamExtra.csv
+│       │   │   ├── _userToTeamHead.csv
+│       │   │   └── _userToTeamSuspend.csv
+│       │   ├── team.csv
+│       │   └── users.csv
+│       └── images
+│           ├── event (เก็บ event image)
+│           └── user (เก็บ user profile image)
 └── src
     ├── main
     │   ├── java
@@ -109,6 +133,7 @@
     │   │   │       │   │   ├── CommentCardComponentController.java
     │   │   │       │   │   ├── EventCardComponentController.java
     │   │   │       │   │   ├── InProcessCardComponentController.java
+    │   │   │       │   │   ├── InTeamCardComponentController.java
     │   │   │       │   │   ├── NavBarComponentController.java
     │   │   │       │   │   ├── SideBarComponentController.java
     │   │   │       │   │   └── admin
@@ -121,10 +146,8 @@
     │   │   │       │   │   ├── JoinEventController.java
     │   │   │       │   │   └── team
     │   │   │       │   │       ├── CommentActivityTeamController.java
-    │   │   │       │   │       ├── EventTeamActivitiesListController.java
     │   │   │       │   │       ├── EventTeamDetailController.java
-    │   │   │       │   │       ├── EventTeamListController.java
-    │   │   │       │   │       └── EventTeamMemberController.java
+    │   │   │       │   │       └── EventTeamListController.java
     │   │   │       │   ├── eventHistory
     │   │   │       │   │   └── InProcessAndEndedController.java
     │   │   │       │   ├── myEvent
@@ -135,7 +158,8 @@
     │   │   │       │   │   ├── MyEventViewController.java
     │   │   │       │   │   └── SetEventDetailController.java
     │   │   │       │   ├── myTeam
-    │   │   │       │   │   └── MyTeamController.java
+    │   │   │       │   │   ├── MyTeamController.java
+    │   │   │       │   │   └── ViewMyTeamController.java
     │   │   │       │   ├── profile
     │   │   │       │   │   ├── ChangePasswordProfileController.java
     │   │   │       │   │   └── MyProfilePageController.java
@@ -169,7 +193,6 @@
     │   │   │       ├── router
     │   │   │       │   └── Router.java
     │   │   │       ├── services
-    │   │   │       │   ├── Authentication.java
     │   │   │       │   ├── DatasourceInterface.java
     │   │   │       │   ├── FXRouter.java
     │   │   │       │   ├── ManyToManyManager.java
@@ -195,6 +218,7 @@
     │   │   │           ├── ComponentRegister.java
     │   │   │           ├── FileIO.java
     │   │   │           ├── ImageSaver.java
+    │   │   │           ├── NewLineClear.java
     │   │   │           ├── ReplaceComma.java
     │   │   │           └── TimeValidate.java
     │   │   └── module-info.java
@@ -203,25 +227,30 @@
     │           └── project
     │               ├── assets
     │               │   ├── about-us
-    │               │   │   └── hope.jpeg
+    │               │   │   ├── beer.jpg
+    │               │   │   ├── hope.jpg
+    │               │   │   ├── jar.jpg
+    │               │   │   └── ppp.png
     │               │   ├── font
-    │               │   └── image
-    │               │       ├── auth
-    │               │       │   ├── calender.png
-    │               │       │   ├── community.png
-    │               │       │   └── user.png
-    │               │       └── icons
-    │               │           ├── 6714978.png
-    │               │           ├── box.png
-    │               │           ├── file.png
-    │               │           ├── free-light-mode-4562903-3856596.png
-    │               │           ├── gantt-chart-square.png
-    │               │           └── users.png
+    │               │   ├── image
+    │               │   │   ├── auth
+    │               │   │   │   ├── calender.png
+    │               │   │   │   ├── community.png
+    │               │   │   │   └── user.png
+    │               │   │   └── icons
+    │               │   │       ├── 6714978.png
+    │               │   │       ├── box.png
+    │               │   │       ├── file.png
+    │               │   │       ├── free-light-mode-4562903-3856596.png
+    │               │   │       ├── gantt-chart-square.png
+    │               │   │       └── users.png
+    │               │   └── manual.pdf
     │               ├── components
     │               │   ├── CommentCardComponent.fxml
     │               │   ├── EndedEventCardComponent.fxml
     │               │   ├── EventCardComponent.fxml
     │               │   ├── InProcessEventCardComponent.fxml
+    │               │   ├── InTeamEventCardComponent.fxml
     │               │   ├── NavBarComponent.fxml
     │               │   ├── SideBarComponent.fxml
     │               │   └── admin
@@ -271,7 +300,8 @@
     │                   │   ├── my-event-view.fxml
     │                   │   └── set-event-detail.fxml
     │                   ├── myTeam
-    │                   │   └── my-team.fxml
+    │                   │   ├── my-team.fxml
+    │                   │   └── view-my-team.fxml
     │                   └── profile
     │                       ├── change-password-profile-page.fxml
     │                       └── my-profile-page.fxml
