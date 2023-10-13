@@ -20,7 +20,7 @@
 ## Documentation
 [Documentation](./docs/manual.pdf)
 ## UML
-[Documentation](./docs/uml.zip)
+[UML](./docs/uml.zip)
 
 ## ตัวอย่างข้อมูลผู้ใช้ในระบบ (username,password)
 
