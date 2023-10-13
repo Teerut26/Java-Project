@@ -18,7 +18,13 @@ public class CommentActivitiesEventCollection {
     }
 
     public ArrayList<CommentActivitiesEvent> getComments() {
-        return this.comments;
+        ArrayList<CommentActivitiesEvent> tempComments = new ArrayList<>();
+        for (CommentActivitiesEvent comment : this.comments) {
+            if (comment.getActivitiesEvent() != null) {
+                tempComments.add(comment);
+            }
+        }
+        return tempComments;
     }
 
 

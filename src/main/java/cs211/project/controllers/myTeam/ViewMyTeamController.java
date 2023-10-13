@@ -50,9 +50,10 @@ public class ViewMyTeamController {
     @FXML
     private Button manageTeamButton;
 
-
     @FXML
     private Team currentTeamSelect;
+    @FXML
+    private Label currentMemberAmount;
 
     @FXML
     private TableView<ActivitiesTeam> activityTableView = new TableView<>();
@@ -128,9 +129,14 @@ public class ViewMyTeamController {
 
 
     public void setTeamInfo() {
+
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_TEAM);
+        manyToManyManager.findsByB(currentTeamSelect.getId()).getManyToManies().size();
+
         teamNameLabel.setText(currentTeamSelect.getName());
         teamQuantityLabel.setText(String.valueOf(currentTeamSelect.getQuantity()));
         eventNameLabel.setText(currentTeamSelect.getEvent().getNameEvent());
+        currentMemberAmount.setText(String.valueOf(manyToManyManager.findsByB(currentTeamSelect.getId()).getManyToManies().size()));
         if(currentTeamSelect.getEvent().getEndDate().isBefore(LocalDate.now().atStartOfDay())){
             eventStatusLabel.setText("Event is ended");
         }else if(currentTeamSelect.getEvent().getStartDate().isAfter(LocalDate.now().atStartOfDay())){

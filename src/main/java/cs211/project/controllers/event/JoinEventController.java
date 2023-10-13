@@ -122,10 +122,13 @@ public class JoinEventController {
     }
 
     public void setContent() {
+        ManyToManyManager manyToManyManager = new ManyToManyManager(new ManyToManyFileListDatasource().MTM_USER_EVENT);
+        manyToManyManager.findsByB(event.getEventID()).getManyToManies().size();
+
         this.eventNameLabel.setText(event.getNameEvent());
         this.eventDescriptionLabel.setText(event.getDescriptionEvent());
         this.locationLabel.setText(event.getLocation());
-        this.currentUserAmount.setText(String.valueOf(event.getCurrentMemberParticipatingAmount()));
+        this.currentUserAmount.setText(String.valueOf(manyToManyManager.findsByB(event.getEventID()).getManyToManies().size()));
         this.maxUserAmount.setText(String.valueOf(event.getQuantityEvent()));
         this.eventTime.setText(event.getStartDate().format(Event.DATE_FORMATTER) + " - "
                 + event.getEndDate().format(Event.DATE_FORMATTER));
