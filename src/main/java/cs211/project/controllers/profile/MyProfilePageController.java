@@ -1,5 +1,6 @@
 package cs211.project.controllers.profile;
 
+import cs211.project.Main;
 import cs211.project.models.User;
 import cs211.project.models.collections.UserCollection;
 import cs211.project.services.FXRouter;
@@ -101,17 +102,29 @@ public class MyProfilePageController {
 
     @FXML
     public void initializeThemeMode(){
-       if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
-           checkBoxThemeMode.setSelected(true);
-           parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
-           parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
-           themeModeSelect = "dark";
-         }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
-           checkBoxThemeMode.setSelected(false);
-              parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
-              parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
-                themeModeSelect = "light";
-       }
+        String className = Main.class.getName().replace('.', '/');
+        String classJar = Main.class.getResource("/" + className + ".class").toString();
+        Boolean isJarFile = classJar.startsWith("jar:");
+        String pathDarkMode;
+        String pathLightMode;
+        if(isJarFile) {
+            pathDarkMode = "/cs211/project/style/dark-mode.css";
+            pathLightMode = "/cs211/project/style/light-mode.css";
+        }else{
+            pathDarkMode = "file:src/main/resources/cs211/project/style/dark-mode.css";
+            pathLightMode = "file:src/main/resources/cs211/project/style/light-mode.css";
+        }
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+            checkBoxThemeMode.setSelected(true);
+            parentBorderPane.getStylesheets().remove(pathLightMode);
+            parentBorderPane.getStylesheets().add(pathDarkMode);
+            themeModeSelect = "dark";
+        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+            checkBoxThemeMode.setSelected(false);
+            parentBorderPane.getStylesheets().remove(pathDarkMode);
+            parentBorderPane.getStylesheets().add(pathLightMode);
+            themeModeSelect = "light";
+        }
     }
 
     @FXML

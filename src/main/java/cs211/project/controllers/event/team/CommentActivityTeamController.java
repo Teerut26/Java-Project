@@ -1,5 +1,6 @@
 package cs211.project.controllers.event.team;
 
+import cs211.project.Main;
 import cs211.project.controllers.components.CommentCardComponentController;
 import cs211.project.models.ActivitiesEvent;
 import cs211.project.models.ActivitiesTeam;
@@ -88,17 +89,29 @@ public class CommentActivityTeamController {
         this.initializeThemeMode();
         this.initializeFont();
     }
-
     @FXML
-    public void initializeThemeMode() {
-        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")) {
-            parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/light-mode.css");
-            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/dark-mode.css");
-        } else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
-            parentBorderPane.getStylesheets().remove("file:src/main/resources/cs211/project/style/dark-mode.css");
-            parentBorderPane.getStylesheets().add("file:src/main/resources/cs211/project/style/light-mode.css");
+    public void initializeThemeMode(){
+        String className = Main.class.getName().replace('.', '/');
+        String classJar = Main.class.getResource("/" + className + ".class").toString();
+        Boolean isJarFile = classJar.startsWith("jar:");
+        String pathDarkMode;
+        String pathLightMode;
+        if(isJarFile) {
+            pathDarkMode = "/cs211/project/style/dark-mode.css";
+            pathLightMode = "/cs211/project/style/light-mode.css";
+        }else{
+            pathDarkMode = "file:src/main/resources/cs211/project/style/dark-mode.css";
+            pathLightMode = "file:src/main/resources/cs211/project/style/light-mode.css";
+        }
+        if (this.routeProvider.getUserSession().getThemeMode().equals("dark")){
+            parentBorderPane.getStylesheets().remove(pathLightMode);
+            parentBorderPane.getStylesheets().add(pathDarkMode);
+        }else if (this.routeProvider.getUserSession().getThemeMode().equals("light")) {
+            parentBorderPane.getStylesheets().remove(pathDarkMode);
+            parentBorderPane.getStylesheets().add(pathLightMode);
         }
     }
+
 
     @FXML
     public void initializeFont() {
