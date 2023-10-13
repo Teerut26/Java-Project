@@ -258,7 +258,7 @@ public class SetEventDetailController {
         TableColumn<User, String> lastLoginColumn = new TableColumn<>("lastLogin");
         lastLoginColumn.setCellValueFactory(new PropertyValueFactory<>("lastLogin"));
 
-        TableColumn<User, String> statusUserColumnColumn = new TableColumn<>("lastLogin");
+        TableColumn<User, String> statusUserColumnColumn = new TableColumn<>("Status");
 
         statusUserColumnColumn.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {

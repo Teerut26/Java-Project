@@ -78,7 +78,25 @@
                                         <Label layoutX="19.0" layoutY="52.0" styleClass="secondary-color" text="event name" />
                                         <Label layoutX="20.0" layoutY="79.0" styleClass="secondary-color" text="event status" />
                                         <Label layoutX="21.0" layoutY="124.0" text="from event" />
-                                        <Label fx:id="teamQuantityLabel" layoutX="101.0" layoutY="27.0" styleClass="secondary-color" text="Label" />
+                              <HBox alignment="CENTER" prefHeight="65.0" prefWidth="286.0">
+                                 <children>
+                                    <Label fx:id="currentMemberAmount" alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="84.0" style="-fx-font-size: 20px;" text="25" textFill="#eaa807">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <Label style="-fx-font-size: 20px;" text="/" textFill="#eaa807">
+                                       <font>
+                                          <Font size="52.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="teamQuantityLabel" prefHeight="46.0" prefWidth="131.0" style="-fx-font-size: 20px;" text="25" textFill="#eaa807">
+                                       <font>
+                                          <Font size="37.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                                         <Label fx:id="eventNameLabel" layoutX="101.0" layoutY="52.0" styleClass="secondary-color" text="Label" />
                                         <Label fx:id="eventStatusLabel" layoutX="101.0" layoutY="79.0" styleClass="secondary-color" text="Label" />
                                         <Label fx:id="eventTeamNameLabel" layoutX="101.0" layoutY="124.0" text="Label" />

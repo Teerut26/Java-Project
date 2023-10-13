@@ -435,7 +435,7 @@ public class EventTeamDetailController {
                 }
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING,
-                        "You want to set head of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
+                        "You want to set extra of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
                         ButtonType.CANCEL);
                 alert.showAndWait();
                 if (alert.getResult() == ButtonType.OK) {
@@ -455,7 +455,7 @@ public class EventTeamDetailController {
         if (selectMemberInTeam != null) {
 
             Alert alert = new Alert(Alert.AlertType.WARNING,
-                    "You want to unset head of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
+                    "You want to unset extra of team : " + selectMemberInTeam.getUserName() + " ?", ButtonType.OK,
                     ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.OK) {
